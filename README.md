@@ -2,9 +2,9 @@
 
 Our two goals are to reconstruct and check Levent Alpöge’s announced argument for the classical Riemann hypothesis in ordinary mathematical language and to identify its genuinely new mathematical contributions. The paper follows iterated theta lifts to a one-sided estimate for a centered prime-power sum and shows how that estimate excludes nontrivial zeta zeros off the critical line. Section 6 also gives the Mellin sign-change argument for primitive Dirichlet characters from the corresponding window estimate for each target.
 
-**[Read the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/proof-map.html)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)**
+**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the paper online (448-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
-After extracting the ZIP, open `proof-map.html` in your browser. Its passage links lead to `reading-guide.pdf` in the same folder.
+For offline reading, extract the ZIP and open `proof-map.html` in your browser with `reading-guide.pdf` in the same folder.
 
 ## Method
 
@@ -12,7 +12,7 @@ To reconstruct the full argument and identify genuinely new mathematics, we begi
 
 ## Reading the proof map
 
-The English paper’s six sections group the mathematics by topic. The map opens to **Proof overview**, which shows ten steps of the classical zeta argument in implication order. Select a step to see its inputs, conclusions and any **Known results** it uses. To follow the common choice of family and the application of the estimates, select **One family for the lattice and Fourier estimates**, then **Expand the window argument**. [English paper (PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf) · [View the proof map source](proof-map.html)
+The English paper’s six sections group the mathematics by topic. The map opens to **Proof overview**, which shows ten steps of the classical zeta argument in implication order. Select a step to see its inputs, conclusions and any **Known results** it uses. The passage links in the step’s **Article** section lead to the corresponding statements and arguments in the PDF. To follow the common choice of family and the application of the estimates, select **One family for the lattice and Fourier estimates**, then **Expand the window argument**. The **ten-stage proof overview** link in the caption of Figure 1 (PDF page 3) opens the map.
 
 ## Progress to date
 
@@ -95,9 +95,9 @@ Run `python build.py` in this folder to compile `tex/article.tex` into `reading-
 
 ## License and attribution
 
-Cite this reconstruction of Levent Alpöge’s announced argument as *From Theta Periods to the Riemann Hypothesis*, by the Theta Periods to RH Reading Edition contributors (22 November 2026). [Dated edition](https://github.com/adjoint-functor/theta-periods-to-rh-reader/tree/v2026.11.22)
+Future revisions to the paper and proof map will appear on `main`. Cite the first edition of this reconstruction as *From Theta Periods to the Riemann Hypothesis*, by the Theta Periods to RH Reading Edition contributors (22 November 2026). [Dated first edition](https://github.com/adjoint-functor/theta-periods-to-rh-reader/tree/v2026.11.22)
 
-The reading edition’s original paper, TeX sources and figures, the prose in `README.md` and `AGENTS.md`, and the mathematical graph and index content in the `proof-data` block of `proof-map.html` are available under Creative Commons Attribution 4.0 International (CC BY 4.0). The original code in `build.py` and the proof map’s HTML, CSS and JavaScript viewer are available under the MIT License. [CC BY 4.0 legal code](LICENSES/CC-BY-4.0.txt) · [MIT License](LICENSES/MIT.txt)
+The reading edition’s original paper, TeX sources and figures, the prose in `README.md` and `AGENTS.md`, and the mathematical graph and index content in the `proof-data` block of `proof-map.html` are available under Creative Commons Attribution 4.0 International (CC BY 4.0). The original code in `build.py`, the static entry page `index.html`, and the proof map’s HTML, CSS and JavaScript viewer are available under the MIT License. [CC BY 4.0 legal code](LICENSES/CC-BY-4.0.txt) · [MIT License](LICENSES/MIT.txt)
 
 These licenses apply to the extent the contributors hold rights to license the material. Third-party sources, quotations and fonts remain subject to their respective terms. [License scope](LICENSE)
 
@@ -105,9 +105,9 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 我们的两个目标是用通常的数学语言重构并核查 Levent Alpöge 公布的经典黎曼猜想论证，以及辨认其中真正新增的数学结果。正文从迭代 theta 提升推到中心化素数幂和的单侧估计，再说明如何用这个估计排除临界线外的非平凡 ζ 零点。第 6 节也给出本原 Dirichlet 特征对应的 Mellin 变号论证，每个特征用到相应的区间估计。
 
-**[在线阅读证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/proof-map.html)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)**
+**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读英文论文（PDF，448 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
-解压后，用浏览器打开 `proof-map.html`。图中的链接指向同目录下 `reading-guide.pdf` 的相应段落。
+离线阅读时，解压 ZIP 后用浏览器打开 `proof-map.html`，并将 `reading-guide.pdf` 留在同一目录。
 
 ## 工作方法
 
@@ -115,7 +115,7 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 ## 阅读证明图
 
-英文论文按主题分为六节。证明图默认打开 **Proof overview**，按推导顺序展示经典 ζ 函数论证的十个步骤。点开一步可查看输入、结论和所用的已知结果（**Known results**）。要追踪如何选取共同的族并用到两项估计，先选择 **One family for the lattice and Fourier estimates**，再点 **Expand the window argument**。 [英文论文（PDF）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf) · [查看路线图源码](proof-map.html)
+英文论文按主题分为六节。证明图默认打开 **Proof overview**，按推导顺序展示经典 ζ 函数论证的十个步骤。点开一步可查看输入、结论和所用的已知结果（**Known results**）。在该步骤的 **Article** 栏可点开 PDF 中相应的陈述和论证。要追踪如何选取共同的族并用到两项估计，先选择 **One family for the lattice and Fourier estimates**，再点 **Expand the window argument**。PDF 第 3 页图 1 的图注中，**ten-stage proof overview** 链接可打开证明图。
 
 ## 当前进展
 
@@ -198,8 +198,8 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 ## 许可与署名
 
-本阅读版重构了 Levent Alpöge 公布的论证，引用时请署名 *From Theta Periods to the Riemann Hypothesis*, by the Theta Periods to RH Reading Edition contributors（2026 年 11 月 22 日）。[该日期的版本](https://github.com/adjoint-functor/theta-periods-to-rh-reader/tree/v2026.11.22)
+论文和证明图的后续修订将发布在 `main` 分支。引用本阅读版首版时，请著录为 *From Theta Periods to the Riemann Hypothesis*, by the Theta Periods to RH Reading Edition contributors（2026 年 11 月 22 日）。[首版（2026 年 11 月 22 日）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/tree/v2026.11.22)
 
-本阅读版的原创论文、TeX 源文件和图表、`README.md` 与 `AGENTS.md` 的说明文字，以及 `proof-map.html` 中 `proof-data` 数据块里的数学证明图与索引内容，采用知识共享署名 4.0 国际许可协议（CC BY 4.0）。`build.py` 中的原创代码与证明图查看器的 HTML、CSS 和 JavaScript 实现采用 MIT 许可证。[CC BY 4.0 许可原文](LICENSES/CC-BY-4.0.txt) · [MIT 许可证](LICENSES/MIT.txt)
+本阅读版的原创论文、TeX 源文件和图表、`README.md` 与 `AGENTS.md` 的说明文字，以及 `proof-map.html` 中 `proof-data` 数据块里的数学证明图与索引内容，采用知识共享署名 4.0 国际许可协议（CC BY 4.0）。`build.py` 中的原创代码、静态入口页 `index.html` 及证明图查看器的 HTML、CSS 和 JavaScript 实现采用 MIT 许可证。[CC BY 4.0 许可原文](LICENSES/CC-BY-4.0.txt) · [MIT 许可证](LICENSES/MIT.txt)
 
 上述许可适用于贡献者有权许可的原创材料。第三方来源、引文和字体仍适用各自的权利与许可条款。[许可范围](LICENSE)
