@@ -1,4 +1,17 @@
+<a name="readme-en"></a>
+
 # From Theta Periods to the Riemann Hypothesis
+
+[<kbd>简体中文</kbd>](#readme-zh)
+
+## How to contribute
+
+- **AI4Math practitioners** can start with the [method in this README](#method) and the repository’s [AGENTS.md](AGENTS.md). Choose a step in the proof map and fill in a derivation or shorten its proof with a theorem from the literature. Update the paper and the map together, checking that the upstream conclusions still supply every input needed downstream.
+- **Mathematicians** can go straight to the [AI-proposed candidates for new mathematics](#ai-proposed-candidates-for-new-mathematics). We collect these statements in one place so specialists can judge their mathematical value. Which parts already follow from the literature? If the remaining step introduces a new idea, reveals a connection or gives a stronger uniform estimate, why does that advance matter?
+
+To suggest an improvement or share a review, [open a GitHub issue](https://github.com/adjoint-functor/theta-periods-to-rh-reader/issues/new) and point to the relevant step in the proof map or passage in the paper.
+
+## About the reading edition
 
 Our two goals are to reconstruct and check Levent Alpöge’s announced argument for the classical Riemann hypothesis in ordinary mathematical language and to identify its genuinely new mathematical contributions. The paper follows iterated theta lifts to a one-sided estimate for a centered prime-power sum and shows how that estimate excludes nontrivial zeta zeros off the critical line. Section 6 also gives the Mellin sign-change argument for primitive Dirichlet characters from the corresponding window estimate for each target.
 
@@ -101,13 +114,28 @@ The reading edition’s original paper, TeX sources and figures, the prose in `R
 
 These licenses apply to the extent the contributors hold rights to license the material. Third-party sources, quotations and fonts remain subject to their respective terms. [License scope](LICENSE)
 
+<a name="readme-zh"></a>
+
 # 从 theta 周期到黎曼猜想
+
+[<kbd>English</kbd>](#readme-en)
+
+## 如何参与
+
+- **AI4Math 工作者**可参照本 README 的[工作方法](#method-zh)和仓库中的 [AGENTS.md](AGENTS.md)，选取证明图中的一步，补全推导，或用文献中适用的定理简化证明。请同步更新正文和证明图，并核对上游结论是否仍能给出下游所需的全部输入。
+- **数学同行**可以直接评议 [AI 建议的新数学候选](#candidates-zh)。我们把这些命题从整套论证中单列出来，方便同行按专长判断其数学价值。哪些部分可由已有文献推出？若余下的一步引入了新思路、揭示了新的联系，或给出了更强的一致估计，这一进展为何重要？
+
+欢迎[新建 GitHub Issue](https://github.com/adjoint-functor/theta-periods-to-rh-reader/issues/new) 分享改进建议或评议意见，并注明对应的证明图节点或正文段落。
+
+## 关于本阅读版
 
 我们的两个目标是用通常的数学语言重构并核查 Levent Alpöge 公布的经典黎曼猜想论证，以及辨认其中真正新增的数学结果。正文从迭代 theta 提升推到中心化素数幂和的单侧估计，再说明如何用这个估计排除临界线外的非平凡 ζ 零点。第 6 节也给出本原 Dirichlet 特征对应的 Mellin 变号论证，每个特征用到相应的区间估计。
 
 **[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读英文论文（PDF，448 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 离线阅读时，解压 ZIP 后用浏览器打开 `proof-map.html`，并将 `reading-guide.pdf` 留在同一目录。
+
+<a name="method-zh"></a>
 
 ## 工作方法
 
@@ -120,6 +148,8 @@ These licenses apply to the extent the contributors hold rights to license the m
 ## 当前进展
 
 我们先把论证整理成可逐层展开的证明图，在目前展示的各层核对上游结论与所列前提能否在同一组数据下给出下游所需的全部输入，并检查归一化与量词顺序是否相符。随后，我们着重补写候选命题以外的推导，对可由已有定理给出的步骤注明原始文献中的确切出处。例如，第 2 节逐列计算辅助 theta 提升，以指定的尖点形式为基写出各算术列向量经提升后的坐标。这份阅读版共 448 页，按数学主题列出 AI 提出的十九项候选。
+
+<a name="candidates-zh"></a>
 
 ## AI 建议的新数学候选
 
