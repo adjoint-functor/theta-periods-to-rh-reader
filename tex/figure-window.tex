@@ -1,0 +1,36 @@
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[x=1mm,y=1mm,
+  window step/.style={argument block,text width=42mm,minimum height=15mm}]
+  \node[window step,fill=FieldTint] (requirements) at (0,0)
+    {\hyperlink{proof.join-size-requirements}{\shortstack{CM fields and combined\\size requirements}}};
+  \node[window step,fill=TraceTint] (lattice) at (55,0)
+    {\hyperlink{proof.uniform-lattice-excess}{\shortstack{Lattice inequality\\for each translate}}};
+  \node[window step,fill=AnalysisTint] (pointwise) at (110,0)
+    {\hyperlink{proof.fourier-exponent}{\shortstack{Pointwise implication\\by Fourier inversion}}};
+  \node[window step,fill=ChoiceTint] (choose) at (0,-24)
+    {\hyperlink{proof.choose-compatible-family}{\shortstack{Fix the family and \(x_*\),\\then choose the interval}}};
+  \node[window step,fill=ChoiceTint] (inputs) at (55,-24)
+    {\hyperlink{proof.same-family-hypotheses}{\shortstack{Use \(D(u)\le E_x\) for all \(u\)\\when the lattice hypotheses\\hold at the chosen \(x\)}}};
+  \node[window step,fill=AnalysisTint] (apply) at (110,-24)
+    {\hyperlink{proof.apply-full-window}{\shortstack{\(G_1(x)\le x^{1/2+9\varepsilon}\)\\
+       for all real \(x\in[Y,Y^{3/2}]\)}}};
+  \draw[argument arrow] (requirements.south) -- (choose.north);
+  \draw[argument arrow] (lattice.south) -- (inputs.north);
+  \draw[argument arrow] (choose.east) -- (inputs.west);
+  \draw[argument arrow] (inputs.east) -- (apply.west);
+  \draw[argument arrow] (pointwise.south) -- (apply.north);
+\end{tikzpicture}
+\caption{Fix the target, the loss bounds \(e_D=2\) and \(e_L=0\),
+  and a sufficiently small \(\varepsilon>0\). Choose one family
+  \((\mathfrak F,C_H)\) meeting the joint size requirements, including
+  \(C_H>0\). Fix its comparison constants and common threshold \(x_*\).
+  For each \(Y_0\ge2\), choose \(Y\ge\max(Y_0,x_*)\) with
+  \([Y,Y^{3/2}]\subseteq\operatorname{Win}(\mathfrak F)\).
+  At each real scale in this interval, obtain the lattice bound after
+  supplying its period, rank and height hypotheses at the tied indices
+  \(i(u)\). The Artin and character data come from \(i_0\). The shared
+  degrees, cutoff and centering term identify the sum used in the
+  pointwise implication.}
+\label{fig:family-window}
+\end{figure}

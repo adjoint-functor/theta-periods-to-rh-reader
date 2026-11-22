@@ -1,0 +1,428 @@
+\section{Fourier inversion and the pointwise bound}
+\label{sec:fourier}
+
+Fix the target and \(\varepsilon>0\) as in \S\ref{sec:family}. At a real
+scale \(x\ge3\), use the Artin data and character estimates at the base
+index \(i_0\). Keep the sampling sets, degrees and cutoff \(T,T_2,a_t,N\)
+of Section~\ref{sec:integral}, and the weights \(w_{u,j}\) from the
+selected indices \(i(u)\) in \eqref{eq:centered-excess-definition}.
+Use the same family at every translate, as in
+Section~\ref{sec:assembly}, and assume the bound \(D(u)\le E_x\) of
+\eqref{eq:integral-excess} for every translate in the average.
+
+\subsection{Sampling degrees and weights at the tied indices}
+\label{sec:fourier-sampling}
+\teamanchor{proof.fourier-sampling}
+
+Write \(n=|H|\), \(f=2n\), \(N_T=|T|\), \(N_2=|T_2|\), and
+\(a_E=xb\) with \(b=\exp(x^\varepsilon)\). In the chosen records the
+other scales are
+\[
+ X'=\exp(x^{\varepsilon/3}),\qquad b'=\frac{a_E}{X'},\qquad
+ w''=\frac{b'}{xn},\qquad \delta_1=x^{-\varepsilon/8}.
+\]
+The sampling integers \(a_t,b_t\) are read at \(i_0\) and carried by the
+same \(t\in T\) to each \(i(u)\). Their prescribed intervals are
+\[
+ a_E\le a_t\le a_E+\frac{a_E}{kx^{13}},\qquad
+ b'\le b_t\le b'\left(1+\frac{2n\delta_1x^\varepsilon L_{\mathrm{a},G}}{k}\right),
+ \qquad L_{\mathrm{a},G}\le x^{\varepsilon+\varepsilon/100}.
+\]
+Here \(L_{\mathrm{a},G}\) is the parameter in the upper endpoint of the
+interval for \(b_t\). The degree window gives \(0<a_t\le2a_E\) and,
+with \(y_t=a_t/b\), gives \(0\le y_t-x\le 1/(kx^{12})\le1\).
+The intervals for the sampling integers and their transport are
+recorded in the
+\releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{76}{size data}
+and the \releasecite{Formalism/SharpRestriction/FamCore.lean}{124}{family data}.
+
+Use the coordinates \(r\in P=\{(0,i,s):i\in\mathbf Z/2\mathbf Z,\ s\in H\}\)
+for the stage weights. In the original \(q,d\) sign order, the CM
+embedding at \((0,i,s)\) has signs \(((-1)^i,1)\) and last component
+\(s\). The prescribed CM type has exactly one embedding with each
+such label. At \(i(u)\) the actual weight is its Harish--Chandra entry
+at stage \(j\). With the common
+\(\eta_{\rm wt}>0\) of the tied records, its prescribed intervals are
+\[
+\begin{array}{c|c}
+ \text{position }r & \text{interval for }w_{u,j}(r)\\ \hline
+ (0,1,s+u),\ s\in T_2 & [b,b+\eta_{\rm wt}+1]\\
+ (0,0,t),\ t\in T & [b_t+b'/x,b_t+b'/x+\eta_{\rm wt}]\\
+ \text{all other positions in }P & [w'',w''+\eta_{\rm wt}].
+\end{array}
+\]
+The first two rows are disjoint in their second coordinates. The
+intervals use the selected embeddings and weights, as in the
+\releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{151}{three weight ranges}.
+The \releasecite{Formalism/SharpRestriction/ElevenLe.lean}{24}{rank and size ranges}
+give \(n\le x^{9/4}\), \(x^4\le k\le x^5\), and
+\(\log\eta_{\rm wt}\le x^{\varepsilon/4}\) at large \(x\). In particular,
+\[
+ \frac{2n\delta_1 x^\varepsilon L_{\mathrm{a},G}}{k}
+ \le 2x^{-7/4+(201/100)\varepsilon}\longrightarrow0,\qquad
+ w''=\frac{\exp(x^\varepsilon-x^{\varepsilon/3})}{n}\longrightarrow\infty,
+ \qquad \frac{\eta_{\rm wt}}{b'}\longrightarrow0 .
+\]
+Thus all weights are \(\ge1\) at large \(x\). Also \(w''/b'=1/(xn)\le1/x\),
+and \(b_t/b'\le1+o(1)\), so both of the last two rows have upper bound
+\(2b'\) at a common threshold. Since \(a_t/w_{u,j}(r)\le2a_E\), the
+cutoff \(N=\lceil2a_E\rceil\) in \eqref{eq:prime-power-cutoff} applies to
+the actual degrees and weights. These same scales give
+\(kb'\le a_E\) since \(k\le x^5\le X'\) for large \(x\), and
+\(X''=a_E/w''\le a_E\).
+
+Put \(\vartheta=\exp(-c_6x^{\varepsilon/8})\) with the host
+constant \(c_6>0\) from \S\ref{sec:family}. Since \(f=2n\) is
+polynomially bounded and \(\eta_{\rm wt}\le\exp(x^{\varepsilon/4})\),
+both \(6f(x+1)(\eta_{\rm wt}+1)/b\) and \(2f(x+1)\vartheta\) are
+\(o(x^{-1})\). Thus at a common threshold
+\begin{equation}
+\label{eq:fourier-weight-costs}
+ 6f(x+1)(\eta_{\rm wt}+1)\le b/x,\qquad
+ 2f(x+1)\vartheta\le1/x .
+\end{equation}
+Each threshold here follows from the fixed precision and the uniform
+record bounds. In particular it applies to every \(j\) and \(u\) at
+one scale, using the actual \(a_t,b_t\) from the common seed.
+
+\subsection{Finite Fourier inversion}
+\teamanchor{proof.fourier-inversion-thin}
+
+Use the group \(\Gamma\), the subgroup \(P=\ker c\) of order \(f=2|H|\),
+and the bijection \(p_t:\Gamma\setminus P\to P\) in
+\eqref{eq:prime-power-ramp}. The base field is a subfield of
+\(\mathbf Q(\zeta_{Q_Sqd})\), and its Artin map is the quotient of the
+cyclotomic action. For \(\xi\in\widehat\Gamma\), let \(\chi_\xi\) be the
+unique primitive Dirichlet character inducing \(\xi\circ\operatorname{Art}\)
+on units modulo \(Q_Sqd\). Its conductor divides \(Q_Sqd\), and for
+\(\xi=1\) its conductor is \(1\). Write \(G_\xi=G_{\chi_\xi}\) for the
+centered sum of \eqref{eq:centred-prime-sums}, with
+\eqref{eq:principal-ramp} for the trivial character. For \(\xi\ne1\)
+put \(\ell_\xi=L'(1,\chi_\xi)/L(1,\chi_\xi)\), using the nonvanishing
+at \(1\) in \S\ref{sec:family}.
+
+For a one-dimensional character \(\xi\) of the Galois group of a finite
+abelian extension of \(\mathbf Q\), let \(V_\xi=\mathbf C\) with the action by
+\(\xi\). At each prime \(p\), let \(I_p\) be inertia and let \(F_p\)
+lift the arithmetic Frobenius, which sends \(z\) to \(z^p\) on the
+residue field. To compare the two Euler factors for our field, write
+\(Q_Sqd=p^\alpha N_p\) with \(p\nmid N_p\).
+By the cyclotomic decomposition of Section~\ref{sec:family}, inertia
+is the image of \((\mathbf Z/p^\alpha\mathbf Z)^\times\) in \(\Gamma\),
+and a Frobenius lift can be represented by a unit whose component
+modulo \(N_p\) is \(p\bmod N_p\).
+Thus \(\xi\) is trivial on \(I_p\) exactly when its pullback factors
+through \(N_p\), or equivalently \(p\nmid\operatorname{cond}(\chi_\xi)\).
+In that case every lift has \(\xi(F_p)=\chi_\xi(p)\).
+When \(p\mid\operatorname{cond}(\chi_\xi)\), the invariant space
+is zero and \(\chi_\xi(p)=0\). Both cases give
+\[
+ L_p(s,\xi)=\det\!\left(1-p^{-s}F_p\mid V_\xi^{I_p}\right)^{-1}
+           =\left(1-\chi_\xi(p)p^{-s}\right)^{-1}
+           \qquad(\Re s>1).
+\]
+The logarithm given by the series in \(p^{-s}\) is
+\[
+ \log L_p(s,\xi)=\sum_{h\ge1}\frac{v_\xi(p^h)}{h\,p^{hs}},
+ \qquad
+ v_\xi(p^h)=\frac{1}{|I_p|}\sum_{i\in I_p}\xi(hF_p+i)
+           =\xi(F_p)^h\frac{1}{|I_p|}\sum_{i\in I_p}\xi(i)
+           =\chi_\xi(p^h).
+\]
+The inertia average equals \(1\) on characters trivial on \(I_p\)
+and vanishes on the others. This uses the primitive character even at
+primes dividing \(Q_Sqd\) whose local \(p\)-part is trivial.
+The coset \(hF_p+I_p\) is independent of the chosen lift because
+changing \(F_p\) by an element of \(I_p\) changes \(hF_p\) by an
+element of \(I_p\).
+\cite[(3.2)--(3.5), (3.15), and \S4.2]{deshalit-artin}
+
+For a finite abelian group \(B\) written additively, the dual group
+\(\widehat B\) has \(|B|\) characters. For every \(z\in B\) and
+\(\xi\in\widehat B\), the two orthogonality relations are
+\[
+ \frac{1}{|B|}\sum_{\xi'\in\widehat B}\xi'(z)=\mathbf 1_{\{z=0\}},
+ \qquad
+ \frac{1}{|B|}\sum_{z'\in B}\xi(z')=\mathbf 1_{\{\xi=1\}}.
+\]
+On each cyclic factor the first sum is a geometric series. For the
+second, translating the sum by an element with character value
+different from \(1\) forces it to vanish for a nontrivial character.
+Consequently, for every \(F:\Gamma\to\mathbf C\) and \(g\in\Gamma\),
+Fourier inversion in the convention used here is
+\[
+ F(g)=\frac{1}{2f}\sum_{\xi\in\widehat\Gamma}\overline{\xi(g)}
+                                \sum_{z\in\Gamma}F(z)\xi(z).
+\]
+\cite[Theorem~4.4, (4.12)--(4.13)]{z6montgomery-vaughan}
+Apply this with \(F(z)=|I_p|^{-1}\mathbf 1_{\{z-hF_p\in I_p\}}\).
+The inner sum is \(v_\xi(p^h)\), giving
+\[
+ \frac{1}{f}\sum_{\xi\in\widehat\Gamma}\overline{\xi(g)}v_\xi(p^h)
+ =\frac{2}{|I_p|}\mathbf 1_{\{g-hF_p\in I_p\}} .
+\]
+Multiplying by \(\Lambda(p^h)=\log p\) on \(\Gamma\setminus P\)
+recovers the coefficient in \eqref{eq:prime-power-ramp}. When
+\(p\mid Q_Sq\), both the Frobenius lift and inertia lie in \(P\) since
+\(p\) splits in \(\mathbf Q(\sqrt{-d})\). For the classical host these
+subgroups are explicit in \eqref{eq:classical-host-inertia}. At \(p=d\),
+the two elements of \(hF_d+I_d\) have opposite \(c\)-values, so there
+is one element outside \(P\) for each \(h\ge1\), of weight \(\log d\).
+For \(p\nmid Q_Sqd\), the subgroup \(I_p\) is trivial. The unique
+term of the coset has weight \(2\log p\) if \(c(F_p)=-1\) and \(h\) is
+odd. These are the support conditions used in Section~\ref{sec:integral}.
+
+For \(r=p_t(g)\), factor the positive part as
+\((a/p^h-w_r)_+=w_r((a/w_r)/p^h-1)_+\). At \(a=a_t\) and
+\(w=w_{u,j}\), the common cutoff \(N\) in \eqref{eq:prime-power-cutoff}
+satisfies \(a/w_r\le N\). Thus the sum through \(N\) equals
+the unrestricted sum in \eqref{eq:prime-power-ramp} used to define \(D(u)\).
+The weighted uncentered sum is
+\(w_rG_\xi(a/w_r)+a(\log a-\log w_r-1-\gamma)\) for \(\xi=1\),
+and \(w_rG_\xi(a/w_r)-a\ell_\xi\) for \(\xi\ne1\). On
+\(\Gamma\setminus P\), character orthogonality on \(P\) makes the
+mean of \(\overline{\xi(g)}\) vanish unless \(\xi\) is trivial there.
+The two remaining characters are \(1,c\), with means \(1,-1\),
+respectively. The bijection \(p_t\) identifies the sum of \(\log
+w_{p_t(g)}\) over \(\Gamma\setminus P\) with the sum of \(\log w_r\)
+over \(P\). The uncentered sum therefore equals the sum of weighted
+\(G_\xi\)'s plus
+\[
+ a(\log a-1-\gamma)-\frac{a}{f}\sum_{r\in P}\log w_r
+       -a(-1)\ell_c=M(a,w).
+\]
+Here the last term uses the same primitive \(\eta_d\) as the CM
+normalization in \eqref{eq:prime-power-center}. We get
+\begin{equation}
+\label{eq:fourier-balance}
+ A(a,t,w)-M(a,w)=\frac{1}{f}\sum_{g\notin P}
+   \sum_{\xi\in\widehat\Gamma}\overline{\xi(g)}\,w_{p_t(g)}
+                      G_\xi\bigl(a/w_{p_t(g)}\bigr).
+\end{equation}
+Taking real parts and summing over \((t,j)\) with the weights at
+\(i(u)\) gives \(D(u)\).
+\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChBalance.lean}{200}{Formal identity}.
+
+\subsection{Reduction to the large weights}
+
+Let \(H_0\le H\) be the distinguished cyclic subgroup from
+\S\ref{sec:family}, with \(o=[H:H_0]\) equal to the order of the target
+character \(\psi\). Embed \(H_0\) into \(\Gamma\) by \(h\mapsto(0,0,h)\).
+Put \(\delta_2=N_2/n\). For each \(u\in H_0\) and stage \(j\),
+the positions with \(s\in T_2\subset H_0\) in the first row of the
+weight table are distinct. Section~\ref{sec:fourier-sampling}
+places their weights in \([b,b+\eta_{\rm wt}+1]\) and all other
+weights in \([1,2b']\).
+
+For every real \(z>0\), the Chebyshev function satisfies
+\(\mathcal V(z):=\sum_{n\le z}\Lambda(n)<1.03883\,z<3z\).
+\cite[Theorem~12, (3.35)]{rosser-schoenfeld}
+Write \(z=a_t/w\). In the nonprincipal case
+\(wG_\xi(a_t/w)=\sum_{n\ge1}\Lambda(n)\chi_\xi(n)(a_t/n-w)_++a_t\ell_\xi\).
+The last term is constant in \(w\). Between ramp breakpoints the
+derivative is \(-\sum_{n<z}\Lambda(n)\chi_\xi(n)\) for \(\xi\ne1\), and
+\(z-\sum_{n<z}\Lambda(n)\) for \(\xi=1\). In both cases its modulus is
+at most \(z+\mathcal V(z)<3z\). On the replacement interval \(w\ge b\)
+we have \(z\le x+1\). Continuity at the breakpoints bounds the change
+by \(3(x+1)(\eta_{\rm wt}+1)\).
+
+\leavevmode\teamanchor{proof.thin-position-bound}%
+For a small weight \(w\), \(b'X'=xb\) and \(x\ge3\) imply
+\(a_t/w\ge (x-1)b/(2b')\ge X'/3\). The base host satisfies
+\[
+ |G_\xi(y)|\le \vartheta y\qquad
+ (\xi\in\widehat\Gamma,\ y\ge X'/3).
+\]
+Thus each omitted term has modulus at most \((x+1)b\vartheta\).
+The estimate covers every \(\xi\), because the small weights are
+omitted before taking the average over \(H_0\). The sum in
+\eqref{eq:fourier-balance} has \(f\) positions, \(2f\) characters
+and prefactor \(1/f\). Multiplying each of the two error bounds by
+\(2f\) and applying \eqref{eq:fourier-weight-costs} gives a total
+error at most \(2b/x\) for each \((t,j,u)\). This uses the tail
+\eqref{eq:host-character-tail} at \(i_0\).
+
+\subsection{The translate average}
+\teamanchor{proof.translate-average-zeta}
+
+Write \(e(h)=(1,0,h)\). The preimage of \((0,1,s+u)\) under \(p_t\)
+is \(e(s+u-t)\). Its conjugate character value is
+\[
+ \overline{\xi(e(s+u-t))}
+   =\xi(e(t))\,\overline{\xi(0,0,s)}\,\overline{\xi(0,0,u)}.
+\]
+Indeed \(e(s+u-t)=-e(t)+(0,0,s)+(0,0,u)\) since the first coordinate
+has order two.
+By character orthogonality on \(H_0\), the mean over \(u\) vanishes unless
+\(\xi\in H_0^\perp=\{\xi:\xi|_{H_0}=1\}\). For such a character,
+\(s\in H_0\) also gives a factor of \(1\), so all \(N_2\) large
+weights contribute equally. Set \(Q=N_Tmb\). The mean of \(D(u)\)
+is at most \(E_x\). The replacement estimate bounds the real part of
+the reduced sum at a fixed \(u\) by \(D(u)+2Q/x\), since there are
+\(mN_T\) pairs \((t,j)\). Each replaced term uses \(bG_\xi(y_t)\),
+which is independent of the stage and the translate. It follows that
+\[
+ \frac{Q\delta_2}{2}\operatorname{Re}
+   \frac{1}{N_T}\sum_{t\in T}\sum_{\xi\in H_0^\perp}
+                 \xi(e(t))G_\xi(y_t)
+ \le E_x+\frac{2Q}{x}.
+\]
+The factor \(Q\delta_2/2=mN_TbN_2/f\) comes from the \(m\) stages,
+the \(N_2\) positions and the \(1/f\) in \eqref{eq:fourier-balance}.
+It is positive since \(N_T,m,b>0\) and \(\delta_2\ge x^{-\varepsilon}\).
+
+\subsection{Selecting the target characters}
+
+The characters of \(H/H_0\) pull back along \(h_{\rm nat}\) to the
+powers \(\psi^k\), \(0\le k<o\). View each such character \(\nu\) on
+\(H\). As \(\nu\) and \(i,j\in\{0,1\}\) vary, the factor
+\(\nu(h_-)^{e_q}\) permutes the sign choices since \(2h_-=0\). Thus all
+\(4o\) characters in \(H_0^\perp\) have the form
+\[
+ \xi(e_d,e_q,h)=(-1)^{i e_q+j e_d}\nu(h)\nu(h_-)^{e_q}.
+\]
+In \eqref{eq:artin-coordinates} the two factors \(\nu(h_-)^{e_q(a)}\)
+cancel, so on units modulo \(Q_Sqd\) the pullback is
+\(\psi^k\eta_q^i\eta_d^j\) as in the
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/TwistAny.lean}{115}{Dirichlet twist decomposition}.
+Its primitive associate is \(\chi_k\eta_q^i\eta_d^j\), where \(\chi_k\)
+induces \(\psi^k\) modulo \(M\) and is primitive, with \(\chi_0=1\).
+Omit a quadratic factor with exponent zero. The conductor is
+\(\operatorname{cond}(\chi_k)q^id^j\) since each selected factor retains
+its conductor in the coprime product. Thus every term
+with \((i,j)\ne(0,0)\) satisfies the nontrivial quadratic twist hypotheses
+of Section~\ref{sec:family}.
+At \(e(t)=(1,0,t)\) the phase is \((-1)^j\nu(t)\).
+Let \(\mathcal X\) consist of the characters with \(i=j=0\).
+Their inducing primitive characters form
+the fixed set \(\mathcal K\) attached to the
+\releasecite{Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ExplicitFormulaErrorOfHostConditions.lean}{105}{subgroup generated by \(\psi\)}.
+Different powers give different primitive associates since an associate
+determines its inducing values on units modulo \(M\). Thus \(\mathcal K\)
+has \(o\) elements, contains \(1,\psi\) and is closed under conjugation.
+The phase \(\xi(e(t))\) is \(\nu(t)\) for \(\xi\in\mathcal X\), and
+\(\nu\) is nontrivial when \(\xi\ne1\).
+
+For \(v\in H/H_0\), the proportion of \(T\) in \(v\) differs from
+\((3+\mathbf 1_{\{v=0\}})/(3o+1)\) by at most \(x^{-1+\varepsilon}\).
+For a nontrivial character \(\nu\) of the quotient, orthogonality gives
+\[
+ \frac{3\sum_{v\in H/H_0}\nu(v)+\nu(0)}{3o+1}=\frac{1}{3o+1}.
+\]
+Thus \(N_T^{-1}\sum_{t\in T}\xi(e(t))\) differs from
+\((3o+1)^{-1}\) by at most \(o x^{-1+\varepsilon}\) for a nontrivial
+retained character. For \(\xi=1\) the coefficient is exactly \(1\).
+Put \(a_1=1\) and \(a_\chi=(3o+1)^{-1}\) for
+\(\chi\in\mathcal K\setminus\{1\}\), and set
+\[
+ G_{\mathcal K}(x)=\sum_{\chi\in\mathcal K}a_\chi\Re G_\chi(x).
+\]
+
+For every real \(z\ge2\), Mertens' estimate gives
+\(\sum_{n\le z}\Lambda(n)/n=\log z+O(1)\), with an absolute implied
+constant.
+\cite[Theorem~2.7(a)]{z6montgomery-vaughan}
+Indeed, for \(v=\lfloor z\rfloor\), summing
+\(\log n=\sum_{d\mid n}\Lambda(d)\) up to \(v\) gives
+\(\log(v!)=\sum_{d\le v}\Lambda(d)\lfloor v/d\rfloor\).
+Replacing each floor by \(v/d\) costs at most \(\mathcal V(v)\ll v\).
+The integral comparison for \(\log(v!)\) gives \(\log(v!)/v=\log z+O(1)\).
+Between breakpoints, the derivative of the uncentered ramp sum at \(y\)
+is \(\sum_{n<y}\Lambda(n)\chi_\xi(n)/n\), of modulus at most
+\(\log y+O(1)\) since \(|\chi_\xi(n)|\le1\). For \(\xi=1\) the
+centering adds \(-\log y+\gamma\) to the derivative. For \(\xi\ne1\)
+it adds \(\ell_\xi\), which is fixed for
+\(\mathcal K\setminus\{1\}\) and is \(O(\log x)\) for the auxiliary
+twists by \S\ref{sec:family}. Hence these continuous centered sums
+satisfy \(|G_\xi(y_t)-G_\xi(x)|=O(\log x)\) on \([x-1,x+1]\).
+The same Mertens estimate gives an uncentered sum of modulus
+at most \(x(\log x+O(1))\), so \(|G_\xi(x)|=O(x\log x)\). Replacing
+\(y_t\) by \(x\) in the normalized sum costs \(O(o\log x)\). Replacing the
+mean phase of a retained nontrivial character by its limit costs
+at most \(o x^{-1+\varepsilon}|G_\xi(x)|\).
+The combined error is \(O(x^\varepsilon\log x)\) for fixed target
+and precision, hence at most \(4x^{1/2+\varepsilon}\) for large \(x\).
+Write
+\(\Sigma(x)=\sum_{\xi\in H_0^\perp\setminus\mathcal X}|G_\xi(x)|\).
+Each term with \(\xi\notin\mathcal X\) has real part at least
+\(-|G_\xi(x)|\), since its multiplier is the mean of unit complex
+numbers. The
+\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean}{427}{lower estimate for the average}
+then gives
+\begin{equation}
+\label{eq:fourier-extraction}
+ \frac{Q\delta_2}{2}
+       \bigl(G_{\mathcal K}(x)-\Sigma(x)-4x^{1/2+\varepsilon}\bigr)
+ \le E_x+\frac{2Q}{x}.
+\end{equation}
+The bound \(|G_\xi(x)|\le x^{1/2+\varepsilon}\) for these twists
+gives \(\Sigma(x)\le4o\,x^{1/2+\varepsilon}\).
+
+\leavevmode\teamanchor{proof.zeta-specialization}%
+For \(\psi=1\), \(o=1\) and \(H_0=H\). The expression in the
+translate average at each \(t\) has the four terms
+\[
+ G_1(y_t)+G_{\eta_q}(y_t)-G_{\eta_d}(y_t)-G_{\eta_q\eta_d}(y_t).
+\]
+The signs are the evaluations at \((1,0,0)\). The three auxiliary
+characters have conductors \(q,d,qd\) and enter \(\Sigma(x)\) through
+the quadratic twist bounds. In particular the classical average is
+at least \(G_1(x)-3x^{1/2+\varepsilon}-C\log x\), with a constant
+uniform in the selected \(q,d\), since \(|\ell_\xi|\le4\log x\) for
+those twists. This calculation uses the size of \(T\) and the
+degree interval. The retained sum is \(G_{\mathcal K}=G_1\).
+
+\subsection{The square-root scale}
+\teamanchor{proof.fourier-exponent}
+
+Write \(C_{\rm err}=e_D+e_L+3\). Dividing the budget of
+\eqref{eq:integral-excess} by \(Qx^{C_{\rm err}\varepsilon}\) gives
+\[
+ \frac{a_E}{mb}+\frac{a_E m}{bk}
+     +2\frac{n}{N_T}m x^\varepsilon
+     +\frac{N_2}{N_T}\frac{k}{n^2}x^{2\varepsilon}.
+\]
+In addition to the common bounds \eqref{eq:common-error-window-sizes},
+we have \(a_E=xb\), \(N_T\ge nx^{-\varepsilon/8}/2\), and
+\[
+ x^{1/2-\varepsilon}\le m,\qquad k\le n^2x^{1/2-\varepsilon}.
+\]
+For \(\psi=1\), the sample counts are \eqref{eq:classical-sampling-size}
+and the bounds for \(m,k\) follow from the prescribed ranks in
+Section~\ref{sec:family}. The same size inequalities hold for the
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/LossesSmallShares.lean}{281}{selected Dirichlet data}.
+Also \(N_2\le n\) because \(T_2\subseteq H\).
+The first and third terms have bounds \(2x/m\) and
+\(4mx^{9\varepsilon/8}\), which balance at the square-root scale
+up to powers \(x^{O(\varepsilon)}\). The four bounds in order are
+\(2x^{1/2+\varepsilon}\), \(2\),
+\(4x^{1/2+13\varepsilon/8}\), and \(2x^{1/2+9\varepsilon/8}\).
+Their sum is at most \(10x^{1/2+13\varepsilon/8}\).
+At every scale for which \eqref{eq:fourier-extraction} holds, divide by
+\(Q\delta_2/2>0\) and use \(\delta_2\ge x^{-\varepsilon}\).
+The factors from the main budget have exponent loss
+\(C_{\rm err}+13/8+1=C_{\rm err}+21/8\), giving
+\[
+ G_{\mathcal K}(x)-\Sigma(x)\le
+ 20x^{1/2+(C_{\rm err}+21/8)\varepsilon}
+ +4x^{-1+\varepsilon}+4x^{1/2+\varepsilon}
+ \le 26x^{1/2+(C_{\rm err}+21/8)\varepsilon}.
+\]
+For sufficiently large \(x\), \(26\le x^{3\varepsilon/8}\) and
+\(1+4o\le x^\varepsilon\). The first inequality bounds
+\(G_{\mathcal K}(x)-\Sigma(x)\) by \(x^{1/2+(C_{\rm err}+3)\varepsilon}\).
+The bound on \(\Sigma(x)\) brings the coefficient to at most \(1+4o\).
+Absorbing it gives
+\begin{equation}
+\label{eq:fourier-pointwise}
+ G_{\mathcal K}(x)\le x^{1/2+(e_D+e_L+7)\varepsilon} .
+\end{equation}
+This estimate applies at each sufficiently large scale satisfying
+the stated hypotheses. The threshold depends on the target, the
+fixed precision and the uniform comparison constants. The set
+\(\mathcal K\) and its weights depend only on the target. For the
+conductor-one target with the loss bounds \(e_D=2\) and \(e_L=0\),
+it gives \(G_1(x)\le x^{1/2+9\varepsilon}\).
+Section~\ref{sec:assembly} uses the same family and the inequality
+\eqref{eq:integral-excess} at every scale of the chosen intervals.
+\releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/CoreGm.lean}{12}{Formal pointwise estimate}.

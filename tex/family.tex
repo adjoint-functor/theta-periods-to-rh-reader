@@ -1,0 +1,899 @@
+\section{CM fields with character and Selmer bounds}
+\label{sec:family}
+
+Fix a primitive Dirichlet character \(\psi\) of conductor \(M\) and a
+real exponent parameter \(0<\varepsilon<1/52\). The zeta case takes
+\(\psi=1\) of conductor \(1\). For every nonprincipal Dirichlet
+character \(\chi\), \(L(s,\chi)\) is holomorphic at \(s=1\) and
+\(L(1,\chi)\ne0\) \cite[\S25.15(i) and (25.15.9)]{dlmf}. For
+primitive nonprincipal \(\chi\) define
+\begin{equation}
+\label{eq:centred-prime-sums}
+  G_\chi(y)=\sum_{n\ge1}\Lambda(n)\chi(n)(y/n-1)_+
+                  +y\frac{L'(1,\chi)}{L(1,\chi)}
+  \qquad(y>0).
+\end{equation}
+For \(\chi=1\), use the zeta sum \(G_1\) of \eqref{eq:principal-ramp}.
+
+At each real scale \(x\), the local division estimates require bounds
+on Selmer groups over a CM field \(E\). The Fourier estimate requires
+prime-sum bounds for characters of \(\operatorname{Gal}(E/\mathbf Q)\).
+The two bounds will hold for the same choice of \(E\) at each point
+of suitable intervals.
+
+\subsection{The auxiliary primes and character estimates}
+
+At an auxiliary scale \(Z\), put \(w=Z^{\varepsilon/5}\). The primes
+\(q,d\) are distinct and coprime to \(M\), with
+\[
+\begin{gathered}
+ q\equiv3\pmod 8,\qquad d\equiv7\pmod {16},\qquad
+ q\mid d+1,\qquad p\mid d+1\quad(3\le p\le w,\ p\text{ prime}),\\
+ \tfrac12w<\log q\le w,\qquad
+ \tfrac12w(\log Z)^2<\log d\le w(\log Z)^2 .
+\end{gathered}
+\]
+Write \(\eta_q=(\frac{\cdot}{q})\) and \(\eta_d=(\frac{\cdot}{d})\) for
+the quadratic Dirichlet characters. For \(h\ge0\) let
+\[
+ E(h,q,d)=\mathbf Q(\zeta_{2^{h+2}})^+\,\mathbf Q(\psi)\,
+              \mathbf Q(\sqrt{-q},\sqrt{-d}),
+\]
+where \(\mathbf Q(\psi)\) is the subfield of \(\mathbf Q(\zeta_M)\)
+fixed by the kernel of \(\psi\). Since \(E(h,q,d)\) is abelian and
+contains \(\mathbf Q(\sqrt{-q})\), it is CM.
+
+For an odd or \(4\)-divisible modulus \(N\), the cyclotomic Artin map
+identifies \((\mathbf Z/N\mathbf Z)^\times\) with
+\(\operatorname{Gal}(\mathbf Q(\zeta_N)/\mathbf Q)\) by
+\(a\mapsto(\zeta_N\mapsto\zeta_N^a)\). At any prime \(\ell\nmid N\)
+the residue class of \(\ell\) gives the arithmetic Frobenius.
+For a prime \(p\equiv3\bmod4\), the unique quadratic subfield of
+\(\mathbf Q(\zeta_p)\) is \(\mathbf Q(\sqrt{-p})\), and the
+restriction of the automorphism indexed by \(a\bmod p\) to it acts
+on \(\sqrt{-p}\) by the sign \((\frac ap)\).
+\cite[Ch.~V, Examples~3.1--3.2 and 3.11]{f1milne-cft}
+Applying this to \(q,d\) gives the quadratic factors of conductors
+\(q,d\). These are coprime to \(\operatorname{lcm}(2^{h+2},M)\) and to
+each other, so the Chinese remainder theorem gives
+\(\Gamma=\operatorname{Gal}(E(h,q,d)/\mathbf Q)\simeq
+(\mathbf Z/2\mathbf Z)^2\times H\), with \(H\) the group of the
+compositum of the first two factors.
+For \(a\) coprime to \(2Mqd\), let \(h_{\rm nat}(a)\in H\) be the
+restriction of the cyclotomic automorphism \(\zeta\mapsto\zeta^a\)
+to the compositum. Put \(h_-=h_{\rm nat}(-1)\), so \(2h_-=0\).
+Write \(\eta_d(a)=(-1)^{e_d(a)}\) and \(\eta_q(a)=(-1)^{e_q(a)}\).
+The release's
+\releasecite{Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/AnyFrame.lean}{235}{Artin map}
+orders the signs as \(q,d\) and shifts the last component to
+\(h_{\rm nat}(a)+e_q(a)h_-\). The
+\releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/RecH.lean}{10}{Fourier coordinates}
+interchange the two sign positions, giving
+\begin{equation}
+\label{eq:artin-coordinates}
+ \operatorname{Art}(a)
+ =\bigl(e_d(a),e_q(a),h_{\rm nat}(a)+e_q(a)h_-\bigr).
+\end{equation}
+Both sign bits of \(-1\) are \(1\), so complex conjugation has
+coordinates \(c_\infty=(1,1,0)\). For \(\psi=1\) the compositum is
+totally real and \(h_-=0\).
+
+For odd primes \(\ell\nmid d\), splitting in \(\mathbf Q(\sqrt{-d})\)
+is equivalent to \(-d\) being a square modulo \(\ell\). For \(\ell=2\)
+it is equivalent to \(-d\equiv1\pmod8\), since \(-d\) is an odd
+quadratic discriminant. Thus \(2\) and the specified odd primes
+dividing \(d+1\) split. These include \(q\) and, once \(w\ge4M\),
+every odd prime dividing \(M\).
+
+\paragraph{The classical host and its Artin data.}
+For \(\psi=1\), put \(Q_S=2^{h+2}\) and \(Q=Q_Sqd\). The field
+\(E=E(h,q,d)\) is the fixed field in \(\mathbf Q(\zeta_Q)\) of the
+units \(a\) satisfying \(a\equiv\pm1\bmod Q_S\) and
+\(\eta_q(a)=\eta_d(a)=1\). Indeed, these are precisely the
+automorphisms fixing each of its three factors. This also identifies
+any field of the prescribed type in the Selmer assertion with \(E\).
+In an ambient cyclotomic field of a multiple of \(Q\), its defining
+subgroup is the inverse image of the same subgroup modulo \(Q\).
+The group \(H=(\mathbf Z/Q_S\mathbf Z)^\times/\{\pm1\}\) has order
+\(2^h\) and is cyclic. The class of \(5\) generates it, since
+\(v_2(5^{2^j}-1)=j+2\) by repeated squaring and no power of \(5\)
+is \(-1\bmod 4\). Here \(H=H_0\). The fixed field \(F=E^{\langle
+c_\infty\rangle}\) is totally real and \([F:\mathbf Q]=2|H|\).
+
+For \(p\mid Q\), the \(p\)-power cyclotomic factor is totally ramified
+locally, by the Eisenstein polynomial of \(\zeta_{p^a}-1\) when
+\(p^a\Vert Q\). The roots of unity of order prime to \(p\) lie in the
+maximal unramified extension, by lifting the roots in the residue
+field. Arithmetic Frobenius raises these roots to their \(p\)-th
+powers. Thus the inertia subgroup is the image of the \(p\)-factor
+of the group of units in the Chinese-remainder decomposition. In
+the coordinates of \eqref{eq:artin-coordinates} this gives
+\begin{equation}
+\label{eq:classical-host-inertia}
+ I_2=\{(0,0,s):s\in H\},\qquad
+ I_q=\{0,(0,1,0)\},\qquad I_d=\{0,(1,0,0)\},
+ \qquad I_p=\{0\}\quad(p\nmid Q).
+\end{equation}
+None of these contains \(c_\infty=(1,1,0)\), so \(E/F\) is
+unramified at all finite places. Put \(c(e_d,e_q,s)=(-1)^{e_d}\)
+and \(P=\ker c\). Both \(2\) and \(q\) split in
+\(\mathbf Q(\sqrt{-d})\). Therefore every Frobenius lift at \(2\)
+or \(q\), as well as its inertia subgroup, lies in \(P\).
+For every lift \(F_d\) and every integer \(j\ge1\), the coset
+\(jF_d+I_d\) has one element outside \(P\), since \(c\) is
+nontrivial on \(I_d\). At \(p\nmid Q\) the Frobenius is
+\(\operatorname{Art}(p)\). These assertions give the local inputs
+to \eqref{eq:prime-power-ramp} and its Fourier expansion. The character
+\(c\) induces the primitive character \(\eta_d\).
+
+For \(h\ge1\) there is just one nontrivial real character \(\nu\)
+of \(H\). On odd integers it is \((2/\cdot)\), since the class of
+\(5\) has value \(-1\) and the map through units modulo \(8\) is even.
+Its primitive conductor is \(8\); for \(h=0\) there is no such \(\nu\).
+Consequently the real primitive host associates are precisely
+\(\rho\eta_q^i\eta_d^j\), with \(\rho=1\) or \(\nu\) when available
+and \(i,j\in\{0,1\}\). Their conductors are
+\(\operatorname{cond}(\rho)q^id^j\). The same product of conductors
+holds if \(\rho\) is any primitive character induced by a character
+of \(H\), since the three prime-power parts of \(Q\) are coprime.
+
+For the two prime counts, use Thorner and Zaman's exceptional-zero
+convention. For \(m\ge2\) the product of Dirichlet \(L\)-functions
+modulo \(m\) has no zero in
+\[
+ \Re s\ge 1-\frac{1}{13\log(m(|\Im s|+3))}
+\]
+apart from a possible simple real zero \(\beta_m\) of a unique real
+nonprincipal character \(\chi_m\bmod m\). If this zero exists, then
+\(1-\beta_m\ge b_0 m^{-1/2}\) for an effective absolute \(b_0>0\).
+\cite[arXiv v2, preceding Theorem~1.1 and (1.2)]{f1thorner-zaman}
+
+For real \(U\ge8\) and \((a,m)=1\), let \(\lambda=1\) if there is
+no exceptional zero. If there is one, let \(\lambda\) be the mean of
+\(1-\chi_m(a)t^{\beta_m-1}\) on \((U/2,U]\), so that
+\begin{equation}
+\label{eq:family-prime-multiplier}
+ \tfrac18\min\{1,(1-\beta_m)\log U\}<\lambda<2.
+\end{equation}
+Put \(\theta=32/37\) if the exceptional zero exists and \(7/12\)
+otherwise. If \(\lambda U/(2\varphi(m))\ge U^{\theta+1/100}\), the
+half-interval case of the relative prime number theorem is
+\[
+ \sum_{\substack{U/2<p\le U\\ p\equiv a\bmod m}}\log p
+ =\frac{\lambda U}{2\varphi(m)}
+ \left(1+O\left(\exp\left(
+   -\frac{c\log U}{\log m+(\log U)^{2/5}(\log\log U)^{1/5}}
+ \right)\right)\right).
+\]
+The constant \(c>0\) and the implied constant are effective and
+uniform in \(U,m,a\).
+\cite[arXiv v2, Theorem~1.1 and (1.7)]{f1thorner-zaman}
+
+Use \((U/2,U]\subset(\sqrt U,U]\) for both candidate counts. For \(q\)
+take \(m_0=8\), \(a=3\) and \(U=e^w\). These candidates satisfy \(q>w\)
+for large \(Z\). With \(q\) fixed, the Chinese remainder theorem makes
+the congruences for \(d\) a reduced class modulo
+\[
+  m_0=16q\prod_{\substack{3\le p\le w\\ p\ {\rm prime}}}p,
+  \qquad U=\exp\bigl(w(\log Z)^2\bigr).
+\]
+For any real \(v>0\), Rosser and Schoenfeld give
+\(\sum_{p\le v}\log p<1.01624v\)
+\cite[Theorem~9, (3.32)]{rosser-schoenfeld}. At \(v=w\) this gives
+\(\log m_0\le4\log U/(\log Z)^2\) for both candidate counts when \(Z\)
+is large. Both choices also have \(\log U\ge Z^{\varepsilon/6}\).
+The bounds on \(\beta_{m_0}\) and \(\lambda\) give
+\(\lambda\gg m_0^{-1/2}\). Thus the main term is
+\(\gg U m_0^{-3/2}=U^{1-o(1)}\), meeting the condition
+\(U^{\theta+1/100}\) since \(\theta\le32/37\). The relative error
+is \(o(1)\) uniformly in these moduli. Dividing by \(\log U\)
+gives at least \(U^{1-o(1)}\) candidates, uniformly in the first
+prime when choosing the second.
+
+\Needspace{10\baselineskip}
+\teamanchor{proof.auxiliary-primes}%
+For each fixed \(J\ge1\) and all sufficiently large \(Z\), we need one
+pair as above satisfying both assertions below. The classical proof for
+\(M=1\) follows. For fixed \(M>1\), Alp\"oge's
+\releasecite{Development/AutomorphicArithmetic/MeanSquareBounds/pairEx.lean}{112}{theorem on simultaneous quadratic twists}
+supplies such a pair.
+
+\begin{enumerate}
+\item\label{item:centred-twists} For every character \(\xi\) modulo \(M\) and
+  \((i,j)\in\{0,1\}^2\setminus\{(0,0)\}\), let \(\chi\) be the
+  primitive character agreeing with \(\xi\eta_q^i\eta_d^j\) on the
+  positive integers coprime to \(2Mqd\). For every real \(y\in[Z,Z^J]\),
+  \[
+    |G_\chi(y)|\le y^{1/2+\varepsilon/2}.
+  \]
+\item\label{item:twist-boxes} For every real primitive character \(\rho\) of conductor
+  dividing \(8M\) and the same pairs \((i,j)\), the primitive
+  character agreeing with \(\rho\eta_q^i\eta_d^j\) on those integers
+  has no zero in
+  \[
+    \Re s>1-1/400,\qquad
+    |\Im s|\le8M\exp\bigl(w+jw(\log Z)^2\bigr).
+  \]
+\end{enumerate}
+
+Choose \(q\) first and then test twists by \(\eta_d\) in the progression
+it determines. For any real \(R\ge3\),
+Thorner and Zaman's density theorem gives
+\[
+ \sum_{f\le R}\ \sum_{\substack{\chi\bmod f\\ \chi\ \mathrm{primitive}}}
+ \#\{\varrho:L(\varrho,\chi)=0,\ \Re\varrho>399/400,\
+                              |\Im\varrho|\le R\}
+ \le C R^{99/400}
+\]
+with an absolute effective \(C\). The count uses multiplicities and
+includes real exceptional zeros.
+\cite[arXiv v4, (1.1)--(1.2) and Theorem~1.2]{f1thorner-zaman-density}
+In item~\ref{item:twist-boxes}, the two stages use \(R=8MU\) for \(q\)
+and \(R=8Me^wU\) for \(d\). A failing twist has conductor divisible by
+the candidate prime, with remaining factor at most \(8M\) or \(8Mq\),
+respectively. That factor is smaller than every candidate at its
+stage. Thus distinct rejected primes give distinct primitive
+characters. Since \(R=U^{1+o(1)}\), these exclusions remove
+\(o(U^{9/10})\) candidates.
+For the general fixed target, the
+\releasecite{Development/AutomorphicArithmetic/MeanSquareBounds/StagePow.lean}{41}{mean-square argument}
+assumes every prime factor of the progression modulus is at most
+\(w\) or greater than \(Z^{400J}\). The former holds for every factor of
+\(8\) and for the small primes in the second modulus. Its other factor
+\(q\) satisfies \(q>e^{w/2}>Z^{400J}\) for sufficiently large \(Z\).
+The release controls the maximum on each dyadic block by a second
+moment bound and uses it to choose one pair meeting both conditions.
+
+For the characters in item~\ref{item:centred-twists}, evaluation at \(Z\) also gives
+\[
+ \left|\frac{L'(1,\chi)}{L(1,\chi)}\right|
+ \le 1+ \frac{1}{Z}\sum_{n\le Z}\Lambda(n)\lfloor Z/n\rfloor
+ =1+\frac{\log(\lfloor Z\rfloor!)}{Z}
+ \le4\log y\qquad (y\ge Z).
+\]
+
+\paragraph{The zeta case from classical prime estimates.}
+Fix \(J\ge1\), put \(\sigma=\tfrac12+\varepsilon/8\) and
+\(T_0=Z^{2J}\). For \(Q_0,T_0\ge2\) and \(1/2\le\sigma<1\),
+Heath-Brown's real-character density bound is
+\[
+ \sum_{\substack{\chi\ \mathrm{real,\ primitive}\\
+                  \operatorname{cond}(\chi)\le Q_0}}
+ N(\sigma,T_0,\chi)
+ \ll_\alpha (Q_0T_0)^\alpha
+      Q_0^{3(1-\sigma)/(2-\sigma)}T_0^{(3-2\sigma)/(2-\sigma)}
+ \qquad(\alpha>0),
+\]
+where \(N(\sigma,T_0,\chi)\) counts zeros, with multiplicity, in
+\(\sigma\le\Re s\le1\), \(|\Im s|\le T_0\)
+\cite[Corollary~1 and Theorem~3]{f1heath-brown}.
+For the first prime, take \(Q_0=U=e^w\) and test \(\eta_q\).
+For the second, take \(U=\exp(w(\log Z)^2)\), \(Q_0=qU\) and test
+\(\eta_d\) and \(\eta_q\eta_d\). The two single-prime characters are
+odd and their product is even. Their conductors are \(q,d,qd\),
+respectively, so each test assigns distinct real primitive
+nonprincipal characters to distinct candidates at its stage.
+In each stage \(Q_0=U^{1+o(1)}\) and \(T_0=U^{o(1)}\).
+The conductor exponent is \(1-\delta\) for
+\(\delta=(2\sigma-1)/(2-\sigma)>0\). Taking \(0<\alpha<\delta/4\)
+excludes \(O(U^{1-\delta/2})\) candidates in each stage.
+Intersect with the tall-rectangle exclusions above at \(M=1\).
+They test \(\rho\eta_q\) first, and \(\rho\eta_d,\rho\eta_q\eta_d\)
+second, for all real primitive \(\rho\) of conductor dividing \(8\).
+Each failing character at a stage contains its candidate prime
+in its conductor. The bounds \(O(U^{1-\delta/2})\) and
+\(O(U^{99/400+o(1)})\) each exclude a proportion \(o(1)\) of the
+\(U^{1-o(1)}\) candidates already counted in the progression.
+We may choose \(q\) first and then \(d\) from the surviving primes,
+with the second-stage bounds uniform in \(q\). This proves
+item~\ref{item:twist-boxes} and leaves each of the three tested
+characters without a zero in the Heath-Brown rectangle.
+
+For a primitive nonprincipal character \(\chi\) of conductor \(f\),
+let \(D_\chi=L'(1,\chi)/L(1,\chi)\) and
+\(A_\chi(y)=\sum_{n\le y}\Lambda(n)\chi(n)(y/n-1)\).
+The explicit formula over \(\mathbf Q\) gives, for real \(y\ge2\),
+\[
+ A_\chi(y)+(y-1)D_\chi
+  =\sum_{\varrho}\frac{y^\varrho-1}{\varrho(1-\varrho)}
+    +O(\log(2y)).
+\]
+The sum is over nontrivial zeros with multiplicity. The respective
+archimedean terms for even and odd \(\chi\) are
+\((y-1)F_1(y)/2\) and \((y-1)F_3(y)/2\), both
+\(O(\log(2y))\) with an absolute constant
+\cite[\S2.1 and Theorem~1, (2.2.1)]{f1ihara-murty-shimura}.
+By the functional equation, the three selected real characters
+have \(1-\sigma<\Re\varrho<\sigma\) for \(|\Im\varrho|\le T_0\)
+\cite[(25.15.5)]{dlmf}.
+The number \(N_\chi(t)\) of zeros up to height \(t\ge1\) has main
+term \((t/\pi)\log(ft/(2\pi e))\) and error \(O(\log(f(t+2)))\)
+for primitive \(\chi\) of conductor \(f>1\)
+\cite[Corollary~1.2]{f1bennett-zeros}. Thus the number of zeros in
+\(n\le|\Im\varrho|<n+1\) is \(O(\log(f(n+3)))\). Use
+\(N_\chi(n+1)-N_\chi(n-1)\) for \(n\ge2\), and \(N_\chi(2)\)
+for \(n=0,1\).
+For \(|\Im\varrho|\le T_0\) the reciprocal denominator is
+\(O_\varepsilon((1+|\Im\varrho|^2)^{-1})\).
+For \(|\Im\varrho|>T_0\) use \(|y^\varrho-1|\le2y\) and the
+reciprocal bound \(|\Im\varrho|^{-2}\). Summing over the unit-height
+strips gives an absolutely convergent zero sum and the bound
+\[
+ |A_\chi(y)+(y-1)D_\chi|
+ \ll_\varepsilon y^\sigma\log(3f)
+          +\frac{y}{T_0}\log(3fT_0)+\log(2y).
+\]
+The conductor and height satisfy
+\(\log(3fT_0)\ll_J Z^{\varepsilon/5}(\log Z)^2\). For every
+\(y\in[Z,Z^J]\) this gives
+\[
+ y^\sigma\log(3f)\ll_J y^{1/2+13\varepsilon/40}(\log y)^2,\qquad
+  \frac{y}{T_0}\log(3fT_0)\ll_J Z^{-J+\varepsilon/5}(\log Z)^2.
+\]
+At \(y=Z\), use \(|A_\chi(Z)|\le\log(\lfloor Z\rfloor!)\) and
+divide by \(Z-1\) to get \(|D_\chi|\le4\log Z\) for large \(Z\).
+Adding \(D_\chi\) gives the centering in \eqref{eq:centred-prime-sums}.
+Since \(13/40<1/2\), this proves
+\(|G_\chi(y)|\le y^{1/2+\varepsilon/2}\) for all real
+\(y\in[Z,Z^J]\) with the same pair, proving
+item~\ref{item:centred-twists} for \(M=1\). For general \(M\), the twisted
+characters in item~\ref{item:centred-twists} can be complex and
+the release's prime-pair argument applies to those characters.
+
+\paragraph{Mean squares in the two progressions.}
+Let \(P=\{p:\sqrt U<p\le U,\ p\equiv a\bmod m_0\}\) be the
+prime set at either stage above. For \(L=Z^A\), \(A\ge J\) fixed,
+\(|\kappa(n)|\le1\) independent of \(p\), and \(y\in[Z,Z^J]\), set
+\[
+ S_L(y,p;\kappa)=\sum_{n\le L}\Lambda(n)\min(1,y/n)\kappa(n)
+                         \Bigl(\frac np\Bigr).
+\]
+Then \(\sum_{p\in P}|S_L(y,p;\kappa)|^2\ll |P|y\log y\) with an
+absolute constant for sufficiently large \(Z\).
+The unrestricted prime-modulus inequality of Montgomery and Vaughan
+uses \(U/\log(2U/L^2)\) times the energy of coefficients grouped by
+squarefree part \cite[Lemma~9, (7)]{f1montgomery-vaughan-moments}.
+For the relative factor \(|P|\), use the full-interval prime theorem
+modulo \(m_0s\) at \(t\in[\sqrt U,U]\), for odd squarefree
+\(1<s\le L^2\) coprime to \(m_0\).
+Here \(\log(m_0L^2)\ll\log U/(\log Z)^2\), so
+\(t\ge(m_0s)^{12}\) and the relative error is
+\(O(\exp(-c(\log Z)^2))\) for some \(c>0\).
+Summing over the reduced classes above \(a\) with weights
+\((\frac{\cdot}{s})\) cancels the principal term. The secondary
+term survives only if the exceptional character restricts to
+\((\frac{\cdot}{s})\) on \((\mathbf Z/s\mathbf Z)^\times\).
+The relative error is bounded using the sum of the nonnegative
+main terms over those classes, including a possible bias from
+a character induced from \(m_0\)
+\cite[arXiv v2, Corollary~1.4 and Remark~1.5]{f1thorner-zaman}.
+In the matching case the secondary term sums to zero without
+the weights. Its signed contribution is negligible if
+\(1-\beta\ge c/\log(m_0L^2)\), for fixed \(c>0\).
+For sufficiently small \(c\), Landau--Page gives at most one
+primitive real character of conductor at most \(m_0L^2\) with
+a closer real zero \cite{f1page}.
+Its conductor away from \(m_0\) must be exactly \(s\).
+Partial summation therefore gives
+\(\sum_{p\in P}(\frac ps)=O_B(|P|Z^{-B})\) for every fixed \(B>0\),
+with at most one exceptional \(s>1\).
+
+Chebyshev's bound and partial summation make the contribution to
+\(S_L\) from proper prime powers \(O(\sqrt y)\). Primes dividing
+\(m_0\) contribute \(O(\log m_0)\).
+For the remaining primes \(r\le L\), the weights
+\(b_r=(\log r)\min(1,y/r)\) satisfy \(\sum_r b_r^2\ll y\log y\),
+\(\max_r b_r\le\log y\) and \(\sum_r b_r\ll y(1+\log L)\).
+Quadratic reciprocity on the fixed class modulo \(4\) reduces
+the distinct-prime correlations to the last character average
+with \(s\) the product of the two primes. At most one unordered
+pair is exceptional. Its weight is \(O((\log y)^2)\), and the
+other correlations contribute \(O_B(|P| Z^{-B} y^2(1+\log L)^2)\)
+to the unnormalized moment. This gives the stated bound by
+taking \(B>2J+1\).
+
+For fixed \(M\) and any \(\tau>0\), the moment also gives
+\(|G_\chi(y)|\le y^{1/2+\tau}\) on \([Z,Z^J]\) for a proportion
+\(1-o(1)\) at each stage. Test the primitive associates of
+\(\xi\eta_q\) at the first stage and of \(\xi\eta_q^i\eta_d\),
+\(i=0,1\), at the second, for all \(\xi\bmod 8M\).
+Apply the tall-rectangle exclusions to those associates. For a
+surviving \(\chi\) of conductor \(f\), take \(L=Z^{3200J}\) and
+\(\delta_0=1/400\).
+We have \((\log f)^{10/\delta_0}\le L\le f^2\), and the zero-free
+rectangle contains \(\Re s>1-\delta_0,\ |\Im s|\le L^{\delta_0}\).
+The \(k=1\) logarithmic-derivative approximation gives
+\(-D_\chi=\sum_{n\le L}\Lambda(n)\chi(n)/n+O(L^{-\delta_0/4})\)
+\cite[Proposition~3.2]{f1lamzouri-languasco}.
+Thus \(G_\chi(y)=-S_L(y,p;\kappa)+O(Z^{-J})\) with \(\kappa\)
+the fixed factor before the new quadratic twist. Almost everywhere
+in \(y\), \(y\,\partial_y S_L(y,p;\kappa)=
+S_L(y,p;\kappa\mathbf1_{n>y})\).
+On a block \([a_0,b_0]\subseteq[Z,Z^J]\), \(b_0\le2a_0\),
+Cauchy--Schwarz bounds the squared maximum by twice the squared
+value at \(a_0\) plus \(2a_0\) times the integral of the squared
+derivative. The summed block maxima are \(O(|P|a_0\log(2a_0))\).
+Markov's inequality and a dyadic sum give a discarded fraction
+\(O(Z^{-2\tau_0}\log(2Z))\) for \(\tau_0=\min(\tau,1/4)\),
+in addition to the rectangle exclusions. The finite union over
+twists is uniform in \(q\) at the second stage. Evaluation at
+\(Z\) with exponent \(1/2+\tau_0\) gives \(|D_\chi|\le4\log Z\).
+
+\subsection{The Selmer bound on the same scales}
+
+For a prime \(\ell\) let \(S_\ell\) be the places of \(E\) over
+\(\ell\), and let \(G_{E,S_\ell}\) be the Galois group of the maximal
+extension unramified outside \(S_\ell\). Write \(D_v\) for the
+decomposition subgroup of a chosen prolongation of \(v\mid\ell\) to
+an algebraic closure of \(E\). Restriction to \(D_v\) uses its map
+to \(G_{E,S_\ell}\). For integers \(r\ge1\), put
+\[
+ s_\ell(E,r)=\operatorname{length}_{\mathbf Z_\ell}
+  \ker\!\left(H^1(G_{E,S_\ell},(\mathbf Q_\ell/\mathbf Z_\ell)(-r))
+     \longrightarrow\prod_{v\mid\ell}
+         H^1(D_v,(\mathbf Q_\ell/\mathbf Z_\ell)(-r))\right).
+\]
+Here \(H^1\) is continuous Galois cohomology and the inverse \(r\)-th
+power of the cyclotomic character acts on the coefficients. At finite
+places \(v\), \(D_v\) identifies with the absolute Galois group of \(E_v\).
+
+Let \(F\) be a totally imaginary number field and let \(S\) be a
+finite set of finite places containing every place above \(\ell\).
+For a finite \(\ell\)-primary \(G_{F,S}\)-module \(A\), write
+\(\mathrm{Sha}^i_S(F,A)\) for the kernel of localization from
+\(H^i(G_{F,S},A)\) to \(\prod_{v\in S}H^i(F_v,A)\).
+Poitou--Tate duality gives a perfect pairing of finite groups
+\[
+ \mathrm{Sha}^1_S(F,A)\times
+ \mathrm{Sha}^2_S\bigl(F,\operatorname{Hom}(A,\mu_{\ell^\infty})\bigr)
+ \longrightarrow \mathbf Q/\mathbf Z .
+\]
+For this finite \(S\), the global cohomology groups and the local
+targets with coefficients in \(A\) are finite.
+The duality theorem includes the infinite places, whose local
+cohomology in degrees \(1\) and \(2\) vanishes for such \(F\).
+\cite[Theorem~I.4.10(a) and Corollary~I.4.15]{f1milne-adt}
+Apply this with \(F=E\), \(S=S_\ell\) and
+\(A=(\mathbf Z/\ell^k\mathbf Z)(-r)\), whose Tate dual is
+\((\mathbf Z/\ell^k\mathbf Z)(r+1)\). Filtered direct limits commute
+with the localization kernels, and finiteness at each level makes
+the first derived inverse limits vanish. Passing to the direct and
+inverse limits identifies the kernel defining \(s_\ell(E,r)\)
+with the Pontryagin dual of the \(\ell\)-primary \'etale wild kernel
+\[
+ \ker\!\left(H^2(G_{E,S_\ell},\mathbf Z_\ell(r+1))
+   \longrightarrow\prod_{v\mid\ell}H^2(E_v,\mathbf Z_\ell(r+1))\right).
+\]
+
+For a totally imaginary number field \(F\), every prime \(\ell\) and
+integer \(r\ge1\), the \(K\)-theory comparison identifies
+\[
+ H^2_{\mathrm{\acute et}}(\mathcal O_F[1/\ell],\mathbf Z_\ell(r+1))
+ \simeq K_{2r}(\mathcal O_F)[\ell^\infty],
+\]
+where \(K_{2r}(\mathcal O_F)\) is finite
+\cite[Theorems~VI.8.2 and~VI.8.4]{f1weibel-kbook}. At finite coefficient
+levels, the \'etale cohomology of \(\mathcal O_E[1/\ell]\) with locally
+constant \(\ell\)-primary coefficients agrees with cohomology of its
+\'etale fundamental group \(G_{E,S_\ell}\) because \(\ell\) is
+invertible there \cite[Proposition~II.2.9]{f1milne-adt}. It follows in
+the inverse limit that the wild kernel is contained in the
+\(\ell\)-primary part of \(K_{2r}(\mathcal O_E)\). This includes the
+case \(\ell=2\) since \(E\) is CM.
+For fixed \(E,t\), the weighted sum over all primes is thus at most
+\(\sum_{1\le r<t}\log|K_{2r}(\mathcal O_E)|\).
+The required quantitative bound is
+\begin{equation}
+\label{eq:family-selmer}
+  \sum_{\ell\in S}(\log\ell)\sum_{1\le r<t}s_\ell(E,r)\le B
+  \qquad\text{for every finite set \(S\) of primes.}
+\end{equation}
+This inequality is uniform over the choices of algebraic closure
+and prolongations.
+
+\teamanchor{proof.admissible-host-windows}%
+Fix a nonnegative integer \(h(y)\) for each real \(y\ge1\) with
+\(y^{2+8\varepsilon}\le 2^{h(y)}\le2y^{2+8\varepsilon}\).
+The release
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean}{4}{derives the Selmer window assertion}
+from local--global compatibility and base change. In the
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean}{7}{application},
+the needed compatibility is
+\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean}{6}{established from theta lifts}.
+For the fixed \(\psi,\varepsilon,h\) it gives \(J\ge1\) and \(X_0\).
+For every \(X\ge X_0\) and every pair \(q,d\) with the size and
+congruence conditions at \(Z=X^{1/J}\), there is \(W\ge Z\) with
+\(W^2\le X\).
+For every real \(y\in[W,W^2]\), the field \(E(h(y),q,d)\)
+satisfies \eqref{eq:family-selmer} at
+\(t=\lfloor y^{401}\rfloor\) with \(B=\exp(y^\varepsilon/2)\).
+The proof uses deformation-theoretic counts and controls exceptional
+components along the dyadic tower.
+
+For \(\psi=1\) fix, for example,
+\(h(y)=\lceil(2+8\varepsilon)\log_2 y\rceil\) on \(y\ge1\).
+Apply the \hyperlink{candidate.family}{Selmer window assertion} to
+this whole profile to obtain \(J,X_0\). Take \(X\ge X_0\) so large
+that \(Z=X^{1/J}\) exceeds the prime-selection threshold for this
+fixed \(J\), and choose the pair at \(Z\). The assertion supplies
+\([W,W^2]\subseteq[Z,X]\) for this very pair. On
+\([W,W^{3/2}]\), use the field \(E(h(x),q,d)\) at each real \(x\).
+Since \(Z\le W\le x\le W^2\le X=Z^J\), the prime-pair bounds
+apply at \(x\), and \(x^{1/J}\le Z\le x\). The Selmer bound on that
+field holds at \(\lfloor x^{401}\rfloor\) with \(B=\sqrt b\), where
+\(b=\exp(x^\varepsilon)\). For every \(Y_0\ge2\) and any fixed
+lower threshold, \(X\) can be taken so large that \(Z\), hence
+\(W\), exceeds both. The pair is fixed on each such interval, and
+the layer \(h(x)\) may vary.
+
+For \(M>1\), use the \(J\) of the window assertion when
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/WinPairs.lean}{34}{choosing the pair \(q,d\) at \(Z=X^{1/J}\)}.
+Take \(X\) large enough for the prime estimates at that scale. The
+release's prime-pair theorem supplies it for a general fixed target.
+The resulting Selmer interval lies in \([Z,X]=[Z,Z^J]\), on which
+the prime-pair bounds hold. The subgroup
+\[
+ H_0=\operatorname{Gal}\!\left(
+   \mathbf Q(\zeta_{2^{h+2}})^+\mathbf Q(\psi)/\mathbf Q(\psi)\right)
+ \ \le H
+\]
+is cyclic, and its index \(o=[H:H_0]\) is the order of \(\psi\).
+The intersection of the real dyadic field with \(\mathbf Q(\psi)\)
+stabilizes for large \(h\), since \(\mathbf Q(\psi)\) has finite degree.
+Consequently \(n=|H|=c_\psi2^h\) for a constant \(c_\psi\ge1\).
+Put \(k_0=c_\psi^{1/(2+8\varepsilon)}\) and \(Y=k_0W\). If
+\(W\ge k_0^3\), then \(Y^{3/2}\le W^2\), and both \(x\) and
+\(y=x/k_0\) lie in \([W,W^2]\) for every \(x\in[Y,Y^{3/2}]\).
+In particular \(x^{1/J}\le Z\le x\), as required for the host
+construction. For sufficiently large \(X\) all the layers \(h(y)\)
+lie in the stabilized range. Choose the dyadic layer \(h(y)\) at \(x\).
+Then
+\[
+ x^{2+8\varepsilon}\le n\le2x^{2+8\varepsilon}.
+\]
+Taking \(W\ge k_0^{400}\) gives \(y^{401}\ge x^{400}\), and
+\(y\le x\).
+The Selmer bound therefore holds at cutoff \(\lfloor x^{400}\rfloor\)
+with \(B=\sqrt b\), where \(b=\exp(x^\varepsilon)\).
+Taking \(X\) arbitrarily large gives arbitrarily distant intervals
+with \(q,d\) fixed throughout each interval. The dyadic layer can vary
+with \(x\). For \(\psi=1\) we have \(o=c_\psi=1\) and \(H_0=H\).
+
+\subsection{Level primes, sampling sets and character estimates}
+
+\paragraph{Sizes and cutoff for the classical host.}
+\teamanchor{proof.host-realization}%
+At every sufficiently large \(x\) in the classical intervals, the
+field above satisfies
+\begin{equation}
+\label{eq:classical-host-scale}
+ n=|H|=2^{h(x)},\qquad Q_S=4n,\qquad
+ x^{2+8\varepsilon}\le n\le2x^{2+8\varepsilon},\qquad
+ f=[F:\mathbf Q]=2n .
+\end{equation}
+The prime-pair bounds and \(x^{1/J}\le Z\le x\) give
+\[
+ \tfrac12 x^{\varepsilon/(5J)}<\log q\le x^{\varepsilon/5},
+ \qquad
+ \log d\le x^{\varepsilon/5}(\log x)^2 .
+\]
+Also \(\log d>\log q\) once \((\log Z)^2>2\). Hence \(d>q>x^A\)
+eventually for every fixed \(A\).
+As \(\log Q_S=O(\log x)\), these upper bounds give
+\(\log(Q_Sqd)\le2x^{\varepsilon/5}(\log x)^2\) for large \(x\).
+In particular every fixed power of \(Q_Sqd\) is
+\(\exp(o(x^\varepsilon))\).
+For the root discriminant, put \(K=\mathbf Q(\zeta_{Q_Sqd})\) and
+write \(X^{Q_Sqd}-1=\Phi_{Q_Sqd}(X)R(X)\) with \(R\) integral.
+At \(\zeta_{Q_Sqd}\) the product of the derivative of \(\Phi_{Q_Sqd}\)
+and \(R\) equals \(Q_Sqd\) times a root of unity. The nonzero norm of
+\(R(\zeta_{Q_Sqd})\) is an integer, and the norm of the derivative
+is the discriminant of the power basis in absolute value.
+The field discriminant divides it, so \(\operatorname{rd}(K)\le Q_Sqd\).
+The discriminant formula for the tower \(K/E/\mathbf Q\) gives
+\(\operatorname{rd}(E)\le\operatorname{rd}(K)\). Thus
+\(\log\operatorname{rd}(E)=o(x^\varepsilon)\).
+
+Use the ranks at this field from the common-family construction in
+Section~\ref{sec:assembly}. The prescribed rank relations are
+\[
+ x^{1/2-\varepsilon/16}\le m\le2x^{1/2-\varepsilon/16},\qquad
+ x^{9/2+10\varepsilon}\le k\le2x^{9/2+10\varepsilon},\qquad
+ r=k+m-1,\quad m+3\le k .
+\]
+The integer \(t\) used as twist cutoff is specified by
+\begin{equation}
+\label{eq:classical-rank-cutoff}
+\begin{aligned}
+ r+t &=8fr+4+\lceil x^{377}\rceil\,A_x,\\
+ A_x &=8\left\lceil\frac{10r}{8}
+     \left(f+\frac{f^2(k-1)^3x^{2\varepsilon}}{m}\right)\right\rceil .
+\end{aligned}
+\end{equation}
+These are the
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/PairRowIffQdRows.lean}{17}{rank prescriptions}.
+For \(x\ge1\) and \(0<\varepsilon<1/52\) we have
+\(f\le4x^{2.16}\), \(k\le2x^{4.70}\), \(r\le4x^{4.70}\),
+\(m\ge x^{0.49}\), and \(x^{2\varepsilon}\le x^{0.04}\).
+Consequently \(f^2(k-1)^3x^{2\varepsilon}/m\le128x^{17.97}\),
+so \(A_x\le5288x^{22.67}\). Using
+\(\lceil x^{377}\rceil\le2x^{377}\) in
+\eqref{eq:classical-rank-cutoff} gives \(t\le10708x^{399.67}\).
+For \(x\ge2^{100}\) the last bound is at most \(x^{400}\).
+Since \(t\) is an integer with
+\(t\le\lfloor x^{400}\rfloor\le\lfloor x^{401}\rfloor\),
+the same field satisfies \eqref{eq:family-selmer} at \(t\) with
+\(B=\sqrt b\), by nonnegativity of the summands. It follows
+also that \(4tr+1<q,d\) at sufficiently large \(x\).
+
+At large \(x\) the rank interval for \(m\) gives
+\(x^{1/2-\varepsilon}\le m\le x^{1/2+\varepsilon/2}\),
+and the lower bound for \(k\) gives \(xm\le k\).
+The upper bound for \(k\), together with \(n\ge x^{2+8\varepsilon}\),
+gives \(k\le n^2x^{1/2-\varepsilon}\), since \(2\le x^{5\varepsilon}\)
+eventually. These are the numerical rank bounds in
+Sections~\ref{sec:integral} and~\ref{sec:fourier}.
+For the trace comparisons, \(m\ge4\) eventually and
+\(m^4\le16x^{2-\varepsilon/4}\le f\le k\le r\le x^5\)
+for large \(x\). Moreover,
+\[
+ m^5 f\log b\le128 x^{9/2+(139/16)\varepsilon}
+              \le128 kx^{-(21/16)\varepsilon}.
+\]
+Thus every fixed multiple of \(m^5 f\log b\) is smaller than \(k\)
+beyond a threshold depending only on that multiple and \(\varepsilon\).
+
+\paragraph{Level and sampling conditions at the classical host.}
+Use the level primes and the sets \(T,T_2\) on the same selected
+records of Section~\ref{sec:assembly}. Write \(K_d=\mathbf Q(\sqrt{-d})\)
+and \(Q=Q_Sqd\). The selected level conditions specify two distinct
+primes \(g_0,g_1\) in \([(kb)^8,2(kb)^8]\) with
+\[
+ g_i=\pi_i\overline{\pi_i},\qquad
+ \pi_i\in\mathcal O_{K_d},\qquad \pi_i\equiv1\bmod Q\mathcal O_{K_d}.
+\]
+They also specify distinct primes \(p,p'\le Q^{C_8}\) for fixed
+\(C_8\), with \(p,p'\equiv1\bmod\operatorname{lcm}(15,Q)\).
+These conditions are the level data of
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{101}{the chosen host}.
+The auxiliary twisting prime \(q_0\) on the actual record is the
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/AuxiliaryPrimeMemAvoidedPrimes.lean}{75}{least prime}
+congruent to \(1\bmod \ell_0Q\), where \(\ell_0\) is the least prime
+not dividing \(Q(p-1)(p'-1)\). The host has unit ideal \(\mathfrak c_K\).
+A prime divisor of \(Q(p-1)(p'-1)+1\) bounds
+\(\ell_0\) by \(Q^{1+2C_8}+1\). If \(m_0=\ell_0Q\), the
+full-interval prime theorem below at \(m_0^A\), for sufficiently
+large fixed \(A\ge12\), has relative error of modulus less than \(1/2\).
+The full-interval version of \eqref{eq:family-prime-multiplier}
+gives a positive main term in the class \(1\bmod m_0\). Hence
+\(q_0\le m_0^A\le Q^{A(3+2C_8)}\).
+The congruences distinguish \(q_0\) from \(p,p'\), since
+\(\ell_0\) divides neither \(p-1\) nor \(p'-1\).
+Since \(g_i\equiv1\bmod Q\) by the norm identity, all five primes
+split completely in the cyclotomic field of modulus \(Q\) and hence
+in \(E\) and \(F\). The logarithms of \(p,p',q_0\) are
+\(O(x^{\varepsilon/5}(\log x)^2)\), which is eventually smaller
+than \(x^{\varepsilon/3}\). Thus these primes are below both
+\(\exp(x^{\varepsilon/3})\) and \((kb)^8\). Also
+\(\log g_i\le8x^\varepsilon+8\log k+\log 2\le9x^\varepsilon\)
+for large \(x\).
+
+For each \(g\) let
+\begin{equation}
+\label{eq:classical-level-bad-primes}
+ B_r(g)=\{g\}\cup
+  \{\ell\ \text{prime}:\ell^{4v_\ell(g^a-1)}>g^a
+                               \text{ for some }1\le a\le r\}.
+\end{equation}
+The disjointness \(B_r(g_0)\cap B_r(g_1)=\varnothing\) is part of
+the selected level conditions. Thus for each residue characteristic
+\(\ell\), one of the two installed \(g_i\) differs from \(\ell\)
+and satisfies \(4v_\ell(g_i^a-1)\log\ell\le a\log g_i\) for
+every \(1\le a\le r\).
+
+The \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/Chosen.lean}{16}{sampling conditions}
+give \(T\subset H\), \(T_2\subset H_0=H\), and, writing
+\(N_T=|T|\) and \(N_2=|T_2|\), the bounds
+\[
+ \tfrac12 n x^{-\varepsilon/8}\le N_T\le2n x^{-\varepsilon/8},
+ \qquad
+ N_2\ge\frac{n}{L_w}
+   \exp\!\left(-C_{T_2}\sqrt{\log n\,\log L_w}\right).
+\]
+Here \(C_{T_2}\) is fixed and
+\(L_w=10\lceil405\log x\rceil+2\lceil30/\varepsilon\rceil+22\).
+Since \(\log n=O(\log x)\) and \(\log L_w=O_\varepsilon(\log\log x)\),
+the logarithmic loss in the bound for \(N_2\) is \(o(\log x)\).
+For sufficiently large \(x\) these same sets therefore satisfy
+\begin{equation}
+\label{eq:classical-sampling-size}
+ 0<\tfrac12 n x^{-\varepsilon/8}\le N_T\le2n x^{-\varepsilon/8},
+ \qquad n x^{-\varepsilon}\le N_2\le n .
+\end{equation}
+Every element of \(T\) lies in the sole coset of \(H/H_0\), so its
+share in that coset is \(1\).
+
+For \(M>1\), at each sufficiently large \(x\) in the intervals Alp\"oge
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/SupplyChi.lean}{8}{chooses ranks, level primes, an Artin map and sampling sets}
+\(T\subset H\) and \(T_2\subset H_0\) for \(E\). The choices
+give \(|T_2|\ge x^{-\varepsilon}n\) and the distribution of \(T\) among
+the cosets of \(H_0\) used in Section~\ref{sec:fourier}. The
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/EventuallyRankLeRpowOfLtOneDivFiftytwo.lean}{5}{rank bound} gives
+the actual twist cutoff \(t\le\lfloor x^{400}\rfloor\), so
+\eqref{eq:family-selmer} holds at \(t\) with bound \(\sqrt b\).
+Write \(Q_S\) for the modulus of the compositum of the dyadic and
+target-character fields. Since the primitive character \(\psi\)
+factors through \(Q_S\), its conductor \(M\) divides \(Q_S\).
+Also \(Q_S\mid\operatorname{lcm}(2^{h+2},M)\), so every prime factor of
+\(Q_S\) divides \(2M\).
+For the classical host, the only nontrivial characters left after
+averaging over \(H_0=H\) are \(\eta_q,\eta_d,\eta_q\eta_d\). Each
+satisfies \(|G_\chi(x)|\le x^{1/2+\varepsilon/2}\) and
+\(|L'(1,\chi)/L(1,\chi)|\le4\log x\) for the same \(q,d\) at \(x\).
+In particular the centering for \(c\) satisfies
+\(|\ell_c|\le4\log x\le x^\varepsilon\) for large \(x\).
+Together with the discriminant bound this gives
+\(\log\operatorname{rd}(E)+|\ell_c|\le2x^\varepsilon\).
+For \(M>1\) the primitive characters discarded after averaging
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/BoundedTw.lean}{45}{induce the nontrivial quadratic twists above}.
+For them we use \(|G_\chi(x)|\le x^{1/2+\varepsilon}\), by weakening
+the prime-pair estimate, and
+\(|L'(1,\chi)/L(1,\chi)|\le4\log x\).
+
+The modulus satisfies
+\[
+  \log(Q_Sqd)\le 2x^{\varepsilon/5}(\log x)^2 .
+\]
+Pullback by the Artin map gives a Dirichlet character modulo \(Q_Sqd\)
+for each character of \(\operatorname{Gal}(E/\mathbf Q)\).
+A primitive real nonprincipal associate has order two, and its
+kernel in the cyclotomic Galois group fixes a quadratic field. For a
+quadratic field \(\mathbf Q(\sqrt D)\) with squarefree \(D\), the
+primitive Dirichlet character has conductor \(|D|\) when
+\(D\equiv1\bmod4\) and \(4|D|\) otherwise. Its dyadic conductor
+therefore divides \(8\) \cite[Ch.~V, Example~3.11]{f1milne-cft}.
+By the coprime product decomposition of the residue group, a real
+primitive associate is \(\rho\eta_q^i\eta_d^j\), with real \(\rho\)
+of conductor dividing \(8M\). If \(q\) or \(d\) divides its conductor,
+then \((i,j)\ne(0,0)\). Item~\ref{item:twist-boxes} excludes real zeros
+\(\beta>1-1/400\) of that associate by taking the ordinate zero.
+The other real nonprincipal associates have
+conductor dividing \(8M\). Nonvanishing at \(1\) for this fixed finite
+set gives a common real zero-free interval ending at \(1\).
+For the classical host the real associates with a \(q\) or \(d\)
+factor are exactly the three auxiliaries and, when \(h\ge1\), their
+three twists by \(\nu\) of conductor \(8\). The only other real
+nonprincipal associate is \(\nu\), when available. Thus one
+\(\delta>0\) works for all real nonprincipal associates of all
+these hosts, including those nontrivial on \(H\).
+
+For integers \(m\ge2\), \((a,m)=1\), and real \(u\ge m^{12}\), put
+\(\mathcal E_m(u,a)=\chi_m(a)u^{\beta_m}/\beta_m\) in the exceptional
+case above and \(\mathcal E_m(u,a)=0\) otherwise. The full-interval
+multiplier \(1-\mathcal E_m(u,a)/u\) lies between \(0\) and \(2\).
+Thorner and Zaman's full-interval prime number theorem gives
+\[
+ \sum_{\substack{p\le u\\p\equiv a\bmod m}}\log p
+ = \frac{u-\mathcal E_m(u,a)}{\varphi(m)}
+   +O\left(\frac{u}{\varphi(m)}\,\mathcal R(u,m)\right),
+\]
+where
+\[
+ \mathcal R(u,m)=\exp\left(-c\frac{\log u}{\log m}\right)
+   +\exp\left(-c\frac{(\log u)^{3/5}}{(\log\log u)^{1/5}}\right).
+\]
+The constant \(c>0\) and the implied constant are absolute and
+effective. The bound on the multiplier gives the displayed error
+uniformly in the reduced class \(a\).
+\cite[arXiv v2, Corollary~1.4, Remark~1.5 and (1.7)]{f1thorner-zaman}
+
+Put \(Q=Q_Sqd\) and \(\Psi_\chi(u)=\sum_{n\le u}\Lambda(n)\chi(n)\).
+For \(u\ge y\ge\exp(x^{\varepsilon/3})/3\) and large \(x\), we have
+\(u\ge Q^{12}\) by the bound on \(\log Q\). Weight the progression
+estimate by the character induced by \(\chi\) modulo \(Q\) and sum
+over the \(\varphi(Q)\) reduced classes. Orthogonality gives main
+term \(u\mathbf1_{\chi=1}\). Since \(\chi_Q\) is real, the exceptional
+term sums to zero except when the induced character equals \(\chi_Q\);
+in that case the term is \(-u^{\beta_Q}/\beta_Q\).
+In particular this term is absent for a principal or complex
+associate. For any character \(\xi\) modulo \(Q\)
+with primitive associate \(\xi^*\), the two \(L\)-functions satisfy
+\[
+ L(s,\xi)=L(s,\xi^*)\prod_{p\mid Q}(1-\xi^*(p)p^{-s}).
+\]
+The product is nonzero for \(\Re s>0\) \cite[(25.15.4)]{dlmf}.
+Thus in the surviving case \(\beta_Q\) is a real zero of \(L(s,\chi)\)
+and \(1-\beta_Q\ge\delta>0\) for a fixed \(\delta\).
+The error from summing the residue classes is
+\(O(u\mathcal R(u,Q))\). For each \(p\le\sqrt{u}\) the proper powers
+of \(p\) contribute at most \(\log u\), and the omitted prime terms
+with \(p\mid Q\) contribute at most \(\log Q\). Since
+\(\beta_Q>1/2\) when it exists, the exceptional term divided by \(u\)
+has modulus at most \(2u^{-\delta}\). Writing \(v=\log u\) now gives
+\[
+ \Psi_\chi(u)/u=\mathbf1_{\chi=1}
+    +O(e^{-cv/\log Q}+e^{-c\sqrt v})
+\]
+with \(c>0\) uniform for the fixed target and \(\varepsilon\).
+
+Put \(\delta_\chi=\mathbf1_{\chi=1}\) and
+\(R_\chi(u)=\Psi_\chi(u)-\delta_\chi u\).
+For \(y\ge1\), integration of the step function gives
+\(A_\chi(y)=y\int_1^y\Psi_\chi(u)\,du/u^2\), also for \(\chi=1\)
+with \(A_1\) the uncentered zeta sum. The logarithmic derivative of
+the Euler product and partial summation give
+\[
+ -\frac{L'(s,\chi)}{L(s,\chi)}-\delta_\chi\frac{s}{s-1}
+     =s\int_1^\infty R_\chi(u)u^{-s-1}\,du,\qquad \Re s>1 .
+\]
+\cite[(25.2.11), (25.15.2)]{dlmf}
+By the preceding bound the integral converges absolutely at \(s=1\).
+The limit as real \(s\downarrow1\) equals
+\(C_\chi=\int_1^\infty R_\chi(u)\,du/u^2\).
+For \(\chi\ne1\), \(C_\chi=-L'(1,\chi)/L(1,\chi)\).
+For \(\chi=1\), the Laurent expansion
+\(\zeta(s)=(s-1)^{-1}+\gamma+O(s-1)\) gives
+\(-\zeta'(s)/\zeta(s)=(s-1)^{-1}-\gamma+O(s-1)\), so
+\(C_1=-1-\gamma\) \cite[(25.2.4)]{dlmf}.
+It follows with these exact centerings that
+\[
+ G_\chi(y)=A_\chi(y)-\delta_\chi y\log y-yC_\chi
+          =-y\int_y^\infty R_\chi(u)\frac{du}{u^2}.
+\]
+The first error integrates to \(O((\log Q)e^{-c\log y/\log Q})\), with
+\(\log y/\log Q\gg x^{2\varepsilon/15}/(\log x)^2\). The second is
+\(O(e^{-c'\sqrt{\log y}})\), with \(\sqrt{\log y}\gg x^{\varepsilon/6}\).
+Thus
+\begin{equation}
+\label{eq:host-character-tail}
+  |G_\chi(y)|\le y\exp(-c_6x^{\varepsilon/8})
+  \qquad\bigl(y\ge \exp(x^{\varepsilon/3})/3\bigr)
+\end{equation}
+for all primitive associates of the host characters, including \(\chi=1\).
+The constant \(c_6>0\) and the threshold in \(x\) are uniform for the
+fixed target and \(\varepsilon\). For the target of conductor one, the
+square-root estimates apply to \(\eta_q,\eta_d,\eta_q\eta_d\), and the
+large-argument estimate also applies to characters that are
+nontrivial on \(H\).
+
+\teamanchor{candidate.family}%
+\textbf{AI-proposed candidate (uniform higher fine Selmer bounds on
+windows).}
+Fix the target \(\psi\), \(0<\varepsilon<1/52\), and an admissible
+dyadic profile \(h\). The release's
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ExistsPageN.lean}{44}{Selmer window assertion}
+chooses \(J\ge1\) and \(X_0\) before \(X\) and the primes.
+For every \(X\ge X_0\) and every pair with the prescribed sizes and
+congruences at \(Z=X^{1/J}\), it gives \([W,W^2]\subseteq[Z,X]\).
+At every real \(y\in[W,W^2]\), the field \(E(h(y),q,d)\) satisfies
+\eqref{eq:family-selmer} with \(t=\lfloor y^{401}\rfloor\) and
+\(B=\exp(y^\varepsilon/2)\), uniformly over all finite prime sets
+and all choices of decomposition data.
+
+Poitou--Tate duality and \(K\)-theory give finiteness at fixed field
+and twist. Lim's \(\mu\ell^n+\lambda n+O(1)\) growth formula for
+the \(\ell\)-part fixes \(\ell\), the twist and the
+\(\mathbf Z_\ell\)-extension \cite[Proposition~5.1]{f1lim-wild}.
+In the bound of Bayer-Fluckiger, Emery and Houriet for the logarithmic
+order of \(K_n(\mathcal O_E)_{\rm tors}\) modulo the subgroup generated
+by elements of order at most \(\max([E:\mathbf Q]+1,2n+2)\), the factor
+\([E:\mathbf Q]^{293 n^5[E:\mathbf Q]^5}\) alone exceeds the window
+budget at \(n\asymp y^{400}\) and \([E:\mathbf Q]\asymp y^{2+8\varepsilon}\)
+\cite[Theorem~1.1]{f1bayer-fluckiger-emery-houriet}.
+The abelian equivariant Tamagawa number formula relates leading
+terms to integral cohomology and a regulator in positive rank.
+Bounding the order of the finite cohomology from such an identity
+by estimating its factors separately would require lower bounds
+for the regulator on the same fields and twists
+\cite[Corollary~1.2]{f1burns-flach}
+\cite[\S5.4, (26)]{f1soule-torsion}.
+
+For \(\psi=1\), assume the Selmer window assertion and choose \(q,d\)
+by the classical prime estimates at \(Z=X^{1/J}\). These primes work
+on \([W,W^{3/2}]\), with \(W\) arbitrarily large. At each point the
+Selmer bound at cutoff \(\lfloor x^{400}\rfloor\) feeds the local
+division of Section~\ref{sec:integral}. The quadratic-twist estimates
+and the large-argument estimate \eqref{eq:host-character-tail} on the
+same fields feed Section~\ref{sec:fourier}.
+Section~\ref{sec:assembly} joins these inputs with the level and period
+comparisons.

@@ -1,0 +1,1217 @@
+\section{Bounds on intervals and the critical line}
+\label{sec:zeros}
+
+\subsection{One family for the lattice and Fourier estimates}
+\label{sec:assembly}
+
+Take the conductor-one target \(\psi=1\). Fix the loss exponents
+\(e_D=2,\ e_L=0\) and the balance constant \(C_0=3\) used in the
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopShape.lean}{50}{window construction}.
+
+\teamanchor{proof.join-size-requirements}%
+The uniform comparisons of Sections~\ref{sec:family}--\ref{sec:fourier}
+have finitely many precision cutoffs and size requirements. A lower
+bound may be a function of earlier constants. At fixed precision take
+the pointwise maximum \(K_*\) of the lower bounds in each position.
+In the position for \(C_H\) include the bound
+\(1+\max\{4P_t+1,9P_t+2,9P_t+1,C_{F,0}\}\)
+from \eqref{eq:raw-height-cap}. Here \(P_t\) comes from the twist
+cutoff and \(C_{F,0}=c_F+1\) comes from the row height after
+the finite level change. Both are functions of the earlier data.
+Thus the same \(C_H\) is available for the height and the trace
+accuracy before choosing a scale or translate.
+A family meeting \(K_*\) therefore meets all of the size
+requirements. Each comparison also requires its hypotheses on the
+local models and maps.
+\releasecite{Formalism/SharpRestriction/ParamsHeightRankConstant.lean}{138}{Staged lower bounds}
+
+\medskip
+\noindent
+\teamanchor{proof.choose-compatible-family}%
+\textbf{Simultaneous family selection (input).}
+Assume the availability of the arithmetic hosts on intervals from
+Section~\ref{sec:family}. There is an existence cutoff
+\(\varepsilon_{\rm ex}>0\). For each
+\(0<\varepsilon<\min(1/52,\varepsilon_{\rm ex})\) and each
+system \(K\) of staged lower bounds there exist one family
+\(\mathfrak F\) and one exponent \(C_H\ge0\) meeting \(K\).
+The family has the following data and conditions.
+
+\begin{enumerate}
+\item The set \(\operatorname{Win}(\mathfrak F)\) of real scales
+contains intervals \([Y,Y^{3/2}]\) with arbitrarily large \(Y\).
+Each scale in this set has a nonempty index set \(I_x\). Beyond a
+family threshold the indices use the prescribed arithmetic hosts
+at \(x\).
+
+\item At each such scale an index specifies \(E/F\), a coefficient
+field with its places, the ranks and weights of the towers, the
+levels, the words and their local twists, the period spaces with
+their row and column coordinates, and the corresponding test and
+integral lattice data. A word, tuple, stage and place specify its
+local Hecke data and intended test in these coordinates.
+At a fixed \(x\), the indices have specified identifications
+of the ranks, word labels and their letters, \(q,d,Q_S\), the
+Artin coordinates and \(T,T_2\). The rank, level-prime and
+sample cardinality conditions are those in Section~\ref{sec:family}.
+The stage weights and the range for \(b_t\) are the raw intervals
+in Section~\ref{sec:fourier-sampling}.
+
+With \(b=\exp(x^\varepsilon)\), the level of each word satisfies
+\(b^{m/2}\le T_w\) and \(\log T_w\le C_T m\log b\).
+Write \(f=[F:\mathbf Q]\) and \(R_m=k+m(t+1)=\operatorname{rank}X_m\).
+The positive integer \(D_\Gamma\) at this index is a common
+multiple of the class stabilizer orders in the column chains.
+Its prime divisors are at most \(2fR_m+1\) and
+\(\log D_\Gamma\le C_\Delta fR_m\log(fR_m)\).
+Here \(C_T,C_\Delta\) are uniform family constants.
+The column dimensions satisfy \eqref{eq:trace-balance} and
+\[
+ C_0\Gamma^2x^{C_H}\le |W|\le C_0\Gamma^2x^{C_H}+1
+\]
+in the trace notation.
+
+\item The record includes admissible integers \(a_t,b_t\) on \(T\).
+In particular \(a_E\le a_t\le a_E+a_E/(kx^{13})\), where \(a_E=xb\).
+For any seed and any \(u\in H\) there is an index whose translate
+is \(u\) and whose two arrays agree with the seed's under the common
+labeling of \(T\). The weights at \(u\) are read from the stage data
+of this translated index.
+\end{enumerate}
+
+This statement uses the selection part of Alp\"oge's
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkEx.lean}{15}{design existence theorem}
+and the \releasecite{Formalism/SharpRestriction/FamCore.lean}{76}{common data and the translate property}.
+The character estimates and the Selmer input enter through the
+arithmetic hosts of Section~\ref{sec:family}. The local, trace and
+height comparisons enter through separate hypotheses in the
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesWin.lean}{11}{subsequent assembly in the release}.
+
+\paragraph{The rows and field on which the two section estimates hold.}
+\teamanchor{proof.section-run-family-identification}%
+Section~\ref{sec:integral} constructs the two auxiliary section
+systems on the base level \(g_0g_1\) with their respective additional
+primes. Its numerical estimates use a common geometric coefficient
+field \(K_0\). This field is chosen before the larger field containing
+the moving character values. They also use the Harish--Chandra rows
+with specified spacings. Consecutive entries in the initial block
+differ by \(4\Delta\). In each subsequent block the nodes are
+\(B_\tau+lH\) and \(B_\tau+(l+\tfrac12)H\), with the same prescribed
+\(\Delta,H\) for all words. These choices give the gaps in the flag
+weights and the bound on the degree and root discriminant of \(K_0\)
+used in the section heights.
+
+The remaining identification is simultaneous. For the same family
+\(\mathfrak F\) furnishing the selected period and relative trace
+data, fix a threshold before choosing a real scale. At each scale in
+its windows above that threshold, one needs a seed \(i_0\) and, for
+every \(u\in H\), an index \(i(u)\) with that seed's sample arrays.
+Each \(i(u)\) must retain the specified rows and its initial
+embedded \(K_0\) at both auxiliary levels. The periods and test
+columns must be those of \(i(u)\). One such simultaneous choice
+suffices. The fixed-level construction makes the indicated
+choices before constructing the stages. Passage to the family
+preserves properties supplied at each index. Item~2 of the selection
+statement gives intervals for the rows and an ambient coefficient
+field. An interval can contain differently spaced entries, and an
+ambient field can have arbitrarily large degree. This text proves
+the two estimates for the specified rows and field. Their simultaneous
+identification at the selected translates remains open in the
+reconstruction. The lattice and window estimates below are conditional
+on that identification.
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsRecordOverChoices.lean}{41}{Field and stages over fixed level and row choices}.
+
+\paragraph{The integral lattice in the ramified columns.}
+\teamanchor{proof.ramified-donor-identification}%
+The other outstanding identification concerns each word \(w\) at
+its split level prime \(T_w\). In the complex column space,
+Section~\ref{sec:trace} computes the subspace on which the averages
+in all \(f\) residue-unit directions vanish. Its dimension is
+\[
+ d_r=d_M\left(\frac{T_w-2}{T_w-1}\right)^f,\qquad
+ d_M=\operatorname{rk}M_w .
+\]
+The slope estimate uses the integral sum-zero lattice \(H_w\) in
+the definite class lattice \(M_w\), with its specified metrics at
+every complex embedding. The needed identification realizes the
+actual undivided source \(N_w\) isometrically as a full-rank
+sublattice of \(H_w\), with the zero-stage norm used by the column
+operators. At a coefficient place \(v\nmid T_w\) of absolute
+ramification index \(e_v\), it must give
+\[
+ (N_w)_v\subseteq\mathfrak p_v^{e_v\tau_v}(H_w)_v,\qquad
+ \operatorname{length}_{\mathcal O_v}((H_w)_v/(N_w)_v)
+     \le e_v d_M(\tau_v+\iota_v).
+\]
+At \(v\mid T_w\) it must give the separate weighted level-index
+bound in the \hyperlink{proof.divided-column-slopes}{calculation
+of the divided-source slopes}. On the sum-zero model the Gram
+determinant gives the global correction
+\(\mu(H_w)-\mu(M_w)=-f\log(T_w-1)/(T_w-2)\). Applying this
+formula to the actual columns requires the integral and metric
+identifications just stated. The
+reconstruction proves the slope and norm deductions with this
+identification as a hypothesis. The \hyperlink{candidate.gain}{Frobenius divisibility and loss bound}
+applies in its stated domain.
+
+\paragraph{Which character is used at a final index?}
+\teamanchor{proof.selected-ray-transport}%
+The order of choices matters for the simultaneous specialization in
+Section~\ref{sec:integral}. Use the family produced by the selection
+above. Its preliminary index has the host, words, reference levels
+and placed class data before the moving characters are chosen.
+There is a finite set of marked places, defined by the row indices,
+local shifts and content conditions. It is the inverse image of a
+conjugation-stable set in a fixed coefficient subfield \(K_0\).
+The Galois signatures, toric distributions and projected base
+theta columns at this index determine the tests for specialization.
+For each conjugacy orbit of marked places of \(K_0\) take one of the
+ray characters furnished by simultaneous specialization. Carry the
+previously chosen rational conductor primes into the next avoidance
+set. There are finitely many orbits, so the supports for distinct
+orbits can be disjoint. Keep the support, order and reciprocity
+reading of each of these particular characters. At the other places
+use the trivial character.
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/DisjointConductorPlacesExcludedSet.lean}{139}{The three marking conditions}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExistsUnlocalizedSaturatedState.lean}{64}{The preliminary arithmetic data}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/TwistDataAgreeAcrossCoefficientsSymm.lean}{133}{The choice of ray data}.
+
+The second pass of the family construction takes this finite list
+as input. It adjoins its character values and the algebraic
+constants in the test models to the large coefficient field. It
+keeps \(K_0\) with its given embedding. The new marks are the
+inverse images of the old ones. The base finite-level equations,
+class representatives and real frames are carried to the same
+base data. The construction realizes the moving characters with
+the same ray groups, toric distributions and finite Hecke
+correspondences. The final index retains the choice of side,
+support and order. The geometric input here is the existence of
+this matched adelic realization for the chosen preliminary data,
+at every final index above one family threshold and before any
+Fourier translate is picked.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/FiniteLevelAndSecond.lean}{83}{Realization of the chosen characters}
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/CoefAEqOfHeq.lean}{166}{The compatible geometric enlargement}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExistsMemberOfConstructionStepsSecondPass.lean}{49}{Passage to the final member}.
+
+\paragraph{The normalized theta series and its integral lattices under enlargement.}
+\teamanchor{proof.selected-series-transport}%
+Fix a test with the same stage, side, ray support \(Q\), order
+and character in the two realizations. Write \(K\subset K'\)
+for the large coefficient fields. The smaller fields and their
+signed embeddings and local rings \(O_i,O_{i,k}\) are identified.
+Let \(\omega\) be the Weil action and let \(\mathcal F(v,P)\)
+be the Fock vector of the finite section \(v\) and harmonic
+polynomial \(P\) in the prescribed infinite vacuum. Its theta
+series at a finite source representative \(h\) and target point
+\(g\) has value
+\[
+ T_v(h,P;g)=\bigl(\omega(h,g)\mathcal F(v,P)\bigr)(0).
+\]
+The matched lattices and split halves identify the base local
+sections, the determinant test functions at \(Q\) and the
+translations placing their product in the Weil model. The
+splitting characters and harmonic frames agree, so the displayed
+value agrees. For the universal series let \(v_a\) be the section
+at ray coordinate \(a\), and let \(d_Q(g)\) be the ray coordinate
+of the target determinant. Multiplication by its group-ring basis
+element translates the coefficient at \(a\) to the value
+\(T_{v_{a-d_Q(g)}}(h,P;g)\). Thus the coefficients already agree
+before evaluation at any character. The specialized determinant
+character on \(g\) also agrees. For a class form \(F\) the full
+theta value is the sum of \(T_{v_\psi}(h,F(h);g)\) divided by
+the order of the stabilizer of \(h\), over all source classes.
+At corresponding levels the representatives and stabilizers agree
+term by term.
+\releasecite{Development/AbelianVarietyTheory/Definitions/NonGaloisDescent/AdmissibleEmptyOfGood.lean}{193}{The determinant shift}
+\releasecite{Development/AbelianVarietyTheory/Definitions/NonGaloisDescent/AdmissibleEmptyOfGood.lean}{279}{The class sum}.
+
+Use the same scalar \(\nu\) for the real normalization at this
+stage and side. Indeed, transport the extremal vector and a
+compatible polynomial frame. Their scale relation is unchanged
+on a \(K\)-basis and hence on its \(K'\)-span. Changing between
+two admissible frames of the irreducible lowest type multiplies
+the map by a scalar by Schur's lemma. Its value on a nonzero
+rational coordinate places it in the common CM subfield. The
+scalar preserves a nonzero finitely generated integral lattice
+and is therefore integral. Preservation of the Hermitian pairing
+gives \(a\bar a=1\). All its conjugates have absolute value one,
+so \(a\) is a root of unity. The scale condition is agreement
+of positive powers. Taking a multiple of the order of \(a\)
+preserves it in both directions. On a tensor \(z\otimes f\) the
+normalized evaluation is
+\(\nu^{-1}\iota(z)\operatorname{ev}_{v_0}(f)(g)\), where
+\(\iota\) is the signed embedding and \(v_0\) the extremal vector.
+All three factors agree. Pure tensors span, so the rational
+spaces of values and their membership conditions agree.
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/StarMulSelfOfPair.lean}{127}{The integral phase}
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/ExtremalVectorMemLowestKType.lean}{234}{Admissibility of the same scalar}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExportTieMove.lean}{31}{The normalized evaluation}.
+
+For the integral comparison, let \(J\) be the finite source
+level with character \(\lambda_J\), and \(M_h\) the Hermitian
+lattice obtained by translating the local source lattices by
+\(h\). At \(h\) the coefficient functions of an integral
+harmonic polynomial lie in the \(O_{i,k}\)-span of evaluations
+of the dual Weyl tensors of \(M_h\). In matched local bases the
+standard integral weight modules, their duals and the determinant
+twists have the same matrices. Substitution in the polynomials
+commutes with the identification of the small fields, hence these
+integral harmonic lattices coincide. A class form must take
+values in them and satisfy
+\[
+ F(\gamma h u)=\lambda_J(u)\rho(\gamma)F(h)
+ \qquad(\gamma\in G(\mathbf Q),\ u\in J),
+\]
+where \(\rho\) is the polynomial action and \(G\) the source
+group over \(\mathbf Q\). The stabilizer equations and this law
+identify the integral forms in both directions. To pass back to
+the coefficient coordinates, let \(m_j(g)\) be the finite matrix
+of a geometric argument \(g\) at stage \(j\). The harmonic value
+of a coefficient vector \(f\) at \(m_j(g)\) is the image of
+the realized value \(f(g)\) under the fixed injective coefficient
+map. The matched adelic matrices agree entry by entry, and the
+finite representation and small-field action identify \(f(g)\).
+The inverse images of the integral class forms under this map
+are therefore the same at the two tests.
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/SubsetTwistExceptionalPlaces.lean}{123}{Harmonic evaluation on the finite representation}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/KeepsMatHeqRefl.lean}{22}{The finite matrix at this argument}.
+In particular all
+admissible base translates have the same support, coefficients
+and theta values. Applying the same rational Hecke projection
+and taking the span of their columns commutes with any further
+extension of the coefficient DVR, even in residue characteristic
+dividing the order of the level group. The universal coefficient
+identity gives the corresponding assertion for the specialized
+columns. The index comparing the base and the genuinely twisted
+lattice at the final level is estimated in Section~\ref{sec:integral}.
+\releasecite{Development/AbelianVarietyTheory/Definitions/NonGaloisDescent/AdmissibleEmptyOfGood.lean}{240}{Integral harmonic values and the level law}
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/LiftSetupOverExtendedDataIntegralFormsEq.lean}{172}{Integral class coordinates in the two realizations}.
+
+Assume the three estimates of Section~\ref{sec:integral} on the
+preliminary signatures, toric distributions and theta tests.
+To transfer them, take a marked place \(w\)
+of the final coefficient field above \(\ell\), and let \(\alpha\)
+be the preliminary character at its restriction. The two readings
+of the same complex roots of order \(\ell^k\) differ by a power
+\(u_w\in(\mathbf Z/\ell^k\mathbf Z)^\times\).
+The normalized Frobenius values away from the exceptional places
+agree after this change of roots. Chebotarev on the finite ray
+quotient therefore identifies the entire final character with
+\(\alpha^{u_w}\). A primitive power on either prescribed side
+is now a power \(\alpha^{\pm a u_w}\) with \(\ell\nmid a u_w\).
+It has the same conductor and the same trivial restrictions at
+the places over \(\ell\). The specialization in
+Section~\ref{sec:integral} works for every such power on one
+set of tests. When a coefficient DVR is extended, an integral
+determinant valuation and the valuation of \(\ell\) are both
+multiplied by its ramification degree. This preserves each
+normalized signed lattice index and each toric valuation.
+Extension is finite free on the Galois lattices. In an integral
+basis it commutes with cohomology, the inverse image of the
+rational finite condition and the kernels of the localization
+maps. The resulting normalized Selmer lengths are also the same.
+Thus the three estimates apply to the same character at this
+index, with their original tolerances. The structural selection
+identifies their arguments; their bounds come from the
+corresponding local and global calculations.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RigidRawPacketEqPow.lean}{13}{Identification by Frobenius values}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/GoodTwistOfSeedCharacterPowers.lean}{157}{The same primitive powers in all the tests}.
+
+\teamanchor{proof.same-family-hypotheses}%
+Fix \(\varepsilon\) below \(1/52\), the existence cutoff and all the
+comparison cutoffs. Apply selection once with \(K_*\). Use the same
+\(C_H\ge1\) for the trace accuracy \(x^{-C_H}\) and the height test
+\(H_*\le x^{C_H}b\). The following application uses the comparisons
+in Sections~\ref{sec:family}--\ref{sec:fourier} on this family, including
+the \hyperlink{proof.section-run-family-identification}{choice of
+rows and field at each translated index} and the
+\hyperlink{proof.ramified-donor-identification}{integral
+identification of the ramified columns}.
+
+\begin{itemize}
+\item At a fixed sufficiently large \(x\in\operatorname{Win}(\mathfrak F)\)
+choose \(i_0\in I_x\) and use its arrays as the seed. For each \(u\in H\)
+choose \(i(u)\in I_x\) by the translate property. Its arrays agree with
+the seed also for \(u=0\), whose index may differ from \(i_0\).
+At \(i_0\), Section~\ref{sec:family} gives the three auxiliary quadratic
+twist estimates at \(x\) and the tail estimate
+\eqref{eq:host-character-tail} for every primitive associate of a host
+character. At each \(i(u)\), the bound \eqref{eq:family-selmer} applies
+to the selected field at its actual twist cutoff
+\(t\le\lfloor x^{400}\rfloor\).
+
+\item Use the matched period maps at \(i(u)\). The full base image and
+small-level projections enter the rank comparison. For the actual
+tuple at a finite place, \eqref{eq:period-selected-twist-avoidance}
+gives the required prime avoidance, and
+\eqref{eq:period-selected-local-row-lattice} identifies the localized
+row lattice with the span of the projected integral forms.
+The theta--Bessel normalization unit enters the lattice comparison, and the
+Bessel maps into the corresponding Petersson space enter the Gram
+comparison. At a nonbase twisted place the local Hecke ranks sum
+to the dimension of the full definite source \(M^L_{\mu,j}\) in
+\eqref{eq:record-local-rank-sum}. At the base twist the rank of
+the good target \(M_j\) is \(d_j=D_0\) by
+\eqref{eq:record-base-rank-sum}. It is this rank that occurs in
+\eqref{eq:integral-selmer} for \(1\le j\le m\).
+The lower bound \(m\ge x^{1/2-\varepsilon}\) and evenness give
+\(m\ge4\) for large \(x\), so the bottom comparison has \(m/2-1\ge1\).
+
+\item The period maps on the divided sources and into the one row
+dual at \(i(u)\) carry the metrics of Sections~\ref{sec:trace} and
+\ref{sec:integral}. The gain and lattice estimates use the Selmer
+defect bound, the uniform Gram and reference-row bounds, the height
+and slope comparisons in those metrics, and the centered level
+count. On these hypotheses the lattice implication gives
+\(D(u)\le E_x\) by \eqref{eq:integral-excess} for each \(u\), with
+uniform constants.
+\end{itemize}
+
+At the same \(i(u)\) each \(h_w\) bounds the period map on its
+divided source. The lower level bound and \(S_a=\sum_t a_t>0\)
+give \(h_w\le h^*(u)\) for every word. Replacing each \(h_w\) by
+this common upper bound lowers the adjusted mean to
+\(s\le s_{\rm raw}\). Since the target is the row dual with its
+squared Petersson norm, \(\mu_{\min}(C)=-\mu_{\max}(R)\).
+The height cap \eqref{eq:raw-height-cap} therefore gives
+\[
+ \max(0,s-\mu_{\min}(C))\le x^{C_H}b .
+\]
+The common shift cancels in the difference of the donor slopes.
+This proves the height condition for the frame estimate with the
+exponent \(C_H\) already used in \eqref{eq:trace-accuracy}.
+
+\paragraph{Two local rank comparisons.}
+\label{sec:window-local-ranks}
+\teamanchor{proof.window-local-ranks}
+At a base-tuple stage, let \(L_j\) be the small-level isotypic
+space and \(V_j\subseteq L_j\) its selected irreducible-type
+part. The inclusion follows because the central type idempotent
+commutes with the level idempotent, and \(V_j\) is the image of
+their product. Let \(Z_j^{\rm coord}\subset V_j\) be the coordinate
+row subspace used for the lifted tests. The actual block projection
+from \(L_j\) to \(Z_j^{\rm coord}\) first projects to \(V_j\), then
+projects for its positive Hermitian form onto \(Z_j^{\rm coord}\).
+Its restriction to the included \(Z_j^{\rm coord}\) is the identity,
+so it is onto. This is the right-inverse identity for the two
+small-level maps in the
+\releasecite{Formalism/LocalToGlobal/Divisibility/LiftLatLemmas.lean}{198}{projected coordinates}.
+
+Put \(i=j-1\). The map entering this rank is the auxiliary lift
+\(\Theta_{P_0,\boldsymbol\mu,j}\) from the definite group of rank \(r+t\) to
+the group of rank \(r\). The descent through the spaces \(Y_k\)
+of ranks \(r+kt\) supplies the bottom image used in the period
+comparison. For the auxiliary lift use the source class-coordinate
+inclusion \(I_{i,\boldsymbol\mu}\), the fitted projection \(P_ZV^\flat E_J\),
+and the target basis map \(j_{W,i}\) of
+\eqref{eq:period-fitted-stage-vector}. The one-step norm of
+Section~\ref{sec:stage-petersson} is positive on each occurring
+target summand. Applying the commuting good and level projectors
+to a preimage gives surjectivity on the cut. Thus the restriction
+to the rational kernel complement has invertible matrix
+\(U_{i,\boldsymbol\mu}\). For a standard target coordinate \(e_a\), set
+\[
+ x_a=E_J^\flat VZ\,U_{i,\boldsymbol\mu}^{-1}e_a.
+\]
+Applying the right-inverse identity and then the column formula gives
+\[
+  (P_ZV^\flat E_J)x_a=U_{i,\boldsymbol\mu}^{-1}e_a,\qquad
+  \Theta_{P_0,\boldsymbol\mu,j}(I_{i,\boldsymbol\mu}x_a)=j_{W,i}(e_a).
+\]
+The vectors on the right span the stage multiplicity space \(M_j\).
+The kernel of the adjoint \(\Theta_{T,j}\) is orthogonal to their
+span, so the adjoint is injective.
+
+\paragraph{The base record and its finite-type blocks.}
+\teamanchor{proof.base-record-blocks}%
+Use the common small level \((P_0,\psi_0)\) and base tuple
+\(\boldsymbol\mu_0\). The bottom row space is the selected space on
+\(U(Y_0)\), with the real model used for the bottom period. For
+\(j=i+1\), the space \(M_j\) in the record is read on the auxiliary
+rank-\(r\) group \(U(W_i)\). Its fitted theta map comes from the
+rank-\((r+t)\) auxiliary group \(U(V_i)\), as in
+\eqref{eq:period-fitted-stage-vector}. The descent from the definite
+top of the \(Y\)-tower enters through the bottom period and its
+spherical eigenvalue transfer.
+
+First compare the finite group actions. Let \(\Gamma\) be the
+product of the rank-\(r\) residue groups at the type places. The
+principal level is the kernel of the rank-\(r\) reduction within
+the subgroup acting in each selected frame. The suffix character
+is included in the lift of this action. In the adelic realization
+one takes right translation by a lift of \(g\in\Gamma\), divided
+by its prescribed suffix character. The covariance under the
+principal level shows that the result is independent of the lift.
+For a definite class value, write the translated representative as
+\(\gamma g_c u\), with \(\gamma\) rational and \(u\) in the level
+subgroup. The resulting value is the same coefficient action of
+\(\gamma\) on the value at \(g_c\), with the level factor from
+\(u\). This is the class-coordinate matrix \(\rho(g)\) of the
+action. For a character \(\eta\) of \(P_0\), a central element
+\(z=\sum_g z_g g\) acts on its level coordinates by
+\[
+ E_{P_0}^{\flat}\Bigl(\sum_g z_g\rho(g)\Bigr)E_{P_0},
+ \qquad
+ e_{P_0,\eta}=|P_0|^{-1}\sum_{h\in P_0}\eta(h)^{-1}\rho(h).
+\]
+Here \(E_{P_0}\) and \(E_{P_0}^{\flat}\) are the prescribed
+inclusion and orthogonal coordinate projection, whose composite
+in the other order is the level projector displayed on the right.
+For both normalized actions in the fitted comparison the residue
+character is \(\eta=\psi_0^{-1}\). On the auxiliary source this comes
+from the ratio of the enlarged level character to the source flag
+character. On the row it is the level character of the read model.
+Thus the coefficient of \(\rho(h)\) in the level average is
+\(\psi_0(h)/|P_0|\) on both sides.
+Centrality gives commutation with that projector. Taking \(z\) to
+be the sum of the central idempotents of the allowed Green types
+gives the prescribed good cut. The same averaging acts on the
+actual automorphic vectors. Complex conjugation between the two
+bottom realizations inverts the finite level character and
+conjugates the central projector.
+The allowed list is stable under duality, so the central projector
+is unchanged by conjugation. The scalar \(\sqrt{n_{P_0}}\) in the
+level embedding of \(M_j\) cancels when transporting the group
+actions.
+\releasecite{Formalism/LocalToGlobal/Divisibility/RowLat.lean}{248}{The inverse character in the auxiliary projector}
+\releasecite{Formalism/LocalToGlobal/Divisibility/GoodPartHermitianSpec.lean}{116}{Level coordinates and central matrices}
+\releasecite{Formalism/LocalToGlobal/HilbertRowConditions/CenterIdempotentAction.lean}{17}{The same claim for the prescribed bottom level}
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/StableIffCarrierEq.lean}{116}{The level embeddings and their normalizations}.
+
+Now let \(\sigma\) be a finite adelic isomorphism class occurring
+in either rank-\(r\) good space. It contains a tensor of allowed
+finite types in its principal-level fixed space. Indeed, the
+good projector is a central sum of isotypic projectors, and a
+nonzero vector of its image has a nonzero component for one
+summand. At the base level \(P_0\), the factors of \(\psi_0\) are
+nondegenerate Whittaker characters of the chosen maximal unipotent
+groups. Every allowed tensor contains such a line. In each local
+parabolic induction the open parabolic--unipotent cell gives the
+tensor product of the cuspidal Whittaker lines
+\cite{tr3green,tr3gelfand}. Conjugation by the alternating diagonal
+inverts the character. A type occurring at either of the two bottom
+levels therefore occurs at the base level in the same finite adelic
+representation. The lifts of the residue action preserve the common
+principal level and all level conditions away from the type places.
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/LinksDefs.lean}{430}{Level away from the type groups}
+\releasecite{Development/AbelianVarietyTheory/Proofs/SatakeParameters/GoodGenericCharacterOfSeriesTypes.lean}{23}{The two signs on the Whittaker line} and
+\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/BlockFrameConjugationIdentity.lean}{243}{The resulting base vector}.
+
+By the Green parametrization \cite{tr3green} each allowed local factor
+is induced from the distinct cuspidal factors associated with
+the irreducible factors of its squarefree polynomial. If an
+\((a,r-a)\) unipotent radical fixed a nonzero vector, the finite
+Mackey formula would admit a double coset for which each cuspidal
+block lies entirely on one side of the cut. A block meeting
+both sides would give a proper unipotent radical of that block
+and its cuspidality gives zero. Thus \(a\) must be a subsum of
+the factor degrees. The first type-prime condition excludes a
+common subsum of degree \(a\) at all the selected places over
+\(g_0\) for \(1\le a\le r/2\). Taking complements gives the
+exclusion for \(r/2<a<r\). For each \(a\), therefore, some actual
+type factor in \(\sigma\) has zero invariants under that radical.
+The criterion also holds for the dual types.
+\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/IrreducibleNotKilledByGoodProjectorSatisfiesH.lean}{159}{The Green test for a surviving type}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsTypeVectorOfGoodLevelRepresentation.lean}{116}{Insertion into the occurring finite representation}.
+
+The same test excludes a global proper block of size \(a\).
+At the chosen split place, the group is \(\mathrm{GL}_r\) and
+the principal compact subgroup is \(K(1)\). By Iwasawa
+decomposition, the \(K(1)\)-invariants of normalized induction
+from the \((a,r-a)\) parabolic are the finite parabolic
+induction of the inducing Levi's principal invariants. Taking
+these invariants is exact by compact averaging, and finite
+Frobenius reciprocity shows that each irreducible finite type
+in a subquotient has nonzero invariants under the finite
+unipotent radical. The same conclusion applies to a refinement
+of the parabolic by induction in stages. This contradicts the
+type factor just found. In particular, the discrete automorphic
+occurrences with this finite cut are cuspidal, since a residual
+constituent is a subquotient of induction from a proper global
+Levi and its block sizes specialize at each split place.
+
+We compare multiplicities for this particular \(\sigma\).
+The two rank-\(r\) groups are Hermitian pure inner forms of the
+same quasi-split unitary group. Their matched finite lattice
+frames identify the local groups by inner isomorphisms, carrying
+the level subgroup, its character and the residue homomorphisms.
+At all real places the conjugate bottom model and the model on
+\(W_i\) have the same list of Harish--Chandra parameters with
+signs forgotten. The selected signatures and assignments of
+the entries to the two signs determine a discrete-series member
+on each group. The lists are integral at this odd rank, with
+adjacent gaps greater than \(1\).
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/TraceEqXOfGeomExpansionX.lean}{502}{The real weights and their gaps}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/FinrankBaseRowsIsotypicEqGoodFormsIsotypic.lean}{97}{Matched frames on the same finite isotypic space}.
+
+For either actual occurrence, Labesse's weak base change
+identifies local base change at every split place as well as
+at the unramified places. The hypotheses on the CM extension
+and real field hold for the chosen host, including
+\([F:\mathbf Q]\ge 2\). The archimedean sign condition in that
+theorem follows from the gaps. In fact Salamanca--Riba's
+classification, applied to \(\mathrm{SU}(p,q)\) with the central
+character fixed on \(U(p,q)\), makes a unitary representation
+of this infinitesimal character an \(A_{\mathfrak q}(\lambda)\)
+induced from a character of a \(\theta\)-stable Levi. In any Levi
+block of size greater than one, both \(\lambda\) and
+\(\rho(\mathfrak u)\) are constant on the block and
+\(\rho(\mathfrak l)\) has two entries at distance one. The
+infinitesimal character would contain two entries at distance
+one. Hence the Levi is toral, giving a discrete-series member
+of the same real packet. These are precisely the representations
+allowed by Labesse's criterion for the pseudo-coefficient at
+infinity \cite{rank-labesse,rank-salamanca}.
+
+Write the base change as an isobaric sum of discrete
+representations of general linear groups. With several summands,
+the rank \(a\) of one summand yields the proper parabolic
+test above at each split place. With a single noncuspidal
+discrete summand, the M\oe glin--Waldspurger description is
+Speh from a fixed cuspidal rank \(a<r\). Its local components
+are subquotients of induction of twists of that same rank,
+so the same test applies. Therefore the stable base change is
+a single cuspidal \(\Pi\) of \(\mathrm{GL}_r(\mathbb A_E)\).
+The comparisons here use Labesse's local statement at the
+ramified split type places as well \cite{rank-labesse,rank-moeglin}.
+
+In the Kaletha--M\'inguez--Shin--White classification take
+\(\kappa=+1\), \(\chi_+=1\), which gives this same stable
+base change. Their Corollary~3.3.2 attaches the Satake records
+of the actual discrete occurrence to a global parameter.
+At almost every place of \(E\) its general-linear record
+equals that of \(\Pi\), by local base change at split and
+inert places. Theorem~4.4 of Jacquet and Shalika identifies the
+cuspidal inducing factors, up to permutation, from this equality of
+unramified components outside a finite set \cite{rank-jacquet-shalika}.
+There is just one factor, namely \(\Pi\), of rank \(r\) and with
+Arthur \(\mathrm{SL}_2\) of dimension one. For a simple
+parameter the centralizer modulo the invariant dual center is
+trivial. Apply the proved generic, pure-inner case of
+Theorem*~1.7.1. The transported finite factors stay in the
+same local packets by the inner isomorphisms. At infinity
+the common unsigned list gives the same local discrete
+parameter and the chosen signs give the specified member on
+the other group. With trivial global component group this
+tensor therefore occurs there with multiplicity one. Starting
+on either group gives the same argument \cite{rank-kmsw}.
+
+Consequently the contribution of \(\sigma\) to either level is
+the dimension of the same finite space
+\(e_{\mathrm{good}}\sigma^{J_0,\psi_0^{-1}}\), where \(J_0\) denotes
+the transported level. Use its conjugate realization on the
+bottom. The record's \(D_0\) is the size of the chosen basis
+\((b_k)\) of that bottom space with type labels \(\operatorname{ft}_0(k)\).
+The stage labels are read by the actual finite isotypic spaces
+on \(W_i\). In particular, if \(M_j[\sigma]\) denotes that
+stage isotype, then at each labelled \(\sigma\) the identity is
+\begin{equation}
+ \label{eq:record-individual-isot-rank}
+ \dim_{\mathbf C} M_j[\sigma]
+ = \#\{k:\operatorname{ft}_0(k)=\sigma\}.
+\end{equation}
+The matched groups also give the reverse inclusion on occurring
+labels, so these spaces exhaust \(M_j\).
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/RowsRestWordColumnUnitBaseTupleAlt.lean}{356}{The actual basis, finite-type labels and auxiliary stage}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/FinrankIsotEqIsotL.lean}{17}{Reading the stage isotype in its original frame}.
+
+Finally match the spherical labels. Off the type and exceptional
+places, each finite representation \(\sigma\) has a spherical
+line. Its scalar for the double coset of weight \(d\) on
+\(W_i\), computed in the matched lattice frame, is denoted
+\(c_\sigma(v,d)\). Inner finite transport makes this independent
+of \(i\). For the conjugate bottom representation the scalar is
+\(\overline{c_\sigma(v,d)}=c_\sigma(v,d^\vee)\), with
+\(d^\vee=(-d_r,\ldots,-d_1)\). The equality follows by taking
+the adjoint, which is the inverse double coset. This accounts for
+the dual convention in the bottom eigenspace. At inert places
+the same argument uses the relative Cartan double cosets.
+
+The top base record \(p\) consists of the prescribed split
+Hecke polynomials and the inert double-coset scalars of the
+definite top space. The bottom space for \(c_\sigma\) is carried
+by \(p\) when its long-chain adjoint lies in the top block
+\(p\). On each chosen split and inert spherical operator, the
+adjoint carries the eigencharacter by the local spherical theta
+transfer. At each arrow the unitary Satake list has the old
+entries with the chosen common character twist and the prescribed
+new string, with the dual convention just described if using the
+conjugate model. The spherical calculation applies to the
+hyperspecial lattice vectors and unramified characters at these
+places. For an inert place orient the correspondence from the
+smaller group to the larger one. In Harris's notation this is
+\(m\ge n\). The lattice vector gives the spherical line, and the
+map of spherical parameters on the domain is a morphism. Its
+agreement with the string formula on a dense open set consequently
+holds for each parameter that occurs here. The additive and
+splitting characters are unramified and the lattices self-dual.
+The residue characteristic is odd since the places over \(2\)
+split in the chosen host. The finite level
+and central eigencuts commute with these operators, which act at
+disjoint places. The long-chain adjoint is injective on the
+selected bottom space by the base row descent, so its nonzero
+image belongs to the unique top block with these joint scalars.
+The rational top blocks are the joint kernels of the same
+operators with those eigenvalues. Their base changes are the
+corresponding complex kernels by the class-coordinate comparison.
+Thus the assigned label \(p(\sigma)\) is an actual index of the
+prescribed top record. Conversely this index gives the full split
+Hecke polynomials and the scalars of the inert Cartan generators.
+At an inert place the relative Satake class is determined by its
+reciprocal pairs, with middle entry \(1\) in odd rank. The relative
+Weyl group permutes the pairs and interchanges their two entries.
+At each lift remove the prescribed string with its multiplicities
+and undo the common character twist. This recovers the spherical
+character of the bottom representation on every operator in the
+record. Several finite representations may have the same label
+\(p(\sigma)\), and the spherical character on that block is
+well defined \cite{rank-harris-spherical}.
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/ZeroPartEigenvalueConvention.lean}{103}{The dual bottom convention and the carried label}
+\releasecite{Formalism/LocalToGlobal/Divisibility/InertRationalAdjoint.lean}{22}{The prescribed split and inert index}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/HasLab.lean}{16}{Reading the label on the actual vectors} and
+\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/FiniteTypeCarriesOnePart.lean}{91}{Recovering the spherical summand}.
+
+The bottom coordinate summands \(E_p\) are the preimages of
+the corresponding analytic cuts under the base theta columns.
+The top block projectors are defined over \(K\). The long-chain
+adjoint maps each bottom eigenspace into a single top block, so
+the projectors preserve the image of the adjoint, as well as the
+rational kernel complement whose scalar extension is this image.
+Taking adjoints shows that each rational summand maps into its
+indicated analytic cut. These summands span the complement,
+the map is injective there, and its complexification has image
+the whole selected bottom space by the base row descent.
+Orthogonality of distinct spherical parts gives surjectivity
+block by block. Similarly the auxiliary coefficient summand
+\(W_{i,p}\) is the preimage of its analytic cut under the
+class-basis embedding of \(W_i\). The base-tuple complementary
+stage coordinates split by the same transported top labels.
+Their images under the fitted matrix belong to the corresponding
+analytic cuts by \eqref{eq:period-fitted-stage-vector} and the
+auxiliary spherical transfer. These coordinate summands exhaust
+the complementary coordinates, and the base matrix on the
+complement is invertible. Thus their images span the full good
+class-basis space over \(K\) and split it by the given labels.
+The prescribed good basis and its scaled level reading give the
+complexification of each such summand. Equivalently, these are the
+direct sums of the actual isotypes with \(p(\sigma)=p\). The
+finite isotypic summands are orthogonal because they are distinct
+irreducible representations of the finite adelic group in the
+unitary discrete spectrum.
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/PartsOrth.lean}{137}{Definitions of the rational preimages}
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/FinrankISupLeSum.lean}{116}{Passage to the same individual parts}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ComplexSpanRationalLiftFormsEqBasePart.lean}{22}{The good basis on the auxiliary part}.
+
+It follows from \eqref{eq:record-individual-isot-rank} that
+\begin{equation}
+ \label{eq:record-base-rank-sum}
+ \begin{aligned}
+ \dim_K E_p=\dim_K W_{i,p}
+   &=\sum_{\sigma:p(\sigma)=p}\#\{k:\operatorname{ft}_0(k)=\sigma\},\\
+ \sum_p\dim_K E_p&=D_0=\dim_{\mathbf C} M_j .
+ \end{aligned}
+\end{equation}
+This is the rank of the indicated base row space on the same
+level. With the standard-vector equality and the level coordinate
+right inverse, the fitted map onto this \(M_j\) is surjective.
+Its Hilbert adjoint therefore has zero kernel and rank \(D_0\).
+\releasecite{Formalism/LocalToGlobal/HilbertRowConditions/ColumnsFunctionAtSubspaces.lean}{129}{The block partition and its ranks}
+\releasecite{Formalism/LocalToGlobal/NormalizedHeckeFactors/BaseRowsEqRecordRows.lean}{55}{The base record rank and its use for the fitted map}.
+
+On a nonzero carried block, the auxiliary Petersson scalar in
+\eqref{eq:actual-stage-petersson-scalar} is the scalar used when
+constructing the record at the distinguished embedding. Indeed,
+the scalar is chosen there by the equation
+\(\Theta\Theta^* y=\lambda_{j,\mu,p}y\) for the same phase-one
+auxiliary theta map and the same carried space. On this block
+its value is determined by the ratio
+\(\|\Theta^*y\|^2/\|y\|^2\) for any nonzero \(y\). The
+level-index scaling of the two Petersson forms is the same
+and therefore cancels in the ratio. The normalized comparison
+\eqref{eq:period-fitted-stage-vector} gives the same ratio for
+the fixed record map and its adjoint. Consequently, for each
+used tuple and each nonzero \(M_j[\sigma]\), the record scalar
+\(\lambda_{j,\mu,\sigma}\) equals \(\lambda_{j,\mu,p(\sigma)}\)
+at this embedding.
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/WeakCharacterisationWithError.lean}{111}{Selection of the actual eigenvalue}
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/BaseLiftsPackageOfPrimitiveLinks.lean}{68}{Auxiliary theta and its Petersson adjoint}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/LiftScalarEqLabelScalar.lean}{28}{The scalar on a nonzero finite isotype}.
+
+\paragraph{The residual Hecke summands at a nonbase twist.}
+\teamanchor{proof.nonbase-record-blocks}%
+Fix the stage \(j\) and coefficient place \(w\) of a nonbase twist
+\(\mu=\mu_{\rm tw}(w)\). Let \(M^L_{\mu,j}\) be the full rational
+space of definite forms of rank \(r+t\) at the prescribed level
+character. It uses the class representatives and coefficient
+representation of \eqref{eq:period-auxiliary-record-read}.
+The good-type cut will be taken inside the resulting local lattices.
+Write \(O\) for the local coefficient DVR, \(L\) for its fraction
+field, \(M=L\otimes_K M^L_{\mu,j}\),
+and \(A\subseteq\operatorname{End}_L(M)\) for the \(O\)-algebra
+generated by the prescribed normalized Hecke operators. To specify
+them, put \(n=r+t\) and \(\ell=\operatorname{char}k(w)\). Each
+generator is indexed by a split place \(v\) of \(E\) away from
+\(\ell\), the two type primes, the designated scalar-character
+prime and the conductor set of the twist. The last set includes
+both halves above each place of \(F\) in its support.
+Use the split realization at \(\bar v\), put \(q=|\mathcal O_E/v|\),
+and write \(J\) for the hyperspecial group in those coordinates.
+For \(1\le k\le n\) its action on the definite class forms is
+\begin{equation}
+ \label{eq:record-normalized-hecke}
+ h_{v,k}f(g)=q^{-k(n-1)}
+    \sum_{a\in J\operatorname{diag}(\varpi I_k,I_{n-k})J/J}
+                   f(ga).
+\end{equation}
+Here \(\varpi\) is a uniformizer at the underlying place of \(F\).
+Using the conjugate half fixes which eigenvalues occur in this
+formula. In the normalized Satake convention with parameters
+\(\alpha_1,\ldots,\alpha_n\) at that half, the coset sum has
+eigenvalue \(q^{k(n-k)/2}e_k(\alpha_1,\ldots,\alpha_n)\).
+Indeed the right cosets correspond to sublattices between
+\(\varpi\mathcal O^n\) and \(\mathcal O^n\) of residual codimension
+\(k\). In upper triangular echelon form fix the \(k\) positions
+\(I\) with diagonal \(\varpi\). There is one free residue for each
+\(a\in I\), \(b\notin I\) with \(a<b\), hence
+\(\sum_{a\in I}(n-a)-k(k-1)/2\) free residues. On this cell
+the normalized spherical vector takes the value
+\(q^{-\sum_{a\in I}(n+1-2a)/2}\prod_{a\in I}\alpha_a\).
+The cell size times the power of \(q\) is \(q^{k(n-k)/2}\),
+independently of \(I\). Summing proves the asserted eigenvalue.
+Consequently the monic polynomial with coefficient
+\((-1)^kq^{k(k-1)/2}h_{v,k}\) in degree \(n-k\) has roots
+\(q^{(1-n)/2}\alpha_a\) on this eigenspace. At the indexed half
+\(v\) the Satake list is the inverse list, by the inverse-transpose
+identification of the split unitary group. Arithmetic Frobenius in
+the convention of the record inverts that list once more before
+applying the norm shift.
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/SphericalVectorFixedLocal.lean}{96}{The half-place and Frobenius conventions}.
+
+Each representative and its inverse have denominators supported at
+the rational prime below \(v\). Thus the two value lattices at \(g\)
+and \(ga\) have the same localization at \(w\), including for the
+coefficient representation. The finite sum preserves the localized
+class lattice, and \(q\) is a unit there. Its value at an adelic
+argument is reconstructed from the rational coefficient action and the
+level character on its class representative. This puts the coset
+operator in the prescribed rational class model. The resulting operators
+have integral characteristic polynomials. They commute by the
+spherical Hecke algebra at each place and independence across
+places. The \(L\) used here already contains their eigenvalues:
+the commuting endomorphisms of the finite-dimensional class space
+generate a finite-dimensional algebra, so only finitely many of
+them are needed to generate it over the fraction field. One may
+split those generators in a finite extension. The local coefficient
+choice at \((j,w)\) takes the compositum of that extension with the
+prescribed coefficient and twist fields before forming the residual
+ideals. The split commuting generators can be triangularized
+simultaneously, so their algebra splits over this one \(L\).
+Its generator eigenvalues belong to the valuation ring \(O\).
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExistsConjugateSplitPlaceAndUniformizer.lean}{10}{Choice of the split half}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/HeckeOperatorKeepsRationalIntegralLevelForms.lean}{203}{Localized coefficient lattices under the coset sum}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/SideRationalEigenData.lean}{124}{The common splitting field at the coefficient place}.
+
+Successive primary decompositions give joint generalized
+eigenspaces. Indeed each generator preserves the spaces already
+obtained, and each proper refinement increases the number of
+nonzero summands, which is at most \(\dim_L M\). On a joint summand
+the commuting nilpotent parts generate a nilpotent ideal in the
+finite-dimensional commutative image algebra. Taking the scalar
+part therefore gives a character \(A\to O\). Its reduction modulo
+the uniformizer is onto the residue field since \(A\) contains \(O\).
+
+For a maximal ideal \(\mathfrak m\) of \(A\), let \(M_{\mathfrak m}\)
+be the sum of the joint spaces with that residual kernel and
+\(p_{\mathfrak m}\) the projection along the other summands. The
+local indices over \((j,w)\) run once through the maximal ideals of
+this algebra. For such an index the lattice is the \(O\)-span of
+\(p_{\mathfrak m}b\), where \(b\) runs through the realized generators
+of the specified twisted class lattice. These generators span \(M\)
+over \(L\). Applying \(p_{\mathfrak m}\) shows that the local
+lattice spans exactly \(M_{\mathfrak m}\) over \(L\). It is finite
+free, being a finitely generated torsion-free module over a DVR.
+Consequently, writing \(\Lambda_a\) for the lattice with local
+index \(a\), we have
+\begin{equation}
+ \label{eq:record-local-rank-sum}
+ \sum_{a\in\operatorname{Loc}(j,w)}\operatorname{rank}_O\Lambda_a
+   =\sum_{\mathfrak m}\dim_L M_{\mathfrak m}
+   =\dim_L M=\dim_K M^L_{\mu,j}.
+\end{equation}
+If \(M=0\), its lattice is zero and the index set is empty.
+In every case the local projections jointly detect each vector of
+\(M\), since their sum is the identity. This rank computation takes place
+over the fraction field. The colength in
+Section~\ref{sec:integral} also depends on the position of the
+projected integral lattice relative to the intersected lattice.
+\releasecite{Formalism/LocalToGlobal/NumberFieldFamilies/NPartCNd.lean}{132}{The local indices and the projected generator lattice}
+\releasecite{Formalism/LocalToGlobal/NumberFieldFamilies/NPartCNdTie.lean}{65}{Exhaustion of the residual ideals} and the
+\releasecite{Formalism/LocalToGlobal/NormalizedHeckeFactors/CoverThm.lean}{94}{normalized Hecke comparison}.
+
+The two estimates use the same \(D(u)\). Indeed \(T,T_2,a_t\) agree
+by the translate property, the weights \(w_{u,j}\) in both sums
+come from \(i(u)\), and the inertia classes and sign character are
+read at \(i_0\), with the ramified inertia groups of
+\eqref{eq:classical-host-inertia}. By
+\eqref{eq:prime-power-cutoff} every positive-part summand with
+\(p^h>N=\lceil2xb\rceil\) vanishes. Thus the cutoff and the
+untruncated Fourier ramp give the same \(A(a_t,t,w_{u,j})\).
+Both comparisons subtract the real part of \(M(a_t,w_{u,j})\) in
+\eqref{eq:prime-power-center}, with \(\gamma\) and the sign-character
+log derivative at \(1\) in the same normalization. Hence the Fourier
+estimate uses exactly \eqref{eq:centered-excess-definition}.
+
+With the family, precision and constants fixed, take \(x_*\) to be
+the maximum of the family, arithmetic, period, trace, lattice and
+Fourier thresholds, increasing it to \(3\) if necessary. Each
+threshold in this maximum works for every required index at the
+scale. At every \(x\ge x_*\) in \(\operatorname{Win}(\mathfrak F)\)
+the preceding applications give the lattice bound for all \(u\) and the
+base-host character estimates. The sampling and weight comparisons
+of Section~\ref{sec:fourier} refer to these same records. Thus
+\eqref{eq:fourier-pointwise} applies with \(e_D+e_L+7=9\).
+The retained set for the conductor-one target is \(\{1\}\) with
+weight \(1\), so the function is \(G_1\) at every scale.
+\input{figure-window}
+
+\teamanchor{proof.apply-full-window}%
+Given \(Y_0\ge2\), the window property gives \(Y\ge\max(Y_0,x_*)\)
+with \([Y,Y^{3/2}]\subseteq\operatorname{Win}(\mathfrak F)\).
+Every real \(x\) in the interval has \(x\ge x_*\), so the pointwise
+implication applies at every scale in Figure~\ref{fig:family-window}.
+\begin{equation}
+\label{eq:prime-window}
+ G_1(x)\le x^{1/2+9\varepsilon}
+ \qquad\text{for every real }x\in[Y,Y^{3/2}].
+\end{equation}
+The same family and \(x_*\) work as \(Y_0\) varies. The precision
+can be any fixed positive number below the minimum of the cutoffs.
+
+\subsection{The centered zeta transform}
+
+\teamanchor{proof.centered-mellin-residues}%
+Write
+\[
+ \Phi_1(s)=\int_1^\infty G_1(x)x^{-s-1}\,dx .
+\]
+The finite ramp sum is continuous in \(x\). From \(\Lambda(n)\le\log n\),
+its absolute value is at most \(x\sum_{n\le x}(\log n)/n\).
+Including the centering terms gives \(G_1(x)=O(x(1+\log^2x))\), so
+the integral converges absolutely on \(\Re s>1\).
+The Euler product converges there and gives a convergent logarithm.
+Differentiating locally uniformly yields
+\[
+ -\frac{\zeta'(s)}{\zeta(s)}=\sum_{n\ge1}\frac{\Lambda(n)}{n^s}.
+\]
+\cite[(25.2.11)]{dlmf}
+For \(\Re s>1\) the transform of a ramp is
+\[
+ \int_n^\infty (x/n-1)x^{-s-1}\,dx
+ =n^{-s}\left(\frac{1}{s-1}-\frac{1}{s}\right).
+\]
+The sum of the absolute integrals at \(\sigma=\Re s>1\) is bounded
+by \((\sigma(\sigma-1))^{-1}\sum_n(\log n)n^{-\sigma}\).
+Interchanging sum and integral and transforming the two centering
+terms of \eqref{eq:principal-ramp} gives
+\[
+ \Phi_1(s)=\frac{-\zeta'(s)/\zeta(s)}{s(s-1)}
+                  -\frac{1}{(s-1)^2}+\frac{1+\gamma}{s-1}.
+\]
+The continuation of \(\zeta\) is meromorphic with unique pole at \(1\)
+and \(\zeta(1+z)=z^{-1}+\gamma+O(z)\).
+\cite[\S25.2(i) and (25.2.4)--(25.2.5)]{dlmf}
+Hence \(-\zeta'(1+z)/\zeta(1+z)=z^{-1}-\gamma+O(z)\).
+Dividing by \(z(1+z)\) gives \(z^{-2}-(1+\gamma)z^{-1}+O(1)\),
+which the centering cancels.
+
+The Euler product gives nonvanishing for \(\Re s>1\).
+On the line at \(1+it\), \(t\ne0\), use the nonnegative sum
+\[
+ -\Re\left(3\frac{\zeta'(\sigma)}{\zeta(\sigma)}
+       +4\frac{\zeta'(\sigma+it)}{\zeta(\sigma+it)}
+       +\frac{\zeta'(\sigma+2it)}{\zeta(\sigma+2it)}\right)
+  =2\sum_{n\ge1}\frac{\Lambda(n)}{n^\sigma}
+                 \bigl(1+\cos(t\log n)\bigr)^2
+ \quad(\sigma>1).
+\]
+If \(1+it\) were a zero of multiplicity \(m\ge1\), the coefficient
+of \((\sigma-1)^{-1}\) as \(\sigma\downarrow1\) would be
+\(3-4m-m_2<0\), where \(m_2\ge0\) is the zero multiplicity at
+\(1+2it\) (zero if the value is nonzero). This contradicts the
+displayed inequality.
+\cite[\S25.10(i)]{dlmf}
+On the real segment \(0<\sigma<1\), pairing consecutive terms
+in the alternating zeta series gives
+\[
+ (1-2^{1-\sigma})\zeta(\sigma)
+ =\sum_{j\ge1}\bigl((2j-1)^{-\sigma}-(2j)^{-\sigma}\bigr)>0.
+\]
+The prefactor is negative, so \(\zeta(\sigma)<0\).
+\cite[(25.2.3)]{dlmf}
+
+It follows that \(\Phi_1\) is meromorphic on \(\Re s>0\) with
+one simple pole at each zero \(\rho\) in the open strip and with
+residue
+\begin{equation}
+\label{eq:zeta-window-residue}
+ \operatorname{Res}_{s=\rho}\Phi_1(s)
+   =-\frac{m_\rho}{\rho(\rho-1)}
+   =\frac{m_\rho}{\rho(1-\rho)} .
+\end{equation}
+Indeed, the factor \((s-\rho)^{m_\rho}\) in \(\zeta(s)\) gives
+residue \(-m_\rho\) in its negative logarithmic derivative,
+and \(s(s-1)\) is nonzero at \(\rho\). These poles are nonreal,
+come in conjugate pairs and are locally finite in \(\Re s>0\).
+
+\subsection{One-sided windows and the critical line}
+
+\teamanchor{proof.one-sided-window-criterion}%
+Use the following simple-pole case of Kaczorowski and Pintz. Let \(h\)
+be real and locally integrable on \((0,\infty)\), with Mellin integral
+\(\int_0^\infty h(x)x^{-s-1}\,dx\) absolutely convergent on some closed
+right half-plane. Suppose this transform has a meromorphic continuation
+to a neighborhood of \(\Re s\ge\Theta-c_0\), for \(\Theta>0,\ c_0>0\),
+holomorphic on \(\Re s>\Theta\). Suppose its poles in the closed
+half-plane are simple, nonreal, locally finite and paired by conjugation,
+with supremum of real parts \(\Theta\). For every \(0<\delta<1\), all
+sufficiently distant intervals \([X^{1-\delta},X]\) contain both a
+strictly positive and a strictly negative value of \(h\).
+
+To apply Part~II, cut the half-plane leftward from each of these
+poles. The transform restricts holomorphically to the cut domain,
+and near each pole its expansion in (1.5) has exponent \(-1\),
+logarithmic degree \(0\), and nonzero coefficient equal to the residue.
+The pole supremum is the boundary of the half-plane of holomorphy
+whether or not a pole attains it. Conclusion (1.7) gives the two
+signs. The same case in Part~I uses zero logarithmic term.
+\cite[(1.5) and (1.7)]{z6kaczorowski-pintz-ii}~\cite[Thm.~1 and (2.2)]{z6kaczorowski-pintz}
+
+\teamanchor{proof.zero-precision}%
+Suppose \(\zeta(\rho)=0\) with \(1/2<\beta=\Re\rho<1\).
+Choose \(1/2<\theta<\beta\), then choose \(0<\varepsilon\) below all
+the preceding cutoffs and with \(9\varepsilon\le\theta-1/2\).
+The fixed-precision bound \eqref{eq:prime-window} gives arbitrarily
+distant intervals \([Y,Y^{3/2}]\) on which \(G_1(x)\le x^\theta\).
+
+Set \(h(x)=G_1(x)-x^\theta\) for \(x\ge1\) and \(h(x)=0\) for
+\(0<x<1\). It is real and locally integrable, and its Mellin
+integral converges absolutely on \(\Re s\ge2\). The transform there
+is \(\Phi_1(s)-1/(s-\theta)\). Let \(\Theta\) be the supremum
+of the real parts of the poles of \(\Phi_1\). By
+\eqref{eq:zeta-window-residue}, \(\Theta\ge\beta>\theta\)
+and \(\Theta\le1\). Choose \(c_0=(\Theta-\theta)/2>0\).
+On the closed half-plane \(\Re s\ge\Theta-c_0\) the correction
+term is holomorphic, and the poles are exactly those of \(\Phi_1\)
+there. They satisfy all the sign-change hypotheses and still have
+supremum \(\Theta\). Apply the theorem with \(\delta=1/3\) at
+\(X=Y^{3/2}\), taking \(Y\) large enough to exceed its threshold
+for this fixed \(h\) and \(\delta\). An interval with
+\(X^{1-\delta}=Y\) must contain \(h>0\), contradicting \(h\le0\)
+on the entire interval.
+
+\teamanchor{proof.zeta-reflection}%
+We have excluded all zeros to the right of the critical line.
+For \(\Re s<1/2\), \(s\ne0\), use the functional equation
+\[
+ \zeta(s)=2^s\pi^{s-1}\sin(\pi s/2)\Gamma(1-s)\zeta(1-s).
+\]
+\cite[(25.4.2)]{dlmf}
+The argument \(1-s\) lies on the zero-free side and differs from \(1\).
+The gamma factor is holomorphic and nonzero there.
+\cite[\S5.2(i)]{dlmf}
+The sine factor vanishes precisely when \(s\) is a negative even
+integer in this region. Also \(\zeta(0)=-1/2\).
+\cite[(25.6.1)]{dlmf}
+Thus \eqref{eq:prime-window} implies that every zero other than the
+negative even integers lies on \(\Re s=1/2\), the classical
+Riemann hypothesis.
+
+\subsection{Extension to Dirichlet \texorpdfstring{\(L\)}{L}-functions}
+
+For a fixed primitive target \(\psi\), assume that the arithmetic and
+period comparisons hold on its selected family. The window argument
+then gives
+\begin{equation}
+\label{eq:primitive-target-window}
+ G_{\mathcal K}(x)\le x^{1/2+9\varepsilon}
+ \qquad(x\in[Y,Y^{3/2}]),
+\end{equation}
+for arbitrarily large \(Y\) at each sufficiently small fixed
+\(\varepsilon>0\). The retained \(\mathcal K\) consists of the
+primitive associates of the powers of \(\psi\), with fixed positive
+weights, and contains \(\psi\).
+\releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean}{28}{The fixed-target window comparison}
+is applied to the primitive character class in the
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean}{24}{Dirichlet construction}.
+
+\paragraph{The Mellin poles.}
+For any finite set \(\mathcal F\) of primitive Dirichlet characters
+with weights \(a_\chi>0\), put
+\[
+ G_{\mathcal F}(x)=\sum_{\chi\in\mathcal F}a_\chi\Re G_\chi(x),
+ \qquad
+ \Phi(s)=\int_1^\infty G_{\mathcal F}(x)x^{-s-1}\,dx .
+\]
+The same absolute-convergence calculation as for \(\Phi_1\) works,
+since \(|\chi(n)|\le1\). For primitive \(\chi\ne1\) its Euler
+product, differentiated on \(\Re s>1\), gives
+\(-L'(s,\chi)/L(s,\chi)=\sum_{n\ge1}\Lambda(n)\chi(n)n^{-s}\).
+\cite[(25.15.1)--(25.15.2)]{dlmf}
+Using the ramp transform and \eqref{eq:centred-prime-sums} yields
+\[
+ \Phi_\chi(s)=\frac{-L'(s,\chi)/L(s,\chi)}{s(s-1)}
+                 +\frac{L'(1,\chi)/L(1,\chi)}{s-1}.
+\]
+Here \(L(s,\chi)\) is entire and \(L(1,\chi)\ne0\).
+\cite[\S25.15(i), (25.15.9)]{dlmf}
+The centering cancels the residue of the quotient at \(s=1\).
+The Euler product gives nonvanishing for \(\Re s>1\), and
+Montgomery and Vaughan's zero-free region gives
+\(L(1+it,\chi)\ne0\) for all real \(t\) for nonprincipal
+\(\chi\). The exceptional zero in that theorem is real and
+strictly less than \(1\).
+\cite[Thm.~11.3]{z6montgomery-vaughan}
+Thus the poles of the transforms in \(\Re s>0\) lie in the open strip.
+
+Conjugating the Dirichlet series and continuing gives
+\(L(s,\bar\chi)=\overline{L(\bar s,\chi)}\), so
+\(G_{\bar\chi}(x)=\overline{G_\chi(x)}\). The transform of
+\(\Re G_\chi\) is \((\Phi_\chi+\Phi_{\bar\chi})/2\).
+Write \(m_\chi(\rho)\) for the zero multiplicity at \(\rho\),
+with value zero at nonzeros. The calculation of
+\eqref{eq:zeta-window-residue} gives
+\[
+ \operatorname{Res}_{s=\rho}\Phi(s)
+ =\frac{\sum_{\chi\in\mathcal F}
+        a_\chi\bigl(m_\chi(\rho)+m_{\bar\chi}(\rho)\bigr)}
+        {2\rho(1-\rho)}
+ \qquad(0<\Re\rho<1).
+\]
+Thus a zero of any retained character gives a simple pole even
+when shared by several characters. At a real pole the residue is
+positive, since \(0<\rho<1\).
+
+\paragraph{Positive majorants and real poles.}
+The release uses a one-sided criterion for a real measurable \(g\)
+on \([0,\infty)\) with \(|g(u)|\le M e^{2u}\). Assume its Laplace
+transform \(\Phi_g\) extends meromorphically from \(\Re s>2\) to
+\(\Re s>0\), with simple poles and positive residues at real poles.
+Fix \(0<\theta<1\) and \(\lambda>1\). Assume that for every
+\(\eta>0\) there are arbitrarily large \(U\) with
+\begin{equation}
+\label{eq:positive-majorant-window}
+ \int_U^{\lambda U}g_+(u)e^{-\theta u}\,du\le e^{\eta U},
+ \qquad g_+(u)=\max(g(u),0).
+\end{equation}
+Then \(\Phi_g\) has no pole in \(\Re s>\theta\).
+The positive part is the least nonnegative majorant of \(g\).
+Alp\"oge proves the criterion by estimating derivatives at a real
+center and a vertical translate, then comparing their growth at the
+nearest pole.
+\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/landauWindow.lean}{40}{The derivative proof in the release}
+
+Here is the deduction from the published sign-change theorem.
+If \(\Phi_g\) has a pole \(\rho\) with \(\Re\rho>\theta\), fix
+\(\eta>0\) with \(\alpha=\theta+\eta<\Re\rho\).
+Extend \(g\) by zero to \(u<0\). The average
+\(\widetilde g(v)=\int_{v-1}^v g(u)\,du\) has Laplace transform
+\[
+ \widetilde\Phi(s)=\Phi_g(s)\frac{1-e^{-s}}{s}
+\]
+by Fubini on \(\Re s>2\). The multiplier is nonzero on \(\Re s>0\)
+and positive for real \(s>0\). Thus the average preserves both the
+poles there and the signs of real residues. On each supplied window,
+for \(U+1\le v\le\lambda U\),
+\[
+ \widetilde g(v)\le
+ e^{\theta v}\int_{v-1}^v g_+(u)e^{-\theta u}\,du
+ \le e^{\theta v+\eta U}\le e^{\alpha v}.
+\]
+Choose \(1<\lambda'<\lambda\). For all sufficiently large \(U\),
+\([V,\lambda' V]\subseteq[U+1,\lambda U]\) at \(V=U+1\).
+
+The real poles \(B\) of \(\widetilde\Phi\) above \(\alpha\) are
+finite by meromorphy around the compact segment \([\alpha,2]\)
+and absolute convergence on \(\Re s>2\). Write \(b_\beta>0\) for
+their residues. Choose \(t\in[1,2]\) such that none of the
+\(\beta\pm it\), \(\beta\in B\), is a pole of \(\widetilde\Phi\).
+Only finitely many values of \(t\) are excluded. Put
+\[
+ h(x)=\widetilde g(\log x)-x^\alpha
+       -\sum_{\beta\in B}b_\beta x^\beta(1+\cos(t\log x))
+ \qquad(x\ge1)
+\]
+and \(h(x)=0\) below \(1\). This function is real and locally
+integrable and its Mellin integral converges absolutely on \(\Re s\ge3\).
+The transform is
+\[
+ \widetilde\Phi(s)-\frac{1}{s-\alpha}
+ -\sum_{\beta\in B}b_\beta
+ \left(\frac1{s-\beta}+
+       \frac{1}{2(s-\beta-it)}+\frac{1}{2(s-\beta+it)}\right).
+\]
+Each pole at \(\beta\in B\) is canceled and two simple conjugate
+poles at \(\beta\pm it\) take its place, with residues \(-b_\beta/2\).
+Thus the supremum \(\Theta>\alpha\) of the pole real parts stays
+the same. For \(0<c_0<\Theta-\alpha\), the poles to the right of
+\(\Theta-c_0\), including that line, are all nonreal and simple.
+The transform satisfies the other sign-change hypotheses by
+meromorphy on \(\Re s>0\) and conjugation. The correction is
+nonnegative before subtraction, so \(h(x)\le0\) throughout
+\([e^V,e^{\lambda' V}]\) for arbitrarily large \(V\).
+With \(X=e^{\lambda' V}\), \(\delta=1-1/\lambda'\), this contradicts
+the sign-change theorem.
+
+\paragraph{Primitive and imprimitive targets.}
+For a hypothetical zero \(\rho\) of \(L(s,\psi)\) with
+\(1/2<\Re\rho<1\), choose \(1/2<\theta<\Re\rho\) and a fixed
+sufficiently small \(\varepsilon>0\) with \(9\varepsilon\le\theta-1/2\).
+Use \(\mathcal F=\mathcal K\) and put \(g(u)=G_{\mathcal K}(e^u)\).
+The growth bound \(O(e^u(1+u^2))\) gives the required \(Me^{2u}\).
+By \eqref{eq:primitive-target-window}, the integral in
+\eqref{eq:positive-majorant-window} is at most \((\lambda-1)U\)
+on arbitrarily distant windows at \(\lambda=3/2\).
+For each \(\eta>0\) this is at most \(e^{\eta U}\) once \(U\)
+is large. The Mellin residue computation and \(\psi\in\mathcal K\)
+give a pole at \(\rho\), contradicting the criterion.
+
+Let \(\chi\) be a primitive nonprincipal character of conductor \(d\)
+and parity \(a\in\{0,1\}\), defined by \(\chi(-1)=(-1)^a\). Its
+completed function is entire and satisfies
+\begin{equation}
+\label{eq:primitive-functional-equation}
+ \begin{aligned}
+ \Lambda_\chi(s)&=(d/\pi)^{(s+a)/2}\Gamma\bigl((s+a)/2\bigr)L(s,\chi),\\
+ \Lambda_\chi(s)&=\epsilon_\chi\Lambda_{\bar\chi}(1-s)
+       \qquad(s\in\mathbf C),
+ \end{aligned}
+\end{equation}
+where \(\epsilon_\chi=i^{-a}d^{-1/2}\sum_{r\bmod d}\chi(r)e^{2\pi i r/d}\)
+has modulus \(1\).
+\cite[(10.17) and Cor.~10.8]{z6montgomery-vaughan}
+The gamma and conductor factors are finite and nonzero in the open
+strip, so a zero there at \(s\) gives one at \(1-s\) for \(\bar\chi\).
+Thus the window bound \eqref{eq:primitive-target-window} for the two
+fixed targets \(\chi\) and \(\bar\chi\) puts every zero in the open
+strip on \(\Re s=1/2\).
+
+For any Dirichlet character \(\chi\) modulo \(N\ge1\), let
+\(\chi^*\) be its inducing primitive character of conductor \(d\mid N\).
+The change-of-conductor formula is a meromorphic identity
+\[
+ L(s,\chi)=L(s,\chi^*)\prod_{\substack{p\mid N\\p\nmid d}}
+                        (1-\chi^*(p)p^{-s}).
+\]
+\cite[(25.15.4)]{dlmf}
+Each displayed Euler factor is holomorphic and nonzero in
+\(\Re s>0\), since \(|\chi^*(p)p^{-s}|<1\) there.
+For a principal character \(\chi^*=1\), so \(L(s,\chi)\) has a simple
+pole at \(s=1\) of residue \(\prod_{p\mid N}(1-p^{-1})=\varphi(N)/N\).
+Consequently, given the window bound for each primitive target,
+every \(L(s,\chi)\) is nonzero in \(\Re s>1/2\) away from the
+principal pole. Every zero in \(0<\Re s<1\) then has real part \(1/2\).
+Alp\"oge uses
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/Imprimitive.lean}{5}{the same change of conductor}
+for the right-hand nonvanishing in the
+\releasecite{Main.lean}{8}{formal Dirichlet theorem}.
+\par

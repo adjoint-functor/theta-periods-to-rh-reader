@@ -1,0 +1,25 @@
+Copyright (c) 2026 The Theta Periods to RH Reading Edition contributors
+
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+This license covers the reading edition’s original paper, TeX sources and
+figures, the prose in README.md and AGENTS.md, and the mathematical graph and
+index content in the proof-data block of proof-map.html.
+
+Full text in LICENSES/CC-BY-4.0.txt
+License at https://creativecommons.org/licenses/by/4.0/
+
+MIT License
+
+This license covers the original code in build.py and the HTML, CSS and
+JavaScript viewer implementation in proof-map.html.
+
+Full text in LICENSES/MIT.txt
+
+The licenses apply to the extent the contributors hold rights to license the
+material. Third-party sources, quotations and fonts remain subject to their
+respective terms.
+
+From Theta Periods to the Riemann Hypothesis, by the Theta Periods to RH
+Reading Edition contributors (22 November 2026).
+https://github.com/adjoint-functor/theta-periods-to-rh-reader
