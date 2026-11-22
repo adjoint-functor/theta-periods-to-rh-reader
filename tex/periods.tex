@@ -12,8 +12,8 @@ to compute the dimension of the sum of the period images.
 
 \teamanchor{proof.normalized-towers}
 Take even \(k,m\) with \(k\geq m+3\) and \(m\geq2\), and odd \(t\geq r+5\),
-where \(r=k+m-1\), as in the
-\releasecite{Formalism/LocalRingCardinality/Params.lean}{6}{selected rank data}.
+where \(r=k+m-1\); the admissible host supplies these size
+parameters together with further size conditions, among them \(3m<t\). In particular \(r\) is odd.
 The spaces \(X_j\)
 are definite of rank \(k+j(t+1)\). The spaces \(Y_j\) have rank \(r+jt\),
 and negative index \(\lfloor(m-j)/2\rfloor\)
@@ -26,8 +26,14 @@ the row Harish--Chandra parameter at \(j\). The corresponding column
 string is \(-e_i+t/2-a\), \(0\leq a\leq t\). The row parameter also
 contains the signed entries from stage zero, with the labels prescribed
 at stage \(j\). A common shift by the half-integral splitting parameter
-is added to the row entries when \(j\) is odd. These are the
-\releasecite{Formalism/LocalRingCardinality/DataTheta.lean}{535}{parameters of the two towers}.
+is added to the row entries when \(j\) is odd. These strings define
+the row and column parameters of the two towers, and the cusp forms
+used at stage \(j\) are those of these types. The entry counts match
+the ranks: stage zero has \(k-1\) positively labelled and \(m\) signed
+row entries, that is \(r\) of them, and \(k\) column entries; each
+stage \(i<j\) adds \(t\) row entries and \(t+1\) column entries. The
+ranks, signatures and embeddings themselves are the Hermitian tower
+data fixed with the host.
 
 Write \(H_w^{\rm full}\) for the full space at the bottom column level.
 For each designated residue-unit group, averaging its action gives
@@ -87,9 +93,12 @@ the row multiplicity space at \(j\) gives the row map from \(j+1\) to
 \(j\). This integral uses the factor \(m_Y(\boldsymbol\mu,j+1)\).
 Composing the row maps gives \(\iota_{\boldsymbol\mu}\) into the common
 bottom row space \(E_{\rm row}\). We use its restriction to the image
-\(\mathcal V^0_{\boldsymbol\mu}\) of the chosen top row projector. The
-\releasecite{Formalism/LocalRingCardinality/DataTheta.lean}{727}{definitions of the row measures and pairings}
-specify the same coefficient and measure conventions in both directions.
+\(\mathcal V^0_{\boldsymbol\mu}\) of the chosen top row projector. These
+are definitions: the row pairing at stage \(j\) is
+\(m_Y(\boldsymbol\mu,j)\) times the Petersson pairing, and the downward
+map from \(j+1\) is \(m_Y(\boldsymbol\mu,j+1)\) times the theta integral,
+both in the same coefficient model. So the two directions use the same
+coefficient and measure conventions by construction.
 
 \subsection{Changing the path of the local tests}
 
@@ -116,10 +125,12 @@ The integral row tests use an auxiliary grid with rank
 \(r+jt+i(r+6)\) at \((i,j)\). A rightward step increases this rank
 by \(r+6\), and a downward step decreases it by \(t\). The definite
 column lifts defining the top pairing follow the \(X_j\) tower of
-rank \(k+j(t+1)\). The
-\releasecite{Development/AbelianVarietyTheory/Definitions/Divisors/ExistsGivenStageEqOne.lean}{138}{local grid realization}
-uses the horizontal increment specified in the
-\releasecite{Development/AbelianVarietyTheory/Definitions/Divisors/LeastSplitAuxiliaryPrimeThetaChainSpec.lean}{121}{auxiliary rank data}.
+rank \(k+j(t+1)\). The horizontal increment \(r+6\) and the rank
+formula are definitions; \(r+6\) is odd, like \(t\). That the auxiliary
+Hermitian spaces of the grid have rank \(r+jt+i(r+6)\) at the vertex
+\((i,j)\) is part of the auxiliary grid data, which the edition takes
+from the
+\releasecite{Development/AbelianVarietyTheory/Definitions/Divisors/ExistsGivenStageEqOne.lean}{138}{local grid realization}.
 At a fixed tuple the square with lower left corner \((i,j)\)
 compares the routes
 \[
@@ -189,13 +200,35 @@ The resulting zeta sections satisfy, for every \(h\),
  &\hspace{2em}=(\nu\beta)(\det h)|\det h|^{a'/2}I_{a'}(\Psi,Y_{\rm st}h).
  \end{aligned}
 \end{equation}
-For the first integral one can sum over Cartan shells. For fixed
-\(h\), the basis changes making \(X_{\rm st}h^{-\mathsf T}\) a primitive
-frame form one coset of \(\mathrm{GL}_a(\mathcal O_v)\). Its volume is
-one and it lies in a single shell. Replacing \(h\) by
-\(\operatorname{diag}(g^{-\mathsf T},I)h\) shows that the determinant
-weights for \(g\) cancel on the coset. This gives the
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/PrimitiveFrameDatumZetaIntegralEqSmaller.lean}{143}{complementary-frame identity}.
+We prove \eqref{eq:period-complementary-sections} directly. Fix \(h\)
+and put \(X=X_{\rm st}h^{-\mathsf T}\) and
+\(L=\varpi^{-e}(\Lambda')^\vee\). Here an \(a\)-by-\(n\) matrix is a
+primitive frame of \(L\) if it has rank \(a\), its rows lie in \(L\),
+and they span the \(\mathcal O_v\)-module \(L\cap V\), where \(V\) is
+its row space. Every \(gX\) has the row space \(V\) of \(X\). The
+module \(L\cap V\) is a lattice in \(V\), so it has an
+\(\mathcal O_v\)-basis, and \(g_0X\) is primitive for some
+\(g_0\in\mathrm{GL}_a(F_v)\). If \(g_0X\) and \(gX\) are both primitive,
+then \(gg_0^{-1}\) and its inverse carry one basis of \(L\cap V\) into
+the other, so \(gg_0^{-1}\in\mathrm{GL}_a(\mathcal O_v)\). Conversely
+every element of \(\mathrm{GL}_a(\mathcal O_v)g_0\) gives a primitive
+frame. Thus the \(g\) with \(gX\) primitive form one coset of
+\(\mathrm{GL}_a(\mathcal O_v)\), of volume one. For such \(g\) put
+\(h_g=\operatorname{diag}(g^{-\mathsf T},I_{a'})h\). Then
+\(gX=X_{\rm st}h_g^{-\mathsf T}\), \(Y_{\rm st}h_g=Y_{\rm st}h\) and
+\(\det h_g=\det h/\det g\). The definition of \(\phi_A\) at \(gX\),
+computed with \(h_g\), gives
+\[
+ \phi_A(gX)\,\nu(\det g)|\det g|^{n/2}
+   =\nu(\det h)|\det h|^{n/2}I_{a'}(\Psi,Y_{\rm st}h),
+\]
+and the integrand of \(I_a(\phi_A,X)\) vanishes off the coset. Hence
+\(I_a(\phi_A,X)=\nu(\det h)|\det h|^{n/2}I_{a'}(\Psi,Y_{\rm st}h)\), an
+integral of a constant over a compact set. Multiplying by
+\(\beta(\det h)|\det h|^{-a/2}\) and using \(n-a=a'\) gives
+\eqref{eq:period-complementary-sections}. The release proves the same
+identity by summing over Cartan shells, of which this coset meets
+exactly one.
 To check depth, lift a change of a primitive frame modulo
 \(\varpi^e\) to a principal-congruence column change. The conductor
 bound makes its determinant character trivial. This calculation
@@ -4839,23 +4872,130 @@ By the nonvanishing equivalence above and smooth cyclicity, there
 are \(u,v\) among the translates of any unit vector \(v_0\) in the
 lowest \(K\)-type with \(\mathcal B_\infty(u,v)\ne0\).
 
-For the real orbital norm, fix the section on the row group used in
-the Gram estimates. It transforms on the left by \(\rho_w\) and \(\psi_w\).
-It has positive finite norm on the Bessel quotient with the
-specified quotient measure and is reproduced by right convolution
-with \(d(\sigma_\infty)\overline{\langle v_0,\sigma_\infty(g)v_0\rangle}\),
+\paragraph{Rank one and positivity of the real Bessel form.}
+\teamanchor{proof.bessel-real-rank-one}%
+Write \(\sigma^\infty\) for the smooth vectors of \(\sigma_\infty\),
+\(V_\rho\) for the space of \(\rho_w\), \(U_0=U(X_0)(\mathbb R)\) and
+\(N_{\mathbb R}=N_w^{\mathrm{un}}(\mathbb R)\). Inner products are
+conjugate-linear in the first variable. The group \(U_0\) fixes the flag
+and the marked vector, so \(\psi_w(hnh^{-1})=\psi_w(n)\) for \(h\in U_0\).
+Hence \(hn\mapsto\psi_w(n)\) is a unitary character of \(S\). The group
+\(S=U_0N_{\mathbb R}\) is unimodular, since \(U_0\) is compact
+(\(X_0\) is definite) and \(N_{\mathbb R}\) is unipotent. In the
+absolutely convergent integral substitute
+\(hnh_0n_0=(hh_0)(h_0^{-1}nh_0n_0)\), respectively \(s\mapsto s^{-1}\).
+This gives, for \(u,v\in\sigma^\infty\) and \(\xi,\xi'\in V_\rho\),
+\[
+ \mathcal B_\infty(\sigma_\infty(h_0n_0)u,v)
+   =\psi_w(n_0)\rho_w(h_0)\mathcal B_\infty(u,v),\qquad
+ \langle\xi',\mathcal B_\infty(u,v)\xi\rangle
+   =\overline{\langle\xi,\mathcal B_\infty(v,u)\xi'\rangle}.
+\]
+Beuzart-Plessis's form is continuous on smooth vectors
+\cite[\S7.2]{p2beuzart}, so for fixed
+\(v,\xi\) the map \(u\mapsto\mathcal B_\infty(u,v)\xi\) is a continuous
+element of
+\(\operatorname{Hom}_S(\sigma^\infty,\psi_w\otimes\rho_w)
+ \cong\operatorname{Hom}_S(\sigma^\infty\otimes\rho_w^\vee,\psi_w)\).
+By Jiang--Sun--Zhu, applied with the generic character \(\psi_w\) and
+the irreducible representation \(\rho_w^\vee\) of the compact group
+\(U_0\), this space has dimension at most one.
+\cite[Theorem~A]{p2jiang-sun-zhu} As
+\(\mathcal B_\infty\ne0\), it is spanned by some \(\ell\ne0\), and
+\(\mathcal B_\infty(u,v)\xi=c(v,\xi)\ell(u)\). Choose \(u_0,\xi_0\) with
+\(\langle\xi_0,\ell(u_0)\rangle=1\). The symmetry above, at
+\(u=u_0\) and \(\xi'=\xi_0\), gives
+\(c(v,\xi)=\kappa\langle\ell(v),\xi\rangle\) with
+\(\kappa=\overline{c(u_0,\xi_0)}\). Thus
+\[
+ \mathcal B_\infty(u,v)\xi=\kappa\,\langle\ell(v),\xi\rangle\,\ell(u),
+ \qquad\kappa\ne0 .
+\]
+
+We show \(\kappa>0\). Let \(\Pi\) be the unitary representation
+\(\Pi(hn)=\overline{\psi_w(n)}\,\sigma_\infty(hn)\otimes\overline{\rho_w(h)}\)
+of \(S\) on \(\sigma_\infty\otimes\overline{V_\rho}\), and put
+\(x=u\otimes\overline\xi\). Then
+\(\langle\xi,\mathcal B_\infty(u,u)\xi\rangle=\int_S\langle x,\Pi(s)x\rangle\,ds
+ =\kappa|\langle\xi,\ell(u)\rangle|^2\).
+Let \(P\) be the projection onto the \(\Pi(U_0)\)-invariant vectors,
+given by averaging over \(U_0\) in the normalized Haar measure.
+Put \(f(s)=\langle x,\Pi(s)x\rangle\), which lies in \(L^1(S)\).
+Since \(S\) is unimodular,
+\(\int_S f(k_1sk_2)\,ds=\int_S f(s)\,ds\) and
+\(\int_S|f(k_1sk_2)|\,ds=\int_S|f(s)|\,ds\) for \(k_1,k_2\in U_0\).
+By Tonelli the average of \(f(k_1sk_2)\) over \(k_1,k_2\) is therefore
+integrable on \(S\), and by Fubini
+\(\int_S f\,ds=\int_S\langle Px,\Pi(s)Px\rangle\,ds\). Write \(s=hn\) and
+use \(\Pi(h)^{-1}Px=Px\). With
+\(\varphi(n)=\langle Px,\Pi(n)Px\rangle\) this gives
+\(\int_S f\,ds=\operatorname{vol}(U_0)\int_{N_{\mathbb R}}\varphi(n)\,dn\),
+and the same computation with absolute values shows
+\(\varphi\in L^1(N_{\mathbb R})\). The function \(\varphi\) is positive
+definite on \(N_{\mathbb R}\), since \(\Pi\) is unitary. Let \(y_\lambda\in U(Y_0)(\mathbb R)\), \(\lambda>1\), multiply
+the flag vector of the \(i\)-th step by \(\lambda^{r_S+1-i}\), its dual
+vector by \(\lambda^{-(r_S+1-i)}\), and fix their orthogonal complement.
+All weights of \(y_\lambda\) on the Lie algebra of \(N_{\mathbb R}\) are
+positive powers of \(\lambda\), so
+\(n_j=y_\lambda^{-j}ny_\lambda^j\to1\) for every \(n\). Fix a compact
+\(\Omega\subset N_{\mathbb R}\) of positive measure and put
+\(\Omega_j=y_\lambda^j\Omega y_\lambda^{-j}\). Conjugation scales Haar
+measure by a constant, so
+\(|\Omega_j\cap\Omega_jn^{-1}|/|\Omega_j|
+ =|\Omega\cap\Omega n_j^{-1}|/|\Omega|\to1\) by continuity of
+translation in \(L^1\). Also
+\[
+ \int_{N_{\mathbb R}}\varphi(n)\,|\Omega_j\cap\Omega_jn^{-1}|\,dn
+ =\Big\|\int_{\Omega_j}\Pi(n')Px\,dn'\Big\|^2\ge0 .
+\]
+Dividing by \(|\Omega_j|\) and using dominated convergence gives
+\(\int_{N_{\mathbb R}}\varphi\ge0\). Hence
+\(\kappa|\langle\xi,\ell(u)\rangle|^2\ge0\) for all \(u,\xi\), and
+\(\kappa>0\). With \(\ell_w=\kappa^{1/2}\ell\),
+\[
+ \mathcal B_\infty(u,v)\xi=\langle\ell_w(v),\xi\rangle\,\ell_w(u)
+ \qquad(u,v\in\sigma^\infty,\ \xi\in V_\rho),
+\]
+and \(\ell_w\) is a nonzero continuous Bessel functional.
+
+\paragraph{The chosen real section.}
+For the real orbital norm, fix the section \(W_w\) on the row group used
+in the Gram estimates. It is continuous and satisfies
+\(W_w(hng)=\psi_w(n)\rho_w(h)W_w(g)\) for \(h\in U_0\),
+\(n\in N_{\mathbb R}\). It has positive finite norm on the Bessel
+quotient with the specified quotient measure, and
+\(W_w(g)=\int W_w(gx)e(x)\,dx\) with
+\(e(x)=d(\sigma_\infty)\overline{\langle v_0,\sigma_\infty(x)v_0\rangle}\),
 where the formal degree uses the same ambient Haar measure.
-These properties identify the real test used in those estimates.
-Their proof in the release uses a direct nonvanishing calculation on
-translates of \(v_0\).
-\releasecite{CompanionTheory/HarishChandraModules/BesselParameterIntegrals/BesselOrbitConvolutions/BesselNonvanishingL2.lean}{34}{Direct nonvanishing argument using the chosen section}.
-Its
-\releasecite{CompanionTheory/AutomorphicTheory/LocalBesselUniqueness/BesselModels/LocDDQ.lean}{19}{comparison with the chosen local factor}
-then factors \(\mathcal B_\infty(u,v)\) as
-\(\xi\mapsto\langle\ell_w(v),\xi\rangle\ell_w(u)\) and identifies the
-local factor as a multiple of evaluation by the nonzero Bessel
-functional \(\ell_w\). This calibration enters the proof of the full
-Gram estimates in Section~\ref{sec:trace}.
+The edition takes the existence of a section with these properties from the
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RootLatticeThresholds/LocFactorAll.lean}{78}{local factor of the chosen setting}.
+Its relation to \(\ell_w\) is derived as follows. At the chosen real gaps
+\(e\) is integrable, as stated in Section~\ref{sec:trace}; the argument
+below uses this. Let \(L^2_w\) be the
+Hilbert space of functions on \(U(Y_0)(\mathbb R)\) with the same left
+equivariance and finite quotient norm, with right translation \(R\).
+Schur orthogonality gives \(e^*=e\), \(e*e=e\) and
+\(e*\delta_g*e=\langle v_0,\sigma_\infty(g)v_0\rangle e\). So \(R(e)\) is
+an orthogonal projection fixing \(W_w\), and
+\(\langle W_w,R(g)W_w\rangle=\langle v_0,\sigma_\infty(g)v_0\rangle\|W_w\|^2\).
+Therefore \(\sigma_\infty(g)v_0\mapsto R(g)W_w\) extends to a bounded
+intertwiner \(A:\sigma_\infty\to L^2_w\), equal to \(\|W_w\|\) times an
+isometry, with \(Av_0=W_w\). An equivariant function with finite quotient
+norm is square integrable on compact subsets of the group, with bound
+a multiple of its quotient norm. By the local Sobolev inequality, smooth
+vectors of \(L^2_w\) are represented by continuous functions and evaluation at \(1\)
+is bounded by finitely many derivative norms. Hence
+\(\ell'(u)=(Au)(1)\) is a continuous element of
+\(\operatorname{Hom}_S(\sigma^\infty,\psi_w\otimes\rho_w)\), and by
+continuity of \(W_w\) it satisfies
+\(\ell'(\sigma_\infty(g)v_0)=(R(g)W_w)(1)=W_w(g)\). Jiang--Sun--Zhu give
+\(\ell'=a_w\ell_w\) \cite[Theorem~A]{p2jiang-sun-zhu}, with \(a_w\ne0\) since \(W_w\ne0\). Thus
+\[
+ W_w(g)=a_w\,\ell_w\big(\sigma_\infty(g)v_0\big),
+\]
+so the prescribed local factor is a multiple of evaluation by the
+nonzero Bessel functional \(\ell_w\). This calibration enters the proof
+of the full Gram estimates in Section~\ref{sec:trace}.
 
 \teamanchor{proof.full-bessel-realization}
 At the fixed bottom row level and type, let \(\mathcal H\) be the
@@ -4998,16 +5138,113 @@ Set
  \qquad N=4r^2\sqrt{2q},
 \]
 where \(q\) is the maximum real negative index of \(Y_0\).
-The local argument in that proof gives
+We show below that
 \[
  \int\|W_w(x)\|H_w(x)^N\,d\bar x<\infty
 \]
-on the real Bessel quotient, and a bounded compactly supported
-right convolution reproducing \(W_w\).
+on the real Bessel quotient, and that a bounded compactly supported
+right convolution reproduces \(W_w\).
 The integrable matrix-coefficient projector above also reproduces
 \(W_w\) with the given Haar measure.
-\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/WuDecayOfGap.lean}{7}{The weighted estimate and reproduction}
-use the actual frame and quotient measure.
+
+\teamanchor{proof.period-bessel-weighted-decay}%
+\paragraph{Weighted decay and compact reproduction.}
+The section taken from the release above is the tensor product of its
+factors at the real places, with the properties of the preceding
+paragraphs at each place. Norms
+of tensor products of vectors multiply. The infimum defining \(H_w\)
+is the product of the infima at the places, since the components
+\(s_\tau\) vary independently. The real Bessel quotient is the product of the local ones, and its
+measure is a positive multiple of the product measure. So it suffices to treat one real
+place. Drop \(\tau\) from the notation and write
+\(G=U(Y_0)(\mathbb R)\), \(S=\mathcal S_w(\mathbb R)\),
+\(\|x\|=\|x\|_{\rm op}\) in the unitary frame and
+\(H(x)=\inf_{s\in S}\|sx\|\). Let \(v_0\) be the unit vector of
+the lowest \(K\)-type with \(W_w(g)=a_w\ell_w(\sigma_\infty(g)v_0)\),
+\(a_w\ne0\), and put \(c(y)=\langle v_0,\sigma_\infty(y)v_0\rangle\).
+
+Choose \(g_1\) with \(W_w(g_1)\ne0\), and put
+\(u_1=\sigma_\infty(g_1)v_0\) and \(\xi_1=\ell_w(u_1)\ne0\). The
+rank-one formula with \(u=\sigma_\infty(g)v_0\), \(v=u_1\) and
+\(\xi=\xi_1\) gives
+\[
+ \|\xi_1\|^2\,\ell_w(\sigma_\infty(g)v_0)
+ =\mathcal B_\infty(\sigma_\infty(g)v_0,u_1)\xi_1
+ =\int_S\langle u_1,\sigma_\infty(sg)v_0\rangle
+   \overline{\psi_w(n)}\,\rho_w(h)^{-1}\xi_1\,ds ,
+\]
+with \(s=hn\) and \(ds=dh\,dn\). Since \(\rho_w\) is unitary,
+\[
+ \|W_w(g)\|\le C_1\int_S|c(g_1^{-1}sg)|\,ds,
+ \qquad C_1=|a_w|\,\|\xi_1\|^{-1}.
+\]
+Both \(\|W_w\|\) and \(H\) are left \(S\)-invariant, and
+\(H(x)\le\|sx\|\) for every \(s\in S\). The groups \(G\) and \(S\) are
+unimodular, so the quotient measure is a positive multiple of the one
+with \(\int_Gf\,dx=\int_{S\backslash G}\int_Sf(sx)\,ds\,d\bar x\) for
+measurable \(f\ge0\). By Tonelli, the substitution \(x=g_1y\) and
+\(\|g_1y\|\le\|g_1\|\,\|y\|\),
+\[
+ \int_{S\backslash G}\|W_w\|H^N\,d\bar x
+ \le C\int_{S\backslash G}\int_S|c(g_1^{-1}sx)|\,\|sx\|^N\,ds\,d\bar x
+ \le C\,\|g_1\|^N\int_G|c(y)|\,\|y\|^N\,dy .
+\]
+Here \(Y_0\) has rank \(r=2r_S+k+1\) and negative index
+\(q=r_S+1=m/2\) at every real place, so \(N=4r^2\sqrt{2q}\) is the
+exponent of the weighted coefficient estimate. That estimate states
+the following. Let \(\sigma\) be a discrete series of the real unitary
+group of this signature whose Harish--Chandra parameter has the row
+form above, with successive gaps \(b_{j+1}-b_j\) greater than
+\(2(r+mt')^3+t'+3\) for some odd \(t'\ge r+5\) with \(r+t'\ge1801\). Then
+\(\int_G|\langle v,\sigma(y)v\rangle|\,\|y\|^N\,dy<\infty\) for every
+unit vector \(v\) in the lowest \(K\)-type.
+The edition takes this estimate from the
+\releasecite{ReciprocityTheory/ReductiveGroups/DiscreteSeries/FormalDegree/CoefLoc.lean}{23}{weighted coefficient estimate}.
+If the estimate is stated in another frame, related to the unitary
+frame by a fixed conjugation, the two operator norms differ by at most
+a constant factor, and the Haar measures by a positive constant; this
+does not affect finiteness. The family hypothesis gives the gap
+condition with \(t'=r+6\), which is odd since \(r\) is odd. Indeed
+\(r\ge1801\) and \(m\le r\), so \(r+m(r+6)\le r(r+7)\le2r^2\) and
+\(2(r+m(r+6))^3+r+9\le16r^6+r+9<16r^{19}\). Thus the weighted
+integral is finite.
+
+For the compact reproduction, let \(K\) be the maximal compact subgroup
+of \(G\) with normalized Haar measure, \(V_0\) the isotypic subspace of
+the lowest \(K\)-type in \(\sigma_\infty\), and \(p_0\) the function
+\(d_0\overline{\chi_0}\) on \(K\), with \(d_0,\chi_0\) the degree and
+character of that type. The space \(V_0\) contains \(v_0\), is
+finite-dimensional because \(\sigma_\infty\) is admissible, and
+\(E_0=\sigma_\infty(p_0)\) is the orthogonal projection onto it. For
+\(f\in C_c^\infty(G)\) put \(f^\flat=p_0*f*p_0\), again smooth with
+compact support. Then \(\sigma_\infty(f^\flat)=E_0\sigma_\infty(f)E_0\)
+maps \(V_0\) to itself. Let \(\mathcal A\) be the algebra of these
+restrictions to \(V_0\). If \(W\subset V_0\) is a nonzero
+\(\mathcal A\)-invariant subspace, the closed span of the vectors
+\(\sigma_\infty(f)w\) (\(f\in C_c^\infty(G)\), \(w\in W\)) is
+\(G\)-invariant and contains \(W\), by an approximate identity. By
+irreducibility it is the whole space, and applying the continuous
+\(E_0\) gives \(V_0\subset\overline{\mathcal AW}=W\). The approximate
+identity also gives \(\mathcal A\ne0\). So \(\mathcal A\) acts
+irreducibly on \(V_0\). By Burnside's theorem
+\(\mathcal A+\mathbb C\cdot1=\operatorname{End}(V_0)\), so
+\(\mathcal A\) is a nonzero two-sided ideal of the simple algebra
+\(\operatorname{End}(V_0)\), and \(\mathcal A=\operatorname{End}(V_0)\).
+Choose \(\beta=f^\flat\) with \(\sigma_\infty(\beta)\) the identity on
+\(V_0\), where \(\sigma_\infty(\beta)=\int_G\beta(z)\sigma_\infty(z)\,dz\).
+Then \(\beta\) is bounded and compactly supported, and
+\(\sigma_\infty(\beta)v_0=v_0\). The orbit map of the smooth vector
+\(v_0\) is continuous into \(\sigma^\infty\), so
+\(\int_G\beta(z)\sigma_\infty(gz)v_0\,dz\) converges in
+\(\sigma^\infty\) to \(\sigma_\infty(g)v_0\). Continuity of \(\ell_w\)
+gives
+\[
+ \int_G\beta(z)\,W_w(gz)\,dz=a_w\,\ell_w\big(\sigma_\infty(g)\sigma_\infty(\beta)v_0\big)=W_w(g).
+\]
+The product of the local functions \(\beta\) over the real places is
+bounded and compactly supported, and reproduces the section. The
+weighted bound and this convolution use the actual frame and quotient
+measure.
 
 Here is how the weighted bound gives absolute periodization.
 Write \(G=G_0(\mathbb A_F)\), \(\Gamma=G_0(F)\) and
@@ -6008,11 +6245,39 @@ and \(h(D)\) for the maximum size of a nonzero torsion-free
 quotient. Put \(\ell=\ell(L)\).
 For any nonzero integral ideal \(\mathfrak b\) and
 \(0\ne y\in\mathfrak b L\), write \(L\cap Ey=\mathfrak a y\).
-Saturation and projectivity over \(\mathcal O_E\) give
+Here \(\mathfrak a\) is a fractional ideal, since \(L\cap Ey\) is a
+nonzero finitely generated \(\mathcal O_E\)-submodule of the line \(Ey\).
+The lattice \(L\) is finitely generated and torsion free over the
+Dedekind ring \(\mathcal O_E\), hence projective. Its saturated
+submodule \(L\cap Ey\) has torsion-free quotient, so it is a direct
+summand: \(L=\mathfrak a y\oplus L'\). Then
+\(\mathfrak bL=\mathfrak b\mathfrak a y\oplus\mathfrak bL'\). If an
+element of \(\mathfrak bL\) lies in \(Ey\), its component in
+\(\mathfrak bL'\subset L'\) lies in \(L'\cap Ey=0\). Hence
 \(\mathfrak b L\cap Ey=\mathfrak b\mathfrak a y\).
-Thus \(1\in\mathfrak b\mathfrak a\) and
-\(\mathrm N\mathfrak a\le1/\mathrm N\mathfrak b\). The size of
-this line gives
+Since \(y\in\mathfrak bL\cap Ey\), we get \(1\in\mathfrak b\mathfrak a\),
+so \(\mathcal O_E\subset\mathfrak b\mathfrak a\) and
+\(\mathrm N\mathfrak a\le1/\mathrm N\mathfrak b\).
+
+Now compute the size of the line \(\mathfrak a y\), of rank one.
+At a real place \(v\) of \(F\) the map \(c\mapsto c\,y_v\) from
+\(\mathbb C\) onto the complex line through the image \(y_v\) of \(y\)
+multiplies Lebesgue measure by \(\|y\|_v^2\). Thus
+\(\operatorname{covol}(\mathfrak a y)=\operatorname{covol}(\mathfrak a)
+\prod_{v\mid\infty}\|y\|_v^2\), where \(\mathfrak a\) is embedded in
+\(\mathbb C^d\) by the chosen complex embeddings. Since \(E\) is totally
+imaginary of degree \(2d\), the covolume of a fractional ideal for
+Lebesgue measure on \(\mathbb C^d\) is
+\(2^{-d}|\Delta_E|^{1/2}\mathrm N\mathfrak a\). This is
+Neukirch~\cite[Ch.~I, (5.1) and Proposition~(5.2)]{i2-neukirch}: the
+canonical measure there is \(2^d\) times Lebesgue measure, and the
+formula passes from integral to fractional ideals by scaling with a
+nonzero integer. With \(k=1\) the definition of the size gives
+\(\operatorname{sz}(\mathfrak a y)^{2d}
+ =\mathrm N\mathfrak a\prod_{v\mid\infty}\|y\|_v^2\).
+Since \(\mathfrak a y\) is a nonzero sublattice of \(L\), its size is at
+least \(\ell\), and \((\mathrm N\mathfrak a)^{-1/2}\ge\sqrt{\mathrm N\mathfrak b}\).
+Therefore
 \[
  \prod_{v\mid\infty}\|y\|_v
  =\operatorname{sz}(\mathfrak a y)^d(\mathrm N\mathfrak a)^{-1/2}
@@ -6020,8 +6285,6 @@ this line gives
 \]
 In particular, failure of the product lower bound with
 \(s^d\sqrt{\mathrm N\mathfrak b}\) forces \(\ell<s\).
-\releasecite{Formalism/HarderNarasimhan/StatementPl.lean}{29}{Size and quotient norms}
-\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/LeastSizePowMulSqrtAbsNormLeProdNorms.lean}{51}{The line calculation}.
 
 \paragraph{Covering integral homomorphisms.}
 Let \(D_1,D_2\) be Hermitian \(\mathcal O_E\)-lattices
@@ -6034,38 +6297,83 @@ has covering radius at most
 \[
  \frac{ab\sqrt d}{2}\,\operatorname{rd}(E)\frac{u}{l}.
 \]
-Indeed, the trace pairing of \(\mathcal L\) with the reverse
-homomorphisms is \(\operatorname{Tr}_{E/\mathbb Q}\operatorname{tr}(BT)\).
-Its trace dual is
-\(\mathfrak D_E^{-1}\operatorname{Hom}_{\mathcal O_E}(D_2,D_1)\),
-as one sees in integral bases at the finite places. It follows
-that the Euclidean dual elements are \((2B_v^*)_v\) for \(B\)
-in this trace dual, because the field trace is twice the sum
-of the real parts at the chosen complex embeddings.
+Indeed, give the real space the inner product
+\(\langle T,T'\rangle=\sum_v\operatorname{Re}\operatorname{tr}(T_v'^{\,*}T_v)\),
+whose norm is the stated one. Since \(D_1,D_2\) have ranks \(a,b\),
+\(\mathcal L\) has rank \(ab\) over \(\mathcal O_E\) and spans
+\(\operatorname{Hom}_{E}(ED_1,ED_2)\otimes_{\mathbb Q}\mathbb R
+=\prod_v\operatorname{Hom}_{\mathbb C}(D_{1,v},D_{2,v})\). It is
+therefore a full lattice in a real space of dimension \(2dab\).
+For a rational homomorphism \(B:ED_2\to ED_1\) and \(T\in\mathcal L\),
+\(\operatorname{tr}(B_vT_v)\) is the image of
+\(\operatorname{tr}(BT)\in E\) under the chosen embedding at \(v\).
+The chosen embeddings represent the \(d\) conjugate pairs of
+embeddings of \(E\), so
+\[
+ \operatorname{Tr}_{E/\mathbb Q}\operatorname{tr}(BT)
+ =\sum_v2\operatorname{Re}\operatorname{tr}(B_vT_v)
+ =\langle T,(2B_v^*)_v\rangle ,
+\]
+with adjoints for the given Hermitian norms. The rational pairing
+\(\operatorname{Tr}_{E/\mathbb Q}\operatorname{tr}(BT)\) is
+nondegenerate. Hence the Euclidean dual lattice \(\mathcal L^\vee\)
+consists of the \((2B_v^*)_v\) with \(B\) in the trace dual of
+\(\mathcal L\). This trace dual is
+\(\mathfrak D_E^{-1}\operatorname{Hom}_{\mathcal O_E}(D_2,D_1)\).
+To see this, complete at each finite place \(w\). There
+\(D_{1,w},D_{2,w}\) are free, \(\operatorname{tr}(BT)\) is the perfect
+matrix trace pairing between the two integral matrix spaces, and the
+trace dual of \(\mathcal O_{E,w}\) is the local inverse different.
 
-For such a nonzero \(B\), of rank \(j\), its image in
-\(\mathfrak D_E^{-1}D_1\) has size at least
-\(l/\operatorname{rd}(E)\). Indeed the different times the
-image lies in \(D_1\), and multiplication by the different
-changes its size by \(\operatorname{rd}(E)\).
-The size of \(D_2/\ker B\) is at most \(u\). Taking
-determinants of \(B_v:D_{2,v}/\ker B_v\to\operatorname{im}B_v\)
-and comparing the two covolumes gives
+Let \(B\ne0\) be in this trace dual, of rank \(j\). If \(X\) is an
+\(\mathcal O_E\)-lattice of rank \(k\), then
+\([X:\mathfrak D_EX]=(\mathrm N\mathfrak D_E)^k=|\Delta_E|^k\), so
+\(\operatorname{sz}(\mathfrak D_EX)=\operatorname{rd}(E)\operatorname{sz}(X)\)
+by the definition of the size. Apply this to \(X=B(D_2)\), a nonzero
+sublattice of \(\mathfrak D_E^{-1}D_1\). Then \(\mathfrak D_EX\) is a
+nonzero sublattice of \(D_1\), and
+\(\operatorname{sz}(B(D_2))\ge l/\operatorname{rd}(E)\).
+The kernel of \(B\) on \(D_2\) is saturated, so \(D_2/\ker B\) is a
+nonzero torsion-free quotient and its size is at most \(u\).
+The map \(B\) induces an \(\mathcal O_E\)-isomorphism
+\(D_2/\ker B\to B(D_2)\). At \(v\) it is \(B_v\) from the orthogonal
+complement of \(\ker B_v\), which carries the quotient norm, onto
+\(\operatorname{im}B_v\). Its real determinant is \(|\det B_v|^2\),
+where \(|\det B_v|\) is the product of the \(j\) nonzero singular
+values of \(B_v\). Hence
+\(\operatorname{covol}(B(D_2))=\prod_v|\det B_v|^2
+\operatorname{covol}(D_2/\ker B)\), and the definition of the size gives
 \[
  \Big(\prod_v|\det B_v|\Big)^{1/(dj)}
+ =\frac{\operatorname{sz}(B(D_2))}{\operatorname{sz}(D_2/\ker B)}
  \ \ge\ \frac{l}{u\operatorname{rd}(E)}.
 \]
-The \(dj\) nonzero singular values then give
-\(\big(\sum_v\|B_v\|_{\mathrm{HS}}^2\big)^{1/2}
-\ge\sqrt d\,l/(u\operatorname{rd}(E))\) by the
-arithmetic--geometric mean inequality. Banaszczyk's
+The arithmetic--geometric mean inequality for the squares of the
+\(dj\) nonzero singular values gives
+\(\sum_v\|B_v\|_{\mathrm{HS}}^2\ge dj\,(l/(u\operatorname{rd}(E)))^2\).
+Hence every nonzero vector of \(\mathcal L^\vee\) has norm at least
+\(2\sqrt d\,l/(u\operatorname{rd}(E))\). Banaszczyk's
 transference bound \(\mu(\mathcal L)\lambda_1(\mathcal L^\vee)
 \le\dim_{\mathbb R}(\mathcal L_{\mathbb R})/2=dab\)
 proves the stated bound. For either rank zero the
 homomorphism space has radius zero.
 See Banaszczyk~\cite[Theorem~(2.2)]{depth-banaszczyk}.
-\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/LatticePairVolumeBounds.lean}{27}{Integral homomorphism lattice}
-\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/CoveringRadiusHomSubquotientSublattice.lean}{46}{Application to the induced quotient norms}.
+
+The bound is used for subquotients. Let \(S\subset A\) be lattices in
+the row space with \(S\) saturated in \(A\), and give \(A/S\) the
+orthogonal quotient norms. Let \(R'\) be a lattice with the induced
+norms. Then \(\operatorname{Hom}_{\mathcal O_E}(A/S,R')\) is the
+lattice of \(\mathcal O_E\)-linear maps \(A\to R'\) that kill \(S\).
+A placewise complex-linear map on \(EA\otimes\mathbb R\) that kills
+\(S_v\) has the same Hilbert--Schmidt norm as the map it induces on
+\((A/S)_v\): compute it in an orthonormal basis adapted to
+\(S_v\oplus S_v^\perp\), and note that \(S_v^\perp\) is isometric to
+\((A/S)_v\). The nonzero sublattices of \(A/S\) are the \(N/S\) with
+\(S\subsetneq N\subset A\). Thus, if all these have size at least
+\(l\) and \(h(R')\le u\), every such map with values in
+\(R'\otimes\mathbb R\) lies within the stated radius, with
+\(a=\operatorname{rk}A-\operatorname{rk}S\) and
+\(b=\operatorname{rk}R'\), of an integral map \(A\to R'\) killing \(S\).
 
 \paragraph{The short isotropic step.}
 Suppose \(\ell<1/2\). The Arakelov Harder--Narasimhan
@@ -6415,7 +6723,7 @@ tensor. Iwasawa decomposition applied to its section at \(h/2\)
 therefore bounds its coefficient by \(C H_v^{(n+(i+1)h)/2}\).
 On \({\rm Re}\,s\ge0\) the integrand is bounded by a constant
 times the absolute discrete-series coefficient. It is integrable
-by the integrability criterion for discrete-series coefficients \cite[Theorem~III.1]{p2milicic-integrability}, since the noncompact
+by the integrability criterion for discrete-series coefficients \cite[Part~III, Corollary to Theorem~1]{p2milicic-integrability}, since the noncompact
 root gaps exceed \(2\,{\rm bigN}^3\) and
 \(\tfrac14\sum_\beta|(\alpha,\beta)|=n+ih-1\)
 for a root \(\alpha\) of type \(A_{n+ih-1}\), with roots of
@@ -7701,13 +8009,30 @@ test \(\Phi\). The arithmetic list for this \(\Phi\) runs through
 all pairs of a terminal double coset and a basis vector of the
 prescribed column coefficient space. The terminal group is definite,
 so the rational lattice stabilizers are finite. Its congruence
-level is principal at places above the two distinct type primes.
-A finite-order matrix acting trivially modulo one of those places
-has order a power of that residue characteristic. Indeed, in the
-filtration by deeper principal subgroups each successive quotient
-has that characteristic, and the intersection of the filtration
-is the identity. The two places therefore force every
-stabilizer at this level to be trivial.
+level is principal at places above the two distinct type primes
+\(g_0\ne g_1\), which split completely in \(E\). With
+\(\Gamma_c=G(F)\cap cJc^{-1}\) as in the definite coefficient models
+below, at a place \(v\) of \(F\) above \(g_k\) the level
+component lies in a principal congruence subgroup of depth at least one:
+it fixes the local class lattice \(\Lambda_v\) and acts trivially
+on \(\Lambda_v/\varpi_v\Lambda_v\), where \(\varpi_v\) is a
+uniformizer of \(F_v\). Let \(\gamma\in\Gamma_c\), of finite order
+\(N\). Since \(\gamma\in cJc^{-1}\), at \(v\) it fixes
+\(c_v\Lambda_v\) and is the identity modulo \(\varpi_v\) on it.
+Write \(N=g_k^aN'\) with \(g_k\nmid N'\), and put
+\(h=\gamma^{g_k^a}\). It has order \(N'\) and is again the
+identity modulo \(\varpi_v\). Suppose \(h\ne1\). In a basis of
+\(c_v\Lambda_v\) write \(h=1+\varpi_v^eX\), with \(e\ge1\) maximal,
+so that \(X\) is integral and nonzero modulo \(\varpi_v\). Since
+\(2e\ge e+1\), the binomial expansion gives
+\[
+ h^{N'}\equiv1+N'\varpi_v^eX\pmod{\varpi_v^{e+1}} .
+\]
+Here \(N'\) is a unit at \(v\), so \(h^{N'}\ne1\), a
+contradiction. Hence \(N'=1\) and \(N\) is a power of \(g_k\).
+Applying this at a place above \(g_0\) and at a place above
+\(g_1\) gives \(N=1\). Every stabilizer \(\Gamma_c\) at this level
+is therefore trivial, central elements included.
 
 In the terminal column level the finite right character is
 trivial. A tuple of values at the class representatives extends
@@ -7720,9 +8045,14 @@ at the other classes. These tests thus span all columns of the
 specified compact dual type on the same level. In particular the
 column supplied by separation is in their span for this fixed
 \(\Phi\). Contraction by \(\xi_*\) preserves this linear combination.
-\releasecite{Development/AbelianVarietyTheory/Definitions/Divisors/GridTestLatticeLargestSlopeBound.lean}{116}{The arithmetic test index and coefficient read}
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/EqOneOfConjMemOfPow.lean}{170}{Triviality of the actual class stabilizers} and
-\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/EqAdFormsOfValues.lean}{102}{The span for fixed finite row test}.
+Explicitly, since every \(\Gamma_c\) is trivial, evaluation at the
+representatives identifies the columns of this type and level with
+\(\bigoplus_cW_c\), as in the description of the definite coefficient
+models below. The arithmetic test attached to \(c\) and a basis
+vector \(e\) of \(W_c\) maps to \(e\) in the summand \(W_c\), and
+these vectors form a basis of \(\bigoplus_cW_c\). The arithmetic list
+is indexed in this way in the release
+\releasecite{Development/AbelianVarietyTheory/Definitions/Divisors/GridTestLatticeLargestSlopeBound.lean}{116}{The arithmetic test index and coefficient read}.
 
 At this same real
 pair, absolute convergence gives linearity of both
@@ -7901,46 +8231,427 @@ local normalization. The release proves the Hecke norm formula
 using the split unramified formula, its inert calculation and
 the convergent seesaw.
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/LocalTypeDictionary/HeckeFormOfDoubling.lean}{19}{Assembly of the Hecke norm formula}.
-The
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/LocalTypeDictionary/OntoAllOfPrintsAndHecke.lean}{28}{surjectivity along the prescribed chains}
-uses the norm in the specified quotient measures, the unramified
-factors and nonzero theta maps on the prescribed types and levels.
+\teamanchor{proof.relation-transport-onto}%
+The downward maps along the prescribed chains are surjective
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/LocalTypeDictionary/OntoAllOfPrintsAndHecke.lean}{28}{surjectivity along the prescribed chains}.
+Once three analytic facts are granted the argument is linear
+algebra, and we record it. At each step the rows with prescribed
+level, character and real type form a finite-dimensional space, by
+Harish-Chandra's finiteness theorem. By rapid decay of cusp forms the
+theta integrals converge absolutely. Fubini's theorem then shows that
+the downward map at a step is, up to the positive constants relating
+the quotient measures, the adjoint of the upward theta lift with the
+conjugate kernel for the Petersson products. A linear map between
+finite-dimensional inner-product spaces is onto exactly when its
+adjoint is injective. So it suffices that each upward lift is
+injective. The source space is spanned by eigenvectors of the
+unramified Hecke algebras. Eigenvectors with different
+eigencharacters have lifts that are eigenvectors with different
+eigencharacters, by the unramified theta correspondence, so it
+suffices to check injectivity on one eigenspace. There the Hecke norm
+formula gives \(\langle\theta G,\theta G\rangle=c\,\langle G,G\rangle\),
+where \(c\) is a product of local doubling zeta integrals and a
+partial \(L\)-value. If \(c\ne0\), the lift is injective on that
+eigenspace. Composing the steps gives surjectivity along the chain.
+The edition takes from the release the Hecke eigenbasis on the
+prescribed types, the separation of eigencharacters under the
+unramified correspondence, the nonvanishing of \(c\) on the prescribed
+types and levels, which uses Ichino's real criterion and the
+nonvanishing of the \(L\)-values, the fact that the upward lifts
+land in the prescribed finite-dimensional row spaces, and the adjoint
+relation
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/ThetaLiftChainOntoCuspFormsOfInnerProduct.lean}{37}{surjectivity from the inner-product formula and adjointness}.
+The release states the conclusion at the base tuple for the whole
+bottom theta-lift space
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/RatioOKOfRootOfUnity.lean}{42}{the base downward map is onto}.
+That the rows of \(E_{\rm row}\) used below lie in this space is part
+of the release's choice of models.
 With that surjectivity and the selected real, twisting, level and
 geometric hypotheses, the release uses rapid decay of cusp forms,
 discrete series, Harish--Chandra modules and strong approximation
 for the special unitary groups to
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/FamAllQOfAllTrue.lean}{38}{choose the compatible top and bottom models}.
 
+\teamanchor{proof.relation-transport-steps}%
 In these models a relation between top periods is carried to the
 bottom in two stages. First the seesaw comparison at the last two
 levels uses the codimension-one top pairing. Then each two-level
-step uses a Bessel or Fourier--Jacobi coefficient of the corresponding
-lower row. Composing the two Weil kernels and unfolding the quotient
-integrals gives the lower coefficient at the prescribed translate.
-The ramified column conditions identify the needed coefficients and
-rapid decay justifies the integrations. For prescribed real tests
-and translates in a two-level step, one matching real test works for
-all tuples. The kernel expansion uses finitely supported frame
-coefficients chosen independently of the tuple, with the tuple
-dependence in the normalization and the prescribed vectors. These
-are the quantifiers in the
+step unfolds a Bessel coefficient of the lower row through a
+Fourier--Jacobi coefficient. We state the laws that the models supply
+and then derive the transport from them.
+
+Fix a word \(w\) and write the row tower as \(V_0\subset\cdots\subset
+V_m\), with \(m=2n+2\). At each level \(j\) the models give ramified
+column data \(\psi\), frame vectors \(y\) and continuous automorphic
+realizations \(R_j(\psi,y)\), column steps \(\mathsf S_j,\mathsf K_j\)
+that preserve the ramified columns, maps \(\iota_j\) from the row
+multiplicity space at level \(j+1\) to that at level \(j\), and
+constants \(c^{\rm I}_j\ne0\), \(c^{\rm K}_j\), \(c^{\rm V}_j\) and
+\(c^{\rm P}\) that may depend on the tuple. Coefficients at level \(j\)
+are Bessel coefficients. At a two-level step \(j\) with
+\(j\equiv m\pmod 2\) put \(\sigma=(m-j-4)/2\). The coefficient at level
+\(j\) then has index \(\sigma+1\), the coefficient at level \(j+2\) has
+index \(\sigma\), and the unfolding passes through the Fourier--Jacobi
+coefficient of index \(\sigma+1\) at level \(j+1\). The release
+supplies the following laws, uniformly over the family of tuples
 \releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/ValLastX.lean}{186}{test identities}.
-Induction transports any finite vanishing linear combination of the
-normalized top periods to the corresponding combination of bottom
-coefficients at every permitted frame and real vector. This is the
+\begin{enumerate}
+\item The theta lift of a row \(G\) at level \(j+1\), applied to a
+real vector \(v\), with a polynomial Fock test is \(c^{\rm I}_j\) times
+the row \(\iota_jG\) evaluated on the real theta image of the test and
+\(v\).
+\item All realizations \(R_j(\psi,y)\) at one level have one common
+central character, and the real Weil actions agree for all tuples.
+\item For each level, frame vector and Fock test there are finitely
+supported frame coefficients, independent of the tuple, expressing
+the column theta lift of \(R_j(\psi,y)\) as \(c^{\rm K}_j\) times their
+combination of the realizations \(R_{j+1}(\mathsf K_j\psi,y')\).
+\item For Fock tests \(P_1,P_2\) at a two-level step \(j\) and real
+elements \(a\) and \(a'\) of the unitary groups at levels \(j+1\) and
+\(j+2\), there is one real test \(C\), working for all tuples, with the
+following property. The iterated integral over the finite-adelic
+Fourier--Jacobi quotient at level \(j+1\) and the finite-adelic Bessel
+quotient at level \(j+2\) of the unfolded integrand of a row \(G\) and
+\(R_j(\psi,y)\), with real components \(a\) and \(a'\), equals
+\(c^{\rm V}_j\) times the level-\((j+2)\) coefficient of the bi-lift of
+\(R_j(\mathsf S_j\psi,y)\) with test \(C\) against the right translate
+of \(G\) by \(a'\). At the last two levels there are no translates.
+The coefficient of \(R_{m-2}(\psi,y)\) against the double theta lift of
+a top row \(F(v)\) equals \(c^{\rm V}_{m-2}\) times the top pairing of
+the bi-lift of \(R_{m-2}(\mathsf S_{m-2}\psi,y)\) with test \(C\)
+against \(F(v)\).
+\item For each tuple and each pair \(P_1,P_2\), the finite part of the
+integrand in the previous item is invariant under right translation by
+an open compact subgroup \(K_1\) of the finite-adelic unitary group at
+level \(j+1\), and is supported on finitely many double cosets
+\(JqK_1\), where \(J\) is the finite-adelic Fourier--Jacobi group.
+\item The top pairing of \(R_m(\psi,y)\) against a top row \(F(v)\) is
+\(c^{\rm P}a(y,v)\) times the normalized top period of \(\psi\) and
+\(F\), with \(a(y,v)\) independent of the tuple.
+\item The real theta images of polynomial Fock tests applied to
+\(K\)-finite pure tensors span the \(K\)-finite pure tensors of the
+discrete-series model at each level, including the top level.
+\end{enumerate}
+\teamanchor{proof.relation-transport-laws}%
+The first item follows from the definition of the models, and we
+derive it for \(j+1<m\). The row map \(\iota_j\) is the theta
+integral of the row over a fundamental domain for the rational
+points, in a reference Haar measure \(\nu'_{j+1}\), against the
+polynomial Fock tests built on the standard vector of the prescribed
+level type. The level datum contains a finite group \(H_{\rm lev}\),
+a subgroup of the product of the groups \(\mathrm{GL}_r\) of the
+residue fields at the level places. A polynomial Fock test of the
+first item is a finite combination
+\(\sum_{p\in H_{\rm lev}}\chi(k_p)^{-1}\omega(k_p,1)\varphi\), where
+\(\varphi\) is the corresponding polynomial test on the standard
+vector, \(k_p\) lies in the level subgroup at level \(j\) over \(p\), and
+\(\chi\) is the level character
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/FockVecEqSum.lean}{22}{The Fock-vector reduction}.
+The row map is equivariant: its value at \(gk\) is \(\chi(k)\)
+times its value at \(g\) for \(k\) in the level subgroup
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/IoLevChiStatement.lean}{16}{Level equivariance of the row maps}.
+The theta integral of \(\omega(k_p,1)\varphi\) at \(g\) is that of
+\(\varphi\) at \(gk_p\), which is \(\chi(k_p)\) times the value at \(g\).
+So each of the \(|H_{\rm lev}|\) terms gives the same value, and the
+theta integral in \(\nu'_{j+1}\) is \(|H_{\rm lev}|\) times
+\(\iota_jG\). The models integrate in the Haar measure
+\(\lambda^{\rm I}_{j+1}v^{\rm lev}_{j+1}\,\nu'_{j+1}\), where
+\(\lambda^{\rm I}_{j+1}>0\) is a fixed constant and
+\(v^{\rm lev}_{j+1}\ge0\) is the measure of the level subgroup at level
+\(j+1\). Since the model measure is a nonzero Haar measure,
+\(v^{\rm lev}_{j+1}>0\). The integrand is invariant under the rational
+points on the left, since the theta kernel and the automorphic row
+are, so the integral does not depend on the fundamental domain. Hence
+\(c^{\rm I}_j=|H_{\rm lev}|\,\lambda^{\rm I}_{j+1}v^{\rm lev}_{j+1}>0\)
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LiftEqCIIo.lean}{55}{The first law and the constant \(c^{\rm I}_j\)}.
+It depends on the tuple only through the volume of the level subgroup.
+For the last step, into the top model, the release proves the same
+law with the top measure and the same formula for \(c^{\rm I}_{m-1}\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/ThetaLiftTopScalar.lean}{58}{The first law at the top}.
+
+\teamanchor{proof.relation-transport-real-weil}%
+We derive the second half of the second item, that the real Weil
+actions agree for all tuples. Fix a level \(j<m\) and two tuples
+\(\boldsymbol\mu,\boldsymbol\mu'\). The column Weil datum
+\(\omega_{\boldsymbol\mu}\) at level \(j\) acts on the theta functions of
+the column pair at levels \(j,j+1\). It is attached to the fixed
+additive character and to two splitting characters, both equal to the
+level character \(\mu_{j+1}\) of the tuple at level \(j+1\)
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TrueW.lean}{45}{The column Weil data}.
+Each level character is the base character times the tuple twist
+\(\xi_{H,\boldsymbol\mu}\), a Hecke character whose components at the
+finite places are those of a Hecke character of finite order that is
+trivial on \(\mathbb A_F^\times\)
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/LinksDefs.lean}{450}{The tuple twists}.
+A Hecke character of \(E\) is determined by its components at the
+finite places, since \(E^\times\) is dense in \((E\otimes_{\mathbb Q}\mathbb R)^\times\),
+and likewise for \(F\). So \(\xi_{H,\boldsymbol\mu}\) itself has finite
+order and is trivial on \(\mathbb A_F^\times\). Hence \(\nu=\mu'_{j+1}\mu_{j+1}^{-1}\) is a Hecke character of finite
+order, trivial on \(\mathbb A_F^\times\). Its component at each
+archimedean place \(\tau\) is trivial: \(E_\tau\cong\mathbb C\), so
+\(E_\tau^\times\) is connected, and a continuous homomorphism from a
+connected group to a finite group of roots of unity is trivial.
+Twisting \(\omega_{\boldsymbol\mu}\) by \(\nu\) gives
+\((g,h)\mapsto\nu(x)^{-1}\nu(y)\,\omega_{\boldsymbol\mu}(g,h)\), where
+\(x,y\in\mathbb A_E^\times\) are determinant roots, \(x/\bar x=\det g\)
+and \(y/\bar y=\det h\). This is a Weil datum with the same additive
+character and splitting characters \(\mu'_{j+1}\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsWeilDatumTwistHeckeCharacters.lean}{45}{Twisting a Weil datum by Hecke characters}.
+A Weil datum is determined on theta functions by its additive and
+splitting characters
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/WeilDatumUniqueOnThetaFunctions.lean}{83}{Uniqueness of the Weil datum on theta functions},
+so the twist agrees with \(\omega_{\boldsymbol\mu'}\) on theta functions.
+Now let \(a\) and \(b\) be real elements. At an archimedean place
+\(\det a_\tau\) has modulus one, so a square root \(x_\tau\) of it
+satisfies \(x_\tau/\bar x_\tau=x_\tau^2/|x_\tau|^2=\det a_\tau\). Take
+\(x\) equal to \(x_\tau\) at the archimedean places and \(1\)
+elsewhere, and choose \(y\) for \(b\) in the same way. Then
+\(\nu(x)=\nu(y)=1\), since \(\nu\) is trivial at the archimedean
+places. Hence \(\omega_{\boldsymbol\mu}(a,b)f=\omega_{\boldsymbol\mu'}(a,b)f\)
+for every theta function \(f\). This agrees with Kudla's construction:
+the splitting is a product of local splittings, each depending only on
+the local additive and splitting characters
+\cite[\S\S3.1.1 and 4.1.1]{p2borade-et-al}, and the archimedean
+splitting characters of the two tuples coincide. The common central
+character, the first half of the second item, comes from one
+character per level for all tuples and is taken from the release
+together with the third to sixth items below.
+The third to sixth items are integral laws of the chosen lattice
+frames and pins: the kernel law from the definite class data, the
+unfolded finite iterated integrals with their locality, and the
+factorization of the top pairing
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LawsLinksOfGeoRowsCols.lean}{120}{Assembly of the laws}.
+The edition takes the common central character and the third to
+sixth items from the release.
+
+\teamanchor{proof.relation-transport-spanning}%
+We derive the seventh item from the defining properties of the real
+theta maps of the models. Fix a step from level \(k+1\) to level \(k\),
+including the top step. Write the discrete-series models as
+\(M=\bigotimes_\tau M_\tau\) at level \(k\) and \(M'=\bigotimes_\tau
+M'_\tau\) at level \(k+1\), with \(\tau\) running over the archimedean
+places. Each \(M_\tau\) is an irreducible unitary discrete-series
+representation of the real unitary group \(G_\tau=\mathrm U(p_\tau,q_\tau)\),
+with maximal compact subgroup \(K_\tau=\mathrm U(p_\tau)\times
+\mathrm U(q_\tau)\) and complexified Lie algebra \(\mathfrak g_\tau\).
+The real theta map sends a polynomial Fock test \(P\) and an
+algebraic tensor \(v\) of smooth vectors at level \(k+1\) to an
+algebraic tensor \(I_P(v)\) of smooth vectors at level \(k\). The
+models supply the following properties
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/StepsOnto.lean}{100}{The real theta maps of the models}.
+The map \(I\) is not zero. For each \(P\) and each pure-tensor
+functional \(\ell_w=\bigotimes_\tau\langle w_\tau,\cdot\rangle\) there is
+\(c\) with \(|\ell_w(I_P(\otimes_\tau v_\tau))|\le c\prod_\tau\|v_\tau\|\).
+For \(g\in G_\tau\), the value of \(I\) at the Weil translate
+\(\omega(g,1)P\) is \(g\) applied in the factor \(\tau\) to the value at
+\(P\), whenever the translate is again a polynomial test. For
+\(X\in\mathfrak g_\tau\), the value at the Lie derivative of \(P\) along
+\(X\) is the derivative along \(X\) of the value at \(P\). The step vectors on which the polynomial tests are built are
+Fock vacua, and the splitting characters of the step Weil data have
+archimedean exponents
+\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/HasInfExpOfOrder.lean}{212}{The step vectors are Fock vacua}.
+Hence polynomial tests are stable under these Lie derivatives
+\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/LieActionFockOperatorsScalarsTraceStatement.lean}{7}{Lie action on the polynomial Fock tests},
+and the translates of a polynomial test of degree at most \(d\) by
+\(K_\tau\) are polynomial tests of degree at most \(d\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/CompactSubgroupsActOnFockVectorsAllSignaturesStatement.lean}{7}{Compact subgroups act on the Fock vectors}.
+
+Let \(N\) be the span of the vectors \(I_P(\otimes_\tau y_\tau)\), with
+\(P\) polynomial and \(\otimes_\tau y_\tau\) a \(K\)-finite pure tensor
+at level \(k+1\). We show that \(N\) is the algebraic tensor product
+\(\bigotimes_\tau(M_\tau)_K\) of the \(K\)-finite vectors. Then \(N\)
+contains every \(K\)-finite pure tensor at level \(k\), which is the
+seventh item.
+
+First, \(N\subset\bigotimes_\tau(M_\tau)_K\). Let \(u=I_P(\otimes y)\)
+with \(P\) of degree at most \(d\). By the equivariance, the
+\(K_\tau\)-translates of \(u\) in the factor \(\tau\) lie in the image of
+the finite-dimensional space of polynomial tests of degree at most
+\(d\), so they span a finite-dimensional space. This space is a finite
+sum of \(K_\tau\)-isotypic pieces. The isotypic projector of
+\(K_\tau\) in the factor \(\tau\), integration against the conjugate
+character of a \(K_\tau\)-type, maps the algebraic tensor product into
+the tensor product of that isotypic subspace of \(M_\tau\) with the
+other factors, and the finitely many projectors for the types
+occurring sum to the identity on \(u\). Doing this for each \(\tau\)
+writes \(u\) as a sum of tensors of \(K\)-finite vectors, which are
+smooth by Harish-Chandra's theorem recalled in the fourth step.
+
+Second, \(N\) is stable under each \(\mathfrak g_\tau\) acting in its
+factor, since the derivative of \(I_P(\otimes y)\) along \(X\) is
+\(I_{P'}(\otimes y)\) with \(P'\) the Lie derivative of \(P\), again
+polynomial. The derivative is first defined by testing against the
+functionals \(\ell_w\). These separate the points of the algebraic
+tensor product, and the vectors of \(N\) are smooth, so it is the
+action of \(X\).
+
+Third, \(N\ne0\). Since \(I\ne0\) and \(I\) is linear, some
+\(I_P(\otimes_\tau v_\tau)\) with smooth \(v_\tau\) is nonzero, and some
+\(\ell_w\) does not vanish on it. By the bound, the multilinear form
+\((v_\tau)_\tau\mapsto\ell_w(I_P(\otimes v))\) is continuous in each
+\(v_\tau\) for the Hilbert norm. The \(K_\tau\)-finite vectors are dense
+in \(M'_\tau\) by the Peter--Weyl theorem, and they are smooth by
+Harish-Chandra's theorem recalled in the fourth step. Replacing the factors one at
+a time by nearby \(K\)-finite vectors gives a \(K\)-finite pure tensor
+\(\otimes y\) with \(\ell_w(I_P(\otimes y))\ne0\).
+
+Fourth, each \((M_\tau)_K\) is an irreducible \(\mathfrak g_\tau\)-module
+whose \(\mathfrak g_\tau\)-endomorphisms are scalars. By
+Harish-Chandra's theorem the \(K_\tau\)-finite vectors of the
+irreducible unitary representation \(M_\tau\) are smooth and form an
+admissible irreducible \((\mathfrak g_\tau,K_\tau)\)-module
+\releasecite{Development/AbelianVarietyTheory/PublishedTheorems/TwistedTraceFormula/HarishChandraModulesOn.lean}{43}{Harish-Chandra modules}.
+The group \(K_\tau\) is connected, so it is generated by the
+exponentials of its Lie algebra. A \(K_\tau\)-finite vector \(v\) lies in
+a finite-dimensional \(K_\tau\)-stable space, on which \(\exp X\) acts by
+the exponential series in the action of \(X\). Hence
+\(\exp(X)v\) lies in every \(\mathfrak g_\tau\)-submodule containing
+\(v\), and every \(\mathfrak g_\tau\)-submodule of \((M_\tau)_K\) is a
+\((\mathfrak g_\tau,K_\tau)\)-submodule. The same argument shows that a
+\(\mathfrak g_\tau\)-endomorphism commutes with \(K_\tau\). It then
+preserves each \(K_\tau\)-isotypic subspace, which is
+finite-dimensional by admissibility, so it has an eigenvalue there.
+The eigenspace is a nonzero submodule, hence everything, and the
+endomorphism is a scalar.
+
+Fifth, the algebraic tensor product of finitely many such modules is
+irreducible under \(\bigotimes_\tau U(\mathfrak g_\tau)\). Order the places
+and induct. Let \(x=\sum_ia_i\otimes b_i\) be nonzero, with the \(a_i\)
+in the first factor linearly independent and the \(b_i\) in the
+product of the others, \(b_1\ne0\). Since the first factor is
+irreducible with scalar endomorphisms, the Jacobson density theorem
+\cite[Chapter~XVII, \S3]{p4-lang-algebra} gives \(D\in U(\mathfrak
+g_{\tau_1})\) with \(Da_1=a_1\) and \(Da_i=0\) for \(i\ne1\). Then
+\((D\otimes1)x=a_1\otimes b_1\). By irreducibility of the first factor
+and induction for the others, the submodule generated by
+\(a_1\otimes b_1\) is everything.
+
+By the first three steps \(N\) is a nonzero
+\(\bigotimes_\tau U(\mathfrak g_\tau)\)-submodule of
+\(\bigotimes_\tau(M_\tau)_K\). By the fourth and fifth steps it is all of
+it, which proves the seventh item at every step, including the top
+step.
+
+The second item, the commuting real Weil actions, the linearity of
+the lifts and the fact that a lattice-invariant theta function with a
+prescribed central character is a Fock vector of bounded degree
+express the action of a real test \(C\) on the two Fock models as a
+finite sum of products of polynomial tests, the same for all tuples. Applying the third item to each factor therefore expresses
+the bi-lift of \(R_j(\psi,y)\) with test \(C\) as
+\(c^{\rm K}_jc^{\rm K}_{j+1}\) times a combination of the
+\(R_{j+2}(\mathsf K_{j+1}\mathsf K_j\psi,y')\) whose finitely supported
+coefficients do not depend on the tuple
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/SeeSawDoubleLiftCombinationOfLawsStatement.lean}{12}{The two-step column expansion}.
+
+\paragraph{One two-level step.}
+Fix \(j\) with \(j\equiv m\pmod 2\) and \(j+4\le m\), finitely many
+tuples, columns \(\psi_i\), rows \(G_i\) at level \(j+2\) and scalars
+\(\alpha_i\). Suppose that the combination \(\sum_i\alpha_ic^{\rm V}_j
+c^{\rm K}_jc^{\rm K}_{j+1}\) times the level-\((j+2)\) coefficients of
+\(R_{j+2}(\mathsf K_{j+1}\mathsf K_j\mathsf S_j\psi_i,y')\) against
+\(G_i\) vanishes at every frame vector and real vector. We show that
+\(\sum_i\alpha_ic^{\rm I}_jc^{\rm I}_{j+1}\) times the level-\(j\)
+coefficients of \(R_j(\psi_i,y)\) against \(\iota_j\iota_{j+1}G_i\)
+vanishes at every frame vector and real vector. By rapid decay the
+Bessel coefficient of a cuspidal row is bounded by a Sobolev norm in
+each real tensor factor. The level-\(j\) combination is therefore a
+linear functional on the smooth model that is Sobolev-continuous in
+each factor separately. The \(K\)-finite vectors of each factor are
+dense in its smooth vectors for the Sobolev norms, by Harish-Chandra's
+theorem
+\releasecite{Development/AbelianVarietyTheory/PublishedTheorems/TwistedTraceFormula/HarishChandraModulesOn.lean}{43}{Harish-Chandra modules}.
+Vanishing on \(K\)-finite pure tensors therefore extends factor by
+factor to the whole smooth model
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/TprodEqZeroOfKFinOff.lean}{45}{Extension from \(K\)-finite pure tensors}.
+By the seventh item it suffices to test on vectors obtained from a
+\(K\)-finite pure tensor \(v''\) at level \(j+2\) by two real theta
+images with polynomial tests \(P_2,P_1\). By the first item applied
+twice, the coefficient of the double theta lift of \(G_i(v'')\) with
+these tests is \(c^{\rm I}_jc^{\rm I}_{j+1}\) times the level-\(j\)
+coefficient against \(\iota_j\iota_{j+1}G_i\) at that vector. Unfold
+the coefficient of the double theta lift as an iterated adelic
+quotient integral
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/IsQuasiFam.lean}{77}{The double-step unfolding}.
+Intersect the finitely many open compact subgroups of the fifth item
+for the tuples involved and unite their double cosets. The finite
+integration is then a finite sum over the same cells for every \(i\),
+and the adelic integral is the integral over the real components
+\((a,a')\) of the finite iterated integrals. For fixed \((a,a')\), the
+fourth item gives \(c^{\rm V}_j\) times a level-\((j+2)\) coefficient of
+a bi-lift with one test \(C\) independent of \(i\), read at the right
+translate by \(a'\). The two-step column expansion writes this as
+\(c^{\rm V}_jc^{\rm K}_jc^{\rm K}_{j+1}\) times a combination of the
+coefficients in the hypothesis, with frame coefficients independent
+of \(i\). Real translation acts on the model and commutes with the
+rows, so the hypothesis applies to each term. The
+\(\alpha_i\)-combination of the finite iterated integrals therefore
+vanishes for every \((a,a')\), and so does the whole integral
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/SeeSawDoubleStepLinearRelationsPeriodsStatement.lean}{12}{The two-level step in the release}.
+
+\paragraph{The last two levels and the induction.}
+The density argument at \(j=m-2\), with the seventh item for the top
+model, the last case of the fourth item, the two-step expansion and
+the sixth item, shows the following. No unfolding is needed there. If
+the combination with coefficients \(\alpha_ic^{\rm V}_{m-2}c^{\rm K}_{m-2}
+c^{\rm K}_{m-1}c^{\rm P}\) of the normalized top periods of
+\(\mathsf K_{m-1}\mathsf K_{m-2}\mathsf S_{m-2}\psi_i\) against \(F_i\)
+vanishes, then the combination with coefficients
+\(\alpha_ic^{\rm I}_{m-2}c^{\rm I}_{m-1}\) of the level-\((m-2)\) Bessel
+coefficients of index \(0\) against \(\iota_{m-2}\iota_{m-1}F_i\)
+vanishes at every frame vector and real vector. Apply this once and
+then the two-level step at \(j=m-4,m-6,\dots,0\). At each step the
+upper constants move into the hypothesis and the lower constants into
+the conclusion. Let \(\mathrm{up}\) be the composite of the
+\(n+1\) column steps \(\mathsf K\mathsf K\mathsf S\), let \(\mathrm{dn}\)
+be \(\iota_0\circ\cdots\circ\iota_{m-1}\), and put
+\[
+ c_{\mathrm{top}}=c^{\rm P}\prod_{i=0}^{n}c^{\rm V}_{2i}c^{\rm K}_{2i}
+                     c^{\rm K}_{2i+1},\qquad
+ c_{\mathrm{bot}}=\prod_{j=0}^{m-1}c^{\rm I}_j ,
+\]
+each evaluated at its tuple. Then a vanishing combination
+\(\sum_i\alpha_ic_{\mathrm{top}}\,\tau(\mathrm{up}\,\psi_i,F_i)=0\) of
+normalized top periods implies
+\(\sum_i\alpha_ic_{\mathrm{bot}}\,\mathrm{per}_0(\psi_i,\mathrm{dn}F_i)=0\)
+at every permitted frame and real vector, where \(\mathrm{per}_0\) is
+the Bessel coefficient of index \(n\). The product \(c_{\mathrm{bot}}\)
+is nonzero since each \(c^{\rm I}_j\) is, and the chosen models also give
+\(c_{\mathrm{top}}\ne0\)
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/FamAllQ.lean}{21}{Nonvanishing and the rational unit ratio}.
+The release proves the same induction
 \releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/SeesawTransportRelationsOfFamilyLaws.lean}{25}{comparison by the last two levels and successive two-level steps}.
+The derivation above uses the seven laws, the stability of the
+ramified columns under the column steps, the linearity of the lifts,
+the unfolding of a Bessel coefficient of a double theta lift through a
+Fourier--Jacobi coefficient, Sobolev bounds for Bessel coefficients
+from rapid decay, the action of real translation on the models and
+Harish-Chandra's density theorem. The first law is derived above
+from the definition of the models, the Fock-vector reduction and the
+level equivariance of the row maps. The equality of the real Weil
+actions in the second law is derived above from the finite order of
+the tuple twists, given the twisting and uniqueness of Weil data. The
+seventh law is derived above from the properties of the real theta
+maps of the models and the polynomial Fock tests, by Harish-Chandra's
+theorem and the density theorem. The common central character in the
+second law, the third to sixth laws, the unfolding, the Sobolev
+bounds, the commuting real Weil actions, the Fock-vector reduction,
+the level equivariance, the properties of the real theta maps, the Fock-vacuum step
+vectors and the stability of the polynomial Fock tests, the
+twisting and uniqueness of Weil data and the action of real
+translation on the models are taken from the release.
 
 For each word \(w\), combine the invertible column change from the
 theta comparisons with the isometry identifying the chosen bottom
 columns with the columns of the Poincar\'e series. The composite
 multiplies norms by a constant \(r_{\mathrm{col},w}>0\). Dividing by
-\(r_{\mathrm{col},w}\) gives a unitary \(U_w\) on \(\mathcal M_w\) and
+\(r_{\mathrm{col},w}\) gives a norm-preserving map of the
+finite-dimensional space \(\mathcal M_w\), hence a unitary \(U_w\), and
 divides both bottom pairings by the same constant. For a permitted full
 bottom row \(T\), choose a preimage under the base chain and let
 \(p_{w,T}(\phi_0)\) be its normalized top period on the base column
 \(\phi_0\). Let \(c_{\mathrm{top}}(w,\boldsymbol\mu)\) and
-\(c_{\mathrm{bot}}(w,\boldsymbol\mu)\) be the products of the upper and
-lower factors in that comparison. The upper product includes the two
+\(c_{\mathrm{bot}}(w,\boldsymbol\mu)\) be the products defined above at
+the tuple \(\boldsymbol\mu\). The upper product includes the two
 column factors and the real comparison factor from each two-level step,
 and the factor for the top pairing. The lower product contains one
 factor for each downward step. The scalar in the period relation is
@@ -7976,17 +8687,56 @@ The
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/MatchingCoset.lean}{66}{pairwise coset comparison}
 then puts every word in that same coset. This gives the
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/OneCentralPin.lean}{41}{common placement}.
-Matching at \(t_0\) also gives matching at \(zt_0\), since
-conjugation by \(z\) fixes the level subgroup and its character.
+Matching at a finite element \(t\) means that conjugation by \(t\)
+carries the bottom row level subgroup and its character to those of
+\(\mathcal H\). Since \(z\) is central,
+\((zt_0)k(zt_0)^{-1}=t_0kt_0^{-1}\) for every \(k\). So conjugation by
+\(zt_0\) and by \(t_0\) agree, and matching at \(t_0\) gives matching
+at \(zt_0\)
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/BotHypMatch.lean}{23}{Matching at the central translate}.
 Right translation by \(z\) and its inverse preserve the Petersson norm
 and distinguished row conditions, giving a unitary \(V\) on
 \(E_{\rm row}\).
 
-Evaluation on the chosen real unit vector at \(zt_0\), followed by
-complex conjugation, gives a conjugate-linear bijection from the full
-permitted bottom multiplicity space onto \(\mathcal H\). This uses the
-matched level and character, the real discrete-series identifications
-and the real gap hypothesis. Write \(\operatorname{ev}_z\) for this
+At \(t_0\), evaluation on the chosen real unit vector followed by
+complex conjugation is a conjugate-linear bijection from the full
+permitted bottom multiplicity space onto \(\mathcal H\). This is the
+row realization. Write \(v_0\) for the chosen real unit vector, a pure
+tensor of nonzero vectors in the lowest \(K_\infty\)-types of the real
+type. A row \(T\) is sent to the function
+\(x\mapsto\overline{(Tv_0)(xt_0)}\), so the map is conjugate linear.
+It is injective. Suppose that this function vanishes almost everywhere.
+Right translation by \(t_0\) preserves the Haar measure on the quotient,
+so the automorphic form \(Tv_0\) vanishes almost everywhere, and hence
+everywhere since it is continuous. The real type is an irreducible
+tensor product of discrete series. Its \(K_\infty\)-finite vectors form
+an irreducible \((\mathfrak g,K_\infty)\)-module, which is generated by
+the nonzero \(K_\infty\)-finite vector \(v_0\). A row is defined on the
+smooth vectors of the real type, intertwines the real group, and at
+each point its value is continuous on each factor for a Sobolev norm.
+Differentiating the intertwining relation along one-parameter
+subgroups shows that \(T\) also commutes with the Lie algebra action,
+and it commutes with \(K_\infty\). So the vectors killed by \(T\) at
+every point form a \((\mathfrak g,K_\infty)\)-submodule containing
+\(v_0\), and \(T\) vanishes on all \(K_\infty\)-finite vectors. These
+are dense in the smooth vectors for every Sobolev norm, so \(T=0\). The edition takes from the release that the conjugated
+evaluation lies in \(\mathcal H\) and that every element of
+\(\mathcal H\) arises in this way. This uses the matched level and
+character, the real discrete-series identifications and the real gap
+hypothesis
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/TranslatedEvaluationRowsConjLinearBijectionStatement.lean}{15}{Evaluation at a matched translate}.
+We pass to \(zt_0\). Let \(R(z)\) be right translation by \(z\). Since
+\(z\) is central, \(R(z)\) commutes with the real group action, with
+left translation by the rational points and with right translation
+by the level subgroup. It therefore preserves automorphy, the real
+type, the level and its character. It preserves the Petersson norm,
+because right translation by a finite-adelic element preserves the
+Haar measure on the quotient. So \(R(z)\) is a unitary automorphism of
+the full permitted bottom multiplicity space, with inverse
+\(R(z^{-1})\). Since \(z\) is central, evaluation at \(zt_0\) is
+evaluation at \(t_0\) composed with \(R(z)\). Hence evaluation at
+\(zt_0\) is also a conjugate-linear bijection onto \(\mathcal H\).
+Write \(\operatorname{ev}_z\) for this
 map with the bottom pairing normalization. For a full row \(T\)
 and a ramified column \(\psi\) the pairing is
 \[
@@ -7994,9 +8744,16 @@ and a ramified column \(\psi\) the pairing is
 \]
 For the downward image of a projected top row, the matching to the
 distinguished space represents this pairing by
-\(\mathcal E_w(\psi,V\iota_{\boldsymbol\mu}F_m)\), up to a fixed
-nonzero conversion factor in the row normalization. We use the
-same conversion on both terms of the bottom relation. The release
+\(\mathcal E_w(\psi,V\iota_{\boldsymbol\mu}F_m)\), up to a conversion
+factor \(\kappa_{\rm row}\ne0\) in the row normalization. This factor is a
+single constant. It is fixed together with the chosen real unit
+vector, before the word is chosen, and the same \(\kappa_{\rm row}\) serves for
+every word, every element of the distinguished space, every column and
+every pairing
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/FormsAtZero.lean}{89}{The single conversion factor}.
+In particular it does not depend on the tuple \(\boldsymbol\mu\), the
+column \(\psi\) or the top row \(F_m\). We use the same conversion on
+both terms of the bottom relation. The release
 compares these pairings in the
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/MiStar2AtRealisation.lean}{84}{chosen row and column coordinates}.
 
@@ -8034,8 +8791,11 @@ and \(\alpha'=-p_{*,w}\). The resulting bottom equality is
  d_{w,\boldsymbol\mu}\,b_{w,\boldsymbol\mu}(\phi,F_m)\,b_{*,w}
  =p_{*,w}\,\mathcal E_w(U_w\phi,V\iota_{\boldsymbol\mu}F_m).
 \end{equation}
-Here the fixed, nonzero conversion from the bottom row normalization
-is included in \(p_{*,w}\). The equality holds on the compatible
+Here the conversion factor \(\kappa_{\rm row}\) from the bottom row
+normalization is included in \(p_{*,w}\). It is a single nonzero
+constant, independent of \(\boldsymbol\mu\), \(\phi\) and \(F_m\). So it
+changes \(p_{*,w}\) and \(a_w\) below by one nonzero factor and does
+not affect the dependence on the tuple. The equality holds on the compatible
 coefficient coordinates, which span the projected complex top row
 spaces. It therefore extends to those spaces by bilinearity.
 
@@ -8214,7 +8974,80 @@ The base test off \(S\cup Q\) is the unit self-dual
 vacuum. At a nonsplit finite place the given characters
 are unramified and this is the hyperspecial vacuum.
 
-In the split Schr\"odinger model the source pullback is
+\teamanchor{proof.p7-unit-weil-operators}%
+We first derive the local Weil operators of integral units. Fix a
+split finite place \(v\). Read through the selected half, the local
+space of the arrow is a sum of two halves, each a copy of
+\(M_{b\times a}(F_v)\). The local groups are
+\(\mathrm{GL}_a(F_v)\times\mathrm{GL}_b(F_v)\), acting by
+\(w\mapsto hwg^{-1}\). Both halves are Lagrangian and stable
+under this action. Realize the Weil representation in the
+Schr\"odinger model on \(\mathcal S(M_{b\times a}(F_v))\) of the
+selected half, and put
+\[
+ S_{g,h}\varphi(X)=|\det g|_v^{b/2}|\det h|_v^{-a/2}\,
+     \varphi(h^{-1}Xg).
+\]
+The substitution \(X\mapsto h^{-1}Xg\) comes from a symplectic
+automorphism preserving both halves. Hence \(S_{g,h}\) satisfies
+the same commutation relation with the Heisenberg operators as
+\(\omega_v(g,h)\). By the Stone--von Neumann theorem and Schur's
+lemma, \(\omega_v(g,h)=c_v(g,h)S_{g,h}\) for a scalar
+\(c_v(g,h)\in\mathbb C^\times\). The release fixes the splitting
+by a normalization of its Weil datum. A functional invariant under
+the translations of the selected half is multiplied by
+\(r\,\chi_T(\det g)^{-1}\chi_S(\det h)\) under \(\omega_v(g,h)\),
+for some \(r>0\). In the Schr\"odinger model these functionals are
+the multiples of the integral \(\varphi\mapsto\int\varphi\), or
+of the evaluation \(\varphi\mapsto\varphi(0)\), according to
+whether those translations act by translation or by
+multiplication. Each of these functionals is multiplied by a
+positive constant under \(S_{g,h}\). Hence
+\(c_v(g,h)\) is a positive multiple of
+\(\chi_T(\det g)^{-1}\chi_S(\det h)\). Both \(\omega_v\) and \((g,h)\mapsto S_{g,h}\) are
+representations, so \(c_v\) is a character. Hence so is the
+positive factor
+\(c_v(g,h)\chi_T(\det g)\chi_S(\det h)^{-1}\). It is continuous,
+since \(\omega_v\) is continuous. On the compact group
+\(\mathrm{GL}_a(\mathcal O_v)\times\mathrm{GL}_b(\mathcal O_v)\)
+its image is a compact subgroup of \(\mathbb R_{>0}\), hence
+\(\{1\}\). There \(S_{g,h}\) is the substitution alone, since
+the determinants are units. Thus
+\[
+ \omega_v(g,h)\varphi(X)
+  =\chi_T(\det g)^{-1}\chi_S(\det h)\,\varphi(h^{-1}Xg),
+ \qquad g\in\mathrm{GL}_a(\mathcal O_v),\
+        h\in\mathrm{GL}_b(\mathcal O_v).
+\]
+At a place of \(S\), \(\eta\) and the tuple twist are unramified.
+By the table of the two characters, both \(\chi_S\) and
+\(\chi_T\) restrict on the units of the selected half to
+\(\mu_{0,j+1}\), that is, to \(\chi_{j+1}^{-1}\) through the
+residue field. The displayed formula then gives the factors
+\(\chi_{j+1}(\det g)\) and \(\chi_{j+1}(\det h)^{-1}\) used below.
+At a split place off \(S\cup Q\) the characters are unramified.
+Since \(h^{-1}M_{b\times a}(\mathcal O_v)g
+=M_{b\times a}(\mathcal O_v)\), the unit vacuum
+\({\bf1}_{M_{b\times a}(\mathcal O_v)}\) is fixed. At a nonsplit
+finite place \(E_v/F_v\) is unramified, and the residue
+characteristic is odd because the host splits at the places
+above \(2\). The test is the vacuum of the lattice model attached
+to the self-dual lattices, with unramified splitting characters.
+By Howe's theorem the vectors fixed by the product of the two
+hyperspecial lattice stabilizers are the images of the vacuum
+under the spherical Hecke algebra; in particular the vacuum is
+fixed \cite[Appendix~2.A, Theorem~2.A.2(b)]{rank-harris-spherical},
+\cite[Chapter~5, Proposition~I.11]{p7-mvw}. That theorem assumes
+odd residue characteristic, self-dual lattices, and unramified
+splitting and additive characters. The levels are
+finite-adelic, so they do not act on the real factors. Combined
+with the computation at \(S\) below, this gives the level laws of
+the placed test on both stages when \(Q=\emptyset\). The release
+still supplies one identification at the nonsplit places: its
+additive character and splitting there are the unramified ones of
+the lattice model.
+
+By the displayed formula, in the split Schr\"odinger model the source pullback is
 \(X\mapsto Xg\), with unit factor
 \(\chi_{j+1}(\det g)\) on integral units at \(S\).
 Thus (F) transforms on the source by \(\lambda_j\).
@@ -8238,8 +9071,9 @@ Petersson input the two \(\lambda_j\) factors cancel.
 The semilocal contribution at \(S\) is exactly the
 level volume times the product of the norms of the
 actual local tests.
-\releasecite{Formalism/LocalToGlobal/IndefiniteReal/DatumVec.lean}{51}{The residue weight}
-\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/ThetaChainStepVectorTwoLevelLaw.lean}{20}{Target character law on the placed test}.
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/DatumVec.lean}{51}{Definition of the residue weight (F)}
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/LocalNewformFunction.lean}{53}{Definition of the Weil datum and its split scalar}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/MoveCompactLevelInvariant.lean}{139}{Unramified normalization of the vacuum at the nonsplit places}.
 
 Use the principal first-block level \(P=\{1\}\).
 For each \(\gamma\in\Gamma\) lift it to the same
@@ -8262,7 +9096,17 @@ On the \(\alpha\)-isotype the summed integral is
 \(|P|\) times the principal integral before Haar
 conversion. The smaller-level Haar is \(|P|^{-1}\) times
 the principal one, because the smaller level has
-index \(|P|\) over the principal level. This cancellation
+index \(|P|\) over the principal level.
+Indeed let \(J_P\) and \(J_1\) be the levels at \(S\) with first
+block in \(P\) and in \(\{1\}\). The reductions of their elements
+are block upper triangular. Hence reduction of the first diagonal
+block is a homomorphism \(J_P\to P\), with kernel \(J_1\). It is
+surjective, since \(\gamma\in P\) lifts to
+\(\operatorname{diag}(\tilde\gamma,1)\in J_P\), where
+\(\tilde\gamma\) is an integral lift of \(\gamma\) and has unit
+determinant. Thus \([J_P:J_1]=|P|\). The Haar measure giving
+\(J_P\) volume one is therefore \(|P|^{-1}\) times the one giving
+\(J_1\) volume one. This cancellation
 applies on every stage where this first-block level
 changes, including the top restriction.
 
@@ -8287,8 +9131,8 @@ integrates the conjugate kernel using
 product of these two measures. This gives precisely
 the powers of \(m_Y\) in each direction, including
 the measure after the final isometry to \(X'\).
-\releasecite{Formalism/LocalRingCardinality/DataTheta.lean}{727}{Stage metrics and row maps}
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/InverseLevelCardinality.lean}{24}{Small-level Haar factor}.
+\releasecite{Formalism/LocalRingCardinality/DataTheta.lean}{727}{Definition of the stage metrics and row maps}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/InverseLevelCardinality.lean}{24}{Definition of the small-level Haar factor}.
 
 \paragraph{Doubling at a tuple prime.}
 Here the full-rank support argument at \(S\) must be
@@ -8310,15 +9154,39 @@ In (H) the first row and column blocks both have size \(r\).
 The finite level is the parahoric of shape \((r,d)\)
 with character \(\xi_{\boldsymbol\mu}^{-1}\) on the
 suffix determinant. This follows by applying the
-split Weil formula to (H). For instance the source
-pullback contributes \(\xi(\det\bar g_{00})\), and the
-scalar of the Weil action contributes
-\(\xi(\det\bar g)^{-1}\).
-The same calculation on the target gives the inverse
-of its level character. This verifies level covariance
-on both sides of the actual step, including its top version.
-\releasecite{Formalism/LocalToGlobal/IndefiniteReal/DatumVec.lean}{68}{The additional-prime factor}
-\releasecite{Formalism/LocalToGlobal/Divisibility/DefGroup.lean}{700}{The suffix determinant in the level character}.
+split Weil formula to (H), as follows. At \(v\in Q\) the
+characters \(\mu_{0,i}\) and \(\eta\) are unramified. So both
+\(\chi_S\) and \(\chi_T\) restrict on the units of the selected
+half to \(\xi=\xi_{\boldsymbol\mu}\). This restriction is tame, so
+it factors through the residue field. By the unit formula
+derived above for integral units,
+\(\omega(g,h)f(X)=\xi(\det\bar g)^{-1}\xi(\det\bar h)f(h^{-1}Xg)\)
+for integral units \(g,h\).
+On the source, let \(g\) lie in the parahoric of shape \((r,d)\),
+with blocks \(g_{00},g_{01},g_{10},g_{11}\) and
+\(g_{10}\equiv0\pmod\varpi\). Then \(\bar g_{00}\) is invertible.
+With \(X\) as in (H), the top-left block of \(Xg\) is
+\(Ag_{00}+Bg_{10}\equiv Ag_{00}\), and its lower-left block is
+\(Cg_{00}+Dg_{10}\equiv0\). Since \(g^{-1}\) lies in the same
+parahoric, \(Xg\in\mathscr X\) exactly when \(X\in\mathscr X\).
+Then \(f(Xg)=\xi(\det\bar g_{00})f(X)\). With the scalar
+\(\xi(\det\bar g)^{-1}=\xi(\det\bar g_{00})^{-1}
+\xi(\det\bar g_{11})^{-1}\), this gives
+\(\omega(g,1)f=\xi(\det\bar g_{11})^{-1}f\). This is the level
+character of the source.
+On the target, let \(h\) lie in the parahoric of shape
+\((r,d+t)\). Then \(h^{-1}\) lies there too, with diagonal
+reductions \(\bar h_{00}^{-1},\bar h_{11}^{-1}\). The same block
+computation gives \(h^{-1}X\in\mathscr X\) exactly when
+\(X\in\mathscr X\), and
+\(f(h^{-1}X)=\xi(\det\bar h_{00})^{-1}f(X)\). With the scalar
+\(\xi(\det\bar h)\) this gives
+\(\omega(1,h)f=\xi(\det\bar h_{11})f\), the inverse of the
+target level character. This verifies level covariance
+on both sides of the actual step, including its top version,
+where \(b\) is the rank of \(X'\).
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/DatumVec.lean}{68}{Definition of the additional-prime factor (H)}
+\releasecite{Formalism/LocalToGlobal/Divisibility/DefGroup.lean}{700}{Definition of the level character on the suffix determinant}.
 
 Let \(\pi_j\) be the representation on the conjugate
 automorphic input in the doubling integral. At \(j=0\)
@@ -9221,7 +10089,10 @@ For the metric at
 \(\iota_K\), use the bottom Gram matrix pulled back along
 \(j_{\rm row}\). If the basis is realized first on the principal
 level, divide its Gram by \(|P|\) to obtain the metric at
-the character level. Indeed the Petersson inner product on the
+the character level. This is how the row frame at \(\iota_K\) is
+defined. Hence its majorant at \(\iota_K\) is
+\(|P|^{-1}\langle j_{\rm row}x,j_{\rm row}y\rangle\) in these
+coordinates. Indeed the Petersson inner product on the
 larger level uses volume one there, whereas its volume in the
 principal normalization is \(|P|\). The two realizations can
 use conjugate representatives of the infinite place, which
@@ -9248,19 +10119,56 @@ complement metric \(h^Q_v\) on the rational coordinates, with
 the prescribed positive scalars \(\kappa_v,\lambda_{j,p,v}\).
 The underlying class Hecke operators are the commuting
 double-coset operators with their adjoints for the class
-mass. Integration of a right translate and change of variables
+mass. In the release they are the lattice-neighbour operators at
+split primes of the host away from the level and auxiliary
+places. At such a prime, over the place \(v\) of \(F\), the
+definite group is \(\mathrm{GL}_n(F_v)\) and the level is
+\(\mathrm{GL}_n(\mathcal O_v)\); the operators at the prime and at
+its conjugate both lie in the spherical Hecke algebra of this pair.
+Operators at different places commute, because they act
+through different factors of the adelic group. At one place the
+spherical Hecke algebra of \((\mathrm{GL}_n(F_v),\mathrm{GL}_n(\mathcal O_v))\)
+is commutative \cite[Theorem~1 and \S8]{p7-satake-spherical}.
+Integration of a right translate and change of variables
 give the adjoint by inverting the double coset and conjugating
-its character. The class-sum version is the same calculation
-on each source and target class. The adjoint matrix identities
+its character. The group is unimodular, and the class mass is the
+quotient Haar measure. The class-sum version is the same calculation
+on each source and target class. In matrices over \(K\) this reads
+\(HM_i=M_{i'}^{*}H\), where \(H\) is the class Gram matrix, \(M_i\)
+the operator matrices, and \({}^*\) the conjugate transpose for the
+field involution \(c\).
+The adjoint matrix identities
 transport to \(v\) because the operator and level matrices
 have entries in the CM subfield, on which the field involution
 maps to complex conjugation at every embedding.
+Here the CM subfield is the set of \(x\in K\) with
+\(\sigma(c\,x)=\overline{\sigma(x)}\) for every embedding
+\(\sigma\); it is a subfield, since both sides are ring
+homomorphisms in \(x\). Applying
+\(\sigma\) entrywise gives
+\(\sigma(H)\sigma(M_i)=\sigma(M_{i'})^*\sigma(H)\).
+Let \(V\) embed the fitted coordinates, with entries in the CM
+subfield (the release derives this from the rationality of the
+class action), so that \(M_iV=Vt_i\), and
+\(H_V=|P|^{-1}V^*HV\). Then
+\[
+ H_Vt_i=|P|^{-1}V^*HM_iV=|P|^{-1}(M_{i'}V)^*HV=t_{i'}^*H_V,
+\]
+and the same holds after \(\sigma\). Thus the family
+\(\{t_i\}\) is closed under adjoints for the positive form
+\(\sigma(H_V)\).
 The fitted class subspace is invariant under this family,
 including its adjoints. Thus its orthogonal projection
 commutes with the operators, and the induced operators on
 fitted quotient coordinates are commuting normal operators.
 Different joint spectral labels have disjoint joint eigenspaces,
 which are orthogonal for the quotient form \(h^Q_v\).
+Indeed commuting normal operators are simultaneously
+diagonalizable, so the joint generalized eigenspaces are joint
+eigenspaces. If \(t_ix=\alpha x\) and \(t_iy=\beta y\) with
+\(\alpha\ne\beta\), normality gives \(t_i^*y=\bar\beta y\). Then
+\(\alpha h^Q_v(x,y)=h^Q_v(t_ix,y)=h^Q_v(x,t_i^*y)
+=\beta h^Q_v(x,y)\), so \(h^Q_v(x,y)=0\).
 For a joint spectral label \(p\) let \(E_p\) be the projector
 to that summand. The prescribed row metric is
 \[
@@ -9278,9 +10186,9 @@ of the positive factors,
 These identities give the dual norms and comparisons used in
 Section~\ref{sec:integral} once the selected theta norm
 scalars on the actual summands are determined.
-\releasecite{Formalism/LocalToGlobal/IndefiniteReal/PrincipalLevelLattice.lean}{204}{Principal-level and character-level metrics}
-\releasecite{Formalism/LocalToGlobal/IndefiniteReal/PrincipalLevelLattice.lean}{250}{Metrics at the other embeddings}
-\releasecite{Formalism/LocalToGlobal/IndefiniteReal/CxCutPO.lean}{37}{Transport of adjoints and spectral orthogonality}.
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/PrincipalLevelLattice.lean}{250}{The prescribed metrics at the other embeddings}
+\releasecite{Formalism/LocalToGlobal/Divisibility/RowLat.lean}{176}{Class Gram and class action: entries in the CM subfield and positivity at every embedding}
+\releasecite{Formalism/LocalToGlobal/Divisibility/LiftLat.lean}{132}{Class Hecke matrices: entries in the CM subfield}.
 
 \teamanchor{proof.stage-petersson}
 \subsubsection{Petersson eigenvalues of the auxiliary row stages}\label{sec:stage-petersson}
@@ -10768,11 +11676,13 @@ factor \(\chi_F(N,N')\) in the moved vacuum is
 \(\chi(\det N)^{\dim N'/2}\chi(\det N')^{-\dim N/2}\),
 where the determinant ideals are measured from the standard
 lattices. In the normalized germ its reciprocal removes this
-factor. Thus this argument uses the stated normalization,
-including when changing the chosen ideal character in the
-paired construction.
-\releasecite{Formalism/LocalToGlobal/KernelLattices/LateralTheory.lean}{165}{Moved vacuum and determinant factor}
-\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ChKerCCongr.lean}{75}{The normalized germ under the change of character}.
+factor. Thus this argument uses the stated normalization.
+The moved vacuum and the normalized germ depend on the chosen
+ideal character only through the number \(\chi_F(N,N')\).
+The change of this character in the paired construction is
+treated in \hyperlink{proof.period-character-change}{the paragraph
+on changing the character} below.
+\releasecite{Formalism/LocalToGlobal/KernelLattices/LateralTheory.lean}{165}{Moved vacuum and determinant factor}.
 
 \subsubsection{Finite coset jets at the chosen points}
 In one step with ranks \(a,b\), let \(\mathcal L\) be the
@@ -11111,22 +12021,44 @@ at the lifted points, including their marks.
 \releasecite{Formalism/LocalToGlobal/Columns/ChainTopTilQ.lean}{43}{The same symbol at a lifted row point}
 \releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/BadPrimeNormPrimeNeLevelPrime.lean}{88}{Support and the depth bound at the last step}.
 
-The character used to move the arithmetic vacuum can be
-changed on the class kernels if its restriction to norm-one
-fractional ideals agrees with the original character. In
-fact, for two self-dual lattices in the same Hermitian space,
-the relative determinant ideal \(\mathfrak d\) satisfies
+\teamanchor{proof.period-character-change}%
+\paragraph{Changing the character on norm-one ideals.}
+The character \(\chi\) used to move the arithmetic vacuum can be
+replaced on the class kernels by any character \(\chi'\) with
+\(\chi'(\mathfrak d)=\chi(\mathfrak d)\) for every fractional ideal
+\(\mathfrak d\) of \(E\) with \(\mathfrak d\overline{\mathfrak d}
+=\mathcal O_E\). Here is the proof.
+
+First, the determinant ideal of a self-dual class lattice has norm
+one. The class lattices of rank \(n\) are self-dual for the standard
+form \(h(x,y)=\sum_i\bar x_iy_i\) on \(E^n\), in the sense
+\(N=N^\#\) with \(N^\#=\{x:h(x,N)\subset\mathcal O_E\}\). The
+standard lattice \(N_0=\mathcal O_E^n\) is self-dual. Fix a finite
+place \(v\) of \(F\) and write \(\mathcal O_v=\mathcal O_E\otimes
+\mathcal O_{F,v}\), a semilocal principal ideal ring stable under
+conjugation. Then \(N_v=g\,\mathcal O_v^n\) for some
+\(g\in\mathrm{GL}_n(E\otimes F_v)\), and \(g\) can be taken to be
+\(1\) for almost all \(v\). Let \(g^*=\bar g^{\mathsf T}\), so that
+\(h(x,gy)=h(g^*x,y)\). Then \(x\in(gN_{0,v})^\#\) if and only if
+\(g^*x\in N_{0,v}^\#=N_{0,v}\). Thus
+\((gN_{0,v})^\#=(g^*)^{-1}N_{0,v}\). Self-duality of \(N\) gives
+\(gN_{0,v}=(g^*)^{-1}N_{0,v}\), so \(g^*g\in\mathrm{GL}_n(\mathcal O_v)\).
+Its determinant \(\overline{\det g}\,\det g\) is a unit of
+\(\mathcal O_v\). The determinant ideal \(\mathfrak d=\det N\),
+measured from \(N_0\), is \(\det(g)\mathcal O_v\) at \(v\). Hence
 \(\mathfrak d\overline{\mathfrak d}=\mathcal O_E\).
-In local bases, duality conjugates and inverts the
-determinant ratio at the two conjugate places, which proves
-the ideal identity. Both relative determinant ideals
-of the source and target self-dual lattices therefore have
-the same character readings before and after the change.
-The vacuum scalar and the determinant normalization agree,
-so the germs \(G_s\), the derivatives and the three types of
-finite kernels agree in the same frames.
-\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/EvaluationDatumOkBaseTuple.lean}{45}{Norm-one determinant ideals}
-\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ChKerCCongr.lean}{34}{Compatibility of the three kernels with the character change}.
+
+Second, the three kinds of class kernels, namely the ordinary
+matrix entries and the two coupled kernels, are built from the
+normalized germs \(G_s\) and their derivatives \(J_s(\alpha)\) at
+pairs \(N,N'\) of self-dual class lattices. By the construction of
+the moved vacuum and of the normalized germ above, the character
+enters them only through
+\(\chi_F(N,N')=\chi(\det N)^{\dim N'/2}\chi(\det N')^{-\dim N/2}\).
+By the first step both determinant ideals have norm one, so
+\(\chi_F(N,N')\) is the same for \(\chi\) and \(\chi'\). Therefore the
+moved vacua, the germs \(G_s\), the derivatives \(J_s(\alpha)\) and
+the three kinds of finite kernels agree in the same frames.
 
 \teamanchor{proof.period-normalized-entry}
 \subsubsection{The normalized step entry}\label{sec:period-normalized-entry}
@@ -11144,8 +12076,20 @@ and the indicated tests at the row-support places.
 
 Consider the normalized mixed-model theta kernel
 \(\mathcal T_{p,p'}(z)\) before real differentiation.
-The finite support gives its decomposition into
-indicators of the classes of \(c_A^{-1}\mathcal L/c_B\mathcal L\).
+It is obtained from the finite symbol by a finite
+weighted sum of Heisenberg translates of the moved vacuum,
+with weights that are values of the symbol. Hence it is
+\(\mathbb C\)-linear in the symbol.
+The symbol \(\Xi_{p,p'}\) vanishes off \(c_A^{-1}\mathcal L\) and
+is constant modulo \(c_B\mathcal L\subset c_A^{-1}\mathcal L\).
+Choose representatives \(s\) of the finite quotient
+\(c_A^{-1}\mathcal L/c_B\mathcal L\). Then
+\(\Xi_{p,p'}=\sum_s\Xi_{p,p'}(s)\mathbf 1_{s+c_B\mathcal L}\)
+pointwise. Indeed, off \(c_A^{-1}\mathcal L\) both sides vanish, and
+a point of \(c_A^{-1}\mathcal L\) lies in exactly one coset
+\(s+c_B\mathcal L\), where \(\Xi_{p,p'}\) takes the value
+\(\Xi_{p,p'}(s)\). By linearity \(\mathcal T_{p,p'}\) is the
+corresponding combination of the kernels of the coset indicators.
 The self-dual vacuum takes care of the spherical places
 and the Chinese remainder theorem gives the representative
 sum at the remaining places. In a local matrix space the
@@ -11199,13 +12143,25 @@ complex class multipliers are
            \chi_\psi(\det N')^{a/2}.
  \end{aligned}
 \]
-Their product is \(\iota_K(M_j(p)/M_j(p'))\,
-\chi_F(N,N')^{-1}\). This cancels the character of the
+Their product is
+\[
+ \rho_j(p)\rho'_j(p')
+   =\iota_K\bigl(M_j(p)/M_j(p')\bigr)\,
+     \chi_\psi(\det N)^{-b/2}\chi_\psi(\det N')^{a/2}
+   =\iota_K\bigl(M_j(p)/M_j(p')\bigr)\,
+     \chi_F(N,N')^{-1},
+\]
+with \(\chi_F\) formed with \(\chi_\psi\), \(\dim N=a\) and
+\(\dim N'=b\). This cancels the character of the
 moved vacuum before taking the normalized derivatives.
+The edition takes from the release only the identification
+of the multipliers of the complex step with these values:
+they are the values of \((\mu_j\xi)^{-1}\chi_\psi^{-b/2}\) and
+\(\mu_j\xi\,\chi_\psi^{a/2}\) at the determinant id\`ele of the
+framed class, and the value of \(\chi_\psi\) there is its value
+on the relative determinant ideal.
 \releasecite{Formalism/LocalToGlobal/KernelLattices/XiIndCClass.lean}{199}{Frame volume, half-density, and unit-volume kernel}
-\releasecite{Development/AbelianVarietyTheory/Proofs/SatakeParameters/ThetaSupportInDivLattice.lean}{81}{Indicator decomposition on the test box}
-\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/ReferenceCharactersFactorTame.lean}{571}{The two actual class multipliers}
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/KmapOfOkOfVecP.lean}{271}{Cancellation with the moved-vacuum character}.
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/ReferenceCharactersFactorTame.lean}{571}{The two actual class multipliers}.
 
 Write \(\mathscr J_{p,p'}\) for the \(K\)-linear
 coefficient contraction taking
@@ -11229,27 +12185,70 @@ entry evaluated at \(Y\) is
 Here the embedding is applied to the coefficients
 of the polynomial before evaluation at \(Y\), and
 \(s_{{\rm div},\tau}\) is the prescribed output
-determinant exponent. Indeed the real operator
-replaces each derivative variable by the
-Gaussian-normalized creation operator. At zero its
-evaluation is \(J_s(\alpha)\), by the calculation
-of the creation operator and the prescribed
-differential scale above. The source sharp factor
-increases the determinant exponent from the
-input coefficient convention to \(n_\tau\).
-The exponent of the determinant in the
-target coefficient model is \(-s_{{\rm div},\tau}\),
-so removing the output shift gives exactly
-that displayed evaluation. The exponents and
+determinant exponent.
+
+\teamanchor{proof.period-entry-derivation}%
+\paragraph{Proof of the normalized entry.}
+For a complex polynomial \(R(Z,Y)\) and an entire function
+\(\mathcal T\) of \(z\), write \(\mathcal D_{\mathcal T}R\) for the
+polynomial in \(Y\) obtained by replacing each monomial
+\(Z^\alpha\) by \(\bigl(\prod_\tau c_{D,\tau}^{|\alpha_\tau|}\bigr)
+\partial^\alpha\mathcal T(0)\), where \(|\alpha_\tau|=\sum_{i,j}
+\alpha_{\tau,i,j}\). This is \(\mathbb C\)-linear in \(R\) and in
+\(\mathcal T\). The real operator replaces each derivative variable
+by the Gaussian-normalized creation operator. By the reading of the
+normalized real coefficients above, its value at zero is the
+normalized derivative. Hence the complex step sends the input with
+coefficient polynomial \(P\) to
+\[
+ Y\longmapsto\rho_j(p)\rho'_j(p')\,
+   \bigl(\mathcal D_{\mathcal T_{p,p'}}
+         [\iota_K(P)^\sharp(Z^{\mathsf T}Y)]\bigr)(Y)
+   \prod_\tau\det(Y_\tau)^{-s_{{\rm div},\tau}} .
+\]
+The sharp factor evaluates the input with the source determinant
+exponent \(n_\tau\). The last factor removes the output shift.
+\begin{enumerate}
+\item The determinant polynomials have integer coefficients. So
+  \(\iota_K(P)^\sharp(Z^{\mathsf T}Y)\) is \(\iota_K\) applied
+  coefficientwise to \(Q=P^\sharp(Z^{\mathsf T}Y)\in K[Z,Y]\).
+\item The expansion of \(\mathcal T_{p,p'}\) is a finite sum of entire
+  functions, so derivatives at zero may be taken termwise:
+  \[
+   \Bigl(\prod_\tau c_{D,\tau}^{|\alpha_\tau|}\Bigr)
+   \partial^\alpha\mathcal T_{p,p'}(0)
+     =\chi_F(N,N')\sum_s\iota_K\bigl(\Xi_{p,p'}(s)\bigr)J_s(\alpha)
+     =\chi_F(N,N')\,\iota_K\Bigl(\sum_s\Xi_{p,p'}(s)\,
+        \iota_K^{-1}\bigl(J_s(\alpha)\bigr)\Bigr).
+  \]
+  The second equality uses \(J_s(\alpha)\in\iota_K(K)\) on the
+  selected degrees, proved above.
+\item Every monomial \(Z^\alpha\) occurring in \(Q\) has a selected
+  degree, by the degree count in the coefficient calculation above.
+  Comparing the two sides on each monomial \(Z^\alpha Y^\beta\)
+  with coefficient in \(K\), and using linearity, gives
+  \(\mathcal D_{\mathcal T_{p,p'}}[\iota_K Q]
+   =\chi_F(N,N')\,\iota_K[\mathscr J_{p,p'}(Q)]\).
+\item By the product of the class multipliers,
+  \(\rho_j(p)\rho'_j(p')\chi_F(N,N')
+   =\iota_K(M_j(p)/M_j(p'))\).
+\end{enumerate}
+Substituting these into the display gives
+\eqref{eq:definite-normalized-entry}.
+The exponents and
 degrees are integral on these ranks. In particular
 the output polynomial has the required covariance
 over \(K\): substitution in the equivariance
 identity for the complex map gives polynomial
 identities with coefficients in \(K\), and the
 embedding is injective.
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/KmapOfOkOfVecP.lean}{50}{Input sharp and output determinant exponents}
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/KmapOfOkOfVecP.lean}{96}{Normalized derivatives in the coefficient contraction}
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/TrueChainKernelEqPointKernelAtRepresentatives.lean}{14}{Application to each actual stage representative}.
+The proof uses three properties of the pair: the
+class lattices are self-dual, the symbol has the box
+property for \(c_A,c_B\), and the derivatives lie in
+\(\iota_K(K)\) in the selected degrees. These were established
+above, with the release inputs cited there, for every pair of chosen class representatives
+of a selected step. So \eqref{eq:definite-normalized-entry}
+holds at each such pair.
 
 Formula~\eqref{eq:definite-normalized-entry} therefore
 gives the entry on every selected pair with the
@@ -11279,7 +12278,11 @@ are read at the coupled points, and at the final step
 only at the images of the top row points.
 
 The corresponding class measures are those of the term levels.
-\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/KernelsOverOfFamily.lean}{139}{The step entries at the class representatives}
+For the ordinary steps this identification is the normalized
+entry formula at the chosen representatives, proved above.
+The edition takes from the release the packaging of the coupled
+entries at the last two steps, with the symbols identified in
+the finite-symbol subsection.
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/KernelsOverOfFamily.lean}{183}{The coupled and top entries}.
 
 Given these entries, start with the prescribed values
@@ -11305,30 +12308,76 @@ the class value \(x(a)\) gives
       \bigl(\operatorname{res}_a C_m(\widetilde a),x(a)\bigr)_{\rm alg}.
 \]
 The algebraic pairing is invariant under changes of representatives.
-Indeed the column and row carry inverse finite characters and the
-branching projection pairs dual coefficient actions. The scalar
+Indeed, for \(g\) in the row group, the column value and the row
+value at \(g\cdot a\) are obtained from those at \(a\) by the
+coefficient action of \(g\), twisted by a finite character and by
+its inverse respectively. The branching projection intertwines
+the coefficient actions, and the algebraic pairing is invariant
+under the coefficient action. So the two characters cancel and
+each term is unchanged. The scalar
 \(m_Y(\boldsymbol\mu,m)\) is a product of indices.
-The class unfolding at each step and the entry identity imply by
-induction that the displayed sum maps to the actual top pairing
-under \(\iota_K\). All its operations are over \(K\).
+
+\teamanchor{proof.period-class-sum-induction}%
+The displayed sum maps to the actual top pairing under
+\(\iota_K\). To prove this, let \(C^{\mathbb C}_j\) be the complex
+column at stage \(j\) in the definite class model. Thus
+\(C^{\mathbb C}_0=\iota_K\circ C_0\), and
+\(C^{\mathbb C}_{j+1}(c')=\sum_c|\operatorname{Stab}_j(c)|^{-1}
+K_{j,w,\boldsymbol\mu}(c,c')C^{\mathbb C}_j(c)\) by the definition
+of the step \(T_{j,w,\boldsymbol\mu}\) in the class model.
+Suppose \(C^{\mathbb C}_j=\iota_K\circ C_j\). The entry identity gives
+\(K_{j,w,\boldsymbol\mu}(c,c')\,\iota_K(C_j(c))=
+\iota_K\bigl(K_{j,K}(c,c')C_j(c)\bigr)\). The weights
+\(|\operatorname{Stab}_j(c)|^{-1}\) are rational and \(\iota_K\) is
+additive, so \(C^{\mathbb C}_{j+1}=\iota_K\circ C_{j+1}\).
+By induction this holds at \(j=m\). The restriction
+\(\operatorname{res}_a\), the frame transport and the algebraic
+pairing are defined over \(K\) and complexify along \(\iota_K\).
+The top row value \(x(a)\) is the class value of the row form over
+\(K\). Hence \(\iota_K\) of the displayed sum is the complex class
+sum, which is \eqref{eq:period-top} written in the class model.
+All its operations are over \(K\).
 The same entry identity enables the coefficient valuation for
 the actual period in Section~\ref{sec:integral}.
+The edition takes from the release the agreement of the class
+sums over the coupled intermediate points with the column chain
+built from the coupled kernels at the last two steps.
 
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/KernelAtPointPenultimateStepFirstCoupledKernel.lean}{286}{Class sums at the coupled points}
-\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/KernelAtPointPenultimateStepFirstCoupledKernel.lean}{309}{Invariant pairing and the top class sum}.
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RowEDcPtLinked.lean}{17}{Top period entry at the chosen points}.
 
+\teamanchor{proof.period-descent-kernel}%
 Using the entry identity and \eqref{eq:period-row-match}, take the
 base \(K\)-valued period on any rational preimage of \(F\in R_K\)
 under \(P_{\boldsymbol\mu_0}\). The projected base map is onto,
 and the simultaneous theta--Bessel identity gives zero on its
 kernel. The embedded value determines the value in \(K\), so the
-same kernel vanishes over \(K\). This defines uniquely
+same kernel vanishes over \(K\). In detail, let \(A_{\boldsymbol\mu_0,K}\) be the
+rational good top coordinates of the base tuple and
+\(D=D_{\boldsymbol\mu_0}P_{\boldsymbol\mu_0}:A_{\boldsymbol\mu_0,K}\to R_K\), a matrix
+over \(K\). For \(\phi\in N_{w,K}\) and \(y\in A_{\boldsymbol\mu_0,K}\) let
+\(b_K(\phi,y)\in K\) be the class sum above, so that
+\(b_{w,\boldsymbol\mu_0}(\phi_{\mathbb C},j_{\boldsymbol\mu_0}y)
+=\iota_K(b_K(\phi,y))\). The map \(D\) is onto, since
+\(P_{\boldsymbol\mu_0}Z_{\boldsymbol\mu_0}=I\) and
+\(D_{\boldsymbol\mu_0}\) is invertible. A \(K\)-basis of \(\ker D\) is a \(\mathbb C\)-basis of
+the kernel of the complexified matrix, since the rank of a matrix
+over \(K\) is unchanged under \(\iota_K\). If \(y\in\ker D\), then
+\(\iota_{\boldsymbol\mu_0}(j_{\boldsymbol\mu_0}y)=0\) by
+\eqref{eq:period-row-match}, so the kernel vanishing in
+\hyperlink{proof.common-period-identity}{the base identity} gives
+\(\iota_K(b_K(\phi,y))=0\), and hence \(b_K(\phi,y)=0\) by
+injectivity of \(\iota_K\). Thus \(b_K(\phi,\cdot)\) factors through
+\(D\), and since \(D\) is onto the factorization is unique and
+\(K\)-linear, and \(K\)-linear in \(\phi\). This defines uniquely
 \[
  B_{K,w}:N_{w,K}\longrightarrow R_K^\vee,\qquad
  B_w(\phi_{\mathbb C},F_{\mathbb C})
    =\iota_K\bigl(B_{K,w}(\phi)(F)\bigr).
 \]
+Indeed for \(F=Dy\) the left side is the base period on the
+preimage \(j_{\boldsymbol\mu_0}y\) of \(j_{\rm row}F\), which is
+the definition of \(B_w\).
 The equality extends by bilinearity to the full complexifications.
 
 \teamanchor{proof.local-unit-comparison}
@@ -11351,6 +12400,15 @@ In particular
  \label{eq:period-selected-twist-avoidance}
  Q(\boldsymbol\mu(\nu))\cap\{Q:Q\mid p\}=\varnothing .
 \end{equation}
+This derivation uses the following design properties of the serving
+tuples: \(\boldsymbol\mu(\bar\nu)=\boldsymbol\mu(\nu)\); the base
+tuple, with trivial character, at untwisted places; the stated
+factorization of \(\xi_{H,\boldsymbol\mu(\nu)}\) at a twisted place,
+with the twist unramified above \(p\) and the auxiliary character
+unramified outside \(p_{\rm de}\), respectively \(p'_{\rm de}\); and
+the ramification of \(\xi_{H,\boldsymbol\mu}\) at every prime of
+\(Q(\boldsymbol\mu)\). They are the premises on the serving tuples.
+The edition takes this design from the release
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/NotMemQBase.lean}{44}{The selected finite-place tuple and the two distinct auxiliary primes}.
 In the compatible rational top models, evaluate
 \eqref{eq:period-tuple} on a pair of coordinates over \(K\) where the
@@ -11367,12 +12425,23 @@ base scalar is \(1\) and
 \]
 
 Use the support conclusion of the simultaneous theta--Bessel
-comparison at this particular tuple. Its relevant power is a
-nonzero rational number supported on its twisting primes. Applying
-\(v_\nu\) to the power identity gives
-\(n\,v_\nu(\zeta_{w,\boldsymbol\mu(\nu)})=0\) for some \(n>0\).
-The possible scalar \(1\) also has valuation zero. Both conjugate
-places have the same residue characteristic, so the factor is a unit
+comparison at this particular tuple \(\boldsymbol\mu=\boldsymbol\mu(\nu)\).
+It gives \(n>0\) and \(q\in\mathbb Q^\times\) with
+\((d_{w,\boldsymbol\mu_0}/d_{w,\boldsymbol\mu})^n=q\) and
+\(v_\ell(q)=0\) for every rational prime \(\ell\) lying below no
+prime of \(Q(\boldsymbol\mu)\). In the nonzero case
+\(\iota_K(\zeta_{w,\boldsymbol\mu}^n)=q\), so
+\(\zeta_{w,\boldsymbol\mu}^n=q\) in \(K\) by injectivity of
+\(\iota_K\). By \eqref{eq:period-selected-twist-avoidance} the residue
+characteristic \(p\) of \(\nu\) lies below no prime of
+\(Q(\boldsymbol\mu)\), so \(v_p(q)=0\). Every other rational prime is
+a unit at \(\nu\). Writing \(q=\pm\prod_\ell\ell^{v_\ell(q)}\) gives
+\(v_\nu(q)=v_p(q)\,v_\nu(p)=0\), and therefore
+\(n\,v_\nu(\zeta_{w,\boldsymbol\mu(\nu)})=0\) and
+\(v_\nu(\zeta_{w,\boldsymbol\mu(\nu)})=0\).
+The possible scalar \(1\) also has valuation zero. The conjugate
+place has the same residue characteristic and the same serving tuple,
+so the same computation applies there and the factor is a unit
 at both. Consequently the valuation of the tested top pairing equals
 the valuation of \(B_{K,w}\) on the descended row.
 
@@ -11428,10 +12497,12 @@ actual descended integral rows:
        D_{\boldsymbol\mu(\nu)}P_{\boldsymbol\mu(\nu)}
                                       M_{\boldsymbol\mu(\nu)} .
 \end{equation}
-\releasecite{Formalism/LocalToGlobal/Divisibility/DivisionCompatibleToSub2Indef2.lean}{210}{The sharp value lattice and the actual downward map}
-\releasecite{Formalism/LocalToGlobal/Divisibility/GoodPartHermitianSpec.lean}{134}{The cut in class coordinates}
-\releasecite{Formalism/LocalToGlobal/Divisibility/RowLat.lean}{138}{The projected-coordinate image} and
-\releasecite{Formalism/LocalToGlobal/IndefiniteReal/PrincipalLevelLattice.lean}{266}{the prescribed localizations}.
+The prescribed value lattices \(\mathscr L_{\boldsymbol\mu}\) are
+taken from the release, which ties them to the actual integral
+top forms
+\releasecite{Formalism/LocalToGlobal/Divisibility/DivisionCompatibleToSub2Indef2.lean}{210}{The sharp value lattice and the actual downward map}.
+The cut, its projected image and its localizations are derived above
+from these lattices and \eqref{eq:period-row-match}.
 
 These localizations glue to one lattice \(R\). To prove this, fix
 the base image lattice \(L_0\). The tuple list is finite, so
@@ -11552,6 +12623,117 @@ ratio is rational with prime support contained in the twisting primes
 of \(\boldsymbol\mu\). In particular the identity matches the
 prescribed coefficient-field tests and their actual downward images
 at the base tuple and every finite-place tuple \(\boldsymbol\mu(\nu)\).
+
+The identity follows from the two-term relation and the
+\hyperlink{proof.relation-transport-steps}{transport of relations}.
+The tuple-independent scalar \(s_w\) cancels from the displayed
+ratio, which is therefore the ratio of \(c_{\mathrm{top}}/c_{\mathrm{bot}}\)
+at \(\boldsymbol\mu_0\) and at \(\boldsymbol\mu\). Inverting a ratio
+keeps its prime support. The rationality of a positive power of this
+ratio and its prime support are properties of the chosen models
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/FamAllQ.lean}{21}{The rational unit ratio of the chosen models}.
+\teamanchor{proof.common-period-ratio}%
+We reduce them to properties of the individual factors. If
+\((x/y)^n=r\) and \((x'/y')^{n'}=r'\) with \(n,n'>0\) and \(r,r'\)
+rational, then \((xx'/yy')^{nn'}=r^{n'}r'^{n}\) and
+\((y/x)^n=r^{-1}\). So the property of having a positive power that is
+rational with prime support in a given set passes to products and
+inverses. In the chosen models the ratio splits into factor ratios.
+The column factors \(c^{\rm K}_j\) and the top factor \(c^{\rm P}\) are
+each a tuple-independent nonzero constant times a root of unity
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ColSide.lean}{42}{Column and top factors}.
+The comparison factor \(c^{\rm V}_j\) of a two-level step is the
+product of tuple-independent nonzero constants, of
+\(s_j\zeta_j(\boldsymbol\mu)s_{j+1}\zeta_{j+1}(\boldsymbol\mu)\) with
+nonzero \(s_j\) independent of the tuple and roots of unity
+\(\zeta_j(\boldsymbol\mu)\), of a twist factor \(c^{\rm T}_j\) and of a
+lattice factor \(c^{\rm Q}_j\)
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/PlaceLaws.lean}{266}{The comparison factor}.
+The twist factor is a monomial
+\[
+ c^{\rm T}_j(\boldsymbol\mu)=\prod_l r_{j,l}\,
+    \mu_{\boldsymbol\mu,j+1}(x_{j,l})^{e_{j,l}}
+\]
+in values of the level character \(\mu_{\boldsymbol\mu,j+1}\) at
+finitely many ideles \(x_{j,l}\). The ideles, the coefficients
+\(r_{j,l}>0\) and the integer exponents \(e_{j,l}\) are fixed by the
+family and do not depend on the tuple. Here the character entering the monomial
+is the Weil character of the step's Bessel--Fourier datum, which the
+release identifies with the level character \(\mu_{\boldsymbol\mu,j+1}\)
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/VacOfShape.lean}{48}{The twist monomial}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LawsLinksOfGeoRowsCols.lean}{182}{The twist character is the level character}.
+The character is unitary, so \(c^{\rm T}_j(\boldsymbol\mu)\ne0\).
+As in the \hyperlink{proof.period-selected-row-cuts}{selected row cuts},
+\(\mu_{\boldsymbol\mu,j+1}=\mu_{0,j+1}\xi_{\boldsymbol\mu}\), where
+\(\xi_{\boldsymbol\mu}\) has finite order and \(\xi_{\boldsymbol\mu_0}\)
+is trivial. Take \(d\ge1\) with \(\xi_{\boldsymbol\mu}^d=1\). Then
+\[
+ \Big(\frac{c^{\rm T}_j(\boldsymbol\mu)}{c^{\rm T}_j(\boldsymbol\mu_0)}\Big)^{d}
+ =\prod_l\xi_{\boldsymbol\mu}(x_{j,l})^{d\,e_{j,l}}=1 ,
+\]
+with the same \(d\) for every \(j\). So a positive power of the ratio
+of twist factors is \(1\).
+The lattice factor is
+\(c^{\rm Q}_j=\prod_i(\mathrm{idx}_i(j+1)\,\mathrm{idx}_i(j+2))^{-1}\).
+Here \(i\) runs over the places \(v_i\in Q\) of the tuple. Write
+\(K_{i,k}\) for the stabilizer at \(v_i\) of the self-dual lattice at
+level \(k\), read in the selected split coordinates, and \(J_{i,k}\)
+for the local level group of the tuple there. Then
+\(\mathrm{idx}_i(k)=[K_{i,k}:K_{i,k}\cap J_{i,k}]\).
+
+\teamanchor{proof.common-period-pin}%
+We derive the pin relation
+\(c^{\rm I}_j(\boldsymbol\mu)\prod_i\mathrm{idx}_i(j+1)=c^{\rm I}_j(\boldsymbol\mu_0)\)
+for \(j<m\). By the first law,
+\(c^{\rm I}_j=|H_{\rm lev}|\,\lambda^{\rm I}_{j+1}v^{\rm lev}_{j+1}\),
+and only the volume \(v^{\rm lev}_{j+1}\) of the level subgroup depends
+on the tuple. Let \(K_k(\boldsymbol\mu)\) be the level subgroup at
+level \(k\) for the tuple \(\boldsymbol\mu\). The chosen models describe
+it at the places of \(Q\) as follows. The base subgroup
+\(K_k(\boldsymbol\mu_0)\) contains \(K_{i,k}\), placed at \(v_i\), and
+the component at \(v_i\) of each of its elements lies in \(K_{i,k}\)
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/CIMulIdx.lean}{50}{The base level at the places of \(Q\)}.
+An element of \(K_k(\boldsymbol\mu_0)\) lies in \(K_k(\boldsymbol\mu)\)
+exactly when its component at each \(v_i\) lies in \(J_{i,k}\)
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/CIMulIdx.lean}{67}{Membership in the tuple level}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/GVec.lean}{19}{The tuple levels at the places of \(Q\)}.
+Here \(\mathrm{idx}_i(k)\) is the index defined in the release
+\releasecite{Development/AbelianVarietyTheory/Definitions/LatticeFrames/SameOrbEquivalence.lean}{126}{The local index}.
+Both conditions are read after conjugation by the same fixed finite
+translate of the geometric datum, which changes neither indices nor
+the argument below. Let \(K^Q\) be the subgroup of
+\(K_k(\boldsymbol\mu_0)\) of elements with trivial components at the
+places of \(Q\). Multiplying an element by the inverse of its components
+at those places shows that
+\(K_k(\boldsymbol\mu_0)=K^Q\times\prod_iK_{i,k}\), and then
+\(K_k(\boldsymbol\mu)=K^Q\times\prod_i(K_{i,k}\cap J_{i,k})\). Hence
+\([K_k(\boldsymbol\mu_0):K_k(\boldsymbol\mu)]=\prod_i\mathrm{idx}_i(k)\).
+This index is finite, since \(K_k(\boldsymbol\mu)\) is open in the
+compact group \(K_k(\boldsymbol\mu_0)\). The base subgroup is the disjoint union of that many left cosets of
+\(K_k(\boldsymbol\mu)\), and these have equal Haar measure. So
+\(v^{\rm lev}_k(\boldsymbol\mu_0)
+=v^{\rm lev}_k(\boldsymbol\mu)\prod_i\mathrm{idx}_i(k)\). Taking
+\(k=j+1\) gives the pin relation. At the top level \(k=m\) the same
+argument applies to the top level subgroup, with the formula for
+\(c^{\rm I}_{m-1}\) from the first law at the top. Applying the pin
+relation at \(j\) and \(j+1\) gives
+\(c^{\rm Q}_j/(c^{\rm I}_jc^{\rm I}_{j+1})
+=(c^{\rm I}_j(\boldsymbol\mu_0)c^{\rm I}_{j+1}(\boldsymbol\mu_0))^{-1}\)
+at every tuple. The release proves the same relation
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/CIMulIdxStatement.lean}{18}{The lattice factor}.
+The two-level steps pair the indices \(2i\) and \(2i+1\) for
+\(0\le i\le n\). So \(c_{\mathrm{bot}}\) is the product of the pairs
+\(c^{\rm I}_{2i}c^{\rm I}_{2i+1}\), and each pair cancels against one of
+these tuple-independent quotients. Every factor ratio therefore has a
+positive power equal to \(1\), and so has the displayed ratio. This
+gives the stated rationality with empty prime support
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LawsLinksOfGeoRowsCols.lean}{154}{Combination of the factor ratios}.
+The edition derives the combination, the root-of-unity property of
+the twist factors and the pin relation. It takes from the release the
+forms of \(c^{\rm K}_j\), \(c^{\rm P}\), \(c^{\rm V}_j\) and \(c^{\rm Q}_j\),
+the monomial form of \(c^{\rm T}_j\) and the identification of its
+character with the level character, the description of the tuple
+levels at the places of \(Q\) and the first law at the top.
 
 The stated identity gives kernel vanishing on the projected base
 rows. Together with the arithmetic model and normalized comparisons

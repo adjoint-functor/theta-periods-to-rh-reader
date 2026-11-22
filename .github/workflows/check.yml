@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: 2026 The Theta Periods to RH Reading Edition contributors
+# SPDX-License-Identifier: MIT
+
+name: Check the edition
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  proof-map:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pdfinfo
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - name: Check the proof map against the paper and the PDF
+        run: python proof_map.py
+
+  paper:
+    runs-on: ubuntu-latest
+    container: texlive/texlive:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python and pdfinfo
+        run: apt-get update && apt-get install -y python3 poppler-utils
+      - name: Rebuild the PDF from the TeX sources
+        run: |
+          pdfinfo -dests reading-guide.pdf | awk 'NR>1 {print $NF}' | sort > published.dests
+          python3 build.py
+          pdfinfo -dests reading-guide.pdf | awk 'NR>1 {print $NF}' | sort > rebuilt.dests
+      - name: Compare the named destinations with the published PDF
+        run: diff published.dests rebuilt.dests

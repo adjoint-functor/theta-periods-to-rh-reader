@@ -127,12 +127,13 @@
 \begin{document}
 \maketitle
 
-Our first aim is to reconstruct Levent Alp\"oge's argument for the
-Riemann hypothesis in ordinary mathematical language. We work toward
+Our first aim is to reconstruct, in ordinary mathematical language, the
+argument for the Riemann hypothesis that ai agent reports
+finding and formalizing together with Claude \cite{announcement}. We work toward
 a proof that a reader can check independently of Lean, using established
 theorems and explicit derivations. Our second aim is to identify genuinely
 new mathematics by comparing the argument's results and methods with
-what was known before the announcement. Alp\"oge's announcement and
+what was known before the announcement. ai agent's announcement and
 Sahibzada Allahyar's reconstruction introduce the argument
 \cite{announcement,allahyar}.
 
@@ -151,6 +152,43 @@ in its original source and state the special case used here. We have
 sought to fill in as much of the surrounding argument as possible by
 direct derivation, consulting the pinned Lean release for difficult
 constructions, normalizations or arguments \cite{source}.
+
+The release's final theorem has no hypotheses. A scan of its source
+finds no axiom declarations and no incomplete proofs, but we have not
+compiled it. Every step of the proof map now has a supplier. Most
+steps are derived here or cited from the literature. The principal
+statements that this edition still takes from the release, with the
+parts it rederives recorded at each point of use, are the following.
+In Section~\ref{sec:family}, Lemma~K, the plus parts of the Selmer
+counts, the rank bound in the cyclotomic tower at \(\ell=2\) and the
+joint window, together with four points in matching the published
+Galois input to the release's statement; the minus parts and, for odd
+\(\ell\), the cyclotomic rank bound are derived from published
+theorems. In Section~\ref{sec:assembly}, the existence of a record
+with the class property at each translate, its column data and the
+admissible arrays; the level primes, word sets, construction order,
+level bounds, stabilizer multiple and local densities of the volume
+ratio are derived. In Section~\ref{sec:trace}, the Poisson positivity
+bound behind the scalar main term and the formal-degree bound, the
+measure ties between the mass calculation and the period Gram
+identity, the degenerate lattice bound and the error bound of the
+automorphic count; the vanishing of the degenerate terms, the
+squared-norm identity, the stabilizer-volume identity, the densities at
+nonordinary places, the convergence of the unfolding, the degenerate
+amplitude bound and the row realization are derived. In
+Section~\ref{sec:periods}, the common central character and laws three
+to six of the seesaw models, their double-step unfolding, the
+properties of the real theta maps and
+the real Bessel section with its weighted coefficient estimate; the
+first, second and seventh laws are derived, the tuple ratio is shown
+to be a root of unity, and the twist factor and pin relation of the
+normalizing constants are derived. For the two identifications at the
+selected indices in Section~\ref{sec:assembly}, the release supplies
+the local characterizations, the local Hecke relations and size data
+and the properties of the all-but walk; the all-but statement, the
+level-index bound, the inclusion and length bounds at served places
+and the size of the coefficient field are derived from them. The
+independent checks recorded in this edition are AI checks.
 
 The inventory brings together nineteen AI-proposed candidates for new
 mathematics, grouped by subject. Human specialist assessment is pending.
@@ -185,9 +223,11 @@ for each primitive target.
 \noindent{\color{RuleGrey}\rule{\linewidth}{.4pt}}\par
 \vspace{.3em}
 {\small
-\noindent Original argument by Levent Alp\"oge.\par
+\noindent Original argument by ai agent and Claude, as stated in
+the announcement.\par
 \noindent Reading edition by The Theta Periods to RH Reading Edition
-contributors, 22~November~2026.
+contributors, 22~November~2026. This revision was prepared with
+Claude agents.
 \par\noindent Original text and figures in this edition are licensed under
 \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.
 Third-party materials retain their terms.

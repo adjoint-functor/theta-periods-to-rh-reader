@@ -48,11 +48,35 @@ respective left rational Bessel subgroup actions, over
 Let \(\Omega_{wv}\) be representatives of the rational double cosets
 \(\mathcal S_w(F)\backslash G_0(F)/\mathcal S_v(F)\), and set
 \(\mathcal S_\gamma(F)=\mathcal S_w(F)\cap\gamma\mathcal S_v(F)\gamma^{-1}\).
-At the chosen level Alp\"oge proves
+Put
+\[
+ I^+_{wv}(\phi,\psi)=\sum_{\gamma\in\Omega_{wv}}
+   \int_{\mathcal S_\gamma(F)\backslash G_0(\mathbf A_F)}
+    |\Phi_{w,\phi}(g)|\,|\Phi_{v,\psi}(\gamma^{-1}g)|\,dg,\qquad
+ P^+_{w,\phi}(g)=\sum_{\eta\in\mathcal S_w(F)\backslash G_0(F)}
+    |\Phi_{w,\phi}(\eta g)|,
+\]
+with values in \([0,\infty]\). The stabilizer reindexing described
+below uses only the left invariance of \(|\Phi_{w,\phi}|\) under
+\(\mathcal S_w(F)\) and of \(|\Phi_{v,\psi}|\) under \(\mathcal S_v(F)\).
+For nonnegative functions Tonelli's theorem allows it without any
+convergence hypothesis, so
+\(I^+_{wv}(\phi,\psi)=\int_{G_0(F)\backslash G_0(\mathbf A_F)}
+P^+_{w,\phi}P^+_{v,\psi}\,dg\).
+By the Cauchy--Schwarz inequality,
+\(I^+_{wv}(\phi,\psi)^2\le I^+_{ww}(\phi,\phi)\,I^+_{vv}(\psi,\psi)\).
+Absolute convergence for all pairs therefore reduces to the diagonal
+pairs, that is, to square integrability of the absolute Poincar\'e
+series \(P^+_{w,\phi}\). The edition takes this diagonal finiteness from
+the release: at the chosen level ai agent proves
 \releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/LinkSFinal.lean}{97}{absolute convergence}
 using the level conditions, neatness and real Whittaker decay.
-The sum of the orbital integrals with the product of seeds replaced
-by its absolute value is finite. The double-coset unfolding therefore
+The release states this finiteness for every pair of words; only its
+diagonal instance is used here.
+Hence \(I^+_{wv}(\phi,\psi)<\infty\) for all \(w,v,\phi,\psi\). In
+particular both Poincar\'e series converge absolutely almost
+everywhere, and Fubini's theorem justifies every exchange of sum and
+integral in the reindexing. The double-coset unfolding therefore
 gives the normalized identity
 \[
  \langle\phi,K_{wv}\psi\rangle
@@ -70,7 +94,7 @@ their translates joins the corresponding fundamental domains.
 Getz--Hahn use the same stabilizer reindexing for the geometric
 side of their relative trace formula with compactly supported tests.
 \cite[\S4C, (4C.8) and its unfolding, p.~114]{tr3getzhahn}
-Alp\"oge
+ai agent
 \releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/LinkSFinal.lean}{92}{identifies the unfolded coefficients}
 using compatible flag and lattice representatives. Separating the
 lattices and the finite level conditions gives \(K_{wv}=\sum_t A_t\). In each
@@ -120,13 +144,143 @@ zero by averaging between inequivalent coefficient types.
 
 The unipotent average on the stabilizer quotient vanishes when the
 characters disagree on the intersection after transport by \(\gamma\).
-For a compatible \(G=0\) orbit the geometric stabilizer acts by the
-full residual \(U(k)\) on both coefficient spaces at each real place,
-up to fixed unitary conjugation. Schur's lemma forces the resulting
-intertwiner to vanish for \(w\ne v\) because the chosen highest weights
-differ at every real factor. This is the release's
-\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/KappaOffDiagonal.lean}{95}{vanishing of the degenerate terms for distinct words}.
-The mixed block consists of the generic and nongeneric sums with
+Let \(W\) be the joint span of the two augmented frames of a compatible
+\(G=0\) orbit and let \(R\) be its radical. The pointwise stabilizer
+of \(W\) has reductive quotient \(U(r-\dim W-\dim R)\), since
+\(r-\dim W-\dim R\) is the rank of the form on \(W^\perp\). Since \(W\)
+contains each augmented frame \(F\), we have \(W^\perp\subseteq
+F^\perp\), and this rank is at most the rank \(k\) of the form on
+\(F^\perp\). Hence \(\dim W+\dim R\ge m-1\). In the case of equality the
+image of \(W^\perp\) in \(F^\perp/\operatorname{rad}F^\perp\) has rank
+\(k\), so it is the whole space and the kernel is
+\(\operatorname{rad}W^\perp\). The induced map from
+\(W^\perp/\operatorname{rad}W^\perp\) is an isometry of
+\(k\)-dimensional definite spaces at each real place. The pointwise
+stabilizer of \(W\) then maps onto the full residual \(U(k)\) of each
+flag, up to fixed unitary conjugation. For such an orbit
+Schur's lemma forces the resulting intertwiner to vanish for \(w\ne v\)
+because the chosen highest weights differ at every real factor. The next
+paragraph shows that equality \(\dim W+\dim R=m-1\) holds for every
+compatible orbit with \(G=0\), so this argument covers all of them.
+
+\leavevmode\teamanchor{proof.degenerate-normal-form}%
+\paragraph{Compatible orbits with \(G=0\).}
+Put \(s=r_S\), so \(m=2s+2\) and \(a=s+1\), and write the two augmented
+frames, after transport by \(\gamma\), as \((e_1,\dots,e_s,z)\) and
+\((e'_1,\dots,e'_s,z')\) with \(\langle z,z\rangle=-T_w\) and
+\(\langle z',z'\rangle=-T_v\). The Hermitian form on \(Y_0\) is taken
+linear in the first variable. Put \(X_b=\langle e_1,\dots,e_b\rangle\),
+\(X=X_s\), \(X^+=X+Ez\) and \(e_{s+1}=z\), and define \(X'_b\), \(X'\),
+\(X'^+\), \(e'_{s+1}=z'\) in the same way. The unipotent group \(N\) of
+the first flag consists of the isometries that preserve each \(X_b\),
+act trivially on each \(X_b/X_{b-1}\) and act trivially on
+\(X^\perp/X\). For \(n\in N\) and \(1\le b\le s\) let \(\lambda_b(n)\)
+be the \(e_b\)-coordinate of \(ne_{b+1}-e_{b+1}\in X\). The generic
+character has the form \(\psi_N(n)=\psi_E(\sum_b\lambda_b(n))\) for a
+nontrivial character \(\psi_E\) of \(\mathbf A_E/E\), as in the release's
+definition of compatibility. Only the nontriviality of \(\psi_E\) is
+used, and nonzero constant multiples of the \(\lambda_b\) would not
+change the argument. Define \(N'\) and \(\psi_{N'}\) in the same way.
+Compatibility means \(\psi_N=\psi_{N'}\) on
+\((N\cap N')(\mathbf A_F)\). The ambient space has dimension
+\(r=k+2s+1\) and negative index \(m/2=s+1\), so signature
+\((k+s,s+1)\), at each real place. Choose an isotropic \(X^*\) in
+duality with \(X\) and orthogonal to \(z\). Then \(X+X^*\) has
+signature \((s,s)\), and the orthogonal complement of \(X+X^*+Ez\) has
+signature \((k,0)\). Hence the form on \((X^+)^\perp\) is positive
+semidefinite at each real place, with radical \(X\) and positive
+definite \(k\)-dimensional quotient. Consequently \((\mathrm P)\) every
+isotropic rational vector of \((X^+)^\perp\) lies in \(X\), and no
+rational vector of \((X^+)^\perp\) has norm \(-T\) with \(T\) totally
+positive. The same holds for the second flag. For \(0\ne x\in X\) the
+level is the least \(\ell\) with \(x\in X_\ell\), and the leading
+coefficient is its \(e_\ell\)-coordinate. Levels and leading
+coefficients for the second flag are defined in the same way.
+
+\emph{Step 1.} Let \(0\ne x\in X\cap X'\) have levels \(\ell,\ell'\) and
+leading coefficients \(\alpha,\alpha'\). Then
+\(\alpha e_{\ell+1}-\alpha'e'_{\ell'+1}\in X_\ell+X'_{\ell'}\). To see
+this, let \(y\) be an adelic vector orthogonal to \(X_\ell+X'_{\ell'}\),
+choose \(\eta\in\mathbf A_E\) with \(\eta+\bar\eta=-\langle y,y\rangle\),
+and put \(g(u)=u+\langle u,y\rangle x-\langle u,x\rangle y
++\eta\langle u,x\rangle x\). Since \(x\) is isotropic and
+\(\langle x,y\rangle=0\), expansion gives
+\(\langle gu,gu'\rangle=\langle u,u'\rangle
++\langle u,x\rangle\overline{\langle u',x\rangle}
+(\eta+\bar\eta+\langle y,y\rangle)=\langle u,u'\rangle\), so \(g\) is
+an isometry. For \(b\le s\) we have \(\langle e_b,x\rangle=0\), so
+\(ge_b=e_b+\langle e_b,y\rangle x\). This is \(e_b\) for \(b\le \ell\)
+and lies in \(e_b+X_\ell\subseteq e_b+X_{b-1}\) for \(b>\ell\). For
+\(u\in X^\perp\), \(gu=u+\langle u,y\rangle x\in u+X\). Hence \(g\in N\),
+and likewise \(g\in N'\). Since \(gz-z=\langle z,y\rangle x\) and
+\(ge_{b+1}-e_{b+1}=\langle e_{b+1},y\rangle x\), with
+\(\langle e_{b+1},y\rangle=0\) for \(b<\ell\) and the \(e_b\)-coordinate
+of \(x\) zero for \(b>\ell\), we get
+\(\psi_N(g)=\psi_E(\langle\alpha e_{\ell+1},y\rangle)\) and
+\(\psi_{N'}(g)=\psi_E(\langle\alpha'e'_{\ell'+1},y\rangle)\). Put
+\(u_0=\alpha e_{\ell+1}-\alpha'e'_{\ell'+1}\). Compatibility gives
+\(\psi_E(\langle u_0,y\rangle)=1\) for all such \(y\). If a rational
+\(y\perp X_\ell+X'_{\ell'}\) had \(\langle u_0,y\rangle\ne0\), replacing
+\(y\) by \(ty\) with \(t\in\mathbf A_E\) would make \(\psi_E\) trivial.
+Hence \(u_0\perp(X_\ell+X'_{\ell'})^\perp\), and
+\(u_0\in X_\ell+X'_{\ell'}\) because the ambient form is nondegenerate.
+
+\emph{Step 2.} First, \(z\notin X+X'\): if \(z=x_1+x_1'\) with
+\(x_1\in X\) and \(x'_1\in X'\), then \(x'_1=z-x_1\perp X\) and
+\(-T_w=\langle z,z\rangle=\langle x'_1,x'_1\rangle=0\). Likewise
+\(z'\notin X+X'\). In Step 1 suppose \(\ell,\ell'<s\), and write
+\(u_0=p+p'\) with \(p\in X_\ell\) and \(p'\in X'_{\ell'}\). Then
+\(\alpha e_{\ell+1}-p=\alpha'e'_{\ell'+1}+p'\) lies in \(X\cap X'\) and
+has levels \(\ell+1,\ell'+1\). If \(\ell=s>\ell'\), Step 1 puts
+\(\alpha z\) in \(X+X'\), which is impossible, and \(\ell'=s>\ell\) is
+excluded in the same way. Iterating from any nonzero \(x\in X\cap X'\)
+therefore gives \(\ell=\ell'\) for every such \(x\), and at the top
+level gives \(z'-\theta z\in X+X'\) for some \(\theta\in E^\times\)
+whenever \(X\cap X'\ne0\). Let \(j+1\) be the least level of a nonzero
+element of \(X\cap X'\), with \(j=s\) if \(X\cap X'=0\). The iteration
+produces elements of every level \(j+1,\dots,s\), which are
+independent, while \(X\cap X'\cap X_j=0\). Hence
+\(\dim(X\cap X')=s-j\), \(X=X_j\oplus(X\cap X')\) and, since the levels
+agree, \(X'=X'_j\oplus(X\cap X')\).
+
+\emph{Step 3, \(X\cap X'\ne0\).} Let \(Z_j\) be the leading
+\(j\)-by-\(j\) submatrix of \(Z\). The pairing of \(X_j\) with \(X'_j\)
+is perfect, so \(\det Z_j\ne0\). Indeed, if \(x\in X_j\) is orthogonal
+to \(X'_j\), then \(x\perp X\cap X'\), hence \(x\perp X'\), and
+\(x\perp z'\) because \(z'-\theta z\in X+X'\). By \((\mathrm P)\) for
+the second flag, \(x\in X'\), so \(x\in X\cap X'\cap X_j=0\). Thus
+\(Q=X_j+X'_j\) is nondegenerate of dimension \(2j\). Choose \(h\in X_j\)
+with \(\tilde z=z-h\perp X'_j\). Then \(\tilde z\perp Q\),
+\(\tilde z\perp X\cap X'\) and \(\langle\tilde z,\tilde z\rangle=-T_w\).
+Since \(z'\in\theta z+X+X'\), we get
+\(W=Q\oplus(X\cap X')\oplus E\tilde z\), orthogonally, with
+\(X\cap X'\) isotropic. So \(R=X\cap X'\), \(\dim W=s+j+1\) and
+\(\dim R=s-j\).
+
+\emph{Step 3, \(X\cap X'=0\).} Here compatibility is not needed. If
+\(\det Z=0\), some nonzero \(u=x+\beta z\) with \(x\in X\) is
+orthogonal to \(X'^+\). If \(\beta=0\), \((\mathrm P)\) gives \(x\in
+X'\), so \(x=0\). Otherwise we may take \(\beta=1\), and then
+\(\langle u,u\rangle=-T_w\), contrary to \((\mathrm P)\). So
+\(\det Z\ne0\), and \(G=0\) forces \(\det Z_s\ne0\), where
+\(Z_s=Z_{a-1}\). Then \(X\) and \(X'\) are in perfect pairing, and
+\(Q=X\oplus X'\) is nondegenerate. Let \(\tilde z=z-h\) and
+\(\tilde z'=z'-h'\), with \(h\in X\) and \(h'\in X'\), be the components
+orthogonal to \(Q\). Their norms are \(-T_w\) and \(-T_v\). The Gram
+determinant of the augmented frames is \(\pm|\det Z_s|^2\) times that
+of \((\tilde z,\tilde z')\). So \(G=0\) makes the latter singular, and
+some \(y=\tilde z'-\mu\tilde z\) is orthogonal to \(\tilde z\) and
+\(\tilde z'\). The coefficient of \(\tilde z'\) cannot vanish, because
+\(\tilde z\) is not isotropic. Then \(y\) is isotropic, orthogonal to
+\(Q\) and to \(z\), so \(y\in X\subseteq Q\) by \((\mathrm P)\), and
+therefore \(y=0\). Hence \(W=X\oplus X'\oplus E\tilde z\) is
+nondegenerate, \(R=0\) and \(\dim W=2s+1\).
+
+In both cases \(\dim W+\dim R=2s+1=m-1\), and the Schur argument above
+gives the vanishing for \(w\ne v\).
+
+The mixed block
+ consists of the generic and nongeneric sums with
 \(G\ne0\) in the same weights and measures.
 
 \subsection{The single-word estimate}
@@ -156,43 +310,279 @@ and \(k\ge 8\log\Gamma\) at all sufficiently large scales.
 The level index explains the balance. Let \(d_w^{(0)}\) be the compact
 column dimension before marking a nonzero covector at each place
 above \(T_w\), with the two auxiliary levels and the word's real
-type retained. The class cover has degree \((T_w^k-1)^f\). Each
-local factor is the index of the stabilizer of a nonzero covector
-in \(\mathrm{GL}_k(\mathbf F_{T_w})\). The definite class stabilizers
-are trivial by the two auxiliary reductions, as below, so this
-index multiplies the number of classes and hence the column dimension.
+type retained. Let \(K_0\) be this compact level and \(K_0'\subset K_0\)
+the subgroup of elements whose reduction at each place above \(T_w\)
+fixes the marked nonzero covector. Reduction onto
+\(\mathrm{GL}_k(\mathbf F_{T_w})\) is surjective, and this group acts
+transitively on the \(T_w^k-1\) nonzero covectors. By the
+orbit--stabilizer theorem, \([K_0:K_0']=(T_w^k-1)^f\).
+For a class \(G(F)gK_0\), the classes of level \(K_0'\) above it are
+in bijection with the orbits of \(g^{-1}\Gamma_gg\) on \(K_0/K_0'\),
+where \(\Gamma_g=G(F)\cap gK_0g^{-1}\). This group is finite by
+definiteness.
+At a place above the auxiliary prime \(g_i\), the level consists of
+elements with upper unitriangular reduction. The preimage of the
+unitriangular group is pro-\(g_i\), because the principal congruence
+kernel is pro-\(g_i\), and so is each conjugate of it. Hence every
+element of \(\Gamma_g\) has order a power of \(g_0\) and a power of
+\(g_1\), so \(\Gamma_g=1\). The same holds for the stabilizers at level
+\(K_0'\). Thus every class of level \(K_0\) has exactly
+\((T_w^k-1)^f\) classes above it, and every class at either level
+carries the full residual fibre. Counting fibres gives
+\[
+ d_w=(T_w^k-1)^f\,d_w^{(0)} .
+\]
+For comparison, the release records this index as
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/StandardLattice.lean}{446}{The level index and compact rank}.
 Write
 \[
  Y_w=\left(\frac{D_\star}{d_w^{(0)}\Gamma^2}\right)^{1/(fk)}.
 \]
-The word-prime interval of the chosen record is
-\(Y_w\le T_w\le Y_w(1+1/(fk))\).
+The word-prime interval is \(Y_w\le T_w\le Y_w(1+1/(fk))\). It is
+the auxiliary-level choice of Section~\ref{sec:integral}, which the
+edition takes from the release there. In that choice
+\(d_w^*\) is the coefficient of \((T_w^k-1)^f\) in the full column
+dimension, so \(d_w^*=d_w^{(0)}\) by the index formula, and the chosen
+interval \(1\le T_w/(X_w\Gamma^{-2/(fk)})\le1+1/(fk)\) reads
+\(Y_w\le T_w\le Y_w(1+1/(fk))\) because
+\(X_w\Gamma^{-2/(fk)}=Y_w\). The release records the same interval in
+the chosen record at
 \releasecite{Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean}{153}{The word-prime interval}.
 Thus the exact ratio \(d_w\Gamma^2/D_\star\) is
-\((T_w/Y_w)^{fk}(1-T_w^{-k})^f\). Its upper bound is \(\exp(1)\)
-and its lower bound is \(1-fT_w^{-k}\ge1/2\) for large \(x\).
+\((T_w^k-1)^f/Y_w^{fk}=(T_w/Y_w)^{fk}(1-T_w^{-k})^f\). Its upper bound
+is \((1+1/(fk))^{fk}\le\exp(1)<3\). By Bernoulli's inequality its lower
+bound is \(1-fT_w^{-k}\ge1-x^5b^{-k}\ge1/2>1/3\) for large \(x\), since
+\(T_w\ge b\) and \(f\le x^5\). Given the interval, this proves
+\eqref{eq:trace-balance} with \(C_0=3\).
 The count uses the same \(D_\star\) as the row projector below.
 
 \leavevmode\teamanchor{proof.full-diagonal-estimate}%
 With the contribution \(I\) of the identity removed, there are two
-sums in \(K_{ww}-I\). Alp\"oge bounds the squared Hilbert--Schmidt norm
-of the remaining degenerate sum by \(d_w\exp(-kf\log k)\) and that of
-the entire nondegenerate sum by \(\Gamma d_w^2/D_\star\). The first
-estimate uses absolute orbital amplitudes. The second combines the
-scalar-pair and error estimates for equal words, in their prescribed
-levels and measures. For the scalar pairs, the local Bessel integral
-from Section~\ref{sec:periods} enters in both word slots of the real
-orbital integral used with
+sums in \(K_{ww}-I\): the sum \(K_{\rm deg}\) over the nonidentity
+orbits with \(G=0\), and the sum \(K_{\rm nd}=K_{\rm gen}+K_{\rm ng}\)
+over the generic and nongeneric orbits with \(G\ne0\). We show
+\(\|K_{\rm deg}\|_{\rm HS}^2\le d_w\exp(-kf\log k)\) and
+\(\|K_{\rm nd}\|_{\rm HS}^2\le\Gamma d_w^2/D_\star\). Throughout,
+\(\log P_g\le6b^{-7}\), as in the
+\hyperlink{proof.mixed-word-estimate}{mixed-word estimate}, so
+\(P_g\le2\).
+
+\paragraph{The degenerate sum.}
+\teamanchor{proof.degenerate-diagonal-sum}%
+Group the nonidentity \(G=0\) terms into rows as in the
+\hyperlink{proof.quadratic-row-contraction}{quadratic row contraction},
+with \(w=v\). The
+\hyperlink{proof.squared-norm-identity}{derivation of the squared norm}
+applies verbatim to this family \(\mathcal S\). It uses the character
+factorization, the constant unipotent factor and the free column
+decompositions, which concern single terms, their lattice pairs and
+their column representatives and not the family. It also uses the left
+and right Gram invariance, whose cited release statements are made
+for each of the generic, nongeneric and nonidentity degenerate
+families, and the absolute summability, which covers all orbit terms.
+Hence
+\(\|K_{\rm deg}\|_{\rm HS}^2=\operatorname{Re}\sum_{i,j}\mathcal G_{ij}
+\langle V_i,V_j\rangle\), with \(V_i\) formed from the degenerate terms.
+The Gelfand--Graev bound
+\(0\le\mathcal G\le P_g\Gamma_1\operatorname{Id}\) proved there gives,
+by the same coordinate argument,
+\[
+ \|K_{\rm deg}\|_{\rm HS}^2
+ \le P_g\Gamma_1\sum_{\substack{t,t'\ {\rm deg}\\ r(t)=r(t')}}
+     \|v_t\|\,\|v_{t'}\|.
+\]
+The right side satisfies the following typed amplitude bound, which is
+assembled below from release inputs. There is a constant \(C_A\ge1\),
+fixed on the family, such that
+\[
+ \Gamma_1\sum_{\substack{t,t'\ {\rm deg}\\ r(t)=r(t')}}
+     \|v_t\|\,\|v_{t'}\|
+ \le d_w\Bigl(\sum_{j=1}^{r_S}\alpha_j\Bigr)^2,\qquad
+ \alpha_j=\exp(C_Am^6f\log b)\Bigl(\frac{C_A}{k}\Bigr)^{j(k-1-j)f}.
+\]
+The numerics after this bound are given at the end of the assembly.
+
+\leavevmode\teamanchor{proof.degenerate-amplitude-assembly}%
+\paragraph{Assembly of the typed amplitude bound.}
+Call a degenerate term relevant if its orbit is compatible in the sense
+of the \hyperlink{proof.degenerate-normal-form}{normal form}. The
+assembly uses six inputs.
+
+(i) An irrelevant term has \(v_t=0\): its orbital integral contains
+the unipotent average, which vanishes when the characters disagree, as
+stated in the \hyperlink{proof.gram-orbit-expansion}{orbit expansion}.
+The edition takes this vanishing of the irrelevant degenerate vectors
+from the release
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/CovolumeSpans.lean}{35}{vanishing of the irrelevant degenerate vectors}.
+
+(ii) A relevant term has \(1\le j(t)\le r_S\). Here \(j(t)\) is the
+index \(j\) of the normal form, so \(\dim(X\cap X')=r_S-j(t)\) and the
+upper bound holds by definition. Suppose \(j(t)=0\). Then
+\(\dim(X\cap X')=r_S\), so \(X=X'\). By Step~2 every nonzero
+\(x\in X\) has the same level for both flags, so \(X'_b=X_b\) for every
+\(b\). Since \(r_S\ge1\), Step~2 also gives \(z'-\theta z\in X\) with
+\(\theta\in E^\times\), so \(X'^+=X^+\). Since \(w=v\), \(z\perp X\) and
+\(X\) is isotropic, comparing \(\langle z',z'\rangle\) with
+\(\langle z,z\rangle\) gives \(\theta\bar\theta=1\). The release shows
+that a relevant term whose flags have equal subspaces \(X_b\) and equal
+\(X^+\) is the identity term, using that the word prime \(T_w\) is
+prime to \(g_0g_1\)
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/IsIdentityOfEqualFlags.lean}{20}{identity recognition for equal flags}.
+The argument there runs as follows. The comparison scalar is a unit
+with all absolute values one, hence a root of unity. Admissibility of
+the lattice data makes it congruent to \(1\) modulo the primes above
+\(g_0\) and \(g_1\), hence equal to \(1\), and the term is then
+realised by an element of the unipotent group of the lattice. The identity term is excluded from the
+degenerate family, so \(j(t)\ge1\).
+
+(iii) The typed real amplitude bound. Set \(H_c=b^{cm^2f}\) and
+\(H_1=b^{C_Hm}\). A relevant term \(t\) has a label
+\(\delta=(\delta_l)_l\), the local comparison data of its two flags at
+the levels \(l\le j(t)\), with \(\delta_l=0\) for \(l>j(t)\). Let
+\(\Delta(t)\) be the absolute norm of the local discriminant attached
+to \(\delta_{j(t)}\). Put
+\(S(t)=\prod_\tau\max\bigl(1,\max_l|\delta_l|_\tau/(2H_1)^{2r_S}\bigr)\ge1\),
+where the product runs over the real places \(\tau\) of \(F\) and
+\(|\delta_l|_\tau\) is the archimedean size of the label entry. The
+release gives constants \(C_H,C_h,C_p\ge0\) with the following
+property. For every \(C_s\ge C_p+4\) and every sufficiently large
+\(C\ge0\), each finite set of same-row ordered pairs of relevant terms,
+in which the first terms all have type \((j',\delta')\) and the second
+terms all have type \((j'',\delta'')\), satisfies
+\[
+ \sum\|v_t\|\,\|v_{t'}\|\le\dim\pi_w\,M_w\,
+   (ae)(j',\delta')\,(ae)(j'',\delta'').
+\]
+Here
+\(a(j,\delta)=(C/k)^{j(k-1-j)f}\Delta^{-(k-1-j)/2}H_C^{Cr_S^4}S^{-C_sk}\)
+and \(e(j,\delta)=\Delta^{k/2}H_{C_h}^{C_hr_S^4}S^{C_pk}\),
+\(\pi_w\) is the fibre representation of the columns of \(w\), and
+\(M_w=\sum_\Lambda|A_\Lambda|^{-1}\) is the total lattice weight
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RowsPos.lean}{18}{typed real amplitude bound}.
+
+(iv) \(0<\Delta(t)\le H_CS(t)^2\) for the same \(C\)
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/DimFormC.lean}{65}{discriminant bound}.
+
+(v) There is \(C_c\ge0\) such that for each \(1\le j\le r_S\) and each
+finite set \(T\) of labels realised by relevant terms of rank \(j\),
+\(\sum_{\delta\in T}S^{-3r_S}\le H_{C_c}^{C_cr_S}\)
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/DimFormC.lean}{72}{coset count}.
+
+(vi) The dimension formula \(\Gamma_1M_w\dim\pi_w\le d_w\)
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/DimFormC.lean}{80}{dimension formula}.
+
+The constants are fixed in the order \(C_H,C_h,C_p\), then
+\(C_s=C_p+4\), then \(C\) large for (iii) and (iv), then \(C_c\), and
+finally \(C_A=1+C+C^2+C_h^2+C_c^2\). The assembly is now algebra. The
+exponents of \(\Delta\) add to \((j+1)/2\), so
+\[
+ (ae)(j,\delta)=(C/k)^{j(k-1-j)f}H_C^{Cr_S^4}H_{C_h}^{C_hr_S^4}
+   \Delta^{(j+1)/2}S^{(C_p-C_s)k}.
+\]
+By (iv), \(\Delta^{(j+1)/2}\le H_C^{(j+1)/2}S^{j+1}\). Since \(S\ge1\),
+\(C_s-C_p\ge4\) and \(j+1+3r_S\le4r_S+1\le4k\), we get
+\(S^{j+1+(C_p-C_s)k}\le S^{-3r_S}\). Summing over a finite set of
+labels of rank \(j\) with (v) gives
+\[
+ \sum_\delta(ae)(j,\delta)\le\tilde\alpha_j=(C/k)^{j(k-1-j)f}
+   H_C^{Cr_S^4+(j+1)/2}H_{C_h}^{C_hr_S^4}H_{C_c}^{C_cr_S}.
+\]
+Now take a finite set of same-row ordered pairs of nonidentity
+degenerate terms. Pairs with an irrelevant member contribute \(0\) by
+(i). By (ii), the rest split by \((j',\delta',j'',\delta'')\) with
+\(1\le j',j''\le r_S\), and only finitely many labels occur. Applying
+(iii) to each piece and summing over labels gives the bound
+\(\dim\pi_w\,M_w(\sum_{j=1}^{r_S}\tilde\alpha_j)^2\). Absolute summability lets
+the finite set exhaust the sum. Finally
+\(H_c^y=\exp(cym^2f\log b)\), and \(r_S\le m\), \((j+1)/2\le m\) give
+\(C^2r_S^4+C(j+1)/2+C_h^2r_S^4+C_c^2r_S\le C_Am^4\). Since
+\(0\le C\le C_A\) and \(j(k-1-j)\ge0\), this gives \(\tilde\alpha_j\le\alpha_j\).
+Multiplying by \(\Gamma_1\) and using (vi) gives the typed amplitude
+bound.
+
+The remaining numerics are as follows. Since \(m=2r_S+2\) and
+\(k\ge m+3\), each \(1\le j\le r_S\) has \(j(k-1-j)\ge k-2\). Beyond a
+scale threshold, \(\log k\ge8\log C_A\) and
+\(k\log k\ge8C_Am^6\log b\). Indeed \(k\ge70\log b\) tends to
+infinity, and \(k\ge8C_\Gamma m^5f\log b\ge8C_\Gamma m^9\log b\), so
+the second inequality holds once \(C_\Gamma\log k\ge C_A\). Then
+\(C_A/k\le1\), \(r_S\le k\), and
+\[
+ \log\Bigl(2\Bigl(\sum_j\alpha_j\Bigr)^2\Bigr)
+ \le\log2+2\log k+2C_Am^6f\log b-2(k-2)f\log k+2(k-2)f\log C_A .
+\]
+The last two positive terms are each at most \(\tfrac14kf\log k\), and
+\(\log2+2\log k\le3f\log k\). The right side is therefore at most
+\((7-\tfrac32k)f\log k\le-kf\log k\), since \(k\ge14\). With
+\(P_g\le2\) this gives \(\|K_{\rm deg}\|_{\rm HS}^2\le d_w\exp(-kf\log k)\).
+
+\paragraph{The nondegenerate sum.}
+\teamanchor{proof.equal-word-nondegenerate}%
+The \hyperlink{proof.quadratic-row-contraction}{quadratic row contraction},
+the \hyperlink{proof.orbital-error-estimates}{orbital error estimates}
+and the combination in the
+\hyperlink{proof.mixed-word-estimate}{mixed-word estimate} apply with
+\(v=w\), with one change: the scalar main term. Put
+\(D_{ww}=d_w^2/D_\star\). The edition takes the following equal-word
+scalar bound from the release
 \releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/RowMainEqPOfSiegelWeil.lean}{10}{Siegel--Weil}.
-Alp\"oge
-\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RowsPos.lean}{210}{combines this scalar estimate with the other pair estimates}.
-The exponent \(C_\Gamma\) absorbs their constants, and the rank
+The signed sum over the generic scalar pairs of \(K_{ww}\), weighted by
+\(\Gamma_1\) as in the finite convolution, is at most
+\(\Gamma_BD_{ww}\), with \(\Gamma_B=\exp(C_Bm^5f\log b)\) for a
+constant \(C_B\ge0\) fixed on the family. The release does not prove
+this by the positivity and Poisson argument of the
+\hyperlink{proof.scalar-row-normalization}{scalar normalization}, and
+the edition does not use the bound \(AD_{wv}\) of that argument with
+\(v=w\). Instead, the release groups the generic scalar pairs into
+classes and, within a class, by a rational point and a normal datum.
+It bounds each class by Cauchy--Schwarz and a mean bound for the local
+generic amplitudes, and counts the points and normals with height
+weights
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/MainEqCut.lean}{195}{class, amplitude and height bound for generic scalar pairs}.
+Only then is the sum normalized. The Siegel--Weil formula, with the
+local Bessel integral from Section~\ref{sec:periods} in both word slots
+of the real orbital integral, enters through the equal-word mass data.
+These mass data bound the \(\Gamma_1\)-weighted archimedean mass by
+the scale \(d_wd_v/D_\star\) of the distinct-word normalization, now
+taken at \(v=w\), times a factor that depends only on the field
+discriminant, the auxiliary primes and the rank
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/MainEqCut.lean}{259}{normalization of the class bound by the mass data}.
+The scale \(D_{ww}\) is the only thing the edition takes from the
+scalar normalization at \(v=w\). This factor and the class and height
+counts are absorbed into \(\Gamma_B\), which is why the bound is crude. It
+suffices, because \(\Gamma\ge\Gamma_Bb^{m^5f}\) below. The error bounds
+\(\epsilon_LD_{ww}\) and \(\epsilon_ND_{ww}\) are also taken for
+\(v=w\); their release statements cover every pair of words.
+The identity orbit has \(G=0\), so it lies in neither family. As in
+the mixed-word estimate,
+\[
+ \|K_{\rm nd}\|_{\rm HS}^2
+ \le D_{ww}\Bigl[\sqrt{P_g(\Gamma_B+2\epsilon_L)}
+    +\sqrt{P_g(\epsilon_L+\epsilon_N)}\Bigr]^2 .
+\]
+The release
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RowsPos.lean}{210}{combines these equal-word pair estimates}
+in the same way. To bound the bracket put
+\(E=\exp(\max(C_B,C_N)m^5f\log b)\ge1\). Then \(\Gamma_B\le E\),
+\(\epsilon_L\le1\), and \(\epsilon_N\le E\) because
+\(k\ge2r_S+5\). Using \((\sqrt a+\sqrt c)^2\le2(a+c)\) and \(P_g\le2\),
+the bracket is at most \(4(\Gamma_B+3\epsilon_L+\epsilon_N)\le20E\).
+The constants \(C_B\) and \(C_N\) are fixed first, and the family
+exponent is chosen with
+\[
+ C_\Gamma\ge\max(C_B,C_N)+1 .
+\]
+Then \(\Gamma\ge E\,b^{m^5f}\), and \(b^{m^5f}\ge16^{512}>20\) because
+\(b\ge16\), \(m\ge2\) and \(f\ge m^4\). Hence
+\(\|K_{\rm nd}\|_{\rm HS}^2\le\Gamma d_w^2/D_\star\).
+The rank thresholds are taken after \(C_\Gamma\), and the rank
 satisfies \(k\ge 8C_\Gamma m^5f\log b\).
+
 The upper ratio in \eqref{eq:trace-balance} gives
 \(\Gamma d_w^2/D_\star\le(C_0/\Gamma)d_w\).
-\releasecite{Formalism/SharpRestriction/CuspSpanNormBounds/StandingHypothesesHoldFamily.lean}{144}{Combining the degenerate and nondegenerate estimates}
-by the squared triangle inequality gives
+Combining the degenerate and nondegenerate estimates
+by the squared triangle inequality
+\(\|A+B\|^2\le2\|A\|^2+2\|B\|^2\) gives
 \begin{equation}
  \label{eq:trace-single-diagonal}
  \|K_{ww}-I\|_{\mathrm{HS}}^2\le e_0 d_w,\qquad
@@ -206,7 +596,9 @@ over the selected translates.
 \textbf{AI-proposed candidate (the same-word Gram defect).}
 Fix the target, precision and tied family with its levels, weight
 gaps and rank conditions, including \eqref{eq:trace-balance} and
-\(k\ge8\log\Gamma\). At every selected translate beyond one common
+\(k\ge8\log\Gamma\), with \(C_\Gamma\ge\max(C_B,C_N)+1\) for the
+fixed constants \(C_B\) of the equal-word scalar bound and \(C_N\) of
+the nongeneric estimate. At every selected translate beyond one common
 scale threshold, the full Gram operator of each word has mean
 squared defect
 \[
@@ -216,7 +608,9 @@ squared defect
 \]
 The normalization gives \(I\) on the identity double coset. The
 estimate uses absolute bounds for the remaining degenerate terms
-and the equal-word nondegenerate bound \(\Gamma d_w^2/D_\star\).
+and the equal-word nondegenerate bound \(\Gamma d_w^2/D_\star\),
+\hyperlink{proof.full-diagonal-estimate}{derived above} from the
+release inputs named there.
 This nondegenerate calculation shares orbital estimates with the
 mixed-word proof below. The same-word statement controls the mean
 of \((\sigma_j^2-1)^2\) over the \(d_w\) singular values of \(L_w\),
@@ -252,6 +646,7 @@ because the principal congruence kernel is pro-\(g_i\). Thus the
 stabilizer element has order a power of each of two distinct primes.
 It is the identity, so the diamond representative is itself in the
 level and acts by the trivial multiplier at every \(T_w\)-place.
+For comparison, the release proves the same freeness at
 \releasecite{Formalism/LocalToGlobal/GlobalTheory/GL6/DiagonalSlopes/EqOneOfCoprimeTorsionTwoPrimes.lean}{670}{Freeness at the level-zero classes}.
 
 On each free orbit fix an identification of the fibre at one class
@@ -273,6 +668,7 @@ inequality gives the rest:
 \end{equation}
 This is the ratio for the same level-zero columns counted in
 \eqref{eq:trace-balance}.
+For comparison, the release states the same formula at
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/FiniteModelOfAdmissibleTransports.lean}{842}{Ramified rank formula}.
 
 The diagonal input gives another use of this calculation.
@@ -297,7 +693,11 @@ For the conditional argument we use the period maps supplied by
 \subsection{Squaring the orbital sum at finite level}
 \leavevmode\teamanchor{proof.quadratic-row-contraction}%
 Fix \(w\ne v\) and let \(\mathcal S\) be either of the two orbit
-families with \(G\ne0\). Group the terms by their two lattice
+families with \(G\ne0\). The same grouping applies with \(w=v\). The
+identity orbit has \(G=0\) and lies in neither family. The resulting
+equal-word bound \(\Gamma d_w^2/D_\star\) is derived in the
+\hyperlink{proof.equal-word-nondegenerate}{single-word estimate} from
+the release inputs named there. Group the terms by their two lattice
 representatives and the remaining index \(i(t)\) in the finite Levi
 group. Call this triple the row \(r(t)\). At a place of \(F\) above
 \(g_0g_1\) with residue size \(q\), the group is
@@ -315,8 +715,15 @@ factor is the character of \(\prod_q U_q\), extended by zero, evaluated
 at the relative Levi index for the two column representatives. The
 representatives give free decompositions of \(I\), and the Gram sums
 for each family are invariant under the corresponding left and right
-translations in \(I\). These identities
-\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/NormCut.lean}{202}{give the squared norm}
+translations in \(I\). The edition takes these structural facts
+from the release:
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/ColPhaseCut.lean}{49}{the character factorization},
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/ChiNCut.lean}{48}{the constant unipotent factor},
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/NormExpSatHolds.lean}{17}{the free column decompositions}
+and the left and right Gram invariance
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/NormExpSatHolds.lean}{23}{left invariance}
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/NormExpSatHolds.lean}{37}{right invariance}.
+The derivation below shows that they give the squared norm
 \[
   \|K_{\mathcal S}\|_{\mathrm{HS}}^2
     =\operatorname{Re}\sum_{i,j\in I}\mathcal G_{ij}\langle V_i,V_j\rangle,
@@ -327,7 +734,93 @@ Here \(\gamma_q=\operatorname{ch}(\operatorname{Ind}_{U_q}^{G_q}\psi_q)\)
 is the Gelfand--Graev character,
 where \(\psi_q\) is the nondegenerate character obtained from the
 chosen nontrivial residue-field character on the sum of the simple
-superdiagonal entries. Let \(\Gamma_1=\prod_q\gamma_q(1)=\prod_q[G_q:U_q]\)
+superdiagonal entries.
+
+\leavevmode\teamanchor{proof.squared-norm-identity}%
+\paragraph{Derivation of the squared norm.}
+Take the Hilbert--Schmidt inner product conjugate-linear in the first
+variable. Let \(U=\prod_qU_q\), let \(\psi=\prod_q\psi_q\) on \(U\),
+extended by zero to \(I\), and let \(\gamma=\prod_q\gamma_q\). Then
+\(\psi(ug)=\psi(u)\psi(g)\) and \(\psi(gu)=\psi(g)\psi(u)\) for \(u\in U\)
+and \(g\in I\). Fix a
+lattice pair \(\Lambda\) occurring in \(\mathcal S\). The structural
+facts say the following. The \(\Lambda\)-summand of \(K_{\mathcal S}\)
+has, between a column \(\rho\) of the first lattice and a column
+\(\rho'\) of the second, the block
+\(\sum_t\psi(s_\rho^{-1}i(t)s'_{\rho'})a_t\). The sum runs over
+\(t\in\mathcal S\) with lattice pair \(\Lambda\), \(s_\rho,s'_{\rho'}\in
+I\) are the column representatives, and \(a_t\) is the remaining factor of \(A_t\): the normalized real
+orbital operator times the level volume and the unipotent factor,
+which is constant for the lattice pair.
+There are subsets \(A_\Lambda,A'_\Lambda\subseteq I\) for which
+\((b,\rho,u)\mapsto bs_\rho u\) and \((b,\rho',u)\mapsto bs'_{\rho'}u\)
+are bijections onto \(I\) from \(A_\Lambda\times\{\rho\}\times U\) and
+\(A'_\Lambda\times\{\rho'\}\times U\), where \(\rho\) and \(\rho'\) run
+over the columns of the first and second lattice of \(\Lambda\). The two lattice
+weights are \(|A_\Lambda|^{-1}\) and \(|A'_\Lambda|^{-1}\). Finally,
+\(Z_\Lambda(i)=\sum_{t:\,i(t)=i}a_t\) satisfies
+\(\langle Z_\Lambda(bi),Z_\Lambda(bj)\rangle
+=\langle Z_\Lambda(i),Z_\Lambda(j)\rangle\) for \(b\in A_\Lambda\) and
+\(\langle Z_\Lambda(ib^{-1}),Z_\Lambda(jb^{-1})\rangle
+=\langle Z_\Lambda(i),Z_\Lambda(j)\rangle\) for \(b\in A'_\Lambda\).
+The sums over \(t\) converge absolutely in the Hilbert--Schmidt norm
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean}{301}{absolute summability of the orbit terms},
+which justifies the regrouping below.
+In the release this summability is deduced from three facts: each
+block of a term has norm at most a fixed volume factor times the
+operator norm of the orbital integral of that term
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean}{95}{block bound},
+this operator norm is at most the integral, over the fundamental
+domain of the term at the real places, of the product of the norms of
+the two coefficient vectors \(W_w\) and \(W_v\)
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/DoubleCosetSingleUnfolding.lean}{383}{norm of an orbital integral},
+and these absolute integrals have a finite sum over the terms
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedVolumeStatements/FullExistsTiedHolds.lean}{27}{absolute convergence over the terms}.
+The terms there are indexed by lattice pairs and adelic classes modulo
+the lattice unipotent subgroups. This indexing refines the rational
+double cosets of the unfolding, so the edition does not deduce the last
+finiteness from the absolute convergence proved for the unfolding.
+The Hilbert--Schmidt norm is additive over blocks, so
+\[
+  \|K_{\mathcal S}\|_{\mathrm{HS}}^2=\sum_\Lambda\sum_{\rho,\rho'}
+   \Phi_\Lambda(s_\rho,s'_{\rho'}),\qquad
+  \Phi_\Lambda(x,y)=\sum_{i,j\in I}
+   \overline{\psi(x^{-1}iy)}\,\psi(x^{-1}jy)\,
+   \langle Z_\Lambda(i),Z_\Lambda(j)\rangle .
+\]
+Replacing \(x\) by \(xu\) or \(y\) by \(yu\) with \(u\in U\) multiplies
+the summand by \(|\psi(u)|^2=1\). Replacing \(x\) by \(bx\) with
+\(b\in A_\Lambda\), or \(y\) by \(by\) with \(b\in A'_\Lambda\), is
+undone by substituting \(i\mapsto bi\), \(j\mapsto bj\), or
+\(i\mapsto ib^{-1}\), \(j\mapsto jb^{-1}\), and using the Gram
+invariance. By the free decompositions,
+\[
+  \sum_{\rho,\rho'}\Phi_\Lambda(s_\rho,s'_{\rho'})
+   =\frac{1}{|A_\Lambda||A'_\Lambda||U|^2}\sum_{x,y\in I}
+     \Phi_\Lambda(x,y).
+\]
+In the sum over \(y\), substitute \(y\mapsto i^{-1}xy\). The term
+\(\overline{\psi(y)}\psi(x^{-1}ji^{-1}xy)\) vanishes unless \(y\in U\)
+and \(x^{-1}ji^{-1}x\in U\), and then it equals
+\(\psi(x^{-1}ji^{-1}x)\). The Frobenius formula
+\(\gamma(g)=|U|^{-1}\sum_{x\in I}\psi(x^{-1}gx)\) then gives
+\(\sum_{x,y}\overline{\psi(x^{-1}iy)}\psi(x^{-1}jy)=|U|^2\gamma(ji^{-1})\).
+Since \(\gamma\) is a class function and \(\gamma(g^{-1})
+=\overline{\gamma(g)}\), we have \(\gamma(ji^{-1})=\gamma(i^{-1}j)
+=\mathcal G_{ij}\). Hence
+\[
+  \|K_{\mathcal S}\|_{\mathrm{HS}}^2=\sum_{i,j}\mathcal G_{ij}
+   \sum_\Lambda\frac{\langle Z_\Lambda(i),Z_\Lambda(j)\rangle}
+     {|A_\Lambda||A'_\Lambda|}
+   =\sum_{i,j}\mathcal G_{ij}\langle V_i,V_j\rangle ,
+\]
+because \(V_i\) has \(\Lambda\)-component
+\((|A_\Lambda||A'_\Lambda|)^{-1/2}Z_\Lambda(i)\) in the orthogonal sum
+over lattice pairs of the Hilbert--Schmidt summands. The left side is
+real, so taking real parts changes nothing. Different lattice pairs
+are orthogonal by this construction.
+
+Let \(\Gamma_1=\prod_q\gamma_q(1)=\prod_q[G_q:U_q]\)
 and \(P_g=\prod_q(1+3/q)\).
 The finite convolution gives
 \[
@@ -401,8 +894,8 @@ for every such choice of lifts.
 \leavevmode\teamanchor{proof.trace-word-ratios}%
 Keep \(w\ne v\) fixed and set \(D_{wv}=d_wd_v/D_\star\).
 The word primes \(T_w\) split completely in \(E\) and are congruent
-to \(1\) modulo \((g_0g_1)^2\). We check their comparison with a
-fixed constant, as used in the mixed estimate. Write \(j_0=k-2\).
+to \(1\) modulo \((g_0g_1)^2\). We compare them, and the compact
+Vandermondes, for two words. Write \(j_0=k-2\).
 At a real place, the compact word parameters have two common
 endpoints and the \(j_0\) interior entries \(v_i-1/2-\Delta b_i\),
 where \(b_i\in\{0,1\}\) and \(v_i-v_{i+1}=4\Delta\).
@@ -455,10 +948,20 @@ Combining the bounds gives
         \quad(z\mid\infty).
 \end{equation}
 Here \(\operatorname{Vand}_z(w)\) is the compact Vandermonde at \(z\).
-This supplies \(A_0=\exp(1)\) for both types of ratio. The orbital estimates
-use these comparisons and \eqref{eq:trace-balance} together with
+Thus \(T_w/T_v\) and the \(k\)-th roots of the compact Vandermonde
+ratios lie in \([e^{-1},e]\).
+These two-word comparisons are not inputs of the mixed estimate. Among
+the release's size hypotheses for it
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/TheoremSRecursion.lean}{113}{size hypotheses of the mixed estimate},
+\eqref{eq:trace-balance}, the column counts and the lower bounds on
+\(T_w\) and \(T_v\) are imposed for each word separately, and no
+comparison between the two words is assumed. The comparison of
+critical levels is used in the mass-ratio step of the nonvanishing
+argument
+\releasecite{Formalism/SharpRestriction/CuspSpanNormBounds/BruhatCellsKronecker/FamilyCriticalLevelLowerBound.lean}{34}{critical-level ratio}.
+The orbital estimates use \eqref{eq:trace-balance} together with
 the prescribed gaps between archimedean weights and the local lattice
-models. These hypotheses allow Alp\"oge to
+models. These hypotheses allow ai agent to
 \releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/LinkSFinalP.lean}{105}{apply the lattice-counting and orbital-decay estimates to each pair of words}.
 
 \leavevmode\teamanchor{proof.primitive-frame-densities}%
@@ -493,7 +996,81 @@ first component, choosing \(X_1\) gives factors
 \(j=r-\ell+1,\ldots,r\). The free block of \(X_2\) must be injective on
 \(\ker\bar S\), giving the \(c\) remaining factors. Surjectivity of
 \(\dot X_2\mapsto X_1^{\mathsf T}\dot X_2\) gives the same normalized count
-at every congruence level. In the release,
+at every congruence level.
+
+The same product holds for a singular integral Hermitian \(S\), with
+\(c\) the corank of \(\bar S\). If \(X\) has injective reduction, then
+\(X^*J_\nu\) is surjective modulo \(\varpi\). Every Hermitian \(H\) is
+\(T+T^*\) for some \(T\in M_\ell(\mathcal O_{E_\nu})\), because the trace
+of the unramified or split algebra \(E_\nu\) is onto \(\mathcal O_{F_\nu}\).
+Hence the differential \(\dot X\mapsto X^*J_\nu\dot X+\dot X^*J_\nu X\)
+is onto the Hermitian matrices modulo \(\varpi\). Each solution modulo
+\(\varpi^n\) with injective reduction therefore has exactly
+\(q^{2r\ell-\ell^2}\) lifts modulo \(\varpi^{n+1}\), and the normalized
+count equals its value at \(n=1\). That value depends only on
+\(\bar S\). A nonsingular \(S'\equiv S\pmod\varpi\) has the same
+reduction, so the displayed product applies. Such an \(S'\) is
+\(S+\varpi tI_\ell\) for a suitable \(t\in\mathcal O_{F_\nu}\), since its
+determinant is a nonzero polynomial in \(t\). This covers the
+single-frame Gram matrix \(\operatorname{diag}(0_{r_S},-T_w)\), with
+\(c=r_S\) at places prime to \(T_w\).
+
+\leavevmode\teamanchor{proof.t3b-depth-one-count}%
+The value at \(n=1\) can also be computed directly. The computation
+uses no hypothesis on the residue characteristic, so it covers
+\(q=2\) as well, and it gives the inert product independently of
+Hironaka's formula. By \eqref{eq:classical-host-inertia}, \(E\) is unramified over \(F\)
+at every finite place. The computation therefore applies at every
+finite place of \(F\) at which the ambient lattice is self-dual,
+including those dividing \(T_wT_v\) and those above the auxiliary
+primes. Self-duality at every finite place is part of the
+identification taken from the release below.
+Let \(k_E\cong\mathbf F_{q^2}\) be the residue field of \(E_\nu\) at an
+inert place, and \(h\) the reduction of \(J_\nu\), a nondegenerate
+Hermitian form on \(k_E^r\). A Hermitian form \(h'\) with
+\(h'(x,x)=0\) for all \(x\) is zero: expanding \(h'(x+ay,x+ay)=0\) gives
+\(\operatorname{Tr}_{k_E/\mathbf F_q}(\bar a\,h'(x,y))=0\) for all
+\(a\in k_E\), and the trace is a nonzero linear form. Hence every
+Hermitian form over \(k_E\) is diagonalizable in every characteristic,
+and \(\bar S=B^*\operatorname{diag}(a_1,\ldots,a_n,0_c)B\) with \(B\)
+invertible, \(n=\ell-c\) and \(a_i\in\mathbf F_q^\times\). The map
+\(X\mapsto XB^{-1}\) is a bijection between the injective solutions for
+\(\bar S\) and those for the diagonal matrix. In a nondegenerate space
+of dimension \(N\), let \(Z(N)\) be the number of vectors of norm \(0\),
+including \(0\), and \(M(N)\) the number of vectors of a given norm
+\(a\ne0\). The norm \(k_E^\times\to\mathbf F_q^\times\) is onto with
+fibres of size \(q+1\), so \(M(N)\) does not depend on \(a\). Splitting
+off an orthogonal line of norm one gives \(Z(1)=1\), \(M(1)=q+1\) and
+\[
+ Z(N)=Z(N-1)+(q^2-1)M(N-1),\qquad
+ M(N)=(q+1)Z(N-1)+(q^2-q-1)M(N-1).
+\]
+By induction,
+\(M(N)=q^{N-1}(q^N-(-1)^N)\) and
+\(Z(N)-1=(q^N-(-1)^N)(q^{N-1}-(-1)^{N-1})\).
+Now choose the columns in order. For \(i\le n\) the column \(x_i\) has
+norm \(a_i\) and is orthogonal to the nondegenerate span of
+\(x_1,\ldots,x_{i-1}\). Its orthogonal complement is nondegenerate of
+dimension \(r-i+1\), which gives \(M(r-i+1)\) choices. The remaining
+columns lie in the orthogonal complement \(W\) of
+\(x_1,\ldots,x_n\), which is nondegenerate of dimension \(N=r-n\).
+They must be isotropic, mutually orthogonal and linearly independent.
+Let \(Y\) be the span of the first \(i-1\) of them. Then
+\(Y^\perp\cap W=Y\oplus U\) with \(U\) nondegenerate of dimension
+\(N-2i+2\), and this is at least \(2\) because \(\ell+c\le r\). A vector
+\(y+u\) with \(y\in Y\) and \(u\in U\) is admissible exactly when \(u\) is
+a nonzero isotropic vector. This gives
+\(q^{2(i-1)}(Z(N-2i+2)-1)\) choices for \(i=1,\ldots,c\). Write each
+count as a power of \(q\) times factors \(1-(-q)^{-j}\). The first
+\(n\) columns give the factors \(j=r-n+1,\ldots,r\). The isotropic
+columns give \(j=r-\ell-c+1,\ldots,r-n\). The powers of \(q\) add up to
+\(q^{2r\ell-\ell^2}\). Hence the normalized count at \(n=1\) is the
+displayed product with \(\xi=-1\). The argument at split places given
+above also uses no hypothesis on \(q\). The Hensel step uses only the
+surjectivity of the trace, which holds in residue characteristic
+\(2\) as well.
+
+In the release,
 \releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/DualFamilyCounting/DensAtD.lean}{58}{self-duality and the local Gram matrices}
 identify the orbital measures with this normalization.
 
@@ -502,8 +1079,26 @@ In the scalar calculation \(\ell=m=2(r_S+1)\) and
 \(k-c\ge k-\ell\). At ordinary places the reference density is the
 product of the two single-frame factors. At the places above the
 auxiliary primes it uses one common single-frame factor. The ratio
-of the pair density to the reference factor
-\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/DensLoc.lean}{179}{is at most \(\exp(4q^{-(k-\ell)})\) at each place}.
+of the pair density to the reference factor is at most
+\(\exp(4q^{-(k-\ell)})\) at each place. At a finite place where the local
+Gram matrix of the pair is not integral there are no integral
+solutions, and the local pair factor is \(0\). Otherwise, by the
+identification just cited, it is the displayed product with \(\ell=m\) and \(c\le\ell\) the corank of the
+reduction of that matrix. The condition \(\ell+c\le r\) holds because
+\(2\ell\le r=k+\ell-1\). The first exponent is \(a=k-c\ge k-\ell\ge2\).
+Put \(x=q^{-1}\le1/2\). For \(j\ge a\),
+\(1-x^j\le1-\xi^jx^j\le1+x^j\le e^{x^j}\). Also \(1-t\ge e^{-2t}\) for
+\(0\le t\le1/2\), and \(\sum_{j\ge a}x^j\le2x^a\). Every product
+\(\prod_{j=a}^{r}(1-\xi^jx^j)\) therefore lies between \(e^{-4x^a}\) and
+\(e^{2x^a}\). In particular the pair factor is at most
+\(e^{2x^{k-\ell}}\). The reference factor is a product of one or two
+single-frame factors for \(\operatorname{diag}(0_{r_S},-T)\), which has
+size \(r_S+1\) and residual corank \(c_1\in\{r_S,r_S+1\}\). Their first
+exponent is \(r-(r_S+1)-c_1+1=k+r_S+1-c_1\ge k\), so each factor is at
+least \(e^{-4x^k}\). Since \(\ell=m\ge4\), \(x^k\le x^{k-\ell}/16\), and
+the reference factor is at least \(e^{-x^{k-\ell}/2}\). The ratio is
+therefore at most
+\(e^{5x^{k-\ell}/2}\le\exp(4q^{-(k-\ell)})\).
 Let \(s_1=k-\ell\ge2\). There are at most \(f\) places of \(F\) above
 each rational prime, so
 \(\sum_{\mathfrak p}(\mathrm N\mathfrak p)^{-s_1}\le
@@ -578,9 +1173,16 @@ with the trace of the Hermitian form and on the Hermitian matrices
 with the trace pairing.
 The Weil indices have global product \(1\).
 The reductions of \(S\) can have different coranks at different finite
-places. Applying the formula to the scalar pairs uses the release's
-comparison of the prescribed test functions, stabilizer volumes and
-orbital measures.
+places. The formula only needs \(S\) to be nonsingular over \(E\), and
+below it is applied only to Gram matrices of rational frames. In the
+release the Siegel--Weil formula enters the scalar main term mainly
+through the equality of compatible stabilizer volumes derived in the
+paragraph \emph{Stabilizer volumes} below. The release also uses it
+for the finiteness and the infinite--finite splitting of the orbital
+measures in the normalizing constants
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/DualFamilyCounting/NcSSplitSk.lean}{37}{orbital measure splitting}. The scalar
+pairs are not themselves rewritten as Eisenstein coefficients. Their
+main term comes from the Poisson-summation bound in the next paragraph.
 
 In this normalization the signed sum over the scalar pairs is bounded
 by a sum of squared archimedean amplitudes. Here the real orbital
@@ -588,6 +1190,8 @@ calculation
 \releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/OffK0Closed.lean}{654}{uses the chosen local Bessel integrals of both words}.
 Positivity and Poisson summation
 \releasecite{Formalism/HermitianCurvature/HermitianCurvatureProofs/GrowthOfBasic.lean}{1136}{bound that sum}
+through a recursion over the Poisson levels
+\releasecite{Formalism/HermitianCurvature/StatementTB.lean}{160}{one Poisson step per level}
 by \((1+\delta_{\mathrm{sc}})E_{\mathrm{den}}\) times
 the archimedean energy integral, with \(0\le\delta_{\mathrm{sc}}\le b^{-7}\).
 The inequality applies to the \(\Gamma_1\)-weighted ordered pairs in
@@ -599,10 +1203,13 @@ for their deep Bessel level volumes. Put
 \(c_w=c_0(w)/v_{\rm lev}\), removing the common ambient level volume
 \(v_{\rm lev}\) already supplied by the unfolded level integral.
 The product of the local measures, including the finite factor
-\(\Gamma_1\) at the places above the auxiliary primes, gives
-\(v^\dagger/(s_ws_v)\). The
-\releasecite{Formalism/HermitianCurvature/HermitianCurvatureProofs/LocalVolumePositivity.lean}{191}{stabilizer volumes and numbers of columns}
-satisfy
+\(\Gamma_1\) at the places above the auxiliary primes,
+\releasecite{Formalism/HermitianCurvature/HermitianCurvatureProofs/LocalVolumePositivity.lean}{95}{gives}
+\(v^\dagger/(s_ws_v)\). The resulting bound for the \(\Gamma_1\)-weighted
+signed sum is \((1+\delta_{\mathrm{sc}})E_{\mathrm{den}}\) times
+\(V_{wv}v^\dagger/(s_ws_vc_wc_v\mathfrak d)\). The stabilizer volumes
+and numbers of columns satisfy, as derived in the paragraphs
+\emph{Stabilizer volumes} and \emph{Columns} below,
 \[
   V_{wv}V_G=V_wV_v,\qquad
   c_w^{-1}=\frac{d_ws_w}{V_w},\qquad
@@ -615,17 +1222,176 @@ Consequently the scale multiplying the allowance is
 \]
 The signed sum over the generic scalar pairs is therefore at most
 \(A D_{wv}\), where \(A=(1+\delta_{\mathrm{sc}})E_{\mathrm{den}}\).
+The release states the same bound with the factor \(P_g\) of the finite
+convolution carried along
+\releasecite{Formalism/HermitianCurvature/HermitianCurvatureProofs/LocalVolumePositivity.lean}{176}{mass formula with constant one}.
+
+\leavevmode\teamanchor{proof.stabilizer-volume-identity}%
+\emph{Stabilizer volumes.} Fix a Haar measure \(dg\) on
+\(G_0(\mathbf A_F)\) and put \(V_G=\operatorname{vol}([G_0],dg)\).
+Let \(a\ge1\) with \(r>2a\), let \(X_0\in Y_0^a\) have nonsingular Gram
+matrix \(S=X_0^*JX_0\), and let \(G_{X_0}\subset G_0\) be its pointwise
+stabilizer, the unitary group of the orthogonal complement of the span
+of \(X_0\). Let \(\nu_S=\bigotimes_\nu\nu_{S,\nu}\) be the measure on the
+adelic fibre \(\{X:X^*JX=S\}\) given by the local Gelfand--Leray
+measures of the self-dual measures above, so that
+\(\int\Phi\,d\nu_S=\prod_\nu\alpha_\nu(S;\Phi_\nu)\) for factorizable
+\(\Phi\). Give \(G_{X_0}(\mathbf A_F)\) the Haar measure \(dh'\)
+compatible with \(dg\) and \(\nu_S\), that is \(dg=dh'\,d\nu_S\) under
+the orbit map \(g\mapsto gX_0\). The adelic stabilizer volumes of the
+mass calculation are taken with
+\releasecite{Formalism/PeriodIntegrals/VolNzeroOne.lean}{60}{this compatible normalization}.
+We show that \(\operatorname{vol}([G_{X_0}],dh')=V_G\).
+
+By Witt's theorem for Hermitian spaces over \(E\), the isometry between
+the spans of two tuples with Gram matrix \(S\) that matches the tuples
+extends to \(Y_0\). Hence the rational fibre is the single orbit
+\(G_0(F)X_0\), with stabilizer \(G_{X_0}(F)\), and each local fibre is
+one \(G_0(F_\nu)\)-orbit. At almost all finite places \(\nu\), the tuple
+\(X_0\) lies in a self-dual lattice \(\Lambda_\nu\), \(S\) is unimodular,
+the residue characteristic is odd and \(E_\nu/F_\nu\) is unramified or
+split. There Witt's theorem over the residue field \(k_\nu\) and Hensel's
+lemma show that the integral points of the fibre form one orbit of the
+stabilizer of \(\Lambda_\nu\), because the Gram map is smooth at tuples
+with unimodular Gram matrix. Thus the adelic fibre is
+\(G_0(\mathbf A_F)X_0\).
+
+Let \(\Phi=\bigotimes_\nu\Phi_\nu\ge0\) be a Schwartz function with
+\(\Phi_\infty\) smooth and compactly supported. All terms are
+nonnegative, so the integrals below may be rearranged. Replace \(g\) by
+\(g^{-1}\) and integrate first over \(G_{X_0}(\mathbf A_F)/G_{X_0}(F)\).
+This gives
+\[
+ \int_{[G_0]}\sum_{X^*JX=S}\Phi(g^{-1}X)\,dg
+ =\int_{G_{X_0}(F)\backslash G_0(\mathbf A_F)}\Phi(g^{-1}X_0)\,dg
+ =\operatorname{vol}([G_{X_0}],dh')\int\Phi\,d\nu_S .
+\]
+Dividing by \(V_G\) gives the theta side of the coefficient formula,
+since that formula uses the measure of mass \(1\). The formula, with
+\(\ell\) replaced by \(a\), is valid because \(r>2a\). It identifies
+the quotient with \(\prod_\nu\alpha_\nu(S;\Phi_\nu)=\int\Phi\,d\nu_S\).
+Thus
+\(\operatorname{vol}([G_{X_0}],dh')\int\Phi\,d\nu_S=V_G\int\Phi\,d\nu_S\).
+
+It remains to choose \(\Phi\) with \(0<\int\Phi\,d\nu_S<\infty\). Take
+\(\Phi_\nu(X_0)>0\) at every place, and take \(\Phi_\nu\) to be the
+indicator of \(\Lambda_\nu^a\) at the almost all places above. Since
+\(X_0\) is injective, the Gram map is a submersion at \(X_0\). The
+local fibre is therefore a manifold through \(X_0\) (analytic at finite
+places) with a positive Gelfand--Leray measure, so
+\(\alpha_\nu(S;\Phi_\nu)>0\). At the almost all places, the self-dual
+measures give \(\Lambda_\nu^a\) and the integral Hermitian matrices
+volume \(1\). Let \(q_\nu=\#k_\nu\). By Hensel's lemma
+\(\alpha_\nu=\#\mathcal F(k_\nu)/q_\nu^{\,r^2-(r-a)^2}\), where
+\(\mathcal F(k_\nu)\) is the fibre over \(k_\nu\). By Witt's theorem
+over \(k_\nu\), this fibre is \(U_r(k_\nu)/U_{r-a}(k_\nu)\) in the
+inert case and \(\mathrm{GL}_r(k_\nu)/\mathrm{GL}_{r-a}(k_\nu)\) in the
+split case. The group orders
+\(q^{n^2}\prod_{j=1}^n(1-(-q)^{-j})\) and
+\(q^{n^2}\prod_{j=1}^n(1-q^{-j})\) then give
+\[
+ \alpha_\nu(S;\Phi_\nu)=\prod_{j=r-a+1}^{r}\bigl(1-\epsilon_\nu^{\,j}q_\nu^{-j}\bigr),
+ \qquad \epsilon_\nu=\mp1 \text{ for inert, split } \nu .
+\]
+Since \(r-a+1\ge a+2\ge3\), the product over \(\nu\) converges
+absolutely to a nonzero number. Hence
+\(\operatorname{vol}([G_{X_0}],dh')=V_G\).
+
+The Bessel stabilizer of \(w\) is the pointwise stabilizer of the
+\((m-1)\)-tuple made of the isotropic frame, its dual frame and the
+vector of norm \(-T_w\). Its Gram matrix is nonsingular, since the
+frames pair to the identity and \(T_w\neq0\). A generic pair
+has a nondegenerate joint span, and its joint stabilizer is the
+pointwise stabilizer of an \(m\)-tuple. Here
+\(r=k+m-1>2m\), because \(k\ge\ell+f+5\) and \(\ell=m\). Hence
+\(V_w=V_v=V_{wv}=V_G\), which gives \(V_{wv}V_G=V_wV_v\). The release
+records the identification of the mass-calculation stabilizers with
+these frame stabilizers at
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/MassDataInst.lean}{257}{the volume input of the mass data}.
+
+\leavevmode\teamanchor{proof.column-volume-identity}%
+\emph{Columns.} Let \(N\) be the unipotent radical of the Bessel datum
+of \(w\), with the self-dual measure, so that
+\(\operatorname{vol}(N(F)\backslash N(\mathbf A_F))=1\). Let
+\(v_N^\infty\) be the volume of a real fundamental domain for
+\(N(F)\cap N(\mathbf R)(K_f\cap N)\), where \(K_f\) is the ambient
+level. Then \(v_N(w)=v_N^\infty v_{\rm lev}\), so
+\(c_w=v_N^\infty v_H(w)/\dim\pi_w\). Let \(K''_w\subset H_w(\mathbf A_f)\)
+be the deep Bessel level. Write the compatible measure of the previous
+paragraph on \(H_w(\mathbf A_F)\) as the product of a real measure and a
+Haar measure \(\mu_H\) on \(H_w(\mathbf A_f)\). The release
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/MassDataXMasses.lean}{9}{ties these measures}
+to those of \eqref{eq:period-gram}, so the real factor gives
+\(H_w(\mathbf R)\) volume \(v_H(w)\) and \(N\) the measure defining
+\(v_N(w)\). The deep Bessel level volume is
+\(s_w=\mu_N(K_f\cap N)\,\mu_H(K''_w)\), with the factorization of the
+Bessel level
+\releasecite{Formalism/PeriodIntegrals/OrbitalBoundsConclusion/MassDataLevelS.lean}{5}{supplied by the release}.
+
+First, \(N\) is unipotent, so strong approximation gives
+\(N(\mathbf A_F)=N(F)N(\mathbf R)(K_f\cap N)\). Thus
+\(1=v_N^\infty\mu_N(K_f\cap N)\).
+
+Second, write
+\(H_w(\mathbf A_f)=\bigsqcup_{c}H_w(F)\,c\,K''_w\) over \(h_w\) classes.
+Each stabilizer \(\Gamma_c=H_w(F)\cap cK''_wc^{-1}\) is finite because
+\(H_w(\mathbf R)\) is compact. That \(\Gamma_c=1\) is taken from the release
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/UnitaryHaarProducts/InHHGamUnipKu.lean}{12}{neatness of the deep level}.
+It is the analogue of the pro-\(g_i\) argument used above for the
+classes of level \(K_0\): if the deep level reduces into the upper
+unitriangular group above each auxiliary prime, every element of
+\(\Gamma_c\) has order a power of \(g_0\) and a power of \(g_1\). Hence
+\(V_w=h_w\,v_H(w)\,\mu_H(K''_w)\).
+
+Third, \(H_w^{\mathrm{full}}\) is the space of \(\pi_w\)-valued functions
+on these classes
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/MassDataXColumns.lean}{18}{with the measures of the period Gram identity},
+so \(d_w=h_w\dim\pi_w\).
+
+Combining the three facts,
+\[
+ \frac{d_ws_w}{V_w}
+ =\frac{\dim\pi_w\,\mu_N(K_f\cap N)}{v_H(w)}
+ =\frac{\dim\pi_w}{v_N^\infty v_H(w)}=c_w^{-1}.
+\]
+The same argument applies to \(v\).
 
 \leavevmode\teamanchor{proof.orbital-error-estimates}%
-By counting lattices at fixed corank and using decay of the real
-orbital amplitudes, Alp\"oge
-\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RowsOther.lean}{150}{bounds the absolute sums}
-over pairs of corank at least two, and separately over generic
-nonscalar pairs of corank one, by \(\epsilon_L D_{wv}\) in each case.
-The first sum includes both nondegenerate families. Here
-\(\epsilon_L=\exp(-kf\log k/3)\), using
-\(6\log(3A_{\mathrm L})\le kf\log k\) for the fixed multiplicative
-constant \(A_{\mathrm L}\ge1\) in the lattice and amplitude bounds.
+The absolute sums over pairs of corank at least two, and separately
+over generic nonscalar pairs of corank one, are at most
+\(\epsilon_L D_{wv}\) in each case, where
+\(\epsilon_L=\exp(-kf\log k/3)\). The first sum includes both
+nondegenerate families. These and the signed bound below are bounds
+for the \(\Gamma_1\)-weighted ordered pairs, with the normalization of
+the scalar term, so the factor \(P_g\Gamma_1\) of the finite
+convolution becomes \(P_g\). Let \(\mathcal P\) be the union of the two
+sets of pairs, and put \(x=kf\log k\). Each term of the absolute sums is
+a pairing of two orbital vectors. By the Cauchy--Schwarz inequality it
+is at most the product of their norms. The edition takes two inputs
+from the release, both under the standing parameter ranges of the
+family. First, decay of the real orbital amplitudes
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RootLatticeThresholds/LoopsEv.lean}{18}{bounds the weighted sum of these products over \(\mathcal P\)}
+by \(A_{\mathrm L}(\Sigma_{\rm nd}+\Sigma_{\rm deg}+\Sigma_1)D_{wv}\).
+Here \(A_{\mathrm L}\ge1\) is a constant with
+\(6\log(3A_{\mathrm L})\le x\), \(\Sigma_{\rm nd}\) and
+\(\Sigma_{\rm deg}\) are the weighted lattice sums over the
+nondegenerate and degenerate rows of coranks \(2,\ldots,k\) (in the
+release the degenerate sum carries the square of a weight parameter,
+which its lattice bound cancels), and
+\(\Sigma_1\) is the contribution of a single row. Second, counting
+lattices at fixed corank gives
+\releasecite{Formalism/FlagUnipotentLattices/MinkowskiFactorialBounds/ExponentInequalityNondegenerateMid.lean}{609}{\(\Sigma_{\rm nd}\le e^{-4x}\)},
+after the level comparison
+\releasecite{Formalism/FlagUnipotentLattices/MinkowskiFactorialBounds/LatticeSumBounds.lean}{429}{for the nondegenerate rows},
+\releasecite{Formalism/FlagUnipotentLattices/MinkowskiFactorialBounds/ExponentInequalityNondegenerateMid.lean}{671}{\(\Sigma_{\rm deg}\le e^{-x/2}\)}
+and
+\releasecite{Formalism/FlagUnipotentLattices/MinkowskiFactorialBounds/ExponentInequalityNondegenerateMid.lean}{735}{\(\Sigma_1\le e^{-x}\)}.
+Each of the three bounds is at most \(e^{-x/2}\), so the weighted
+absolute sum over \(\mathcal P\) is at most
+\(3A_{\mathrm L}e^{-x/2}D_{wv}\). Since
+\(\log(3A_{\mathrm L})\le x/6=x/2-x/3\), this is at most
+\(e^{-x/3}D_{wv}=\epsilon_LD_{wv}\). The terms are nonnegative, so the
+same bound holds for each of the two sets of pairs.
 
 For nongeneric pairs of corank one, a failure of local generation
 decreases either the mass of the local configurations or the
@@ -635,7 +1401,13 @@ by \(\epsilon_N D_{wv}\), where
 \[
  \epsilon_N=2^{-(k-2r_S-5)}\exp(C_Nm^5 f\log b)
 \]
-for a fixed \(C_N\ge0\).
+for a fixed \(C_N\ge0\). The edition takes this signed bound from the
+release. Its inputs are the finite-place data of the nongeneric
+pairs (classes, amplitudes, normals, points, local generation, mass
+and heights)
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RowsOther.lean}{132}{finite-place inputs}
+and the real measure and point-sum bounds
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RowsOther.lean}{136}{real inputs}.
 
 \leavevmode\teamanchor{proof.mixed-word-estimate}%
 The generic row sum contains the scalar main term, the higher-corank
@@ -657,7 +1429,9 @@ The selected family has \(m^4\le f\le k\le x^5\),
 \[
  \log P_g\le 3f(g_0^{-1}+g_1^{-1})\le 6b^{-7}.
 \]
-The size conditions also give \(8C_Nm^5 f\log b\le k\).
+Since \(C_N\) is fixed, the
+\hyperlink{proof.host-realization}{size bounds of the family} give
+\(8C_Nm^5 f\log b\le k\) beyond a threshold depending on \(C_N\).
 Since \(k-2r_S-2\ge k/2+4\) and \(k-2r_S-5\ge k/2+1\),
 the exponents in the density and error estimates give
 \(\log E_{\mathrm{den}},\epsilon_L,\epsilon_N\le e^{-k/5}\le b^{-14}\).
@@ -717,13 +1491,46 @@ the dimension of \(R(e)\operatorname{Hom}_{G_\infty}^{\rm bdd}
 \]
 The formal degrees use the real Haar measures in the quotient volume.
 The error is uniform in the fields, ranks, signatures and projectors
-satisfying these hypotheses. The release uses the
-\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/UnitaryAutomorphicCountingUnbundled.lean}{40}{counting statement}
-with its
+satisfying these hypotheses.
+
+\leavevmode\teamanchor{proof.count-residual}%
+\paragraph{What the edition takes from the release.}
+The edition takes this estimate, including the finiteness of
+\(D(e,\sigma_\infty)\), from the release's
+\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/UnitaryAutomorphicCountingUnbundled.lean}{40}{counting statement}.
+That statement repackages the release's
+\releasecite{Development/AbelianVarietyTheory/BlockTheory/SiegelWeilLocal/LatticeCountingTheorem.lean}{10}{counting theorem},
+with the same main term and error. The release proves the counting
+theorem from a
+\releasecite{Development/AbelianVarietyTheory/Statements/CuspFrameWeights/SameKindIsometric.lean}{32}{volume step}
+together with
+\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/UnitaryAutomorphicCountingOfCompactDualVolumeRat.lean}{37}{kernel bounds},
+and passes to the stated form through its
 \releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/CountTypedOfVolumeStep.lean}{13}{lattice-counting input from the volume and kernel estimates}.
-In this calculation the identity gives the main term. The other terms
-use large-gap matrix coefficient decay and bounds for the near
-unipotent terms and the deep part of the quotient.
+The volume step compares the normalized adelic volumes of \(U(V)\) and
+of \(U(x^\perp)\) for a vector \(x\) with
+\(\langle x,x\rangle=\pm1\) and \(\operatorname{rank}V\ge3\). The
+release derives it from the convergent unitary Siegel--Weil formula
+\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/VolumeStepOfSiegelWeil.lean}{13}{volume step from Siegel--Weil}.
+The edition has not compared that input with the published convergent
+case \cite{tr3yamana}.
+
+The shape of the main term is explained as follows. Put
+\(\phi=e\otimes q_\infty\), where \(q_\infty\) is the real projector
+of the row realization below. By that realization,
+\(D(e,\sigma_\infty)\) is the rank of the orthogonal projection
+\(R(\phi)\) on \(L^2([G])\). Its kernel is
+\(\sum_{\gamma\in G(F)}\phi(x^{-1}\gamma y)\) wherever this series
+converges. Its identity term on the diagonal integrates to
+\(\operatorname{vol}([G])\,e(1)\,q_\infty(1)=D_\star(e,\sigma_\infty)\),
+because \(q_\infty(1)=\prod_v d(\sigma_v)\) and \(e(1)\) is real for
+self-adjoint \(e\). The release controls the convergence and the
+non-identity terms. It uses large-gap decay of lowest-type matrix
+coefficients, isotropic and nonzero flag probability bounds derived
+from the volume step, near-unipotent and far-term bounds, and a
+kernel bound on the deep part of the quotient. The edition has not
+reconstructed these bounds. The residual implication is exactly the
+displayed estimate under the stated hypotheses.
 
 Shin--Templier's quantitative Plancherel results and counting
 asymptotic apply to level and weight families of a fixed group over
@@ -732,6 +1539,17 @@ The bound here is uniform as the unitary rank and field vary,
 and its large-gap condition permits small gaps within a signature
 block. It concerns the full projected multiplicity at the given
 real representation.
+In the application below the quotient \([G]\) is not compact, so the
+compact-quotient trace formula does not apply directly either.
+There \(q=m/2\ge2\), so \(V\) is isotropic at every real place.
+The vectors \(x\) with \(\langle x,x\rangle=0\) are the zeros of the
+nondegenerate quadratic form \(x\mapsto\langle x,x\rangle\) on \(V\)
+regarded as an \(F\)-space of dimension \(2r\). At every finite place
+\(v\) of \(F\) this form is isotropic over \(F_v\), being a quadratic
+form in \(2r\ge6>4\) variables over a nonarchimedean local field. At
+the real places it has signature \((2p,2q)\) with \(p,q\ge1\). The
+Hasse--Minkowski theorem therefore makes \(V\) isotropic over \(E\). Hence
+\(G\) has positive \(F\)-rank and \([G]\) is noncompact.
 
 \leavevmode\teamanchor{proof.full-row-count}%
 We apply the multiplicity input to the full row projector of the
@@ -754,37 +1572,105 @@ g_i\widehat{\Lambda}\) for every point \(y\) of the support.
 The condition also holds on the conjugate half of each split
 unitary reduction, which is the inverse transpose of the chosen half.
 
+\leavevmode\teamanchor{proof.row-realization}%
 At the real places, evaluation of the bounded intertwiner at the
 chosen tensor of unit lowest-type vectors identifies the
 projected multiplicity space with the Petersson row model
-\(\mathcal H\) in \eqref{eq:period-gram}. This evaluation is injective
-by cyclicity of the vector in the irreducible tensor.
-For the converse, let \(\pi_\infty\) be the actual ordered tensor
-of real discrete series and \(u\) its chosen unit lowest-type
-tensor. In the right-translation convention use
+\(\mathcal H\) in \eqref{eq:period-gram}. We give the argument.
+Let \(\pi_\infty\) be the actual ordered tensor of real discrete
+series on the Hilbert tensor product \(H_\infty\), and \(u\) its
+chosen unit lowest-type tensor. It is irreducible, so \(u\) is
+cyclic. Let \(d(\pi_\infty)=\prod_vd(\sigma_v)\) be its formal degree
+for the real Haar measure used in the quotient volume. The adelic
+group is unimodular, so right translation \(R\) is unitary on
+\(L^2([G])\). For an integrable \(\varphi\) on \(G_\infty\), or a
+locally constant compactly supported \(\varphi\) on the finite adelic
+group, put \(R(\varphi)=\int\varphi(g)R(g)\,dg\). Then
+\(\|R(\varphi)\|\le\|\varphi\|_1\), \(R(\varphi)^*=R(\varphi^*)\) with
+\(\varphi^*(g)=\overline{\varphi(g^{-1})}\), and
+\(R(\varphi_1)R(\varphi_2)=R(\varphi_1*\varphi_2)\) by Fubini.
+Real and finite convolutions commute. In the right-translation
+convention use
 \[
  q_\infty(g)=d(\pi_\infty)
                   \overline{\langle u,\pi_\infty(g)u\rangle}.
 \]
-The matrix coefficient is integrable at the chosen real gaps.
-Schur orthogonality, with this formal degree for the row Haar,
-gives \(q_\infty^*=q_\infty\), \(q_\infty*q_\infty=q_\infty\),
-and
+The matrix coefficient is integrable at the chosen real gaps. Indeed
+it is a product over the real places of coefficients of the
+\(K\)-finite lowest-type vectors of discrete series of \(U(p,q)\).
+Since \(U(p,q)\) is the product of its compact center and
+\(SU(p,q)\), and the center acts by scalars of modulus one, it
+suffices to integrate over \(SU(p,q)\). This is a connected
+semisimple group with finite center, with the same roots, and the
+restriction is a discrete series with the same Harish--Chandra
+parameter. For a noncompact root \(\alpha=e_i-e_j\) in the
+normalization with roots of squared length two, the sum over all
+roots gives \(\tfrac14\sum_\beta|(\alpha,\beta)|=r-1\). The gaps
+\(|\lambda_{v,i}-\lambda_{v,j}|\) between oppositely labelled
+parameters exceed \(r-1\). By the size checks below they are at least
+\(C_{\rm gap}r^{19}f^5L\), and \(L=\log b\ge\log2\). Hence the
+\(L^1\) criterion for discrete-series coefficients
+\cite[Part~III, Corollary to Theorem~1]{p2milicic-integrability}
+applies at each real place. Tonelli's theorem gives integrability of
+the product.
+
+Schur orthogonality for the square-integrable irreducible
+representation \(\pi_\infty\), with the inner product linear in its
+second variable, reads
+\[
+ \int_{G_\infty}\langle b,\pi_\infty(g)a\rangle
+   \overline{\langle e',\pi_\infty(g)c\rangle}\,dg
+   =d(\pi_\infty)^{-1}\langle c,a\rangle\langle b,e'\rangle .
+\]
+Unitarity gives \(q_\infty^*(g)=d(\pi_\infty)\langle
+\pi_\infty(g)u,u\rangle=q_\infty(g)\). For \(g,x\in G_\infty\),
+\[
+ (q_\infty*\delta_g*q_\infty)(x)
+ =d(\pi_\infty)^2\int_{G_\infty}
+   \overline{\langle u,\pi_\infty(h)u\rangle}\,
+   \langle \pi_\infty(x)u,\pi_\infty(h)\pi_\infty(g)u\rangle\,dh .
+\]
+Schur orthogonality with \(a=b=u\), \(c=\pi_\infty(g)u\) and
+\(e'=\pi_\infty(x)u\), followed by complex conjugation, evaluates the
+integral as
+\(d(\pi_\infty)^{-1}\langle u,\pi_\infty(g)u\rangle
+\overline{\langle u,\pi_\infty(x)u\rangle}\). Hence
 \[
  q_\infty*\delta_g*q_\infty
-                =\langle u,\pi_\infty(g)u\rangle q_\infty .
+                =\langle u,\pi_\infty(g)u\rangle q_\infty ,
 \]
-Thus if \(z\) is fixed by both the real line projector and
-\(R(e)\), the prescription
-\(\pi_\infty(g)u\mapsto R(g)z\) extends uniquely to a bounded
-intertwiner. Indeed the Gram of the image of any finite orbit
-combination is its original Gram multiplied by \(\|z\|^2\).
-Its image is fixed by \(R(e)\) because that finite projector
-commutes with the real action. This is inverse to evaluation
-at \(u\), with the Petersson norm of \(z\) for the same Haar.
-The dimension \(D\) is therefore the multiplicity of exactly
-the full row projector to which the count applies.
-\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/UnitaryHaarProducts/RowsBij.lean}{379}{Row realization}.
+and \(g=1\) gives \(q_\infty*q_\infty=q_\infty\). Thus
+\(T=R(q_\infty)\) is an orthogonal projection, commuting with
+\(R(e)\), and \(TR(g)T=\langle u,\pi_\infty(g)u\rangle T\).
+Also \(\int q_\infty(g)\pi_\infty(g)u\,dg=u\): pair with any \(y\)
+and apply Schur orthogonality with \(b=y\) and \(a=c=e'=u\).
+The row model \(\mathcal H\) is the common range of \(R(e)\) and
+\(T\) at the fixed bottom level and real type.
+
+Let \(A:H_\infty\to L^2([G])\) be a bounded intertwiner. Then
+\(R(e)A\) is again an intertwiner, and the projected multiplicity
+space consists of the intertwiners with \(R(e)A=A\). For such \(A\),
+\(TAu=A\int q_\infty(g)\pi_\infty(g)u\,dg=Au\) and \(R(e)Au=Au\), so
+\(Au\in\mathcal H\). If \(Au=0\), then \(A\) vanishes on the orbit of
+\(u\) and hence on \(H_\infty\) by cyclicity. Conversely let
+\(z\in\mathcal H\). For \(a,b\in G_\infty\),
+\[
+ \langle R(a)z,R(b)z\rangle
+ =\langle z,TR(a^{-1}b)Tz\rangle
+ =\|z\|^2\langle\pi_\infty(a)u,\pi_\infty(b)u\rangle .
+\]
+So the Gram of the image of any finite orbit combination is its
+original Gram multiplied by \(\|z\|^2\). The prescription
+\(\pi_\infty(g)u\mapsto R(g)z\) is therefore well defined on the
+span of the orbit, bounded by \(\|z\|\), and extends uniquely to a
+bounded map \(A\) on \(H_\infty\) by density. It intertwines on the
+orbit, hence everywhere by continuity. It satisfies \(Au=z\) and
+\(R(e)A=A\), since \(R(e)R(g)z=R(g)R(e)z=R(g)z\) for real \(g\).
+Evaluation at \(u\) is thus a linear bijection from the projected
+multiplicity space onto \(\mathcal H\), with the Petersson norm of
+\(z\) for the same Haar. The dimension \(D\) is therefore the
+multiplicity of exactly the full row projector to which the count
+applies.
 
 Here are the size checks for this application and for the restricted
 projectors below. The real parameters, in order, are a decreasing
@@ -802,22 +1688,51 @@ The selected inequalities for the weights in this real type give
   B_{j+1}-B_j\ge C_{\rm gap}r^{19}f^5 L .
 \]
 \releasecite{Formalism/SharpRestriction/CuspSpanNormBounds/StandingNumericalData.lean}{106}{Weight and level inequalities}.
+\leavevmode\teamanchor{proof.count-parameters}%
 The family comparison allows \(C_{\rm gap}\) at least
 \(\max(2,16\cdot10^{14}(A+4))\), with \(A=2C_g\) when \(g_i\le b^{C_g}\).
-Then \(4k\Delta\le B_1\), so all parameters have absolute value
-at most \(b^2\). A gap between oppositely labelled negative parameters
-is at least one adjacent \(B\)-gap. An opposite-signature pair
-involving a \(v_j\) uses a \(B_{2j'}\ge B_2\), so the same lower
-bound holds. The bound \(\log\mathrm{rd}(E)\le L/C_{\rm gap}\)
-implies the required gap with \(\log(b\,\mathrm{rd}(E))\).
-The selected levels are completely split with
-\((kb)^8\le g_i\le b^{C_g}\), hence \(4r<g_i\) and
-\(g_0g_1\le b^A\). With \(x^2\le f\le k\le x^5\)
-and \(x^4\le k\le r\le2k\), all three logarithmic size conditions in
-the count hold for sufficiently large \(x\). The CM extension
-is unramified at finite places and the selected Hermitian lattice
-is self-dual, as in the ambient row construction.
-\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RootLatticeThresholds/AllRowsCountBase.lean}{29}{Count parameters for the common record}.
+Here \(C_g\), hence \(A\), is fixed on the family. We check each
+hypothesis of the count at every real place.
+\begin{enumerate}
+\item The parameters are the Harish--Chandra parameters of the real
+discrete series in the row type, so they lie in
+\(\mathbb Z+(r-1)/2\) with the stated labels. They are regular,
+hence distinct, and strictly decreasing in the stated order, since
+\(B_1\ge C_{\rm gap}mk\Delta>0\).
+\item Since \(C_{\rm gap}m\ge4\), we have \(v_j\le4k\Delta\le B_1\le
+B_m\le b^2\). So all parameters have absolute value at most \(b^2\).
+\item The labels of \(-B_i\) alternate starting with the positive
+label, so \(-B_i\) has the negative label exactly for even \(i\).
+Two oppositely labelled negative parameters \(-B_i,-B_j\) with
+\(i<j\) satisfy \(B_j-B_i\ge B_{i+1}-B_i\), one adjacent \(B\)-gap.
+A pair \(v_j,-B_i\) with opposite labels has \(i\) even, so
+\(v_j+B_i\ge B_2\ge B_2-B_1\), again an adjacent gap. Pairs with
+the same label impose no condition. Since
+\(\mathrm{rd}(E)\ge1\) and \(\log\mathrm{rd}(E)\le L/C_{\rm gap}\le
+L\), we have \(\log(b\,\mathrm{rd}(E))\le2L\). Hence every required
+gap is at least
+\(C_{\rm gap}r^{19}f^5L\ge 8\cdot10^{14}(A+4)\,r^{19}f^5\log(b\,
+\mathrm{rd}(E))\).
+\item The signature \((k-1+m/2,m/2)\) is the same at every real place,
+and \(q=m/2\) satisfies \(q^2\le m^2\le k\le r\).
+\item The selected levels are distinct rational primes, completely
+split in \(E\), with \((kb)^8\le g_i\le b^{C_g}\). Hence
+\(g_i\ge k^8>8k\ge4r\), \(1\le g_0g_1\le b^{2C_g}=b^A\), and
+\(E/F\) is unramified above \(g_0\).
+\item With \(b=\exp(x^\varepsilon)\), \(f\le x^5\) and
+\(x^4\le k\le r\le2k\), we have \(b\ge2\),
+\(\log\log b=\varepsilon\log x\le rf\log r/16\) and
+\(\log f\le5\log x\le x^2\le\sqrt r\) for large \(x\). If
+\(\log\mathrm{rd}(E)>1\), then
+\(\log\log\mathrm{rd}(E)\le\log L=\varepsilon\log x\le r\); otherwise
+\(\log\log\mathrm{rd}(E)\le0\). Finally \(r\ge x^4\) exceeds the rank
+threshold for this fixed \(A\) once \(x\) is large.
+\end{enumerate}
+The CM extension is unramified at finite places and the selected
+Hermitian lattice is self-dual, as in the ambient row construction.
+The finite projector conditions were checked above. Thus all
+hypotheses of the count hold for the common record at every
+indicated translate for sufficiently large \(x\).
 
 The main term is therefore \(D_\star=\mathfrak d V_G/v^\dagger\)
 in the Gram normalization. The multiplicity input gives
@@ -899,10 +1814,11 @@ over ordered pairs \(w\ne v\) and using
 \leavevmode\teamanchor{proof.trace-word-count}%
 Section~\ref{sec:assembly} selects the word set with
 \(|W|\ge C_0\Gamma^2 x^{C_H}\). These are the same words and
-the same \(C_0=3\) as in the full column balance.
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/Chosen.lean}{56}{Word-count condition}.
+the same \(C_0=3\) as in the full column balance. This is part of the
+\hyperlink{proof.choose-compatible-family}{simultaneous family selection}.
 Together with the lower bound in
-\eqref{eq:trace-balance} this gives \(R_{\mathrm{full}}\ge D_\star/\sigma\),
+\eqref{eq:trace-balance} this gives
+\(R_{\mathrm{full}}=\sum_wd_w\ge|W|D_\star/(C_0\Gamma^2)\ge x^{C_H}D_\star=D_\star/\sigma\),
 where \(\sigma=x^{-C_H}\) and \(C_H>0\) is fixed on the chosen family.
 This makes the diagonal term small compared with
 \(R_{\mathrm{full}}^2/D_\star\).

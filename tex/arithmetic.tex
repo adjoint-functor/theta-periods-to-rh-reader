@@ -11,8 +11,8 @@ base index also seeds the common sampling degrees \(a_t\) for the
 family chosen in Section~\ref{sec:assembly}. The
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/LossesSmallShares.lean}{290}{construction at this scale}
 records the structural identifications. The two applications here also
-need the section-run and ramified donor identifications stated in
-Section~\ref{sec:assembly}. The weighted prime-power sums at the translates use the
+use the section-run and ramified donor identifications, which
+Section~\ref{sec:assembly} traces to the release. The weighted prime-power sums at the translates use the
 Artin map and the centering character of the base field. The stage
 weights \(w_{u,j}\) are read at the corresponding index \(i(u)\).
 At that index we use its Selmer estimate at its actual twist cutoff
@@ -77,6 +77,9 @@ is finite. The denominator puts the length in units with
 \(v_\ell(\ell)=1\). The definition agrees with the source's
 upper and lower lattices, since
 \(P_\alpha M_\alpha=V_\alpha^+\cap(M_\alpha+\ker P_\alpha)\).
+Indeed, if \(y=m+k\in V_\alpha^+\) with \(m\in M_\alpha\) and
+\(P_\alpha k=0\), then \(y=P_\alpha y=P_\alpha m\). Conversely
+\(P_\alpha m=m-(m-P_\alpha m)\) with \(m-P_\alpha m\in\ker P_\alpha\).
 \releasecite{Formalism/SharpRestriction/LevelLetterCocycles/DataN.lean}{205}{Local Hecke lattices}
 and
 \releasecite{Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean}{283}{stage sum}.
@@ -241,11 +244,43 @@ fibre retained in \(X_{\rm type}\).
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EigenActionAtGoodPoint.lean}{45}{Action on the fibres carrying the prescribed block} and
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ExistsGood.lean}{23}{The coarse support and all its retained fibres}.
 
+\paragraph{The cost of the coarse type cut.}
+\teamanchor{proof.coarse-type-cut-cost}%
 Project \(M\) to \(X_{\rm type}\) in characteristic zero
-and use its image lattice. The good projection is unchanged.
-To recover the old intersection, multiply a preimage by
-\(|G|e_{\rm good}\), which kills the discarded fibres and is
-\(|G|\) on the good part. The normalized cost is at most
+and use its image lattice. In a block \(\alpha\) write \(P=P_\alpha\),
+\(V^+=V_\alpha^+\), and let \(Q\) be the projection of \(V_\alpha\)
+onto the sum of the generic eigenspaces in \(X_{\rm type}\), along
+the others. Put \(M'=QM\). The Hecke operators commute with \(Q\),
+so they preserve \(M'\). Since \(G\) commutes with the Hecke
+algebra, \(e_{\rm good}\) preserves every generic eigenspace. It
+acts by zero on the eigenspaces outside \(X_{\rm type}\), by the
+definition of \(X_{\rm type}\), and by the identity on every good
+eigenspace, by the preceding paragraph. In particular the good
+eigenspaces lie in \(X_{\rm type}\), so \(PQ=P\) and \(Q\) fixes
+\(V^+\). Hence the good projection is unchanged, \(PM'=PM\), and
+\(M\cap V^+\subseteq M'\cap V^+\). Moreover
+\(M'\cap V^+\subseteq PM\), since \(y=Qm\in V^+\) gives
+\(y=Py=Pm\). Conversely, for such \(y\) the identities
+\(e_{\rm good}(1-Q)=0\) and \(e_{\rm good}y=y\) give
+\[
+ |G|\,y=|G|e_{\rm good}Qm=|G|e_{\rm good}m\in M,
+\]
+because \(|G|e_{\rm good}\) has integral coefficients and \(G\)
+preserves \(M\). Thus
+\(|G|(M'\cap V^+)\subseteq M\cap V^+\subseteq M'\cap V^+\).
+The module \(M'\cap V^+\) is finitely generated and torsion free
+over the DVR \(O_\alpha\), hence free of rank \(\dim V^+\).
+Additivity of length along
+\(M\cap V^+\subseteq M'\cap V^+\subseteq PM\) gives
+\[
+ \operatorname{length}\frac{PM}{M\cap V^+}
+ \le\operatorname{length}\frac{PM'}{M'\cap V^+}
+   +\dim V^+\operatorname{ord}_\alpha(|G|).
+\]
+Since \(|G|\) is \(\ell^{v_\ell(|G|)}\) times an integer prime to
+\(\ell\), \(\operatorname{ord}_\alpha(|G|)
+=v_\ell(|G|)\operatorname{ord}_\alpha(\ell)\). After normalization
+the defect of \(M\) is at most that of \(M'\) plus
 \(\sum_{\pi\ {\rm good}}\dim V_\pi\,v_\ell(|G|)\).
 At a type residue prime, for each good \(\pi\) also use
 \(|G|e_{\mathbf s(\pi)}\) with its \emph{specified} full tuple
@@ -260,7 +295,7 @@ full group \(G\). The valuation bound in the type-prime
 comparison applies to this scalar. The coarse projection is
 charged across all primes by the separate allowance
 \(\log|G|\le fr^2(\log g_0+\log g_1)\).
-\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/HeckeGaloisCriteria/IsHeckeGaloisIff.lean}{32}{Recovering the original lattice defect} and
+The individual tuple cut is taken from
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/BcAll.lean}{37}{The individual tuple cut}.
 
 \paragraph{The first character detects the specified block.}
@@ -317,17 +352,37 @@ determinant comparison with the original Hecke algebra.
 In the projected Hecke algebra, let
 \(\mathfrak c_{\alpha,\pi}\subset O_\alpha\) be the evaluations at
 a good \(\pi\) of the integral Hecke operators vanishing on the
-other, nongood summands. Order the good summands and filter the
-projected and intersected lattices by their successive partial sums.
-Apply an operator realizing a generator of \(\mathfrak c_{\alpha,\pi}\)
-to a lift of an element of the \(\pi\)-graded piece of the projected
-lattice. The result is in the intersection lattice and its
-\(\pi\)-component is multiplied by this generator. Hence the
-normalized graded length is at most
-\(r_{\alpha,\pi}v_\ell(\mathfrak c_{\alpha,\pi})\), where
-\(r_{\alpha,\pi}=\dim V_{\alpha,\pi}\).
-The sum of these lengths bounds the defect on the type locus.
-\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/HeckeGaloisCriteria/IsHeckeGaloisIff.lean}{32}{Comparison after the type cut}.
+other, nongood summands. It is an ideal. Order the good summands
+\(\pi_1,\ldots,\pi_k\) and put
+\(W_i=V_{\alpha,\pi_1}\oplus\cdots\oplus V_{\alpha,\pi_i}\).
+Filter the projected lattice \(\Lambda^+=PM'\) and the intersected
+lattice \(\Lambda^-=M'\cap V^+\) by
+\(\Lambda^\pm_i=\Lambda^\pm\cap W_i\). Since
+\(\Lambda^-_i=\Lambda^-\cap\Lambda^+_i\), the maps of graded pieces
+\(\operatorname{gr}_i\Lambda^-\to\operatorname{gr}_i\Lambda^+\) are
+injective, and the snake lemma gives
+\(\operatorname{length}(\Lambda^+/\Lambda^-)
+=\sum_i\operatorname{length}(\operatorname{gr}_i\Lambda^+/
+\operatorname{gr}_i\Lambda^-)\). Projection to
+\(V_{\alpha,\pi_i}\) embeds \(\operatorname{gr}_i\Lambda^+\) as a
+free module of rank at most \(r_{\alpha,\pi_i}\), where
+\(r_{\alpha,\pi}=\dim V_{\alpha,\pi}\). Let \(z\in\Lambda^+_i\),
+choose \(m\in M'\) with \(Pm=z\), and let \(T\) be an integral Hecke
+operator vanishing on the nongood summands whose value \(c\) at
+\(\pi_i\) generates \(\mathfrak c_{\alpha,\pi_i}\). Then \(Tm\in M'\)
+has no nongood component, so \(Tm\in\Lambda^-\). Its good
+components are \(T(\pi)z_\pi\), which vanish beyond \(\pi_i\).
+Hence \(Tm\in\Lambda^-_i\), with \(\pi_i\)-component \(cz_{\pi_i}\),
+and \(c\operatorname{gr}_i\Lambda^+\subseteq
+\operatorname{gr}_i\Lambda^-\). The normalized graded length is
+therefore at most \(r_{\alpha,\pi_i}v_\ell(\mathfrak c_{\alpha,\pi_i})\).
+The sum of these lengths bounds the defect on the type locus:
+\[
+ \frac{\operatorname{length}(\Lambda^+/\Lambda^-)}
+      {\operatorname{ord}_\alpha(\ell)}
+ \le\sum_{\pi\ {\rm good}}r_{\alpha,\pi}\,
+      v_\ell(\mathfrak c_{\alpha,\pi}).
+\]
 
 For the Galois comparison, let \(A\) be the integral Hecke algebra
 in one type block and \(\mathscr R\) the \(A\)-span of the prescribed
@@ -1569,13 +1624,20 @@ endomorphism appropriate to that label. It costs
 The finite group order contributes at most \(2fr^2\) per
 good label. The group has \(f\) factors of
 \(\mathrm{GL}_r(\mathbf F_{g_k})\) at each of the two type
-primes. In residue characteristic \(g_a\) the \(g_a\)-factor
-has order with valuation \(r(r-1)/2\). The valuation of the
-other factor is at most \(\sum_{j=1}^r 2j\), since
-\(\log(g_{1-a})\le2\log(g_a)\). Their sum is at most \(2r^2\).
+primes, and
+\(|\mathrm{GL}_r(\mathbf F_g)|=g^{r(r-1)/2}\prod_{j=1}^r(g^j-1)\).
+In residue characteristic \(g_a\) the \(g_a\)-factor therefore
+has valuation exactly \(r(r-1)/2\), since each \(g_a^j-1\) is
+prime to \(g_a\). In the other factor only the product
+\(\prod_j(g_{1-a}^j-1)\) contributes. If
+\(g_a^s\mid g_{1-a}^j-1\), then
+\(g_a^s<g_{1-a}^j\le g_a^{2j}\), using
+\(\log(g_{1-a})\le2\log(g_a)\). Hence \(s<2j\), and the valuation
+of that factor is at most \(\sum_{j=1}^r 2j=r(r+1)\). Their sum is
+at most \(r(r-1)/2+r(r+1)\le2r^2\), and the \(f\) copies give
+\(2fr^2\).
 \releasecite{Formalism/SharpRestriction/LevelLetterCocycles/CongruenceSingleEndomorphism.lean}{127}{Integral type operators for individual labels}
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TypePrimeBoundOfEtaBound.lean}{12}{The type-prime multiplicity weight},
-and \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/PadicValNatPowSubOneLe.lean}{37}{The order bound}.
+and \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TypePrimeBoundOfEtaBound.lean}{12}{The type-prime multiplicity weight}.
 
 \subsubsection{Local lattice and cohomology bounds}
 Write \(O\) for the local coefficient ring and \(\ell\) for its
@@ -6065,23 +6127,51 @@ The ranks are polynomial in \(x\) and \(\eta_{\rm sz}\ge t\ge1\).
 \releasecite{Development/AutomorphicArithmetic/CyclotomicBounds/CyclotomicOrders/NuHost.lean}{12}{The cyclotomic defect}
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EtaLocLeRhs.lean}{21}{The type-prime comparison}.
 
-At a single \(v\), the sum of the good multiplicities over all
-records is at most \(D_0\), by the good-fibre comparison.
-Then sum over the chosen nonbase \(v\mid\ell\) with
-\(e_v\lambda_v=[K_v:\mathbf Q_\ell]\log\ell/[K:\mathbf Q]\).
-These weights sum to at most \(\log\ell\) by the local degree formula.
-Thus a collection \(\mathscr S\) of rational primes contributes at most
+\paragraph{Combining the records and the places.}
+\teamanchor{proof.weighted-hecke-combination}%
+Fix a nonbase \(v\mid\ell\) and put
 \[
- D_0\sum_{\ell\in\mathscr S}(\log\ell)
+ U_\ell=R_\ell+\nu_\ell+2/\ell^2+V_\ell+v_\ell(h_E)
+        +v_\ell(c_{\rm row})\ \ge0 .
+\]
+Every term is nonnegative. For the allowance \(R_\ell\), which only
+enters through upper bounds, replace it by \(\max(R_\ell,0)\) if
+necessary; every estimate for \(R_\ell\) used below is by a
+nonnegative quantity and so holds for this replacement. Let \(\alpha\in\mathcal A_{jv}\). The
+group of the coarse type cut has order \(|G|=c_{\rm row}\). Off
+\(g_0,g_1\) the \hyperlink{proof.coarse-type-cut-cost}{coarse-cut
+comparison}, the graded comparison after the cut, and the
+preceding bound on the normalized valuation of the good-point ideal
+\(\mathfrak c_{\alpha,\pi}\) give
+\[
+ \delta_\alpha\le\sum_{\pi\ {\rm good}}\dim V_{\alpha,\pi}
+   \bigl(v_\ell(\mathfrak c_{\alpha,\pi})+v_\ell(c_{\rm row})\bigr)
+ \le U_\ell\sum_{\pi\ {\rm good}}\dim V_{\alpha,\pi}.
+\]
+At \(g_0,g_1\) the type-prime comparison gives the same inequality
+with its own \(R_\ell\), which includes the type endomorphism cost.
+The extra nonnegative \(v_\ell(c_{\rm row})\) there only enlarges
+the right side. Summing over \(\alpha\) and using the
+\hyperlink{proof.realized-multiplicity-sum}{multiplicity bound}
+\(\sum_\alpha\sum_\pi\dim V_{\alpha,\pi}\le D_0\) gives
+\(\eta_{jv}\le D_0U_\ell\). Each \(v\) lies over one rational prime,
+and \(e_v\lambda_v=[K_v:\mathbf Q_\ell]\log\ell/[K:\mathbf Q]\).
+The local degree formula
+\(\sum_{w\mid\ell}[K_w:\mathbf Q_\ell]=[K:\mathbf Q]\) shows that the
+chosen nonbase \(v\mid\ell\) have total weight at most \(\log\ell\).
+Since \(U_\ell\ge0\), a collection \(\mathscr S\) of rational primes
+containing the residue characteristics of the chosen nonbase support
+gives
+\[
+ \eta_j\le D_0\sum_{\ell\in\mathscr S}(\log\ell)
  \bigl(R_\ell+\nu_\ell+2/\ell^2+V_\ell
-             +v_\ell(h_E)+v_\ell(c_{\rm row})\bigr).
+             +v_\ell(h_E)+v_\ell(c_{\rm row})\bigr),
  \tag{L1}
 \]
-At the type primes the extra nonnegative \(v_\ell(c_{\rm row})\)
-is harmless. This derivation preserves coefficient one on the
-higher fine Selmer sum after division by \(D_0\).
-\releasecite{Formalism/SharpRestriction/LevelLetterCocycles/MemPrimesOverOfMem.lean}{57}{Weighting by the local degrees}
-\releasecite{Formalism/SharpRestriction/LevelLetterCocycles/MemPrimesOverOfMem.lean}{558}{Combining the prime contributions}.
+and a subcollection of \(\mathscr S\) contributes the corresponding
+partial sum. The fine Selmer terms keep coefficient one after
+division by \(D_0\), and
+\(\sum_{\ell\in\mathscr S}(\log\ell)V_\ell\le V\).
 
 \paragraph{The ordinary primes below the large threshold.}
 Use \(A=\ell_A=kL/(m d_2)\) and \(\ell_*=mb/D_*\), where
@@ -6241,15 +6331,41 @@ By the abelian conductor-discriminant formula,
 \(\log|\operatorname{disc}E|\le 2f\log(Q_Sqd)\).
 Both logarithmic costs are therefore \(o(b)\).
 
-Apply these estimates to (L1) on the rational primes in the
-chosen support. Using the nonnegative fine Selmer sum \(V\)
-gives one constant \(C_N\) and one threshold for the family with
+\teamanchor{proof.weighted-stage-assembly}%
+Apply these estimates to (L1), with \(\mathscr S\) the set of
+residue characteristics of the chosen nonbase support. The bracket
+splits into four sums.
+\begin{enumerate}
+\item The sum of \((\log\ell)R_\ell\). The ordinary primes
+ \(\ell\le\ell_*\), away from \(2,3\), the divisors of \(Q_S\),
+ \(q,d\) and \(g_0,g_1\), cost \(O(fmbL^2)\). For \(\ell>\ell_*\) away from
+ the type primes the allowance vanishes off \(\mathscr E\), and the
+ primes of \(\mathscr E\) cost \(O(U^{18})=o(b)\). The fixed primes
+ dividing \(Q_S\) (only \(2\), since \(Q_S=4n\) is a power of \(2\)
+ by \eqref{eq:classical-host-scale}), together with \(3\), and the primes \(q,d\)
+ cost \(O(fmbL^2)\). The type primes \(g_0,g_1\) cost \(o(b)\).
+\item The sum of \((\log\ell)(\nu_\ell+2/\ell^2)\) is at most
+ \((\log2)\nu_2+2\sum_{n\ge2}(\log n)/n^2<3\).
+\item Prime factorization bounds the sum of
+ \((\log\ell)(v_\ell(h_E)+v_\ell(c_{\rm row}))\) by
+ \(\log h_E+\log c_{\rm row}=o(b)\).
+\item The sum of \((\log\ell)V_\ell\) is at most \(V\).
+\end{enumerate}
+All implicit constants depend only on the family. Since
+\(f,m\ge1\) and \(L\ge1\), one has \(b\le fmbL^2\). Hence beyond one
+threshold for the family the \(o(b)\) terms and the constant \(3\)
+total at most \(fmbL^2\). This gives a constant \(C_N\ge0\) with
+\(\eta_j\le D_0[C_NfmbL^2+V]\). Since the error scale \(N_c\) is nonnegative, also
 \[
  \eta_j\le D_0\bigl[C_N(fmbL^2+(\log x)^2N_c)+V\bigr].
 \]
 The term \((\log x)^2N_c\) is a nonnegative enlargement of the
-bound just proved. Since \(B_0=fmbL\), \(\sqrt b\le B_0\), and
-\((\log x)^2\le L\) for large \(x\), this yields
+bound just proved. For the amplification, recall \(L=x^\varepsilon\)
+and \(B_0=fmbL\), so \(fmbL^2=LB_0\). For large \(x\) also
+\((\log x)^2\le L\), so the first term is at most
+\(C_NL(B_0+N_c)\). Finally
+\(V\le\sqrt b\le b\le fmbL=B_0\le L(B_0+N_c)\), using
+\(f,m,L\ge1\) and \(N_c\ge0\). Adding the two bounds yields
 \begin{equation}
 \label{eq:integral-selmer}
  \eta_j\le D_0(|C_N|+1)x^\varepsilon(B_0+N_c).
@@ -6257,8 +6373,6 @@ bound just proved. Since \(B_0=fmbL\), \(\sqrt b\le B_0\), and
 All estimates use the stage and cutoff of the actual tuple,
 so summing the normalized bound over the stages costs at most
 a further factor \(m\).
-\releasecite{Formalism/SharpRestriction/LevelLetterCocycles/ExportBoundOfAdmissible.lean}{1023}{The weighted estimate before amplification}
-\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DivinNOfHypV.lean}{76}{Amplification at the common cutoff}.
 
 This weighted bound is applied below through the integral
 class reading on the actual auxiliary Gram. The equality of the
@@ -6297,23 +6411,81 @@ normalized by the base tuple give
  c^\square_{\boldsymbol\mu}/c^\square_{\boldsymbol\mu_0}.
 \]
 Here \(q_{\boldsymbol\mu}\in K^\times\) follows from the square
-ratios in \eqref{eq:period-square-ratios}. Positivity of the base
-rank and separation establish \(\kappa\ne0\) in
-Section~\ref{sec:periods}. A coefficient at the base is in the
-kernel of \(V_{\boldsymbol\mu_0}^{\rm fit}\) exactly when all
-its tests vanish. By separation and injectivity of the row
-realization, this is exactly the kernel of
-\(P_{\boldsymbol\mu_0}^{\rm fit}\). Both kernels are over \(K\).
-The base quotient map is surjective and
-\(D_{\boldsymbol\mu_0}^{\rm fit}\) is an isomorphism.
-Consequently their composition has a right inverse over \(K\).
-Applying that inverse to the fitted base jet matrix gives the
-unique matrix \(\Psi\) of the normalized combined test in the
-common row coordinates. At each tuple the same test identity gives
+ratios in \eqref{eq:period-square-ratios}. Since \(\iota_K\) is
+injective, \(q_{\boldsymbol\mu_0}=1\) and \(r_{\boldsymbol\mu_0}=1\).
+
+\teamanchor{proof.common-fitted-descent}%
+We now derive the common map from these identities by linear
+algebra. Abbreviate \(D_{\boldsymbol\mu}=D_{\boldsymbol\mu}^{\rm fit}\),
+\(P_{\boldsymbol\mu}=P_{\boldsymbol\mu}^{\rm fit}\) and
+\(V_{\boldsymbol\mu}=V_{\boldsymbol\mu}^{\rm fit}\), and apply
+\(\iota_K\) to matrices entrywise. Let \(b_1,\ldots,b_{\mathcal D}\) be the
+base row basis, where \(\mathcal D>0\) is the base rank, and let \(T\) be the
+complex matrix with entries \(T_{ak}=\psi_a(j_{\rm row}b_k)\).
+By separation \(T\) has full column rank, as in the construction of
+\eqref{eq:period-row-match}. For a rational class vector \(y\) at a
+tuple \(\boldsymbol\mu\) put
+\(u=D_{\boldsymbol\mu}P_{\boldsymbol\mu}y\in K^{\mathcal D}\). By
+\eqref{eq:period-row-match}, read in the fitted coordinates as above,
+the downward image of the realized top coordinate of \(y\) is
+\(j_{\rm row}u\). Since \(j_{\rm row}\) is semilinear for \(\iota_K\),
+\(\psi_a(j_{\rm row}u)=\sum_k\iota_K(u_k)T_{ak}\). Hence
+\eqref{eq:period-principal-test} reads
+\begin{equation}
+\label{eq:fitted-test-coordinates}
+ \iota_K(e_{\boldsymbol\mu})c^\square_{\boldsymbol\mu}
+   \big(T\,\iota_K(D_{\boldsymbol\mu}P_{\boldsymbol\mu}y)\big)_a
+   =\kappa\,\iota_K(V_{\boldsymbol\mu}y)_a
+\end{equation}
+for every test \(a\). First, \(\kappa\ne0\). Indeed
+\(P_{\boldsymbol\mu_0}\) is surjective and \(D_{\boldsymbol\mu_0}\)
+is invertible, so some \(y\) has \(u=b_1\) at the base tuple. The
+first column of \(T\) is nonzero, and the root of unity and the
+square constant are nonzero. So the left side of
+\eqref{eq:fitted-test-coordinates} is nonzero for some \(a\).
+
+Put \(\Psi^{\mathbb C}=\kappa^{-1}\iota_K(e_{\boldsymbol\mu_0})
+c^\square_{\boldsymbol\mu_0}T\). Divide
+\eqref{eq:fitted-test-coordinates} by
+\(\kappa\,\iota_K(e_{\boldsymbol\mu})c^\square_{\boldsymbol\mu}\)
+and use \(\iota_K(r_{\boldsymbol\mu})=\iota_K(e_{\boldsymbol\mu}/
+e_{\boldsymbol\mu_0})c^\square_{\boldsymbol\mu}/c^\square_{\boldsymbol\mu_0}\).
+Applied to the standard basis vectors \(y\), this gives the matrix
+identity
+\[
+ \Psi^{\mathbb C}\,\iota_K(D_{\boldsymbol\mu}P_{\boldsymbol\mu})
+   =\iota_K(r_{\boldsymbol\mu}^{-1}V_{\boldsymbol\mu})
+\]
+at every tuple. The base composite \(D_{\boldsymbol\mu_0}P_{\boldsymbol\mu_0}\)
+is surjective over \(K\), so it has a right inverse \(S\) over \(K\).
+Put \(\Psi=V_{\boldsymbol\mu_0}S\). Since \(r_{\boldsymbol\mu_0}=1\),
+\[
+ \iota_K(\Psi)=\iota_K(V_{\boldsymbol\mu_0})\iota_K(S)
+ =\Psi^{\mathbb C}\iota_K(D_{\boldsymbol\mu_0}P_{\boldsymbol\mu_0}S)
+ =\Psi^{\mathbb C}.
+\]
+Then \(\iota_K(\Psi D_{\boldsymbol\mu}P_{\boldsymbol\mu})
+=\Psi^{\mathbb C}\iota_K(D_{\boldsymbol\mu}P_{\boldsymbol\mu})
+=\iota_K(r_{\boldsymbol\mu}^{-1}V_{\boldsymbol\mu})\), and
+injectivity of \(\iota_K\) gives, at each tuple,
 \[
  \Psi D_{\boldsymbol\mu}^{\rm fit}P_{\boldsymbol\mu}^{\rm fit}
        =r_{\boldsymbol\mu}^{-1}V_{\boldsymbol\mu}^{\rm fit}.
 \]
+This \(\Psi\) is the unique matrix over \(K\) with the base identity:
+if \(\Psi'D_{\boldsymbol\mu_0}P_{\boldsymbol\mu_0}=V_{\boldsymbol\mu_0}\),
+then \(\Psi'=\Psi'D_{\boldsymbol\mu_0}P_{\boldsymbol\mu_0}S
+=V_{\boldsymbol\mu_0}S=\Psi\).
+Finally, \(\iota_K(\Psi)\) is a nonzero multiple of \(T\), hence
+injective on \(\mathbb C^{\mathcal D}\), so \(\Psi\) is injective on
+\(K^{\mathcal D}\). At the base,
+\(V_{\boldsymbol\mu_0}=\Psi D_{\boldsymbol\mu_0}P_{\boldsymbol\mu_0}\).
+Therefore \(V_{\boldsymbol\mu_0}^{\rm fit}y=0\) exactly when
+\(D_{\boldsymbol\mu_0}P_{\boldsymbol\mu_0}y=0\), that is, exactly when
+\(P_{\boldsymbol\mu_0}^{\rm fit}y=0\). This is the kernel identity
+\(\ker V_{\boldsymbol\mu_0}^{\rm fit}=\ker P_{\boldsymbol\mu_0}^{\rm fit}\),
+with both kernels over \(K\).
+
 If \(M_{\boldsymbol\mu}^{(0)}\) is the lattice of integral good
 top class values at \(P_0\), the local base lattice is
 \begin{equation}
@@ -6329,9 +6501,10 @@ since both projections are restrictions of the principal
 map. Localization commutes with the matrix image. Hence
 the local generators at every selected tuple have the same
 integral initial rows used in the finite kernel calculation.
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ICBaseFactorOfRowsStatement.lean}{12}{Common row realization}.
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/OneMapOfRows.lean}{39}{Descent of the common test} and
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/KerEqOfFormula.lean}{20}{kernel calculation}.
+The descent and the kernel identity above use only
+\eqref{eq:period-row-match}, \eqref{eq:period-principal-test},
+\eqref{eq:period-square-ratios} and the separation of the tests.
+Their remaining release inputs are recorded at those places.
 
 Write \(R=C^\vee\) for the row lattice. At a finite place \(v\) of the
 coefficient field \(K\), use the auxiliary twisting tuple
@@ -6340,16 +6513,22 @@ row is the image of \(\zeta_{w,\boldsymbol\mu(v)} B_{K,w}\) on the
 corresponding descended row, in the chosen complex embedding.
 The scalar is a unit at \(v\), so the tested valuation equals that of
 \(B_{K,w}\). The descended integral test rows generate \(R_v\)
-over \(\mathcal O_{K,v}\). The ultrametric inequality extends the
-valuation bound to their span and to the localized source.
+over \(\mathcal O_{K,v}\), so the ultrametric inequality extends a
+valuation bound from the test rows to \(R_v\).
 Let \(g_{wv}\) be the sum over stages of the local gain plus the
 reference exponent minus the exponent for \(w\), with valuations
 normalized by \(v_p(p)=1\). Gains at the discarded primes are set
-to zero. The
-\releasecite{Formalism/LocalToGlobal/GroupLattices/JointServices/ValIntNonneg.lean}{73}{local division estimate}
-applies on the actual source models, subject to the
+to zero. On the source side the bound is not a consequence of the
+ultrametric inequality for an arbitrary lattice. The source \(N_w\)
+of the
 \hyperlink{proof.ramified-donor-identification}{ramified donor identification}
-in Section~\ref{sec:assembly}. On that source it gives
+in Section~\ref{sec:assembly} is characterized by local conditions,
+and the release proves the bound on it at every finite place,
+including the places over \(T_w\)
+\releasecite{Formalism/LocalToGlobal/GroupLattices/AdmissibleAtGeneratorPlaces.lean}{263}{The valuation on the source at every place}.
+The
+\releasecite{Formalism/LocalToGlobal/GroupLattices/JointServices/ValIntNonneg.lean}{73}{local division estimate}
+transfers it to the division models. On that source it gives
 \begin{equation}
 \label{eq:period-gain-valuation}
  \operatorname{ord}_v B_{K,w}(\phi)(F)\ge \lfloor e_vg_{wv}\rfloor
@@ -6840,22 +7019,45 @@ In the actual size range
  +f(b'+\Delta_{\rm cl})\bigl(k\log(kv_0)+\log T_w\bigr)+fk^2L .
 \end{aligned}
 \]
+This display follows from the two reference bounds. In the lower
+bound, \(\log T_w>0\) since the level \(T_w\) is a rational prime,
+and the bound for
+\(\sum_{\tau,i}\lambda_{\tau,i}\) give
+\(-\frac{\log T_w}{k}\sum_{\tau,i}\lambda_{\tau,i}\ge
+ -\sum_t\frac{a^{\rm top}_{w,t}}{k}\log T_w-O(f\Delta_{\rm cl}\log T_w)\),
+and \(2\log k\sum_\tau d_\tau\ll(N_Ta_E+fk(b'+\Delta_{\rm cl}))\log k\).
+In the upper bound, \(T\subset H\) gives
+\(N_T\le n\le f\), so \(-\log T_w\sum_\tau s_\tau\le2fb'\log T_w\).
+Also \((2\log B+3\log k)\sum_\tau d_\tau\ll
+\log(kv_0)\bigl(N_Ta_E+fk(b'+\Delta_{\rm cl})\bigr)\), since
+\(\log B\ll\log(kv_0)\). The nonnegative terms \(fk^2L\) are an
+allowance carried in both bounds.
 Here \(v_0=\operatorname{rd}(E)/2\ge1\) and \(L_a=\log(a_E\operatorname{rd}(E))\).
 For large \(x\), \(f\le 2x^3,\ k\le x^5\), and
 \(X'=\exp(x^{\varepsilon/3})\) is at least \(x^{14}\).
 Since \(\Delta_{\rm cl}\le b'=a_E/X'\) and \(X'\le a_E\), it follows that
 \(fk(b'+\Delta_{\rm cl})\le N_Ta_E\) and \(fk^2\le N_Ta_E\).
-Also \(\log T_w\ll mL\), \(\log k\le5L_a\), and
-\(\log(kv_0)\le6L_a\). The first term of the lower bound is therefore
+Also \(\log T_w\ll mL\) by the upper count bound in
+\eqref{eq:arithmetic-count-at}, \(\log k\le5L_a\) since \(k\le x^5\)
+and \(L_a\ge\log x\), and \(\log(kv_0)\le6L_a\).
+Since \(m\le k\) and \(\Delta_{\rm cl}\le b'\), the terms
+\(f\Delta_{\rm cl}\log T_w\) and \(f(b'+\Delta_{\rm cl})\log T_w\)
+are \(O(fkb'L)\), hence \(O(N_Ta_EL)\) by the preceding inequality. The first term of the lower bound is therefore
 \(O(N_Ta_EL_a m/k)\), and all other displayed costs are
 \(O(N_Ta_EL_a)\) since \(m\le k\). Consequently, for a uniform constant \(C_{\rm sl}\),
 \[
  \mu(M_w)\ge -C_{\rm sl}N_Ta_E L_a(1+m/k),\qquad
  \mu_{\max}(M_w)\le C_{\rm sl}N_Ta_E L_a.
 \]
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/FlipTwoThree.lean}{442}{Column estimates with their level dependence}
-and
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/JointsL.lean}{1518}{Specialization on the family}.
+These two slope bounds are derived here from the reference bounds,
+the size inequalities and the upper count bound in
+\eqref{eq:arithmetic-count-at}. In the derivation of the reference
+bounds themselves the edition takes from the release only the four
+statements cited in the evaluation on the definite classes: the
+discriminant module of \(L_c\), the trivial stabilizer of the initial
+decoration, and the frame and metric identifications of the class
+evaluation. The size data and the count bound carry the release
+inputs cited where they are stated.
 
 The division comparison also uses cusp lattices on the indefinite
 side of the theta tower. We first state the finite-degree comparison
@@ -7251,13 +7453,33 @@ trivially. By the two nef comparisons,
 \]
 This contradicts the choice of \(a\). Restriction to the jets
 through order \(a\) is injective and \(r_Z\le d_Z\binom{a+D}{D}\).
-For \(0\le i<D\), the ratio
-\((\ell-1-i)/(a+D-i)\) differs from one by at most
-\(4D/\ell+\rho\), since \(a(1-\rho)\le\ell+D+3\) and \(D\ge2\).
-Multiplying the factors gives \(q_Z\ge(1-z)r_Z\) for
-\(z=7(D^2/\ell+D\rho)\), as required for the finite-degree theorem.
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/WeightParameterStrictAntitone.lean}{101}{The selected gap bounds} and
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ShareStatementOfKnownTheorems.lean}{30}{the rank-share normalization}.
+Since \(q_Z=d_Z\binom{\ell-1}{D}\) and \(\ell-1\ge D\),
+\[
+ \frac{q_Z}{r_Z}\ge\frac{\binom{\ell-1}{D}}{\binom{a+D}{D}}
+ =\prod_{i=0}^{D-1}\frac{\ell-1-i}{a+D-i}.
+\]
+Fix \(0\le i<D\). Since \(a\ge n'\) and \(a(1-\rho)\le n'=\ell+D+3\),
+we have \(0<\ell-1-i<a+D-i\) and
+\[
+ \frac{\ell-1-i}{a+D-i}
+ \ge\frac{(1-\rho)(\ell-1-i)}{\ell+D+3+(1-\rho)(D-i)}
+ \ge(1-\rho)\Bigl(1-\frac{2D+4}{\ell+2D+3-i}\Bigr)
+ \ge(1-\rho)\Bigl(1-\frac{4D}{\ell}\Bigr),
+\]
+using \(\ell+2D+3-i>\ell\) and \(2D+4\le4D\) for \(D\ge2\).
+Thus each factor lies in \([1-\varepsilon,1]\) with
+\(\varepsilon=\rho+4D/\ell\). If \(D\varepsilon\ge1\) the bound
+\(\prod\ge1-D\varepsilon\) is trivial since the factors are
+positive; otherwise \(\varepsilon<1\) and Bernoulli's inequality gives
+\((1-\varepsilon)^D\ge1-D\varepsilon\). Hence
+\[
+ q_Z\ge\bigl(1-4D^2/\ell-D\rho\bigr)r_Z\ge(1-z)r_Z,\qquad
+ z=7(D^2/\ell+D\rho),
+\]
+and \(r_Z\ge q_Z\) was shown above. These are the two share
+inequalities required for the finite-degree theorem.
+The selected gap bounds used for nefness above are
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/WeightParameterStrictAntitone.lean}{101}{The selected gap bounds}.
 
 Under the evaluation and integrality comparisons on the cover,
 finitely many detecting CM points embed the section space in
@@ -7317,11 +7539,22 @@ with at most \(d_{\rm lat}\) generators, giving at most
 mass-weighted overlap operator \(C\), the diagonal
 entry is the common positive total mass and the
 relative off-diagonal row sum is at most
-\(\sum_{m_{\rm int}\ge2}m_{\rm int}^{2d_{\rm lat}-n_{\rm aux}/2}<1\).
+\(\sum_{m_{\rm int}\ge2}m_{\rm int}^{2d_{\rm lat}-n_{\rm aux}/2}\):
+for fixed \(m_{\rm int}\) there are at most
+\(m_{\rm int}^{d_{\rm lat}}\cdot m_{\rm int}^{d_{\rm lat}}\) second
+lattices by the two counts above, each with overlap at most
+\(m_{\rm int}^{-n_{\rm aux}/2}\). (For the prime-index count, an
+index-\(p\) sublattice of a rank-\(d\) lattice is the kernel of a
+nonzero functional modulo \(p\) up to scalars, so there are
+\((p^d-1)/(p-1)<p^d\) of them; a finite abelian quotient of order
+\(m_{\rm int}\) has a composition series with its prime factors in
+any prescribed order.) With \(n_{\rm aux}=8(fr+1)\) and
+\(d_{\rm lat}=2fr\) the exponent is \(2d_{\rm lat}-n_{\rm aux}/2=-4\),
+so the row sum is at most \(\zeta(4)-1=\pi^4/90-1<0.09<1\).
 Thus \(C^{-1}\) is the convergent Neumann series on
 bounded families and preserves the prescribed covariance.
 \releasecite{Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/ThetaTestFunctionNormAndOverlapBound.lean}{198}{Vacuum overlap} and
-\releasecite{Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/HermitianThetaLevelDataFormsSystem.lean}{60}{The lattice row sum}.
+\releasecite{Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/HermitianThetaLevelDataFormsSystem.lean}{138}{The mass-weighted overlap system}.
 
 Double the kernel, using the conjugate polarization for
 the second theta function. The definite auxiliary space
@@ -8432,10 +8665,20 @@ per unit of absolute weight at \(p\). The trace count divides by the
 root extension degree, which cancels the number of coordinates of
 the trace tuple. Thus the mixed integral lattice has a lower count
 with slope \(s_Z=S_Z-2|u'|_1\sum_p e_2(p)\log p\), with this prime support.
-The first summand contributes \(O(\log B_*)\) by the dyadic Chebyshev
-bound below \(B_*\). Above \(B_*\) there are at most \(B_*\) forced primes
-and \(\log p/(p-1)\) is decreasing, giving the same bound there.
-The discriminant term contributes at most \(40\log\operatorname{rd}(E)\).
+The first summand contributes \(O(\log B_*)\). Indeed
+\(\prod_{p\le y}p<4^y\) for \(y\ge1\): by induction, the primes in
+\((m+1,2m+1]\) divide \(\binom{2m+1}{m}\le4^m\). For \(k\ge0\) the
+primes \(p\in(2^k,2^{k+1}]\) satisfy \(p-1\ge2^k\), so they contribute
+at most \(2^{-k}\log\prod_{p\le2^{k+1}}p<2\log4\). Summing over the
+\(k\le\log_2B_*\) gives at most \(4\log B_*+4\log2\) below \(B_*\).
+Above \(B_*\) there are at most \(B_*\) forced primes, and
+\(\log x/(x-1)\) is decreasing for \(x>1\), so they contribute at most
+\(\log(B_*+1)\). The indicator contributes \(\log2\). The discriminant
+term contributes
+\(40\sum_p\operatorname{ord}_p|\operatorname{disc}(E)|\log p/[E:\mathbf Q]
+ =40\log\operatorname{rd}(E)\). Altogether
+\(\sum_pe_2(p)\log p\le5\log B_*+6\log2+40\log\operatorname{rd}(E)\).
+The per-prime cost \(e_2(p)\) of the trace comparison is
 \releasecite{Development/AutomorphicSpectrum/Proofs/GeometryProofs/UniformAllNormHeightBound.lean}{171}{Finite costs and trace comparison}.
 
 \paragraph{The normalized mean of the root intersections.}
@@ -11261,15 +11504,29 @@ With \(c_s\le P_{\rm cov}(\kappa/\ell+1)\) this term is
 The total lower bound per target rank is
 \(-O(b+\ell X+\ell c_c)=-O(E_{\rm cov})\).
 
-The lattice of sections at \(v\) splits by component. Its Petersson
-norm is the orthogonal sum of the squared component norms weighted
-by their probability masses at each embedding. Each mass belongs
-to \((0,1]\), so passage to the whole cover can only increase
-the determinant degree relative to the orthogonal sum of the
-component norms. Its rank is \(R\). Consequently its squared mean
-slope is at least \(2R^{-1}\sum_Z\widehat\deg_{\rm n}J_Z\), which
-is bounded below by \(-O(E_{\rm cov})\).
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/ComponentDegreesSumLeTotalDegree.lean}{14}{The component masses and determinant degree}.
+The integral lattice \(J\) of sections at \(v\) splits as
+\(J=\bigoplus_ZJ_Z\) by component, with \(J_Z\) of rank \(r_Z\) and
+\(R=\sum_Zr_Z\).
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/CuspFormsSupLatticeSplitOverComponentsStatement.lean}{8}{Integral splitting over components}.
+At an embedding \(\sigma\) the probability Petersson norm on the
+cover is the normalized integral over the disjoint union of the
+component complex points, so
+\(\|f\|_\sigma^2=\sum_Zm_{Z,\sigma}\|f_Z\|_{{\rm prob},Z,\sigma}^2\)
+with \(m_{Z,\sigma}=V_{Z,\sigma}/\sum_{Z'}V_{Z',\sigma}\in(0,1]\).
+Hence the splitting is orthogonal, and on \(J_Z\) the induced metric
+is the component probability metric scaled by \(m_{Z,\sigma}\). For a
+generator of \(\det J_Z\) the norm at \(\sigma\) is multiplied by
+\(m_{Z,\sigma}^{r_Z/2}\). Thus
+\[
+ \widehat\deg_{\rm n}J=\sum_Z\widehat\deg_{\rm n}J_Z
+ -\frac1{[K_{\rm covf}:\mathbf Q]}\sum_\sigma\sum_Z\frac{r_Z}2\log m_{Z,\sigma}
+ \ge\sum_Z\widehat\deg_{\rm n}J_Z ,
+\]
+where \(K_{\rm covf}\) is the cover coefficient field, \(\sigma\) runs over its
+complex embeddings, and \(J_Z\) carries its
+component probability metric on the right. Consequently the squared
+mean slope of \(J\) is at least \(2R^{-1}\sum_Z\widehat\deg_{\rm n}J_Z\),
+which is bounded below by \(-O(E_{\rm cov})\).
 
 \subsubsection{Descent and terminal truncation}
 \paragraph{The flat metric transfers.}
@@ -11460,20 +11717,33 @@ point of such an orbit. The matrix \(D_u=(T_gT_hu)_{g,h\in S}\)
 then evaluates to a permutation matrix. Its determinant is
 therefore a nonzero polynomial in \(u\) at one point of each
 component. Express a rational section satisfying these
-finitely many conditions in a short integral spanning set,
-with each generator supported on one component. Replace the
-coefficients one at a time by integers from \(0\) to \(n_0^2\).
-Each coefficient affects at most \(n_0\) determinant
-polynomials of degree at most \(n_0\). Some integer keeps all
-their values nonzero. For the resulting integral \(u\), if
+finitely many conditions as \(u=\sum_iy_i\psi_i\) in a short integral
+spanning set \((\psi_i)\), with each generator supported on one
+component and \(y_i\in\mathbf Q\). For the chosen point \(P_Z\) of
+\(Z\) let \(\eta_Z(y)=\det D_u(P_Z)\). Its entries are values of
+\(u\) at the points \(T_gT_hP_Z\), which lie in the orbit
+\(S\cdot P_Z\) of the group \(S\); this orbit meets at most \(n_0\)
+components. Hence \(\eta_Z\) is a polynomial of degree at most
+\(n_0\) in each \(y_i\), and a generator supported on \(Z_0\)
+enters \(\eta_Z\) only if \(Z_0\) meets \(S\cdot P_Z\), that is
+for at most \(n_0\) components \(Z\), since then
+\(sP_Z\in Z_0\) for some \(s\in S\) and \(Z=s^{-1}Z_0\). Initially every
+\(\eta_Z\ne0\). Replace the coefficients one at a time. With the
+others fixed, each affected \(\eta_Z\) is a polynomial in the
+current coefficient \(t\), nonzero because it is nonzero at the
+current value, so it has at most \(n_0\) roots. The at most
+\(n_0^2\) roots leave some \(t\in\{0,1,\dots,n_0^2\}\) at which all
+\(\eta_Z\) stay nonzero; the unaffected ones do not change. After
+all replacements \(u\) is integral, being an integral combination of
+integral generators, and \(\det D_u\ne0\) at one point of each
+component. For the resulting \(u\), if
 \(B_u\) is its common supremum norm bound, the short frame
 and point-norm estimate at \(W\) give \(n_0^3B_u^2\le e^{2b}\).
-Indeed its pointwise bound is \(n_0^2\) times the component
-generator count times \(\beta_W\Lambda\), using the evaluation
-bound just proved. The short generator estimate gives
+Indeed, by the triangle inequality its pointwise bound is \(n_0^2\)
+times the component generator count times \(\beta_W\Lambda\), using
+the evaluation bound just proved. The short generator estimate gives
 \(\log^+\Lambda=O((frL)^9)\), including the logarithm of
 their number on a component.
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean}{279}{Integral coefficient selection} and
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean}{26}{The size at the Hodge shift}.
 
 For \(a\in A\), use the components
@@ -11517,24 +11787,45 @@ bound is \(K_{\rm cov}\), with
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RankGrowthBoundSmallScale.lean}{103}{Shifted rank}, and
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/CoveringMinGenusBound.lean}{39}{Projected frame}.
 
-To see the slope estimate, saturate the image of \(A\) in
-\(B^{n_0}\). Taking the top exterior power bounds its squared
-degree below by \(\operatorname{rk}(A)(\mu(A)-2b)\).
-Project an integral short spanning set of \(B^{n_0}\) onto the
-quotient and pick a rational basis from it. Its determinant bounds
-the quotient's squared degree below by \(-2K_{\rm cov}\) times the
-quotient rank. If \(t=-M_j-(C_U+C_F)E_{\rm cov}-2b\), division by the
-rank of \(B^{n_0}\) now gives
+To see the slope estimate, write \(k_A=\operatorname{rk}A\),
+\(n_B=\operatorname{rk}B^{n_0}\), and \(\phi\colon A\to B^{n_0}\) for
+the injective integral map above, whose operator norm satisfies
+\(\|\phi\|_\sigma^2\le n_0^3B_u^2\le e^{2b}\) at every embedding.
+Let \(A'\) be the saturation of \(\phi(A)\) in \(B^{n_0}\) with the
+induced metric. The map \(\wedge^{k_A}\phi\) embeds \(\det A\) in \(\det A'\). For
+nonzero \(s\in\det A\), the index of \(\mathcal O\wedge^{k_A}\phi(s)\) in
+\(\det A'\) is therefore at least that of \(\mathcal Os\) in \(\det A\), and
+\(\|\wedge^{k_A}\phi(s)\|_\sigma\le e^{k_Ab}\|s\|_\sigma\) since
+\(\|\phi\|_\sigma\le e^b\). Hence the squared degree satisfies
+\(2\widehat\deg_{\rm n}A'\ge k_A(\mu(A)-2b)\ge k_At\), where
+\(t=-M_j-(C_U+C_F)E_{\rm cov}-2b\) and the bound on \(\mu(A)\) from
+the two comparisons is used. Give \(\overline B=B^{n_0}/A'\) the quotient
+metrics. The images in \(\overline B\) of an integral short spanning set of
+\(B^{n_0}\), of log lengths at most \(K_{\rm cov}\), span
+\(\overline B\otimes\mathbf Q\) and have quotient norms at most their norms.
+Choose \(n_B-k_A\) linearly independent ones \(q_i\). The free sublattice
+\(\bigoplus\mathcal O q_i\subset\overline B\) has full rank, so Hadamard's
+inequality gives \(2\widehat\deg_{\rm n}\overline B\ge-2K_{\rm cov}(n_B-k_A)\).
+Additivity of the arithmetic degree in the metrized exact sequence
+\(0\to A'\to B^{n_0}\to\overline B\to0\), together with
+\(\mu(B^{n_0})=\mu(B)\) for an orthogonal power, gives
 \[
- \mu(B)\ge t-\frac{b}{K_{\rm cov}}\bigl(|t|+2K_{\rm cov}\bigr).
+ n_B\mu(B)\ge k_At-2K_{\rm cov}(n_B-k_A).
 \]
+The rank bound gives \(1\ge k_A/n_B\ge(1+b/K_{\rm cov})^{-1}\), hence
+\(1-k_A/n_B\le b/K_{\rm cov}\), and
+\[
+ \mu(B)\ge t-\Bigl(1-\frac{k_A}{n_B}\Bigr)\bigl(|t|+2K_{\rm cov}\bigr)
+ \ge t-\frac{b}{K_{\rm cov}}\bigl(|t|+2K_{\rm cov}\bigr).
+\]
+Since \(|t|\le|M_j|+(C_U+C_F)E_{\rm cov}+2b\), \(|M_j|\le K_{\rm cov}\),
+and \(b/K_{\rm cov}\le1\), the subtracted term is at most
+\(b+(C_U+C_F)E_{\rm cov}+2b+2b\), so
+\(\mu(B)\ge-M_j-2(C_U+C_F)E_{\rm cov}-7b\).
 The same-space comparison to the core downstairs costs at most
-\(2b\) in squared slope. Using \(b\le E_{\rm cov}\),
-\(|M_j|\le K_{\rm cov}\), and \(b/K_{\rm cov}\le1\) gives
+\(2b\) in squared slope. Using \(0\le b\le E_{\rm cov}\) gives
 \(\mu_{\rm core}\ge-M_j-(2(C_U+C_F)+9)E_{\rm cov}\).
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RingOfCoveringDescent.lean}{15}{Integral descent and metric comparison}
-and
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/LowerBoundOfAllEstimates.lean}{65}{Slope transfer}.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RingOfCoveringDescent.lean}{15}{Integral descent and metric comparison}.
 
 \paragraph{Terminal stage and truncation.}
 At \(j=m\) the second signature is zero. The core slope comes from
@@ -12522,12 +12813,11 @@ as above.
 The complex rank of the common kernel of the \(f\) residue-unit
 averages was computed in the
 \hyperlink{proof.ramified-column-loss}{ramified column count}.
-For the following argument require the
+Use the
 \hyperlink{proof.ramified-donor-identification}{integral and metric donor identification}
-at every \(w\). It identifies \(H_w\) with the integral sum-zero
-class lattice in \(M_w\) and identifies the actual \(N_w\)
-isometrically with a full sublattice of this model in the
-column chain's zero-stage metric.
+at every \(w\). There \(H_w\) is the integral sum-zero class lattice
+in \(M_w\), and the source \(N_w\) is a full sublattice of \(H_w\)
+with the column chain's zero-stage metric.
 
 In the identified model, put \(q=T_w-1\). On a residue-unit
 factor use the basis \(e_i-e_q\), \(1\le i<q\), of the integral
@@ -12554,7 +12844,8 @@ inclusion this gives
 The last inequality follows by saturation in \(M_w\).
 
 Let \(e_v\ell_{wv}\) be the local length of \(H_w/N_w\).
-The same donor identification must supply
+The same donor identification, with the
+\hyperlink{proof.served-length-bound}{length bound at served places}, supplies
 \[
  (N_w)_v\subseteq\mathfrak p_v^{e_v\tau_v}(H_w)_v,\qquad
  \ell_{wv}\le d_M(\tau_v+\iota_v)\qquad(v\nmid T_w),
@@ -12569,6 +12860,9 @@ These conditions concern the actual undivided lattice in the
 zero-stage norms. For a full sublattice the determinant formula
 subtracts \(2e_v\lambda_v\ell_{wv}/d_r\) at \(v\) from the mean.
 \releasecite{Formalism/SharpRestriction/Divisibility/LocalQuadraticParts.lean}{621}{The ramified rank, metrics and local lengths}.
+The \hyperlink{proof.level-index-bound}{level-index paragraph} derives
+the condition at \(v\mid T_w\), with the constant \(28\), from the
+release's local Hecke relations and size data.
 
 Set \(g'_{wv}=e_v^{-1}\lfloor e_vg_{wv}\rfloor\).
 The determinant computation after division gives
@@ -12681,7 +12975,47 @@ column map, the height is at most
  \qquad J_\kappa=\overline{\log\kappa_{R,\sigma}},
 \]
 where the bar averages over all coefficient embeddings.
-\releasecite{Formalism/LocalToGlobal/Divisibility/ConstantGeTwentyEight.lean}{123}{Chain and quotient norm bound}.
+We record the proof of this bound. Fix \(\sigma\). Write \(Q\) for
+the top row quotient with its quotient norm, \(\pi\) for the
+quotient map, \(\iota\) for the row identification of \(Q\) with
+the row space, and \(J_\sigma\) for the composite of the column
+maps. The factorization of the tested period states that the value
+of \(B_{K,w}\varphi\) at the row vector \(\iota\pi F\) is
+\(P_{w,\sigma}(J_\sigma\varphi)(F)\) for every source vector
+\(\varphi\) and every \(F\). For \(q\in Q\) and every lift \(F\)
+of \(q\) this value has absolute value at most
+\(\|P_{w,\sigma}\|\,\|J_\sigma\varphi\|\,\|F\|\). Taking the
+infimum over the lifts replaces \(\|F\|\) by \(\|q\|_Q\). Let
+\(c_\alpha=\kappa_{R,\sigma}\prod_j\lambda_{j,\alpha,\sigma}\) be
+the scalar of block \(\alpha\). For \(x\) in block \(\alpha\) and
+\(y\) in block \(\beta\) the identity gives
+\(\langle\iota x,\iota y\rangle=c_\alpha\langle x,y\rangle\), and
+Hermitian symmetry gives the same pairing as
+\(c_\beta\langle x,y\rangle\), since both scalars are real.
+Hence blocks with different scalars are orthogonal. Grouping the
+blocks by the value of the scalar gives an orthogonal
+decomposition of \(Q\), as the blocks span \(Q\), and \(\iota\)
+multiplies the form on each part by its value. Therefore
+\(\|\iota q\|^2\ge\min_\alpha c_\alpha\|q\|_Q^2\). For every row
+vector \(r=\iota q\) the value of \(B_{K,w}\varphi\) at \(r\) is
+thus at most
+\(\|P_{w,\sigma}\|\,\|J_\sigma\|\,\|\varphi\|\,\|r\|
+(\min_\alpha c_\alpha)^{-1/2}\) in absolute value. With
+\(\|J_\sigma\|\le\prod_l\|J_{w,l,\sigma}\|\) this is the displayed
+operator bound. Its logarithm at \(\sigma\) is at most
+\(H_{P,w}+\sum_lH_{w,l,\sigma}-\log\kappa_{R,\sigma}
+-\min_\alpha\sum_j\log\lambda_{j,\alpha,\sigma}\), and averaging over
+the embeddings gives the height bound. The block identity is the
+adjoint-scalar identity of
+\hyperlink{proof.fitted-row-gram-product}{the norm of the assembled row map}
+at the conjugating embedding. At the other embeddings it is the
+definition of the base row form \(H_{R,\sigma}\) there. Its release
+inputs are cited with those paragraphs. The relation between
+\(B_{K,w}\) and the base period is the definition of \(B_{K,w}\).
+Beyond these, the edition takes from the release only the factorization
+of the tested period through the column chain, with the evaluation
+and the column maps in these frames
+\releasecite{Formalism/LocalToGlobal/Divisibility/Inputs.lean}{319}{The factorization through the column chain}.
 In the specialized height the word term \(\mathrm{SZbP}(w)\) and
 the kernel place means bound the log squared norm before the
 inverse row identification. If \(L_{6,j}\) bounds each stage log
@@ -13619,59 +13953,102 @@ powers. With the rational coefficient form and its dual
 for the prescribed positive integer \(s\). The same notation
 for duality at \(v\) pairs the lattice at \(v\) with its conjugate
 at \(\bar v\). Let \(L=\bigoplus_c N_c^{\Gamma_c}\), with the
-class form of weight \(1/|\Gamma_c|\). For a vector \(y\in L^\#\)
-one can test against invariants supported at \(c\). The dual of
-the invariant intersection for the coefficient form is the
-orthogonal average of \(N_c^\#\). In fact restriction of an
-integral functional to the invariant intersection is surjective
-on the integral dual, since the intersection is saturated over
-each DVR. Its representing map on the rational spaces is the
-orthogonal average. Hence \(y_c/|\Gamma_c|\) is in that average
-of \(N_c^\#\), and \(sy_c\in D_c^{\Gamma_c}\), since
-\(\Gamma_c\) preserves \(D_c\). This proves \(sL^\#\subseteq L\).
-\releasecite{Formalism/QuotientMetricDivisors/HermitianTwistDivisors/ClassSumDualGeOfFamily.lean}{50}{The classwise duality}.
+class form of weight \(1/|\Gamma_c|\). Here \(\Gamma_c\) acts by
+isometries of the coefficient form and preserves \(N_c\) and
+\(D_c\). Let \(y\in L^\#\) and fix \(c\). The component \(y_c\) is
+\(\Gamma_c\)-invariant. For \(x\in N_c\) the orbit sum
+\(x'=\sum_{\gamma\in\Gamma_c}\gamma x\) lies in \(N_c^{\Gamma_c}\).
+The vector of \(L\) with component \(x'\) at \(c\) and zero
+elsewhere therefore pairs integrally with \(y\). By the invariance
+of the form and of \(y_c\) this pairing is
+\[
+ \frac{\langle x',y_c\rangle}{|\Gamma_c|}
+  =\frac1{|\Gamma_c|}\sum_{\gamma\in\Gamma_c}
+      \langle x,\gamma^{-1}y_c\rangle
+  =\langle x,y_c\rangle .
+\]
+Hence \(y_c\in N_c^\#\) and \(sy_c\in sN_c^\#\subseteq D_c\). Being
+invariant, \(sy_c\) lies in \(D_c^{\Gamma_c}\subseteq N_c^{\Gamma_c}\).
+This proves \(sL^\#\subseteq\bigoplus_cD_c^{\Gamma_c}\subseteq L\).
+The argument is the same over \(\mathcal O_K\) and over each
+completion, with the conjugate-place convention for local duals.
 
-For the row at principal level take the cut of \(L\) by the
-product of the central good-type idempotent \(e_X\) and the
-level-character idempotent \(e_P\). This product is self-adjoint.
-The ordinary character expression for \(e_X\) clears its
-denominator with \(|G|\), since the character values are
-algebraic integers. The averaging expression for \(e_P\)
-clears its denominator with \(|P|\). In the row form, which is
-the class form divided by \(|P|\), the dual of the cut is
-\(|P|e_Xe_P L^\#\), by the same restriction argument.
-Consequently \(s|G|\) takes this dual into the cut lattice.
-In an orthogonal quotient the dual of the projected lattice is
-the intersection with the dual of the source in the orthogonal
-section. Indeed evaluation on the projected lattice is evaluation
-on any lift, since the section is orthogonal to the kernel.
-The inclusion descends to \(s|G|Q_t^\#\subseteq Q_t\) on the
-row quotient lattice. Taking determinants gives
+For the row at principal level take the cut
+\(L_X=L\cap eX\) of \(L\) by the product \(e=e_Xe_P\) of the
+central good-type idempotent \(e_X\) and the level-character
+idempotent \(e_P\), where \(X\) is the rational class space. The
+group \(G\) acts on \(X\) by isometries of the class form and
+preserves \(L\). The idempotent \(e_X\) is a sum of central
+character idempotents
+\(\chi(1)|G|^{-1}\sum_g\chi(g^{-1})g\). The coefficients of \(|G|e_X\)
+are therefore sums of the algebraic integers \(\chi(1)\chi(g^{-1})\).
+They lie in \(K\), since \(e_X\) is defined over \(K\), hence in
+\(\mathcal O_K\), and \(|G|e_X\) maps \(L\) into \(L\). The averaging expression
+\(e_P=|P|^{-1}\sum_{p\in P}\psi(p)^{-1}p\) has root-of-unity
+coefficients, so \(|P|e_P\) maps \(L\) into \(L\). The two
+idempotents commute, since \(e_X\) is central, and each is
+self-adjoint because \(g^*=g^{-1}\) and the coefficient
+involution conjugates the character values. Hence \(e\) is a
+self-adjoint idempotent and \(|G||P|e\,L\subseteq L_X\).
+The row form is the class form divided by \(|P|\). Let \(w\in eX\)
+lie in the row dual of \(L_X\), so that
+\(\langle z,w\rangle\in|P|\mathcal O\) for \(z\in L_X\).
+For \(x\in L\) take \(z=|G||P|ex\). Since \(e\) is self-adjoint and
+\(ew=w\), one has \(\langle z,w\rangle=|G||P|\langle x,w\rangle\).
+Thus \(|G|\langle x,w\rangle\in\mathcal O\) for every \(x\in L\), so
+\(|G|w\in L^\#\) and \(s|G|w\in L\cap eX=L_X\). Consequently \(s|G|\)
+takes the row dual of the cut into the cut lattice.
+Now let \(S\) be the orthogonal complement in \(eX\) of the kernel of
+the row projection \(\pi\), and identify \(Q_t\) with \(\pi(L_X)\subseteq S\).
+For \(w\in S\) and \(z\in L_X\) one has \(\langle\pi z,w\rangle=\langle z,w\rangle\).
+Hence the dual of \(Q_t\) in \(S\) is the intersection of \(S\) with the
+dual of \(L_X\). Since \(\pi\) is the identity on \(S\),
+\[
+ s|G|Q_t^\#\subseteq S\cap L_X\subseteq\pi(L_X)=Q_t .
+\]
+If \(A\supseteq B\) are lattices then \(i_v(A,B)\ge0\), and
+\(i_v(A,aA)=d_{\rm row}\operatorname{ord}_v(a)\). As
+\(i_v(Q_t,Q_t^\#)=-\operatorname{ord}_v G_v(t)\), the inclusion gives
 \[
   \operatorname{ord}_v G_v(t)
        \le d_{\rm row}\operatorname{ord}_v(s|G|).
 \]
-The sign follows from \(i_v(Q_t,Q_t^\#)=-\operatorname{ord}_v G_v(t)\).
-The weighted contribution per row is at most
-\(L_G=\lambda_0+\log s\) by the product formula for \(s|G|\).
-\releasecite{Formalism/LocalToGlobal/Divisibility/ProjLemmas.lean}{1179}{Cancellation of the principal level order} and
-\releasecite{Formalism/LocalToGlobal/Divisibility/RowLatLemmas.lean}{806}{The quotient Gram bound}.
+For a positive rational integer \(a\) and a rational prime \(\ell\),
+\(\sum_{v\mid\ell}\lambda_v\operatorname{ord}_v(a)
+=\sum_{v\mid\ell}e_vf_v v_\ell(a)\log\ell/[K:\mathbf Q]
+=v_\ell(a)\log\ell\), where \(f_v\) is the residue degree. Summing over
+\(\ell\) gives \(\sum_v\lambda_v\operatorname{ord}_v(a)=\log a\). As
+\(\operatorname{ord}_v(s|G|)\ge0\), the weighted contribution per row
+over any set of places is at most \(\log(s|G|)\). Since
+\(\log|G|\le\lambda_0\), it is at most \(L_G=\lambda_0+\log s\).
 
-For the auxiliary stage write \(T_{jt}\) for the projection of
-the integral level lattice to \(Z_{j,t}\), and \(L_{jt}^{\cap}\)
-and \(D_{jt}^{\cap}\) for its intersections with the level
-lattice and with its Weyl comparison lattice. Let
+For the auxiliary stage write \(T_{jt}\) for the orthogonal
+projection of the integral level lattice \(\Lambda\) to \(Z_{j,t}\),
+and \(L_{jt}^{\cap}\) and \(D_{jt}^{\cap}\) for the intersections of
+\(Z_{j,t}\) with \(\Lambda\) and with its Weyl comparison lattice
+\(\bigoplus_cD_c^{\Gamma_c}\). Then
+\(D_{jt}^{\cap}\subseteq L_{jt}^{\cap}\subseteq T_{jt}\), the second
+inclusion because the projection fixes \(Z_{j,t}\). Let
 \(\eta^{\rm cut}_{jv}=\operatorname{length}_v(T_{jt}/L_{jt}^{\cap})\).
 Put \(g_{jt}=|P|\operatorname{lcm}_c|\Gamma_c|\), using the
 auxiliary classes of this stage and twist. The form on its
 level coordinates weights the coefficient forms by
-\((|P||\Gamma_c|)^{-1}\). To pair an element of \(D_{jt}^{\cap}\)
-against \(T_{jt}\), pair it against an integral lift using
-orthogonality. The inclusion \(sD_c\subseteq N_c^\#\) then gives
-\(sg_{jt}D_{jt}^{\cap}\subseteq T_{jt}^\#\). At a selected
-twisted place use the lifting exponent \(J^*_{jv}\) with
-\(\mathfrak p_v^{J^*_{jv}}L_{jt}^{\cap}\subseteq D_{jt}^{\cap}\).
-The total determinant change of the two inclusions gives
+\((|P||\Gamma_c|)^{-1}\). For \(x\in D_{jt}^{\cap}\) and
+\(\lambda\in\Lambda\), orthogonality of the projection gives
+\[
+ \langle P_Z\lambda,x\rangle=\langle\lambda,x\rangle
+ =\sum_c\frac{\langle\lambda_c,x_c\rangle}{|P||\Gamma_c|}.
+\]
+Here \(\langle\lambda_c,sx_c\rangle\) is integral by
+\(sD_c\subseteq N_c^\#\), and \(g_{jt}/(|P||\Gamma_c|)\) is an
+integer. Hence \(sg_{jt}D_{jt}^{\cap}\subseteq T_{jt}^\#\).
+At a selected twisted place use the lifting exponent \(J^*_{jv}\) with
+\(\mathfrak p_v^{J^*_{jv}}L_{jt}^{\cap}\subseteq D_{jt}^{\cap}\). Then
+\(sg_{jt}\mathfrak p_v^{J^*_{jv}}L_{jt}^{\cap}\subseteq T_{jt}^\#\).
+The lattice \(T_{jt}\) has rank \(d_{\rm row}\), and
+\(J_{jv}(t)=i_v(T_{jt},T_{jt}^\#)\) as for the row quotient.
+If \(C\subseteq B\) then \(i_v(A,C)\ge i_v(A,B)\). With additivity of
+\(i_v\) and \(i_v(T_{jt},L_{jt}^{\cap})=\eta^{\rm cut}_{jv}\) this gives
 \[
  J_{jv}(t)\le
    \eta^{\rm cut}_{jv}
@@ -13679,8 +14056,6 @@ The total determinant change of the two inclusions gives
 \]
 This formula applies also when the projection and intersection
 lattices coincide.
-\releasecite{Formalism/LocalToGlobal/Divisibility/LiftLat.lean}{116}{The projected, cut and comparison lattices} and
-\releasecite{Formalism/LocalToGlobal/Divisibility/LinkDef.lean}{78}{Lifting exponent and Gram contribution}.
 
 \teamanchor{proof.auxiliary-hecke-length}%
 \paragraph{The full good eigenspaces on the auxiliary stage.}
@@ -14422,19 +14797,30 @@ class Gram pairing on the cut uses
 and \(s_j\) for the chosen coefficient duality
 inclusion. The Weyl lifting exponent contributes
 to \(E_{1,j}\).
-With \(\lambda_v=\log|\kappa(v)|/[K:\mathbb Q]\),
-the first sum is at most \(\eta_j/D_0\). The
-actual selected twisted places lie in the specified
-support of \(\eta_j\), whose other terms
-\(\lambda_v e_v\eta_{jv}\) are nonnegative.
+With \(\lambda_v=\log|\kappa(v)|/[K:\mathbb Q]\), the first
+term at \(v\) is \(e_v\eta_{jv}/D_0\) by
+\eqref{eq:auxiliary-hecke-length-normalized}. The selected
+twisted places correspond to distinct places of the support of
+\(\eta_j\) with \(\boldsymbol\mu(v)\ne\boldsymbol\mu_0\), and the terms
+\(\lambda_ve_v\eta_{jv}\) of \(\eta_j\) are nonnegative. Hence the
+weighted first sum is at most \(\eta_j/D_0\). The edition takes from
+the release this correspondence, together with the identification of
+the weights, ramification indices and record defects at these places
+with those in the terms of \(\eta_j\)
+\releasecite{Formalism/LocalToGlobal/Divisibility/SumLeEtaSumNum.lean}{28}{The twisted places among the terms of \(\eta_j\)}.
 If \(g_{\rm gr}\) is the specified common multiple
-of the stage group factors, use
+of the stage group factors, then
 \(\operatorname{ord}_v(g_{j,\boldsymbol\mu(v)})
  \le\operatorname{ord}_v(g_{\rm gr})\).
-For any positive rational integer \(a\) the product
-formula gives
-\(\sum_{v\ {\rm finite}}\lambda_v\operatorname{ord}_v(a)
-=\log a\).
+For a positive rational integer \(a\) and a rational prime \(\ell\),
+with residue degrees \(f_v\),
+\[
+ \sum_{v\mid\ell}\lambda_v\operatorname{ord}_v(a)
+  =\frac{\log\ell}{[K:\mathbf Q]}\sum_{v\mid\ell}e_vf_v\,v_\ell(a)
+  =v_\ell(a)\log\ell .
+\]
+Summing over \(\ell\) gives
+\(\sum_{v\ {\rm finite}}\lambda_v\operatorname{ord}_v(a)=\log a\).
 All terms in the two group and depth sums are
 nonnegative, so extending them to all finite places
 proves
@@ -14442,9 +14828,6 @@ proves
  \label{eq:auxiliary-e2-weighted}
  E_{2,j}\le \eta_j/D_0+\log g_{\rm gr}+\log s_j .
 \end{equation}
-\releasecite{Formalism/LocalToGlobal/Divisibility/SumLeEtaSumNum.lean}{28}{The place weights and the support of the sum}
-\releasecite{Formalism/LocalToGlobal/Divisibility/LinkDef.lean}{85}{The local numerical contribution}
-\releasecite{Formalism/LocalToGlobal/Divisibility/LinkDef.lean}{162}{Its weighted global estimate}.
 
 \subsubsection{Weyl lattice comparisons on the auxiliary cut}
 
@@ -14467,15 +14850,31 @@ and intersecting the rational cut gives
  J^*_{jv}\le e_v J_A(p),\qquad
  J_A(p)=\sum_\rho A_p(\nu_\rho).
 \]
-Here \(J^*_{jv}\) is in uniformizer units, as is seen from
-the largest Smith exponent of \(D_{jt}^{\cap}\) in
-\(L_{jt}^{\cap}\). Finite extension of the DVR multiplies
-this exponent and \(e_v\) by the same ramification index.
-The trace-dual coordinate frames in \(\Delta\) and
-\(\nabla\) are calculated using the same selected
-embedding \(\tau_\rho:E\hookrightarrow K\).
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/SumExactExponentsSmulMemLocalizedCoeffLattice.lean}{118}{The tensor comparison in the same frames}, and
-\releasecite{Formalism/LocalToGlobal/Divisibility/LiftLatLemmas.lean}{741}{The uniformizer exponent}.
+Here \(J^*_{jv}\) is in uniformizer units: it is the least
+\(J\ge0\) with \(\mathfrak p_v^{J}L_{jt}^{\cap}\subseteq D_{jt}^{\cap}\)
+after localization, that is, the largest Smith exponent of
+\(D_{jt}^{\cap}\) in \(L_{jt}^{\cap}\). To prove the bound, localize
+at \(v\). At the label \(\rho\) both coefficient lattices are built on
+one lattice \(M_\rho\) of rank \(N\): the trace-dual frame of the
+\(\tau_\rho\)-image of a fixed \(\mathcal O_E\)-lattice in \(E^N\),
+computed with the selected embedding \(\tau_\rho:E\hookrightarrow K\). The dual Weyl lattice is
+cut out of the polynomial functions on \(M_\rho\) by integral linear
+equations, and the Weyl lattice is spanned by integral divided
+powers applied to the highest vector. Both constructions are
+transported by isomorphisms of free modules. Over the flat extension
+\(\mathbf Z_{(p)}\to O_v\) the first commutes with base change as a
+kernel and the second as a span. The localization of \(M_\rho\) is
+free over \(O_v\), so a basis identifies the pair at \(\rho\) with
+\(O_v\otimes\Delta_{\mathbf Z_{(p)}}(\nu_\rho)\subseteq
+O_v\otimes\nabla_{\mathbf Z_{(p)}}(\nu_\rho)\), and
+\(p^{A_p(\nu_\rho)}\) carries the second into the first. Tensoring
+over \(\rho\) gives \(p^{J_A(p)}\bigotimes_\rho\nabla\subseteq
+\bigotimes_\rho\Delta\). Multiplication by \(p^{J_A(p)}\) preserves
+class values, level invariance and the rational cut. Hence
+\(p^{J_A(p)}L_{jt}^{\cap}\subseteq D_{jt}^{\cap}\) after localization,
+and \(\operatorname{ord}_v(p)=e_v\) gives \(J^*_{jv}\le e_vJ_A(p)\).
+Finite extension of the DVR multiplies this exponent and \(e_v\) by
+the same ramification index.
 
 \paragraph{The parabolic comparison.}
 \teamanchor{proof.weyl-andersen}%
@@ -16124,15 +16523,12 @@ this reference tuple.
 \teamanchor{proof.section-run-design}%
 \paragraph{The numerical choices common to the two section runs.}
 The two geometric comparisons below use the explicit row arrays
-and embedded geometric field in the following design. To apply
-the comparisons at the indices of the period and trace
-constructions, require that these exact rows and this field
-be retained by both marked runs on the same chosen records,
-including \(i_0\) and every \(i(u)\) used in the assembly.
-This identification is the separate condition described in
-\hyperlink{proof.section-run-family-identification}{Section~\ref{sec:assembly}}.
-The following arguments establish the estimates on the
-identified objects.
+and embedded geometric field in the following design. Both marked
+runs retain these exact rows and this field on the same chosen
+records, including \(i_0\) and every \(i(u)\) used in the assembly.
+\hyperlink{proof.section-run-family-identification}{Section~\ref{sec:assembly}}
+traces this identification to the release. The following arguments
+establish the estimates on these objects.
 
 Use the translated witnesses with the explicit Harish--Chandra
 rows and the initial embedded coefficient field of the common
@@ -16400,25 +16796,33 @@ throughout.
 
 \paragraph{The coefficient field in the section heights.}
 \teamanchor{proof.section-run-coefficient-field}%
-Use the geometric \(K_0\) carried by the original marked
-selection. Its initial construction is over the fixed two
-type primes and the two choices of own prime. The data
-needed for its size estimate are the embedded \(E\), the
-Weber values at \(Qp_o\) for both \(p_o\), the indicated
+Use the geometric \(K_0\) carried by the selected index. Its initial
+construction is over the fixed two type primes and the two choices of
+own prime. The data needed for its size estimate are the embedded
+\(E\), the Weber values at \(Qp_o\) for both \(p_o\), the indicated
 roots of unity, and the ideal and type-norm generators.
 In the original construction the Weber values lie in
 the ray fields of \(\mathbf Q(\sqrt{-d})\) of moduli \(Qp_o\).
-The chosen field is installed before making the tied stages.
+The field is installed with the base column choice before the stages
+are made, and the base coefficient field is required to equal the
+field generated by these data and the values of the frame characters
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/PositionOfIntro.lean}{23}{The field fixed with the base column choice}.
 The coefficient identification sends its entire ring of
 integers to the chosen embedded integral coefficient ring.
 Conversely, those coefficient values are precisely the
 images of its integers. Taking fractions identifies the
 embedded fields. This is the geometric \(K_0\) used on
-both runs whenever the two tied records retain this
-original coefficient identification.
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsRecordOverChoices.lean}{51}{The field chosen over already fixed levels}
-and
+both runs at every selected index, as traced in
+\hyperlink{proof.section-run-family-identification}{Section~\ref{sec:assembly}}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{28}{The exact field at both auxiliary levels}
+and, under the pinned-field condition,
 \releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/FieldSmallIffOpo.lean}{10}{Identity with the geometric coefficient field}.
+The next five paragraphs bound the field generated by the listed
+data in the original construction. The bound
+\(s(K_0)\le P_O\) for the whole field, including the frame
+character values, is proved in the three paragraphs following
+them, beginning with
+\hyperlink{proof.section-run-whole-field}{the whole coefficient field}.
 
 Write \(s(K)=\max(\log[K:\mathbf Q],\log\operatorname{rd}(K))\).
 The degree formula and the different under base change give
@@ -16437,8 +16841,9 @@ Minkowski's bound represents every ideal class by an integral
 ideal of norm at most \(\operatorname{rd}(E)^f\).
 Counting these ideals by the absolutely convergent sum
 at \(2\) gives
-\(\log h_E\le2f\log\operatorname{rd}(E)+2f\log\zeta(2)\le fL\)
-at a common threshold. The orders of the roots used in the
+\(\log h_E\le2f\log\operatorname{rd}(E)+2f\log\zeta(2)\le(4L+1)f
+\le\tfrac{17}{4}fL\), since \(\log\operatorname{rd}(E)\le2L\),
+\(\log\zeta(2)<\tfrac12\) and \(L\ge4\). The orders of the roots used in the
 geometric field are
 \[
  \begin{gathered}
@@ -16482,10 +16887,10 @@ passes add at most \(m\log h_E\) to either logarithmic size.
 and
 \releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsCapitulationFieldSize.lean}{205}{The type-norm version with the metric normalization}.
 
-Using \(m\le f\), \(L\ge4\), and the bounds on the installed
+Using \(m\le f\), \(f\ge2\), \(L\ge4\), and the bounds on the installed
 primes gives the following generous total:
 \[
- s(K_0)\le fr^2(18L+2)+(m+4)fL+(79f+190)L
+ s(K_0)\le fr^2(18L+2)+\tfrac{17}{4}(m+4)fL+(79f+190)L
         \le 19fr^2L+198f^2L=P_O .
 \]
 This uses the geometric field before adjoining the values of
@@ -16496,6 +16901,263 @@ allowance are \([K_0:\mathbf Q]\) and \(\operatorname{rd}(K_0)\).
 Normalized heights of these sections are unchanged under
 subsequent scalar extensions by the local degree formula.
 \releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsIsRayIntermediateField.lean}{81}{The size calculation in the original field construction}.
+
+\paragraph{The whole coefficient field.}
+\teamanchor{proof.section-run-whole-field}%
+Put \(n=Qp_{\rm de}p'_{\rm de}\) and \(\mathfrak n=n\mathcal O_E\).
+Let \(R\subset\mathbf C\) be the ray class field of \(E\) of modulus
+\(\mathfrak n\), embedded over \(\varphi_0\), and let
+\(h_R=[R:E]=|\operatorname{Cl}_{\mathfrak n}(E)|\). Let
+\(N=\operatorname{lcm}\bigl(\prod_{i=0}^1|\operatorname{GL}_r(\mathbf F_{g_i})|^f,\,3^45^4\bigr)\).
+For an integer \(a\ge1\) let \(V_a\) be the field generated over
+\(\varphi_0(E)\) by \(\mu_a\) and by all \(z\in\mathbf C\) with
+\(z^a=\varphi_0(y)\), where \(y\in E^\times\) and the fractional ideal
+\((y)\) is an \(a\)-th power. If \(a\mid b\) then \(V_a\subseteq V_b\), since
+\(z^b=\varphi_0(y^{b/a})\) and \((y^{b/a})\) is a \(b\)-th power.
+The field fixed with the base column choice is the compositum
+\[
+ K_0=\varphi_0(E)\,M'\,R\,K_{\rm rt}\,K_{\rm ch}\prod_{j=1}^mK_{\Psi,j}.
+\]
+Here \(M'\) is generated by \(\sqrt{-d}\), the \(j\)-invariant of the
+chosen elliptic curve \(A\) with complex multiplication by the integers
+of \(\mathbf Q(\sqrt{-d})\), the coordinates of its \(12\)-torsion points
+and the twelfth roots of its discriminant. The field \(K_{\rm rt}\) is
+generated by the roots of unity of orders
+\(\prod_i|\operatorname{GL}_r(\mathbf F_{g_i})|^f\), \(g_i(g_i-1)\),
+\(81\) and \(625\). The field \(K_{\rm ch}\) is generated by the values
+\(\chi(\mathfrak v)\operatorname{N}\mathfrak v^{-r_\chi/2}\) at the primes
+\(\mathfrak v\) where \(\chi\) is unramified, with \(\chi(\mathfrak v)\) the
+value of \(\chi_{\mathfrak v}\) at a uniformizer, for the frame characters
+\(\chi=\mu_{0,j}\) and the two depletion characters with \(r_\chi=0\)
+and for \(\eta\) with \(r_\eta=1\), together with the values of the two
+injective characters \(\omega_k\) of \((\mathbf Z/g_k)^\times\). For a
+stage signature \((p_j,\rho_j)\) the field \(K_{\Psi,j}\) is generated
+over \(\varphi_0(E)\) by \(\mu_{h_E}\) and by roots \(\psi_i\) with
+\(\psi_i^{h_i}=\varphi_0(N_j(\gamma_i))\). Here \(\mathfrak c_i\) runs
+over a basis of the class group of \(E\), \(h_i\) is the order of its
+class, \(\mathfrak c_i^{h_i}=(\gamma_i)\), and
+\(N_j(x)=\prod_\sigma\sigma(x)^{p_j}(c\sigma(x))^{\rho_j}\) is the stage
+type norm, with \(\sigma\) running over the Galois lifts of \(\Psi\)
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/FixedCoefficientFieldInComplex.lean}{501}{The generators of the base field}.
+The field datum requires the chosen curve \(A\) to be given by a
+Weierstrass equation over \(F_j=\mathbf Q(j(A))\) and to have good
+reduction at every prime of \(F_j\) not dividing \(d\)
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/FixedCoefficientFieldInComplex.lean}{434}{The curve in the field datum}.
+Here \(d>3\) is a prime congruent to \(7\bmod16\), so
+\(\mathbf Q(\sqrt{-d})\) has prime discriminant \(-d\) and such a curve
+exists: Gross's curve \(A(d)\) over \(F_j\) has good reduction outside
+\(d\) and minimal discriminant \((-d^3)\), as recalled in
+\cite[\S3, before Proposition~3.2]{sr1-gross-minimal}.
+The characters \(\mu_{0,j}\) are unitary, tame, unramified outside
+\(g_0g_1\), with infinity exponents \(n_\tau=-2e_j(\tau)\) on \(\Psi\)
+for integers \(e_j(\tau)\). The character \(\eta\) is unitary, unramified everywhere,
+with infinity type \(1\) on \(\Psi\). The depletion characters have
+finite order, are tame, and are unramified outside \(p_{\rm de}\) and
+\(p'_{\rm de}\) respectively
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/IsRationalUnitaryDeterminantMap.lean}{152}{The frame characters}.
+We show that \(K_0\subseteq\Omega=M'\,R\,\mathbf Q(\mu_N)\,V_{h_R}\).
+
+For a prime \(g\) and \(r\ge2\),
+\(|\operatorname{GL}_r(\mathbf F_g)|=\prod_{i=0}^{r-1}(g^r-g^i)\) has
+the factor \(g^{r-1}(g-1)\), which is divisible by \(g(g-1)\). Hence
+\(K_{\rm rt}\subseteq\mathbf Q(\mu_N)\). The values of \(\omega_k\) lie in
+\(\mu_{g_k-1}\subseteq\mathbf Q(\mu_N)\). The field \(R\) contains the
+Hilbert class field of \(E\), so \(h_E\mid h_R\). Since \(E\) is Galois
+and CM, \(N_j(\gamma_i)\) is a product of integral powers of Galois
+conjugates of \(\gamma_i\), and its ideal is the \(h_i\)-th power of the
+corresponding product of conjugates of \(\mathfrak c_i\). Hence
+\(\psi_i\in V_{h_i}\subseteq V_{h_E}\subseteq V_{h_R}\), and
+\(\varphi_0(E)K_{\Psi,j}\subseteq V_{h_R}\). Now let \(\chi\) be a
+Hecke character of \(E\) which is tame everywhere, unramified outside
+\(\mathfrak n\), and has
+\(\chi_\infty(k)=\prod_{\tau\in\Psi}(\tau(k)/|\tau(k)|)^{n_\tau}\) with
+\(n_\tau\equiv r_\chi\pmod2\). Let \(\mathfrak v\) be a prime at which
+\(\chi\) is unramified and let \(\mathfrak n'\) be the part of
+\(\mathfrak n\) prime to \(\mathfrak v\). The ray class group of
+modulus \(\mathfrak n'\) is a quotient of
+\(\operatorname{Cl}_{\mathfrak n}(E)\), so
+\(\mathfrak v^{h_R}=(k)\) with \(k\equiv1\bmod^\times\mathfrak n'\).
+Evaluate \(\chi\) on the principal idele \(k\). At finite places
+outside \(\mathfrak n\mathfrak v\) the element \(k\) is a unit and
+\(\chi\) is unramified. At places dividing \(\mathfrak n'\) it lies in
+\(1+\mathfrak p_w\), where the tame \(\chi_w\) is trivial. Therefore
+\(\chi(\mathfrak v)^{h_R}\chi_\infty(k)=1\). Since
+\(\operatorname{N}\mathfrak v^{h_R}=\prod_{\tau\in\Psi}|\tau(k)|^2\),
+the value \(z=\chi(\mathfrak v)\operatorname{N}\mathfrak v^{-r_\chi/2}\)
+satisfies
+\[
+ z^{h_R}=\prod_{\tau\in\Psi}\tau(k)^{-n_\tau}
+ \bigl(\tau(k)\overline{\tau(k)}\bigr)^{(n_\tau-r_\chi)/2}.
+\]
+Write \(\tau=\varphi_0\sigma_\tau\) and
+\(\bar\tau=\varphi_0c\sigma_\tau\) with \(\sigma_\tau\) in the Galois
+group. Then \(z^{h_R}=\varphi_0(y)\), where \((y)\) is a product of
+integral powers of the ideals \(\sigma(\mathfrak v)^{h_R}\). Hence
+\(z\in V_{h_R}\). This applies
+to \(\mu_{0,j}\) with \(n_\tau=-2e_j(\tau)\), to \(\eta\) with \(n_\tau=1\),
+and to the depletion characters with \(n_\tau=0\), since a character
+of finite order is trivial on the connected group at infinity. Thus
+\(K_{\rm ch}\subseteq V_{h_R}\mathbf Q(\mu_N)\), and \(K_0\subseteq\Omega\).
+
+Now bound the four factors of \(\Omega\). Write
+\(\ell_E=\log\operatorname{rd}(E)\). At the selected index the host
+satisfies \(L\ge4\), \(\ell_E\le2L\), \(\log g_i\le9L+1\) and
+\(\log p_{\rm de},\log p'_{\rm de}\le L\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/EventuallyConstructedPointHostSizeNumerical.lean}{19}{The host bounds at the selected index}.
+Thus \(\log n\le20L+2\), and \(\log d\le2\ell_E\le4L\) because
+\(\mathbf Q(\sqrt{-d})\subseteq E\) has discriminant \(-d\), so
+\(\tfrac12\log d=\log\operatorname{rd}(\mathbf Q(\sqrt{-d}))\le\ell_E\).
+The bound above gives \(\log h_E\le(4L+1)f\). The ray class sequence
+gives \(h_R\le h_E|(\mathcal O_E/\mathfrak n)^\times|\le h_En^{2f}\),
+so \(\log h_R\le f(44L+5)\). By the conductor--discriminant formula
+each of the \(h_R\) characters of \(\operatorname{Cl}_{\mathfrak n}(E)\)
+has conductor dividing \(\mathfrak n\), so the relative discriminant
+of \(R/E\) divides \(\mathfrak n^{h_R}\) and
+\(\operatorname{rd}(R)\le\operatorname{rd}(E)\operatorname{N}(\mathfrak n)^{1/2f}
+=n\operatorname{rd}(E)\) \cite[Ch.~VI, \S1 and Ch.~VII, (11.9)]{i2-neukirch}.
+The cyclotomic field has degree at most \(N\) and root discriminant
+at most \(N\), since its discriminant divides \(N^{\varphi(N)}\)
+\cite[Prop.~2.7]{i2-washington}. Moreover
+\(\log N\le fr^2(\log g_0+\log g_1)+\log(3^45^4)\le fr^2(18L+2)+11\).
+For the two remaining factors we prove, with \(u=f-1\) the unit rank
+of \(E\) and every integer \(a\ge1\),
+\begin{equation}\label{eq:sr1-torsion-kummer-sizes}
+ \begin{gathered}
+ \log[M':\mathbf Q]\le\log d+20,\qquad
+ \log\operatorname{rd}(M')\le3\log d+20,\\
+ \log[V_a:\mathbf Q]\le\log2f+(u+2)\log a+\log h_E,\qquad
+ \log\operatorname{rd}(V_a)\le\ell_E+(u+3)\log a+\log h_E .
+ \end{gathered}
+\end{equation}
+The root-discriminant bound for \(V_a\) has one more \(\log a\) than
+the corresponding statement in the release; the final sum below absorbs it.
+
+\teamanchor{proof.section-run-field-sizes}%
+Both bounds use one estimate for the different. Let
+\(\mathcal Y/\mathcal X\) be a Galois extension of number fields such
+that every finite prime of \(\mathcal X\) ramified in \(\mathcal Y\)
+lies over a rational prime in a finite set \(S\). Then
+\begin{equation}\label{eq:sr1-rd-galois}
+ \log\operatorname{rd}(\mathcal Y)\le\log\operatorname{rd}(\mathcal X)
+ +\sum_{p\in S}\log p+\log[\mathcal Y:\mathcal X].
+\end{equation}
+Indeed, let \(\mathfrak P\) be a prime of \(\mathcal Y\) over
+\(\mathfrak p\) of \(\mathcal X\) and over \(p\), with
+\(e=e(\mathfrak P/\mathfrak p)\). Locally the different of
+\(\mathcal Y/\mathcal X\) at \(\mathfrak P\) is that of the totally
+ramified part of degree \(e\) over the maximal unramified
+subextension \(U\). It is generated by \(g'(\pi)\), where \(\pi\) is a
+uniformizer with Eisenstein polynomial
+\(g=X^e+a_{e-1}X^{e-1}+\cdots+a_0\) over \(U\). The terms
+\(ia_i\pi^{i-1}\) \((1\le i<e)\) and \(e\pi^{e-1}\) of \(g'(\pi)\) have
+\(\mathfrak P\)-valuations in the distinct classes \(i-1\) and
+\(e-1\) modulo \(e\). Hence
+\(v_{\mathfrak P}(\mathfrak D_{\mathcal Y/\mathcal X})\le
+e-1+v_{\mathfrak P}(e)\)
+\cite[Ch.~III, \S6]{sr1-serre-local}.
+Since \(e\le e(\mathfrak P/p)\), \(v_{\mathfrak P}(e)=e(\mathfrak P/p)v_p(e)\),
+and \(e\) divides \([\mathcal Y:\mathcal X]\) because the extension is
+Galois, we get
+\(v_{\mathfrak P}(\mathfrak D_{\mathcal Y/\mathcal X})<
+e(\mathfrak P/p)\bigl(1+v_p([\mathcal Y:\mathcal X])\bigr)\), and the
+valuation is zero unless \(p\in S\). By the tower formula
+\(|d_{\mathcal Y}|=|d_{\mathcal X}|^{[\mathcal Y:\mathcal X]}
+\operatorname{N}_{\mathcal Y/\mathbf Q}(\mathfrak D_{\mathcal Y/\mathcal X})\)
+\cite[Ch.~III, \S2]{i2-neukirch} and
+\(\sum_{\mathfrak P\mid p}e(\mathfrak P/p)f(\mathfrak P/p)=[\mathcal Y:\mathbf Q]\),
+\[
+ \log\operatorname{rd}(\mathcal Y)-\log\operatorname{rd}(\mathcal X)
+ =\sum_{\mathfrak P}\frac{f(\mathfrak P/p)v_{\mathfrak P}(\mathfrak D_{\mathcal Y/\mathcal X})\log p}{[\mathcal Y:\mathbf Q]}
+ \le\sum_{p\in S}\bigl(1+v_p([\mathcal Y:\mathcal X])\bigr)\log p ,
+\]
+which is at most the right side of \eqref{eq:sr1-rd-galois}.
+
+\emph{The Kummer field \(V_a\).} Let \(S_a\subseteq E^\times\) be the
+group of \(y\) such that \((y)\) is an \(a\)-th power. It contains
+\(E^{\times a}\). Since \((y)=\mathfrak a^a\) determines \(\mathfrak a\),
+the map \(y\mapsto[\mathfrak a]\) induces a homomorphism
+\(S_a/E^{\times a}\to\operatorname{Cl}(E)[a]\). Its kernel is the image
+of \(\mathcal O_E^\times\): if \(\mathfrak a=(t)\) then \(yt^{-a}\) is a
+unit. By Dirichlet's unit theorem
+\(\mathcal O_E^\times\cong\mu(E)\times\mathbf Z^u\), so
+\(|\mathcal O_E^\times/\mathcal O_E^{\times a}|\le a^{u+1}\) and
+\(|S_a/E^{\times a}|\le a^{u+1}h_E\). Put
+\(E_a=\varphi_0(E)(\mu_a)\). The field \(V_a\) is the splitting field
+over \(\varphi_0(E)\) of the polynomials \(X^a-\varphi_0(y)\),
+\(y\in S_a\), so it is Galois over \(\varphi_0(E)\). For
+\(\sigma\in\operatorname{Gal}(V_a/E_a)\) and \(z^a=\varphi_0(y)\), the
+root of unity \(\sigma(z)/z\) depends only on the class of \(y\) in
+\(S_a/E^{\times a}\), and is multiplicative in it. This gives a
+homomorphism
+\(\operatorname{Gal}(V_a/E_a)\to\operatorname{Hom}(S_a/E^{\times a},\mu_a)\),
+injective because the \(z\) generate \(V_a\) over \(E_a\). Hence
+\([V_a:E_a]\le a^{u+1}h_E\), and with \([E_a:\varphi_0(E)]\le a\) we get
+\([V_a:\mathbf Q]\le2f\,a^{u+2}h_E\).
+The field \(\mathbf Q(\mu_a)\) is unramified outside the primes
+dividing \(a\), since its discriminant divides \(a^{\varphi(a)}\)
+\cite[Prop.~2.7]{i2-washington}; hence so is
+\(E_a/\varphi_0(E)\). Let \(\mathfrak P\) be a prime of \(E_a\) not
+dividing \(a\) and \(y\in S_a\). Then \(v_{\mathfrak P}(\varphi_0(y))=ak\)
+for an integer \(k\). With a uniformizer \(\pi\), the element
+\(z\pi^{-k}\) is a root of \(X^a-\varepsilon\) for a local unit
+\(\varepsilon\), which is separable modulo \(\mathfrak P\). So
+\(E_a(z)/E_a\) is unramified above \(\mathfrak P\), and so is the
+compositum \(V_a\). Now \eqref{eq:sr1-rd-galois} with \(S\) the primes
+dividing \(a\) gives
+\(\log\operatorname{rd}(V_a)\le\ell_E+\log a+\log(a^{u+2}h_E)\).
+This proves the two bounds for \(V_a\).
+
+\emph{The torsion field \(M'\).} Put \(K_d=\mathbf Q(\sqrt{-d})\),
+of discriminant \(-d\), and \(H=K_d(j(A))\). By the main theorem of
+complex multiplication \(H\) is the Hilbert class field of \(K_d\) and
+\([H:K_d]=h(-d)\) \cite[Ch.~II, Theorem~4.3]{sr1-silverman-advanced}.
+Thus \(H/K_d\) is unramified at all finite primes and
+\(\operatorname{rd}(H)=\operatorname{rd}(K_d)=\sqrt d\). Every class
+of primitive positive definite forms of discriminant \(-d\) contains
+a reduced form \(ax^2+bxy+cy^2\) with \(|b|\le a\le c\), and these
+classes correspond to the ideal classes of \(K_d\)
+\cite[Theorems~2.8 and~7.7]{sr1-cox}. Then
+\(4a^2\le4ac=d+b^2\le d+a^2\), so \(a\le\sqrt{d/3}\), and \(c\) is
+determined by \((a,b)\). Hence
+\(h(-d)\le\sum_{a\le\sqrt{d/3}}(2a+1)\le(\sqrt{d/3}+1)^2\le d\), as
+\(d\ge7\). The field \(M'\) is \(H(A[12])(\Delta^{1/12})\), where
+\(\Delta\) is the discriminant of the chosen equation. The Galois group
+over \(H\) acts faithfully on \(A[12]\cong(\mathbf Z/12)^2\), so
+\([H(A[12]):H]\le|\operatorname{GL}_2(\mathbf Z/4)|\,
+|\operatorname{GL}_2(\mathbf Z/3)|=96\cdot48=4608\). By the Weil pairing
+\(\mu_{12}\subseteq H(A[12])\)
+\cite[Ch.~III, Corollary~8.1.1]{sr1-silverman-aec}. So \(M'\) is the
+compositum of \(H(A[12])\) and the splitting field of \(X^{12}-\Delta\)
+over \(H\). It is Galois over \(H\) of degree at most
+\(4608\cdot12=55296\). Therefore
+\([M':\mathbf Q]\le2d\cdot55296<e^{12}d\).
+Let \(\mathfrak P\) be a prime of \(H\) of residue characteristic
+\(p\notin\{2,3,d\}\). Below \(\mathfrak P\) the curve has good
+reduction, so \(A[12]\) is unramified at \(\mathfrak P\)
+\cite[Ch.~VII, Proposition~4.1]{sr1-silverman-aec}. A change of
+variables gives an integral equation with unit discriminant
+\(u_0^{-12}\Delta\) at \(\mathfrak P\)
+\cite[Ch.~III, Table~3.1]{sr1-silverman-aec}, so
+\(12\mid v_{\mathfrak P}(\Delta)\). As for \(V_a\), adjoining
+\(\Delta^{1/12}\) to \(H(A[12])\supseteq\mu_{12}\) is unramified above
+\(\mathfrak P\). Hence \(M'/H\) is unramified outside \(\{2,3,d\}\),
+and \eqref{eq:sr1-rd-galois} gives
+\(\log\operatorname{rd}(M')\le\tfrac12\log d+\log(6d)+\log55296
+\le\tfrac32\log d+13\). This proves the two bounds for \(M'\).
+
+Degrees and root discriminants are submultiplicative in composita and
+monotone in subfields. With \(\log2f\le2f\), the logarithmic degree of
+\(\Omega\) is at most
+\[
+ fr^2(18L+2)+f(f+2)(44L+5)+f(4L+1)+4f+4L+31 ,
+\]
+and its logarithmic root discriminant is at most
+\(fr^2(18L+2)+f(f+2)(44L+5)+f(4L+1)+36L+33\). Using \(L\ge4\) and
+\(f\ge2\), the first sum is at most
+\(18.5fr^2L+(136+5+3+15)f^2L\), and the second is at most
+\(18.5fr^2L+(136+5+12)f^2L\), since \(36L+33\le12f^2L\). Both are at
+most \(19fr^2L+198f^2L=P_O\). Hence
+\(s(K_0)\le s(\Omega)\le P_O\) for the whole field.
 
 \paragraph{The scaled products and their local index.}
 Work on one of the two marked runs, at stage \(j\), and write
@@ -18791,51 +19453,86 @@ definite components have no isotropic directions.
 
 \paragraph{Decay and the initial weighted remainder norm.}
 \teamanchor{proof.section-division-finite-remainder}
-Let \(P\) be bounded and have no coefficients of half-trace at
-most \(c_1\). In \eqref{eq:section-division-fourier-translate}
-shift down by \(y_\tau=-3t_\tau(x)/4\) at all places.
-All the Gram determinant factors are in \([1/4,1]\),
-so the norm factor ratio is uniformly bounded, even when \(x\)
-or \(\xi\) varies. This gives
+Let \(P\) be a section of weight \(w\) with \(\|P(x)\|_w\le B\) on the
+whole component, and suppose that at every nonzero isotropic lattice
+vector it has no coefficients of half-trace at most \(c_1\). Fix such
+a vector \(\xi\) and a flag \(x\). In
+\eqref{eq:section-division-fourier-translate} shift down by
+\(y_\tau=-3t_\tau(x)/4\) at all places. This lies in the domain
+\(y_\tau>-t_\tau(x)\) of the flow. Since
+\(t_\tau(x)=1/(2c_\tau m_{\tau,p_0})\), the Gram determinant factors are
+\(1+2c_\tau y_\tau m_{\tau,j}=1-\tfrac34 m_{\tau,j}/m_{\tau,p_0}\),
+which lie in \([1/4,1]\) because \(0\le m_{\tau,j}\le m_{\tau,p_0}\).
+The norm factor is a fixed product of real powers of the absolute
+Gram minors, so the ratio \(n_w(x)/n_w(x_{u+iy})\) is bounded by a
+constant \(C_w\) depending only on \(w\), even when \(x\) or \(\xi\)
+varies. With \(\|a_\nu(x)\|_w=|a_\nu(x)|\,n_w(x)\) this gives
 \[
- \|a_\nu(x)\|_w\le C \exp\!\left(-3\pi\sum_\tau\nu_\tau t_\tau(x)\right).
+ \|a_\nu(x)\|_w\le C_wB \exp\!\left(-3\pi\sum_\tau\nu_\tau t_\tau(x)\right).
 \]
 Write \(\lambda_1(x)^2\) for the minimum nonzero value of
-the squared majorant \(\sum_\tau c_\tau\operatorname{maj}_{x,\tau}\).
-For sufficiently small \(\lambda_1(x)\) a nonzero lattice
-vector attaining this minimum is isotropic. Indeed
-\(|h_\tau(\xi_\tau,\xi_\tau)|\le
-\operatorname{maj}_{x,\tau}(\xi_\tau)\), so after clearing the
-fixed denominator, all absolute conjugates of \(h(\xi,\xi)\)
-are less than one. Its algebraic norm then forces it to be zero.
-At this vector \(t_\tau(x)\ge\lambda_1(x)^{-2}\) for all \(\tau\).
-For \(\lambda_1^2\le1\) and half-trace \(s=\sum_\tau\nu_\tau>c_1\)
-one has \(3\pi s/\lambda_1^2\ge
-\pi c_1/\lambda_1^2+(3\pi/2)s\). The nonnegative frequencies with
-bounded sum lie in a compact simplex in the fixed dual lattice.
-Their exponential sum with factor \(e^{-3\pi s/2}\) is finite.
-Summing the Fourier expansion therefore gives
+the squared majorant \(\sum_\tau c_\tau\operatorname{maj}_{x,\tau}\)
+on the lattice. It is attained, since this is a positive definite
+quadratic form on the real span of the lattice. Fix a positive
+integer \(d\) such that \(d\,h(v,v)\) is integral for every lattice
+vector \(v\); it exists because the values of \(h\) on the lattice lie
+in a finitely generated \(\mathcal O_E\)-submodule of \(E\). Put
+\(\delta_0=\min_\tau c_\tau/d\). If \(\lambda_1(x)^2<\delta_0\) and
+\(\xi\) attains the minimum, then for every \(\tau\)
 \[
- \|P(x)\|_w^2\le C_P e^{-2\pi c_1/\lambda_1(x)^2}
+ |h_\tau(\xi_\tau,\xi_\tau)|\le\operatorname{maj}_{x,\tau}(\xi_\tau)
+ \le\lambda_1(x)^2/c_\tau<1/d .
 \]
-when the minimum is small. Boundedness provides the same
-estimate with a larger constant elsewhere.
+The conjugates of the algebraic integer \(d\,h(\xi,\xi)\) are the
+numbers \(d\,h_\tau(\xi_\tau,\xi_\tau)\) and their complex conjugates.
+They all have absolute value less than one, so its norm is a rational
+integer of absolute value less than one, and \(h(\xi,\xi)=0\). Thus a
+shortest vector is isotropic, and at it
+\(t_\tau(x)=1/(c_\tau\operatorname{maj}_{x,\tau}(\xi_\tau))
+\ge\lambda_1(x)^{-2}\) for all \(\tau\).
+By the cusp mode analysis above the nonzero coefficients have
+\(\nu_\tau\ge0\), and they lie in the dual of the fixed real period
+lattice, which does not depend on \(\xi\) or \(x\). Let
+\(\lambda_1(x)^2<\delta_1=\min(\delta_0,1)\). For half-trace
+\(s=\sum_\tau\nu_\tau>c_1\) one has
+\(3\pi\sum_\tau\nu_\tau t_\tau(x)\ge3\pi s/\lambda_1^2
+\ge\pi c_1/\lambda_1^2+2\pi s\). The nonnegative dual frequencies with
+bounded half-trace lie in a compact simplex, so
+\(K_{\rm fr}=\sum_\nu e^{-2\pi s(\nu)}\), over all nonnegative dual
+frequencies, is finite. Summing the absolutely convergent Fourier
+expansion at flow parameter zero gives
+\(\|P(x)\|_w\le C_wBK_{\rm fr}e^{-\pi c_1/\lambda_1(x)^2}\).
+Where \(\lambda_1(x)^2\ge\delta_1\) one has
+\(\|P(x)\|_w^2\le B^2e^{2\pi c_1/\delta_1}e^{-2\pi c_1/\lambda_1(x)^2}\).
+Hence on the whole component
+\[
+ \|P(x)\|_w^2\le C_P e^{-2\pi c_1/\lambda_1(x)^2},
+ \qquad C_P=\max\bigl((C_wBK_{\rm fr})^2,\,B^2e^{2\pi c_1/\delta_1}\bigr).
+\]
 
 On the chosen marked run, \(S=\sum_k\|w_k\|^2\) satisfies
-\(e^{-2c\phi}\ll S\) and \(T c\phi\le c_1/\lambda_1^2\).
-For a section of weight \(w_F+T w_L\) satisfying the strengthened
-cusp condition, the decay estimate gives \(\|P\|^2\ll S^T\).
+\(e^{-2c\phi}\le K'S\) for a constant \(K'\), and
+\(T c\phi\le c_1/\lambda_1^2\) at every point. In particular \(S>0\).
+Since \(\pi>1\) and \(c_1/\lambda_1^2\ge0\), one has
+\(2\pi c_1/\lambda_1^2\ge2Tc\phi\), so
+\(e^{-2\pi c_1/\lambda_1^2}\le(e^{-2c\phi})^T\le K'^TS^T\).
+For a section \(P\) of weight \(w_F+T w_L\) satisfying the strengthened
+cusp condition this gives \(\|P\|^2\le C_PK'^TS^T\).
 Each subtracted leading term
-\(u_0^{T-|\alpha|}u^\alpha \theta_i'\) obeys the same bound,
-since each \(\|u_i\|^2\ll S\) and \(\theta_i'\) is bounded.
-Thus the remainder after subtracting the jets has
+\(u_0^{T-|\alpha|}u^\alpha \theta_i'\) obeys a bound of the same form.
+Indeed \(u_i=\sum_kz_{ik}w_k\), so Cauchy--Schwarz gives
+\(\|u_i\|^2\le(\sum_k|z_{ik}|^2)S\), and \(\theta_i'\) is bounded.
+For a sum of \(m\) terms the squared norm is at most \(m\) times the
+sum of the squared norms. Thus the remainder \(g\) after subtracting
+the jets satisfies \(\|g\|^2\ll S^T\) and, the invariant volume of
+\(Y\) being finite,
 \(\int_Y\|g\|^2 S^{-T}d\mu<\infty\). The constants in the
 decay and integral are used for finiteness in the rank argument.
 At the compact endpoint this follows directly from boundedness
 and the positive minimum of \(S\).
-\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/IsotropicThreshold.lean}{18}{The isotropy of a sufficiently short vector}
-\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/CuspidalDecayHolds.lean}{43}{Decay at the stated half-trace cutoff}
-\releasecite{Development/AbelianVarietyTheory/Proofs/TorusHaarMeasure/LeMulPowOfExpDecay.lean}{42}{Comparison with the scaled generator norm}.
+This paragraph uses no release statement beyond the flow, period and
+cusp-mode inputs cited in the previous paragraph and the two run
+inequalities just stated.
 
 \paragraph{The potential from the marked theta values.}
 \teamanchor{proof.section-division-cusp-potential}
@@ -19527,7 +20224,8 @@ ordinary value interpolation.
 \paragraph{Division of the section remaining after the jets.}
 \teamanchor{proof.section-division-skoda}
 Write \(A=\sum_{i=1}^D\|u_i\|^2\) and \(S=\sum_k\|w_k\|^2\), in
-the weight-\(w_L\) metric. For a section \(g\) of weight
+the weight-\(w_L\) metric. Both are bounded above, since the \(u_i\)
+and \(w_k\) are bounded sections. For a cusp section \(g\) of weight
 \(w_F+T w_L\) of order at least \(a_0=T-D\) at \(J\), assume
 \(\int_Y\|g\|^2 S^{-T}\,d\mu<\infty\).
 The weighted quotient norm required for the lift is
@@ -19535,19 +20233,30 @@ The weighted quotient norm required for the lift is
 \label{eq:section-division-wsk}
  \int_Y \|g\|^2 S^{-1/2} A^{-(T-1/2)}\,d\mu.
 \end{equation}
-On the complement of small neighbourhoods of \(J\) the transverse
-projective chart gives \(A\ge b_J S\), so this is bounded there by a
-constant times the assumed integral. Near each point of \(J\),
-\(A\asymp |z|^2\) in transverse coordinates and \(S\) is bounded below.
-The radial exponent is
-\(2a_0-2(T-1/2)+2D-1=0\), which gives finite local integral.
-At the compact endpoint \(S\) has positive minimum and the initial
-integral is finite for all sections.
+It is finite. Let \(U\) be the complement of small coordinate balls
+around the finitely many points of \(J\). The separation of the cut
+from the cusp gives \(A\ge b_J S\) on \(U\), so
+\(S^{-1/2}A^{-(T-1/2)}\le b_J^{-(T-1/2)}S^{-T}\) there and the
+integral over \(U\) is at most \(b_J^{-(T-1/2)}\) times the assumed
+integral. At a point of \(J\) the zeros are transverse. Hence the
+quotients \(z_1,\ldots,z_D\) of \(u_1,\ldots,u_D\) by a local
+holomorphic frame of the weight-\(w_L\) line are local holomorphic
+coordinates. As the metric is bounded above and below on a small
+ball, \(A\asymp|z|^2\) there. Also \(S\) is bounded below there,
+since the \(w_k\) have no common zero, and \(\|g\|^2\ll|z|^{2a_0}\)
+by the order of vanishing. The integrand is therefore
+\(\ll|z|^{2a_0-2T+1}=|z|^{1-2D}\). In polar coordinates on
+\(\mathbf C^D=\mathbf R^{2D}\) the radial integral is
+\(\int_0^\epsilon r^{1-2D}r^{2D-1}\,dr=\epsilon\), so each ball
+contributes a finite amount. At the compact endpoint the same local
+estimate applies at \(J\), and \(A\ge b_JS\) off its neighbourhoods
+follows by compactness.
 
 Set \(W=e^{-\phi_{w_F+T w_L}}S^{-1/2}A^{-(T-1/2)}\) in local frames.
-It is an invariant squared metric and dominates a positive constant
-times the corresponding Petersson metric because \(S\) and \(A\) are
-bounded above. In big-cell coordinates let \(s_i\) and \(v_k\) be the
+It is an invariant squared metric, finite off the measure-zero set
+\(\{A=0\}\), and
+\(W\ge(\sup S)^{-1/2}(\sup A)^{-(T-1/2)}e^{-\phi_{w_F+T w_L}}\).
+In big-cell coordinates let \(s_i\) and \(v_k\) be the
 holomorphic representatives of \(u_i\) and \(w_k\), and put
 \(A_{\rm hol}=\sum_i|s_i|^2\) and \(S_{\rm hol}=\sum_k|v_k|^2\).
 The powers of \(e^{-\phi_{w_L}}\) cancel and
@@ -19556,57 +20265,100 @@ The powers of \(e^{-\phi_{w_L}}\) cancel and
    =\phi_{w_F}-\log d_\mu
       +\tfrac12\log S_{\rm hol}+(T-\tfrac12)\log A_{\rm hol}.
 \]
-The last two logarithms are plurisubharmonic and the metric is
-smooth off the divisor of any nonzero \(s_i\). The row-gap inequality
-for \(\phi_{w_F}-\log d_\mu\) gives the surjectivity margin
-\(M>b_{\rm P}^2 f\min(p_0,r-p_0)+b_{\rm P}\).
-Using \eqref{eq:section-division-wsk} in that surjectivity result
-provides a holomorphic lift \(F\) with \(\mathcal P_{w_F+T w_L}F=g\).
-On the pseudoconvex big cell its upstairs norm is
+Here \(S_{\rm hol}>0\) everywhere and \(A_{\rm hol}>0\) off the
+divisor of any nonzero \(s_i\), so \(-\log W\) is smooth there.
+The last two logarithms are plurisubharmonic. Hence the row-gap
+inequality
+\(\partial\bar\partial(\phi_{w_F}-\log d_\mu)\ge M\partial\bar\partial\rho_*\)
+with the surjectivity margin \(M>b_{\rm P}^2 f\min(p_0,r-p_0)+b_{\rm P}\)
+holds also for \(-\log W-\log d_\mu\). By the finiteness of
+\eqref{eq:section-division-wsk}, the surjectivity result
+provides a holomorphic lift \(F\) on \(\mathcal F\) with
+\(\mathcal P_{w_F+T w_L}F=g\) and finite upstairs norm
+\(\int_{\mathcal F}|F|^2W/k_{b_{\rm P}}\,d\mu\). On the big cell,
+\(W k_{b_{\rm P}}^{-1}d_\mu\) equals
+\(A_{\rm hol}^{-(T-1/2)}e^{-\Phi_{\rm red}}\) in the frame of weight
+\(w_F+Tw_L\), so
 \[
  \int |F|^2 A_{\rm hol}^{-(D+a_0-1/2)} e^{-\Phi_{\rm red}}\,dz<\infty,
  \qquad
  \Phi_{\rm red}=\phi_{w_F}-\log d_\mu-b_{\rm P}\rho_*+\tfrac12\log S_{\rm hol},
 \]
 where \(dz\) denotes Lebesgue volume. The reduced weight
-\(\Phi_{\rm red}\) is plurisubharmonic by the same row gap.
+\(\Phi_{\rm red}\) is plurisubharmonic: the first three terms have
+Levi form at least \((M-b_{\rm P})\partial\bar\partial\rho_*\ge0\).
+The big cell is pseudoconvex, being a product of matrix balls and an
+affine space.
 
-For \(a\ge1\), apply Skoda's division theorem
-\cite[Theorem~1]{skoda-division} on this cell with \(D\) generators
-in dimension \(D\), so the parameter \(q_{\rm S}\) of the theorem
-is \(D-1\). Use \(\alpha q_{\rm S}=D+a-3/2>q_{\rm S}\).
-The input power of the sum of squares is
-\(-D-a+1/2\), and the output power is \(-D-a+3/2\).
-The estimate bounds the sum of squared quotient norms by
-\(\alpha/(\alpha-1)\) times the input norm squared.
-Apply the step \(a_0\) times. Grouping ordered products with the
-same monomial gives \(F=\sum_{|\alpha|=a_0}s^\alpha H_\alpha\)
-with holomorphic \(H_\alpha\) and finite norms with reference
-weight \(A_{\rm hol}^{-(D-1/2)}e^{-\Phi_{\rm red}}\).
-This last norm is stronger than the upstairs Petersson norm
-of weight \(w_F+D w_L\) with extra factor \(k_{b_{\rm P}}^{-1}\):
-the ratio of the Petersson density to the density just used is
-\(A^{D-1/2}S^{1/2}\), which is bounded.
-Extend each \(H_\alpha\) over the analytic complement of the
-big cell by local square-integrable removability in this metric.
-The bounded periodizations \(h_\alpha=\mathcal P_{w_F+D w_L}H_\alpha\)
-are cusp sections at the same marked level. Periodization commutes
-with the fixed automorphic monomials, so
-\(g=\sum_{|\alpha|=a_0}u^\alpha h_\alpha\).
+We use Skoda's division theorem \cite[Theorem~1, (3.1)--(3.2)]{skoda-division}
+in the following form. Let \(\mathcal U\subset\mathbf C^n\) be
+pseudoconvex, \(\varphi\) plurisubharmonic on \(\mathcal U\),
+\(g_1,\ldots,g_p\) holomorphic, \(\alpha_{\rm S}>1\) and
+\(q_{\rm S}=\min(n,p-1)\). If \(f\) is holomorphic with
+\(\int|f|^2|g|^{-2\alpha_{\rm S} q_{\rm S}-2}e^{-\varphi}<\infty\), where
+\(|g|^2=\sum_j|g_j|^2\), then \(f=\sum_jg_jh_j\) with holomorphic
+\(h_j\) and
+\(\int\sum_j|h_j|^2|g|^{-2\alpha_{\rm S} q_{\rm S}}e^{-\varphi}\le
+\frac{\alpha_{\rm S}}{\alpha_{\rm S}-1}\int|f|^2|g|^{-2\alpha_{\rm S} q_{\rm S}-2}e^{-\varphi}\).
+Suppose first \(D\ge2\). Take the big cell, \(n=p=D\),
+\(g_i=s_i\) and \(\varphi=\Phi_{\rm red}\). Then \(q_{\rm S}=D-1\ge1\)
+and \(|g|^2=A_{\rm hol}\). Let \(1\le a\le a_0\) and let \(G\) be
+holomorphic on the cell with
+\(\int|G|^2A_{\rm hol}^{-(D+a-1/2)}e^{-\Phi_{\rm red}}dz<\infty\).
+Put \(\alpha_{\rm S}=(D+a-3/2)/(D-1)\). Then \(\alpha_{\rm S}>1\) since \(a>1/2\),
+and \(\alpha_{\rm S} q_{\rm S}+1=D+a-1/2\). The theorem writes
+\(G=\sum_is_iG_i\) with
+\(\int\sum_i|G_i|^2A_{\rm hol}^{-(D+(a-1)-1/2)}e^{-\Phi_{\rm red}}dz<\infty\).
+Apply this to \(F\) with \(a=a_0\), then to each coefficient with
+\(a=a_0-1\), and so on down to \(a=1\). Grouping the ordered products
+with the same monomial gives \(F=\sum_{|\alpha|=a_0}s^\alpha H_\alpha\)
+with holomorphic \(H_\alpha\) and
+\(\int|H_\alpha|^2A_{\rm hol}^{-(D-1/2)}e^{-\Phi_{\rm red}}dz<\infty\).
+If \(D=1\) there is one generator \(s_1\). Its zeros on the cell are
+the lifts of \(J\), and they are simple by transversality. Near such a
+zero \(e^{-\Phi_{\rm red}}\) is bounded below, as \(\Phi_{\rm red}\) is
+locally bounded above. Integrability of \(|F|^2|s_1|^{-2a_0-1}\) in one
+variable forces \(F\) to vanish to order at least \(a_0\) there. Thus
+\(H=F/s_1^{a_0}\) is holomorphic, with the same finite integral against
+\(A_{\rm hol}^{-1/2}e^{-\Phi_{\rm red}}\). If \(a_0=0\) take \(H=F\).
+
+The density just used is comparable with the upstairs Petersson
+density of weight \(w_F+D w_L\) with extra factor \(k_{b_{\rm P}}^{-1}\).
+Indeed the ratio of the latter to the former is
+\(e^{-D\phi_{w_L}}A_{\rm hol}^{D-1/2}S_{\rm hol}^{1/2}=A^{D-1/2}S^{1/2}\),
+which is bounded. Thus each \(H_\alpha\) has finite norm on the cell
+for \(e^{-\phi_{w_F+Dw_L}}k_{b_{\rm P}}^{-1}d\mu\). Since \(\rho_*\ge0\),
+this density dominates a positive smooth density in local frames near
+every point of the analytic complement of the big cell. Hence
+\(H_\alpha\) extends to \(\mathcal F\) by local square-integrable
+removability, with the same finite norm. Poincar\'e summation with
+\(W=e^{-\phi_{w_F+Dw_L}}\) shows that
+\(h_\alpha=\mathcal P_{w_F+D w_L}H_\alpha\) is holomorphic, automorphic
+and bounded. By the cusp mode analysis at the weight \(w_F+Dw_L\) it
+is a cusp section at the same marked level. The identity
+\(F=\sum_\alpha u^\alpha H_\alpha\) holds on the cell, hence on the
+connected orbit \(\mathcal F\). Periodization commutes with the fixed
+automorphic monomials, and it is additive on these absolutely
+convergent sums, so \(g=\sum_{|\alpha|=a_0}u^\alpha h_\alpha\).
 
 For the localized fibre, take a bounded section \(g_0\) of weight
-\(w_F+k w_L\) vanishing on \(J\). Apply the argument to
-\(g_0u_0^{D+1}\), with base weight \(w_F+k w_L\) and \(T'=D+1\).
-The initial weighted integral is finite by
-\(\|u_0\|^2\ll S\), boundedness of \(g_0\), and finite invariant volume.
-The margin for the base weight persists since \(w_L\) is semipositive.
+\(w_F+k w_L\), \(k\ge0\), vanishing on \(J\). Apply the argument to
+\(g_0u_0^{D+1}\), with base weight \(w_F+k w_L\) and \(T'=D+1\), so
+that \(a_0=1\). The product is a bounded section, hence a cusp
+section, and it vanishes to order at least one at \(J\).
+The initial weighted integral is finite, since
+\(\|g_0u_0^{D+1}\|^2S^{-(D+1)}=\|g_0\|^2(\|u_0\|^2/S)^{D+1}\) is bounded
+by Cauchy--Schwarz and the invariant volume is finite.
+The margin for the base weight persists since \(w_L\) is semipositive:
+\(\partial\bar\partial\phi_{w_F+kw_L}\ge\partial\bar\partial\phi_{w_F}\).
 There is one division step, with exponents \(D+1/2\) and \(D-1/2\).
 It expresses \(g_0u_0^{D+1}=\sum_i u_i h_i\) with bounded cusp
 coefficients of weight \(w_F+(k+D)w_L\), as required on localizing at
 \(u_0\).
-\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/ArakelovVolumes/UpperBounds/OntoWeightStatementPf.lean}{50}{Finiteness of the singular remainder norm}
-\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/ArakelovVolumes/UpperBounds/UpDivStatementPf.lean}{30}{Iteration at the half-integer exponents}
-\releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/CuspFormVanishingAtPointsMulPowMemSpan.lean}{45}{Order-one division at the shifted weights}.
+The division argument uses no further release statement. Its inputs
+from the release are those cited in the preceding paragraphs: the
+margins, the separation and transversality of \(J\), and the inputs
+of the surjectivity and summation paragraphs.
 
 \paragraph{The ranks and the placed fibre.}
 \teamanchor{proof.section-generic-ranks}%
@@ -19620,13 +20372,25 @@ below.
 The interpolation and order-one division at the generic fibre
 identify the weight-\(w_F\) section evaluation on the localized
 algebra with that on the reduced complex intersection.
+At a complex specialization the kernel is found as follows. An
+element of weight \(w_F\) of the localization at \(u_0\) has the form
+\(g_0/u_0^k\) with a bounded section \(g_0\) of weight \(w_F+kw_L\).
+If it vanishes on \(J\), so does \(g_0\), since \(u_0\) is nonzero at
+every point of \(J\). The order-one division at the end of the division
+paragraph gives \(g_0u_0^{D+1}=\sum_iu_ih_i\) with bounded cusp
+sections \(h_i\) of weight \(w_F+(k+D)w_L\). Thus
+\(g_0/u_0^k=\sum_i(u_i/u_0)(h_i/u_0^{k+D})\) lies in the ideal
+generated by the \(u_i/u_0\). Conversely every element of this ideal
+vanishes on \(J\). Surjectivity of the evaluation is the value
+interpolation.
 The evaluations of \(C_{w_F}\) span this fibre.
 The short forms spanning \(C_{w_F}\)
 over \(K_0\) therefore give a basis \(\theta'_1,\ldots,\theta'_h\)
 by taking independent images over \(K_0(z)\). The evaluation
 matrix extends to every Gauss field, so the basis is fixed for
-all the places of this run and stage.
-\releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/CuspFormVanishingAtPointsMulPowMemSpan.lean}{45}{Order-one division after localization}
+all the places of this run and stage. The edition takes from the
+release the passage from the complex specialization to the generic
+fibre over \(K_0(z)\) and the resulting basis criterion:
 \releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/InBasisIffPointValuesLinearIndependentSpan.lean}{336}{The fibre basis and the complex values}.
 
 The lower rank estimate uses interpolation within the strengthened
@@ -21701,37 +22465,59 @@ embedding and applying (H9)--(H10) yields
 \]
 \releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/NormLineSectionPow.lean}{105}{Coefficient evaluation and its quotient norm}.
 
-For clarity, the binomial ratio gives
-\(k/(A-k)\ge n/((D+2)s_C)\).
-Indeed set \(s=s_C,u=u_C\), \(W=n+(K_1+1)s\), and
-\(z_1=K_1s/(n-s+1)\), \(z_2=M_1u/(n'-u+1)\).
-The product formula for the two binomial ratios gives
-\(A/k\le \exp(z_1+z_2)\).
-Using \(s\le h\), \(u\le K_1h\),
-\(n\ge8 M_1^2K_1h\) and \(M_1\ge K_1+1\) gives
+The binomial ratio gives \(k/(A-k)\ge n/((D+2)s_C)\).
+Set \(s=s_C\), \(u=u_C\) and \(W=n+(K_1+1)s=n+(D+2)s\). Here
+\(1\le s\le h\) and \(u\le K_1h\), since \(m_Cs_C\le h_C\le h\).
+For integers \(m\ge l\ge0\) and \(K\ge0\),
 \[
- z_1W\le K_1s+s/4,\qquad z_2W\le 2/7\le s/3 .
+ \binom{m+K}{K}\Big/\binom{m-l+K}{K}
+   =\prod_{j=m-l+1}^{m}\Bigl(1+\frac Kj\Bigr)
+   \le\exp\Bigl(\frac{Kl}{m-l+1}\Bigr).
 \]
-For the first inequality expand \(W=(n-s)+(K_1+2)s\)
-and use \(s/(n-s)\le1/(8M_1^2K_1-1)\).
-For the second use \(W\le2n\) and
-\(n'-u+1\ge7nM_1K_1h\).
-Hence \(1-z_1-z_2\ge n/W\), and
-\(\exp(z_1+z_2)\le(1-z_1-z_2)^{-1}\le W/n\).
-Also \(\log A+P_O\le n\). In fact \(n'M_1\le n^2\)
-and \(D\ge3\) give \(A\le n^{4M_1}\);
-\(\log n\le\sqrt n\), \(n\ge32M_1^2\), and \(P_O\le n/32\)
-give the desired bound. Insert these in (H11), use
-\(\overline{S_\sigma}\le G_0L_0\), and multiply by \(m_C\).
-The result is
+Apply this to \((n,s,K_1)\) and to \((n',u,M_1)\); note \(n'\ge u\).
+With \(z_1=K_1s/(n-s+1)\) and \(z_2=M_1u/(n'-u+1)\) it gives
+\(A/k\le \exp(z_1+z_2)\).
+Since \(n\ge 8M_1^2K_1h\ge8M_1^2K_1s\), one has
+\(n-s\ge(8M_1^2K_1-1)s\) and \((K_1+1)s\le n\), so \(W\le2n\).
+Writing \(W=(n-s)+(K_1+2)s\) gives
+\[
+ z_1W\le K_1s+\frac{K_1(K_1+2)s^2}{n-s}
+     \le K_1s+\frac{K_1(K_1+2)s}{8M_1^2K_1-1}\le K_1s+\frac s4 .
+\]
+The last step uses \(M_1\ge K_1+1\), whence
+\(8M_1^2K_1\ge8K_1(K_1+1)^2\ge4K_1(K_1+2)+1\).
+Also \(n'-u+1\ge8nM_1K_1h-K_1h\ge7nM_1K_1h\), so
+\(z_2W\le M_1K_1h\cdot2n/(7nM_1K_1h)=2/7\le s/3\).
+Hence \((z_1+z_2)W\le K_1s+7s/12\) and
+\(1-z_1-z_2\ge(n+5s/12)/W\ge n/W>0\).
+As \(e^z\le(1-z)^{-1}\) for \(0\le z<1\), we get \(A/k\le W/n\),
+that is, \((A-k)/k\le(D+2)s/n\).
+
+Also \(\log A+P_O\le n\). Writing
+\(\binom{m+K}{K}=\prod_{i=1}^K(m+i)/i\) gives
+\(\binom{m+K}{K}\le(m+1)^K\). From \(n\ge8M_1^2K_1h\) one gets
+\(n'M_1\le n^2\), hence \(n'+1\le n^2\), and also \(n+1\le n^2\).
+Thus \(A\le(n+1)^{K_1}(n'+1)^{M_1}\le n^{2K_1+2M_1}\le n^{4M_1}\),
+as \(K_1<M_1\). Since \(K_1\ge2\), \(h\ge1\) and
+\(\lceil P_O\rceil\ge1\), one has \(n\ge32M_1^2\). With
+\(\log n\le\sqrt n\) this gives \(\log A\le4M_1\sqrt n\le n/\sqrt2\).
+Also \(M_1\ge3\) gives \(n\ge144(1+P_O)\), so \(P_O\le n/32\), and
+\(\log A+P_O<n\).
+
+Now let \(C\) be a component with \(H_0(F_C)>0\), so that
+\(H_{\mathrm{tor}}(G_C)>0\). Then the right side of (H11) is
+positive. Use \(\log A+P_O\le n\) and \(\overline{S_\sigma}\le G_0L_0\)
+there, and multiply by \((A-k)/k\le(D+2)s_C/n\). This gives
+\(H_{\mathrm{tor}}(G_C)\le(D+2)s_C(P'_0 L_0+G_0 L_0+\log(N+1)+1)\).
+With \(H_0(F_C)\le m_CH_{\mathrm{tor}}(G_C)\) and
+\(m_Cs_C\le h_C\), the result is
 \[
  H_0(F_C)\le (D+2) h_C
        (P'_0 L_0+G_0 L_0+\log(N+1)+1).
 \]
-Summing over \(C\) proves (H8).
-\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/HupsChooseRatio.lean}{70}{Binomial ratio bound}
-and
-\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/SumLogHeightUpperBound.lean}{78}{The component sum}.
+When \(H_0(F_C)\le0\) this holds as well, since \(P'_0>0\),
+\(G_0>0\) and \(L_0\ge1\). Summing over \(C\) and using
+\(h=\sum_Ch_C\) proves (H8). These two steps use no release statement.
 
 At a coefficient place \(a\), use the Gauss extension with ring
 \(O'_a\), of uniformizer \(\varpi_a\), and write \(M=M_0\otimes O'_a\).
@@ -23284,7 +24070,7 @@ classification depend on the rational prime.
 \paragraph{The two transport indices.}
 \teamanchor{proof.near-level-transport}%
 The geometric indices used here are those of the two runs
-on the common tied record, under the identification in
+on the common tied record, with the identification in
 \hyperlink{proof.section-run-family-identification}{Section~\ref{sec:assembly}}.
 In particular the comparison uses their own-prime halves
 and their shared geometric coefficient field in the same
@@ -23941,11 +24727,14 @@ gives
 \[
  E_{2,j}\le \eta_j/D_0+\log g_{\rm gr}+\log s_j .
 \]
-Here \(\sum_v\lambda_v\operatorname{ord}_v(g)=\log g\)
-for a positive rational integer \(g\). Thus the first term is
-bounded by \eqref{eq:integral-selmer} on the actual twists.
-\releasecite{Formalism/LocalToGlobal/Divisibility/SumLeEtaSumNum.lean}{28}{Identification of the twisted length}.
-\releasecite{Formalism/LocalToGlobal/Divisibility/LinkDef.lean}{85}{Group-order and depth allowances}.
+This is \eqref{eq:auxiliary-e2-weighted}, derived in
+\hyperlink{proof.auxiliary-hecke-length-equality}{the twisted length paragraph}
+from the length identity and the product formula
+\(\sum_v\lambda_v\operatorname{ord}_v(g)=\log g\) for a positive
+rational integer \(g\). Only the identification of the twisted
+places with terms of \(\eta_j\) is taken from the release there.
+Thus the first term is bounded by \eqref{eq:integral-selmer} on the
+actual twists.
 With that bound the result is
 \begin{equation}
 \label{eq:arithmetic-height-bound}
@@ -26201,30 +26990,69 @@ the \(\tau\)-axis is the fractional ideal
 To see this, the trace-dual of \(I\) is
 \(I^{-1}\mathfrak D^{-1}\). The trace pairing becomes the dot
 product under \(E\otimes_{K_d}F'\simeq\prod_\tau F'\).
-The integral trace dual commutes with extension to \(\mathcal O_{F'}\)
-because \(I\) is finite projective over \(\mathcal O_{K_d}\).
+Indeed the \(\tau\) are the \([E:K_d]\) distinct
+\(K_d\)-embeddings of \(E\) into \(F'\), so this map is an
+isomorphism, and
+\(\sum_\tau\tau(x)\tau(y)=\operatorname{Tr}_{E/K_d}(xy)\) for
+\(x,y\in E\), with \(K_d\subset F'\) by the chosen embedding.
+Let \(M\) be the integral module and
+\(M^\vee=\{v:\ v\cdot M\subseteq\mathcal O_{F'}\}\).
+Since \(I\) is finite projective over \(\mathcal O_{K_d}\),
+\(M\simeq I\otimes_{\mathcal O_{K_d}}\mathcal O_{F'}\) and
+\(\operatorname{Hom}_{\mathcal O_{F'}}(M,\mathcal O_{F'})\) is the
+extension of \(\operatorname{Hom}_{\mathcal O_{K_d}}(I,\mathcal O_{K_d})\).
+The dot product is nondegenerate, so \(M^\vee\) is the image of
+\(I^{-1}\mathfrak D^{-1}\otimes_{\mathcal O_{K_d}}\mathcal O_{F'}\).
+Its \(\tau\)-coordinates form the fractional ideal
+\(\tau(I^{-1}\mathfrak D^{-1})\mathcal O_{F'}\).
+As a finite projective \(\mathcal O_{F'}\)-module of full rank,
+\(M\) is reflexive, so \(M=(M^\vee)^\vee\).
 Thus the axis vector with \(\tau\)-coordinate \(s\) belongs to the
-integral module exactly when it pairs integrally with the dual,
+integral module exactly when it pairs integrally with \(M^\vee\),
 or equivalently when
 \(s\,\tau(I^{-1}\mathfrak D^{-1})\mathcal O_{F'}\subseteq\mathcal O_{F'}\).
-Inverting this fractional ideal gives the stated intersection.
-\releasecite{Formalism/LocalToGlobal/GlobalTheory/GL3/CubicFields/DifferentIdeal/CoeIdealDifferentNeZero.lean}{25}{Coordinate line in the release}.
+Extension of fractional ideals from \(\tau(E)\) to \(F'\) is
+multiplicative. Inverting this fractional ideal therefore gives the
+stated intersection.
 
-For \(0\ne s\in J_\tau\) the host's mean logarithmic period in the
-squared norm convention is
+At an embedding \(\sigma:F'\hookrightarrow\mathbf C\) the theta
+metric on the \(\tau\)-axis is
+\(\|s\|_\sigma^2=\pi|\sigma(s)|^2/\operatorname{area}(\Lambda_\sigma)\).
+This is \(\pi H_\sigma(s,s)\) for the Riemann form
+\(H_\sigma(z,w)=z\bar w/\operatorname{area}(\Lambda_\sigma)\) of the
+principal polarization of \(\mathbf C/\Lambda_\sigma\). For
+\(\Lambda_\sigma=\omega_\sigma(\mathbf Z+\mathbf Z\tau_\sigma)\) its
+imaginary part takes the value \(-1\) on
+\((\omega_\sigma,\omega_\sigma\tau_\sigma)\).
+The host's mean logarithmic period \(\log\Omega\) is twice the
+normalized Arakelov degree of the Hermitian line
+\(\overline J_\tau=(J_\tau,\|\cdot\|)\) over \(F'\)
+\cite[\S\,2.3, (36)]{lt4bostchen}.
+For \(0\ne s\in J_\tau\), the finite places in (36) contribute
+\(\log[J_\tau:s\mathcal O_{F'}]\). Each complex place contributes
+its two conjugate embeddings, which have the same norm since
+\(\Lambda_{\bar\sigma}=\overline{\Lambda_\sigma}\). Hence, in the
+squared norm convention,
 \[
+ \log\Omega=
  \frac{2\log[J_\tau:s\mathcal O_{F'}]-
      \sum_\sigma\log\bigl(\pi|\sigma(s)|^2/
                          \operatorname{area}(\Lambda_\sigma)\bigr)}
       {[F':\mathbf Q]}.
 \]
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/GeneralLinearActions/IsDiscriminantTwelfthRootOfIdealLattice.lean}{157}{Metric and index conventions}.
+This is the normalization \(\deg_n\ell_j=\frac12\log\Omega\) of the
+axis lines in
+\hyperlink{proof.cm-frame-detector}{the CM frame comparison}, and
+the release defines the host period by the same formula.
 The index is
-\(|\operatorname{N}_{F'/\mathbf Q}s|/\operatorname{N}_{F'/\mathbf Q}J_\tau\).
+\(|\operatorname{N}_{F'/\mathbf Q}s|/\operatorname{N}_{F'/\mathbf Q}J_\tau\),
+and \(\sum_\sigma\log|\sigma(s)|^2=2\log|\operatorname{N}_{F'/\mathbf Q}s|\).
 Consequently the terms involving \(s\) cancel, and the remaining
 finite-ideal correction to \(\bar P\) is
 \(-2\log\operatorname{N}_{E/\mathbf Q}(I\mathfrak D)/[E:\mathbf Q]\)
-by extension of the ideal norm. Since
+by extension of the ideal norm:
+\(\operatorname{N}_{F'/\mathbf Q}J_\tau=
+\operatorname{N}_{E/\mathbf Q}(I\mathfrak D)^{[F':\mathbf Q]/[E:\mathbf Q]}\). Since
 \(\operatorname{N}(I\mathfrak D)^2=\operatorname{N}\mathfrak D\)
 and \(|\operatorname{disc}E|=d^{[E:K_d]}\operatorname{N}\mathfrak D\),
 this correction equals \(\log(\sqrt d/\operatorname{rd}(E))\).
@@ -26377,8 +27205,26 @@ Taking the quotient of consecutive masses and using
 For \(s\ge2\) the Euler factors give
 \(|\log L_F(s,\eta_{E/F}^{\,s})|\le f\log\zeta(s)\).
 
-In \(D_\star/d_w^*\) the factorials telescope against the Weyl
-denominators. Taking logarithms gives, uniformly in \(w\),
+Divide the two formulas for \(D_\star\) and \(d_w^*\). There are
+\(f\) embeddings \(\rho\), and \(r_{\rm row}=k+m-1\), so
+\[
+ \frac{D_\star}{d_w^*}
+ =\prod_{s=k+1}^{r_{\rm row}}\frac{\mathfrak M_s}{\mathfrak M_{s-1}}
+  \cdot\frac{I_{\rm row}}{I_{\rm col}}
+  \cdot\prod_{s=k+1}^{r_{\rm row}}\frac1{((s-1)!)^f}
+  \cdot\prod_\rho\frac{V(\mathbf y_\rho)}{V(\mathbf q_{\rho,w})},
+\]
+using \(J_{r_{\rm row}}/J_k=\prod_{s=k+1}^{r_{\rm row}}(s-1)!\).
+By \eqref{eq:arithmetic-mass-quotient} the factorials of the
+Weyl denominators cancel. The remaining exponents are
+\(f\sum_{s=k+1}^{r_{\rm row}}s=fk\bigl(m-1+\tfrac{m(m-1)}{2k}\bigr)\)
+for \(v_0/\pi\), \(f(m-1)/2\) for \((2v_0)^{-1}\), and
+\(fm(2k+m-1)/2=fk\bigl(m+\tfrac{m(m-1)}{2k}\bigr)\) for \(g_0g_1\).
+Taking logarithms and dividing by \(fk\) gives an exact identity.
+Its remainder is
+\(\frac1{fk}\sum_{s=k+1}^{r_{\rm row}}\log L_F(s,\eta_{E/F}^{\,s})
++\frac1k\sum_{i=0}^1\sum_{s=k+1}^{r_{\rm row}}\log(1-g_i^{-s})\).
+Bounding it gives, uniformly in \(w\),
 \begin{equation}
 \label{eq:arithmetic-level-quotient}
  \begin{split}
@@ -26394,8 +27240,8 @@ denominators. Taking logarithms gives, uniformly in \(w\),
 Indeed the mass contribution from the \(L\)-values is bounded by
 \((m-1)\log\zeta(2)/k\), and the finite-level Euler factors contribute
 at most \(2k^{-1}\sum_{i=0}^1\sum_{s>k}g_i^{-s}\) in absolute value.
+Here \(|\log(1-y)|\le2y\) for \(0\le y\le\frac12\).
 Both contributions are independent of the word.
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/TheoremThreeOfExplicitAndCompact.lean}{126}{Identity before bounding the products}.
 
 The Harish--Chandra arrays at a place \(\rho\) have the following
 form. Write \(v_i=v_{\rho,i}\) for the \(k-1\) nonnegative entries in
@@ -26474,11 +27320,40 @@ respectively. The prime window changes the lower bound by at most
   E_{\rm count}=C_{\rm count}L_a(1+m^2/k).
  \end{gathered}
 \end{equation}
-The calculation gives this statement at the chosen levels and
-with the actual stage weights. The corresponding arithmetic
-transport sums over the same stages and embeddings after the
-tied identifications.
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/JointsL.lean}{20}{Count at an actual index}.
+\teamanchor{proof.lt-count-at-index}%
+We derive \eqref{eq:arithmetic-count-at} at the chosen levels and
+with the actual stage weights. The prime window and
+\(0\le\log\Gamma/(fk)\le1\) give
+\[
+ \log X_w-2\ \le\ \log X_w-\frac{2\log\Gamma}{fk}\ \le\ \log T_w
+ \ \le\ \log X_w-\frac{2\log\Gamma}{fk}+\frac1{fk}\ \le\ \log X_w+1 .
+\]
+For the lower bound, drop the nonnegative terms with coefficient
+\(m(m-1)/(2k)\) in \eqref{eq:arithmetic-level-quotient}. Use
+\(\log(v_0/\pi)\le L\) and \(\frac{m-1}{2k}\log(2v_0)\le L\).
+At each of the \(f\) embeddings \(\rho\), which correspond to \(P\),
+insert the Vandermonde lower bound \(k\sum_j\log w_j-O(kL)\), with
+\(w_j=w_{u,j+1}(\rho)\). This gives
+\[
+ \log T_w\ \ge\ \sum_{j=1}^m\frac1f\sum_{r\in P}
+   \log(w_{u,j}(r)v_0/\pi)+m\lambda_g-O(L)-2 .
+\]
+Since \(L\ge1\) and \(L_a\ge L\), a large \(C_{\rm count}\) gives the
+first inequality. For the upper bound, \(m\le k\) bounds the
+coefficients in \eqref{eq:arithmetic-level-quotient} by \(3m/2\).
+The Vandermonde term is \(O(mL)\) after division by \(fk\), and
+\(\lambda_g\ll L\). Hence \(\log T_w\le\log X_w+1\ll mL\). For two
+words, the column Vandermonde is the only word-dependent term, so
+\(|\log X_w-\log X_{w'}|\ll\log k\). The common \(\Gamma\) gives
+\(|\log T_w-\log T_{w'}|\le|\log X_w-\log X_{w'}|+1/(fk)\). All
+constants depend only on the fixed comparison data.
+
+The bound is then used at the tied translates. The record's
+embeddings, the ranks \(f,m,k\), and \(v_0\), \(\lambda_g\) and the
+stage weights at \(i(u)\) are identified with the common data, as in
+item~(f) of the
+\hyperlink{proof.selection-construction-order}{selection order}.
+The edition takes this transport from the release.
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean}{641}{Transport to the tied translates}.
 
 \paragraph{The finite allowance and the word exponent.}
@@ -26713,12 +27588,13 @@ the exact identity for the leading terms is
 
 \subsection{The upper bound at each translate}
 
-Apply the two-run determinant bounds under the
+Apply the two-run determinant bounds with the
 \hyperlink{proof.section-run-family-identification}{common-record identification}
-and the source slope and height bounds under the
+and the source slope and height bounds with the
 \hyperlink{proof.ramified-donor-identification}{ramified donor identification}
-in Section~\ref{sec:assembly}. The resulting upper bound is conditional
-on both identifications and the stated candidate conclusions.
+in Section~\ref{sec:assembly}. Both identifications are supplied by
+the release. The resulting upper bound uses them and the stated
+candidate conclusions.
 
 Use the centered statistic
 \begin{equation}

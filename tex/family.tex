@@ -194,7 +194,7 @@ prime when choosing the second.
 \teamanchor{proof.auxiliary-primes}%
 For each fixed \(J\ge1\) and all sufficiently large \(Z\), we need one
 pair as above satisfying both assertions below. The classical proof for
-\(M=1\) follows. For fixed \(M>1\), Alp\"oge's
+\(M=1\) follows. For fixed \(M>1\), ai agent's
 \releasecite{Development/AutomorphicArithmetic/MeanSquareBounds/pairEx.lean}{112}{theorem on simultaneous quadratic twists}
 supplies such a pair.
 
@@ -496,10 +496,16 @@ Fix a nonnegative integer \(h(y)\) for each real \(y\ge1\) with
 \(y^{2+8\varepsilon}\le 2^{h(y)}\le2y^{2+8\varepsilon}\).
 The release
 \releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean}{4}{derives the Selmer window assertion}
-from local--global compatibility and base change. In the
+from Galois representations attached to polarized cuspidal
+representations over CM fields. In the
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean}{7}{application},
-the needed compatibility is
+these representations and the needed compatibility are
 \releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean}{6}{established from theta lifts}.
+The published theorems that cover most of this input, and the
+structure of the derivation, are described after the
+\hyperlink{candidate.family}{candidate} under
+\hyperlink{proof.selmer-galois-input}{the Galois input} and
+\hyperlink{proof.selmer-reconstruction}{the Selmer counts}.
 For the fixed \(\psi,\varepsilon,h\) it gives \(J\ge1\) and \(X_0\).
 For every \(X\ge X_0\) and every pair \(q,d\) with the size and
 congruence conditions at \(Z=X^{1/J}\), there is \(W\ge Z\) with
@@ -713,7 +719,7 @@ For sufficiently large \(x\) these same sets therefore satisfy
 Every element of \(T\) lies in the sole coset of \(H/H_0\), so its
 share in that coset is \(1\).
 
-For \(M>1\), at each sufficiently large \(x\) in the intervals Alp\"oge
+For \(M>1\), at each sufficiently large \(x\) in the intervals ai agent
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/SupplyChi.lean}{8}{chooses ranks, level primes, an Artin map and sampling sets}
 \(T\subset H\) and \(T_2\subset H_0\) for \(E\). The choices
 give \(|T_2|\ge x^{-\varepsilon}n\) and the distribution of \(T\) among
@@ -888,7 +894,402 @@ for the regulator on the same fields and twists
 \cite[Corollary~1.2]{f1burns-flach}
 \cite[\S5.4, (26)]{f1soule-torsion}.
 
-For \(\psi=1\), assume the Selmer window assertion and choose \(q,d\)
+The release proves the assertion for every primitive target, with the
+finiteness of each \(s_\ell(E,r)\) for \(1\le r<t\) included in its
+statement
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ExistsPageN.lean}{15}{Finiteness in the statement}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean}{4}{The Selmer window from Galois representations}.
+This edition uses only the case \(\psi=1\). The next two paragraphs
+separate the published inputs of that proof, the steps checked here,
+and the steps still taken from the release. They do not rederive the
+assertion.
+
+\paragraph{The Galois input.}
+\teamanchor{proof.selmer-galois-input}%
+The proof starts from \(\ell\)-adic Galois representations attached to
+regular algebraic polarized cuspidal representations of
+\(\mathrm{GL}_a\) over CM fields
+\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/TypeConditions/WeightsConjBis.lean}{69}{The Galois representations used}.
+For a CM field \(F\), a prime \(\ell\), an isomorphism
+\(\imath\colon\overline{\mathbf Q}_\ell\simeq\mathbf C\) and a regular
+algebraic cuspidal polarized pair \((\pi,\chi)\) on
+\(\mathrm{GL}_a(\mathbf A_F)\), the release asks for a continuous
+semisimple \(r\colon G_F\to\mathrm{GL}_a(\overline{\mathbf Q}_\ell)\)
+with the following properties.
+\begin{enumerate}
+\item The Hodge--Tate weights are determined by the infinitesimal
+character of \(\pi_\infty\), and
+\(\mathrm{HT}_{\tau\circ c}=\{w-h:h\in\mathrm{HT}_\tau\}\) for a fixed
+integer \(w\).
+\item At a finite place \(v\nmid\ell\), the Frobenius semisimplified
+Weil--Deligne representation of \(r|_{G_{F_v}}\) has the dimension of
+the local parameter of \(\pi_v\). It equals that parameter when the
+Weil group acts on the parameter through its abelianization and the
+monodromy is zero. Suppose \(F_v\simeq\mathbf Q_g\) with \(g>16a^2\) or
+\(a=1\), and the parameter is tame with zero monodromy. Suppose also
+that for every element of inertia which generates inertia
+topologically together with wild inertia, every eigenvalue of
+multiplicity at least two is a \((g-1)\)-st root of unity. Then the
+Weil--Deligne representation also has zero monodromy and the same
+characteristic polynomials on inertia.
+\item At \(v\mid\ell\), \(r|_{G_{F_v}}\) is crystalline with the stated
+Hodge--Tate weights when \(\pi_v\) is unramified.
+\item At \(v\mid\ell\), in the two cases of item~2, \(r|_{G_{F_v}}\) is
+de Rham and its Weil--Deligne representation satisfies the comparison
+of item~2.
+\end{enumerate}
+In items~2 and~4 the local parameter may be taken from any local
+correspondence satisfying the release's axioms. These axioms prescribe
+dimensions, characters through a local Artin map, compatibility with
+the Langlands classification, irreducible images of cuspidals, twists,
+central characters, duals, injectivity, depth, and the inertial type
+of depth-zero cuspidals over \(\mathbf Q_g\). Several of them are
+imposed only on representations whose cuspidal support consists of
+characters or of twists of depth-zero cuspidals over \(\mathbf Q_g\)
+\releasecite{Development/AutomorphicArithmetic/Foundations/LocalLanglands/IsRecTOfIsRec.lean}{55}{The axioms}.
+
+For the standard local Langlands correspondence \(\mathrm{rec}\), most
+of this is published. Barnet-Lamb, Gee, Geraghty and Taylor call \((\pi,\chi)\) polarized
+when \(\pi^c\simeq\pi^\vee\otimes(\chi\circ N_{F/F^+}\circ\det)\) and,
+for imaginary \(F\), \(\chi_v(-1)=(-1)^a\) at every infinite place
+\(v\) of \(F^+\). This is the release's condition. They prove that
+for \(F\) CM or totally real and \((\pi,\chi)\) regular algebraic,
+cuspidal and polarized, there are a continuous semisimple
+\(r_{\ell,\imath}(\pi)\) and an integer \(w\) with three properties.
+First,
+\(\imath\mathrm{WD}(r_{\ell,\imath}(\pi)|_{G_{F_v}})^{F\text{-ss}}
+\simeq\mathrm{rec}(\pi_v\otimes|\det|_v^{(1-a)/2})\) for \(v\nmid\ell\).
+Second, \(r_{\ell,\imath}(\pi)\) is de Rham with
+\(\mathrm{HT}_\tau=\{a_{\imath\tau,1}+a-1,\dots,a_{\imath\tau,a}\}\) and
+\(\mathrm{HT}_{\tau\circ c}=\{w-h\}\). Third, the same comparison holds
+at \(v\mid\ell\) when \(\pi_v\) has an Iwahori fixed vector, and then
+the restriction is semistable, and crystalline if \(\pi_v\) is
+unramified \cite[Theorem~2.1.1(2)--(4)]{f1-blggt-pacw}.
+This gives items~1 and~3, item~2 for \(\mathrm{rec}\), and item~4 when
+\(\pi_v\) has an Iwahori fixed vector. When \(\chi\) is trivial, so
+that \(\pi^\vee\simeq\pi\circ c\), the sign condition forces \(a\) to
+be even. In that case Caraiani proves the comparison at every
+\(v\mid\ell\) for every \(\pi_v\), for the representation attached by
+Shin and Chenevier--Harris and with the geometric normalization of the
+local correspondence \cite[Theorem~1.1]{f1-caraiani-lp}. With the de
+Rham property and the weights above, this gives item~4 for
+\(\mathrm{rec}\) in that case, once the normalizations are matched.
+
+In the toral case of items~2 and~4, any correspondence \(\mathrm{rc}\)
+satisfying the axioms agrees with \(\mathrm{rec}\) at \(\pi_v\),
+provided \(\mathrm{rec}\) satisfies the same axioms with the same
+local Artin map. Indeed, by the Langlands classification and the
+classification axiom, \(\mathrm{rc}(\pi_v)\) is the sum of the
+parameters of the segments of \(\pi_v\). The parameter of a segment of
+length \(k\) is a twist of the parameter of its first cuspidal
+tensored with the special representation of dimension \(k\), whose
+monodromy is nonzero for \(k\ge2\). So if the monodromy of
+\(\mathrm{rc}(\pi_v)\) is zero, every segment has length one. If moreover
+the Weil group acts through its abelianization, every cuspidal in the
+support has an irreducible parameter on which the Weil group acts
+through an abelian quotient, hence of dimension one. By the dimension
+axiom these cuspidals are characters of \(F_v^\times\), on which
+\(\mathrm{rc}\) is composition with the local Artin map. The same
+description holds for \(\mathrm{rec}(\pi_v)\).
+
+The edition takes the rest of the Galois input from the release
+\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean}{6}{Proof of the Galois input}.
+Precisely, it does not check four points. The first is that the
+release's notions of regular algebraic representation, Hodge--Tate
+weight, potential semistability and Weil--Deligne representation, and
+its normalizations of weights and parameters, match the twist
+\(|\det|^{(1-a)/2}\), the weight formula above and Caraiani's
+geometric normalization. The second is that
+\(\mathrm{rec}\) satisfies the release's axioms, in particular its
+depth-zero type axiom. The third is the tame non-toral case of items~2
+and~4 for an arbitrary correspondence satisfying the axioms. The fourth is
+item~4 when \(\chi\) is nontrivial and \(\pi_v\) has no Iwahori fixed
+vector, which needs a twisting reduction to the case \(\chi=1\) that
+the edition has not written out.
+
+\paragraph{The Selmer counts.}
+\teamanchor{proof.selmer-reconstruction}%
+From the Galois input the release proves the window assertion by
+combining duality with Lemma~K and the counts below
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/HVCore.lean}{18}{Assembly of the window from the counts}.
+Write \(E=E(h(y),q,d)\) for \(\psi=1\), with \(y\in[W,W^2]\) and
+\(t=\lfloor y^{401}\rfloor\). The steps are as follows.
+\begin{enumerate}
+\item By the duality paragraph above, \(s_\ell(E,r)\) is the length of
+the \(\ell\)-primary \'etale wild kernel in
+\(H^2(\mathcal O_E[1/\ell],\mathbf Z_\ell(r+1))\), a finite group.
+\item For odd \(\ell\), complex conjugation \(c\) is central in the
+abelian group \(\operatorname{Gal}(E/\mathbf Q)\). It permutes the
+places over \(\ell\), so it acts on the wild kernel. Since \(2\) is a
+unit in \(\mathbf Z_\ell\), the kernel is the direct sum of its
+\(c\)-eigenspaces for the eigenvalues \((-1)^r\) and \((-1)^{r+1}\), and
+lengths add. The release defines its plus and minus parts as the
+eigenspaces for the same two signs on the dual group of step~1. The
+duality pairing is invariant under \(c\), so it matches each of them
+with the eigenspace of the same sign in the wild kernel
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/LengthEqAddEigen.lean}{68}{Plus and minus lengths}.
+\item Write \(s_\ell^-(E,r)\) for the length of the minus part. For
+odd \(\ell\) the minus parts are finite, and for every finite set \(S\)
+of odd primes
+\[
+ \sum_{\ell\in S}\log\ell\sum_{1\le r<t}s_\ell^-(E,r)
+ \le5[E:\mathbf Q]\,t^2\log\bigl(2[E:\mathbf Q]tN_E\bigr),
+\]
+where \(N_E\) is the conductor of \(E\). This is proved
+\hyperlink{proof.selmer-minus-parts}{below} from steps~1 and~2 and the
+theorems of Wiles and of Huber and Kings. It is the statement the release proves at this
+step from its Bernoulli bounds, with the release's bound
+\(3[E:\mathbf Q]t^2\log(tN_E)\) replaced by the one above. For a
+general target the release has a further sum over the odd primes
+dividing the order of \(\psi\), which is empty for \(\psi=1\).
+\item For \(\ell=2\) and for the exceptional layers, the release uses
+its Lemma~K
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/KFinal.lean}{11}{Lemma K}
+and a bound on the \(\ell\)-rank of class groups along cyclotomic
+\(\ell\)-towers of abelian fields, which it proves as its form of the
+theorem of Ferrero and Washington
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/GaloisLibrary/FerreroWashingtonIndex/FerreroWashington.lean}{104}{Bounded ranks in cyclotomic towers}.
+For odd \(\ell\) this rank bound is derived from the published theorem
+\hyperlink{proof.selmer-cyclotomic-ranks}{below}.
+Lemma~K bounds the logarithmic order of
+\(H^2(\mathcal O_L[1/\ell],\mathbf Z_\ell(e+1))\) for totally complex
+\(L\) containing \(\mu_\ell\), or \(\mu_4\) when \(\ell=2\). Together they
+bound these contributions by \(\exp(y^{4\varepsilon/5})\) on a window
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/LayeredIsomorphisms/ThmBabOfLemmaK.lean}{9}{Two-part and layer bound}.
+\item The plus part is reduced to the Dirichlet characters of \(E\)
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/RedAll.lean}{6}{Reduction to characters}.
+Each triple of a character, an odd prime \(\ell\) and a twist \(r\)
+falls into one of six cases, according to whether \(\ell\) lies in a
+finite exceptional set attached to the target, whether
+\((\ell-1)\mid2r\), whether \(r=1\), and properties of the character.
+The release bounds cases I, II, III, V and the trivial-character case
+by polynomials in \(\ell\), \(N_E\) and \(t\). Case
+I uses Bloch--Kato vanishing for twists of newforms
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/LinkedUnlE.lean}{49}{Count I}.
+Cases II and III use automorphy with dense symplectic image and an
+adjoint lifting theorem
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/AdjointLiftingOfCohomology.lean}{33}{Counts II and III}.
+Case V uses a unitary lifting theorem
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/LinkedUnlE.lean}{55}{Count V}.
+The endpoint inputs of these counts come from
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/DnEndsTop.lean}{15}{Endpoint inputs}.
+Case IV, for exceptional \(\ell\), is bounded through the layers of
+the tower of step~4. The remaining case, the trivial character with
+\(\ell\) outside the exceptional set and \((\ell-1)\mid2r\), is
+handled by the release's Proposition~Z. A prime with \((\ell-1)\mid2r\) satisfies \(\ell\le2r+1\le2t\).
+The release joins all cases into one window
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/JointWinOfCounts.lean}{30}{Joint window from the counts}.
+\end{enumerate}
+
+\paragraph{The minus parts.}
+\teamanchor{proof.selmer-minus-parts}%
+This paragraph proves the bound of step~3. Fix an odd prime \(\ell\)
+and \(1\le r<t\), and put \(k=r+1\ge2\) and \(n=[E:\mathbf Q]\). Let
+\(E^+\) be the maximal totally real subfield of \(E\), so that
+\(\operatorname{Gal}(E/E^+)=\{1,c\}\). For a number field \(F\) write
+\(H^i(F)=H^i(\mathcal O_F[1/\ell],\mathbf Z_\ell(k))\), and let
+\(w_k(F)\) be the largest integer \(m\) such that
+\(\operatorname{Gal}(F(\mu_m)/F)\) has exponent dividing \(k\). As
+\(\ell\) is odd, every \(\mathbf Z_\ell[c]\)-module \(A\) is the direct
+sum of the eigenspaces \(A^+\) and \(A^-\) of \(c\) for \(1\) and
+\(-1\). By steps~1 and~2 the minus part at \((\ell,r)\) is the
+eigenspace for the sign \((-1)^k\) of the wild kernel in \(H^2(E)\). So
+\(s_\ell^-(E,r)\le v_\ell\bigl(\#H^2(E)^{+}\bigr)\) for even \(k\) and
+\(s_\ell^-(E,r)\le v_\ell\bigl(\#H^2(E)^{-}\bigr)\) for odd \(k\).
+
+\emph{Comparison with \(E^+\).} The sequence
+\(0\to\mathbf Z_\ell(k)\to\mathbf Q_\ell(k)\to\mathbf Q_\ell/\mathbf Z_\ell(k)\to0\)
+and the vanishing of \(H^0(\mathcal O_F[1/\ell],\mathbf Q_\ell(k))\)
+identify the torsion of \(H^1(F)\) with
+\(H^0(F,\mathbf Q_\ell/\mathbf Z_\ell(k))\), whose order is the
+\(\ell\)-part \(w_k(F)_\ell\) of \(w_k(F)\)
+\cite[Lemma~VI.2.2.1 and Ex.~VI.8.3]{f1weibel-kbook}. Taking \(c\)-invariants,
+\(\#(H^1(E)_{\mathrm{tors}})^+=w_k(E^+)_\ell\) and
+\(\#(H^1(E)_{\mathrm{tors}})^-=w_k(E)_\ell/w_k(E^+)_\ell\). For
+\(H^2\), recall from \eqref{eq:classical-host-inertia} that no inertia
+group of \(E/\mathbf Q\) at a finite prime contains the complex
+conjugation \(c=c_\infty\), so \(E/E^+\)
+is unramified at every finite place. Hence, for every prime \(p\),
+\(\mathcal O_E[1/p]\) is a finite \'etale Galois cover of
+\(\mathcal O_{E^+}[1/p]\) with group \(\{1,c\}\). For odd \(p\) this
+group has order prime to \(p\), so the Hochschild--Serre spectral
+sequence with coefficients \((\mathbf Z/p^m\mathbf Z)(k)\), followed by
+the inverse limit over \(m\), gives
+\(H^i(\mathcal O_{E^+}[1/p],\mathbf Z_p(k))=H^i(\mathcal O_E[1/p],\mathbf Z_p(k))^+\).
+In particular \(\#H^2(E)^+=\#H^2(E^+)\).
+
+\emph{Even \(k\).} The field \(E^+\) is totally real, so Wiles's
+theorem in the form \cite[Theorem~VI.8.7]{f1weibel-kbook} gives
+\(\zeta_{E^+}(1-k)=u\,\#H^2(E^+)/\#H^1(E^+)\) with \(u\) rational and
+prime to \(\ell\), both groups being finite. So \(H^1(E^+)\) is its own
+torsion, of order \(w_k(E^+)_\ell\). Hence
+\(v_\ell(\#H^2(E)^+)=v_\ell(\zeta_{E^+}(1-k))+v_\ell(w_k(E^+))\).
+
+\emph{Odd \(k\).} Huber and Kings prove that for an abelian number
+field \(F\) and \(k\ge2\), up to sign and a power of \(2\),
+\[
+ \zeta_F^*(1-k)=R_k(F)\prod_p
+ \frac{\#H^2(\mathcal O_F[1/p],\mathbf Z_p(k))}
+      {\#H^1(\mathcal O_F[1/p],\mathbf Z_p(k))_{\mathrm{tors}}},
+\]
+where \(\zeta_F^*(1-k)\) is the leading Taylor coefficient and
+\(R_k(F)\) is the covolume of the image of \(K_{2k-1}(F)\) under the
+Beilinson regulator in \(h^0(F)^\vee(k-1)^+_{\mathbf R}\), with its
+natural integral structure \cite[Theorem~1.4.1]{f2-huber-kings}. Apply
+this to \(E\) and to \(E^+\), which are abelian. Since
+\(2k-1\equiv1\pmod4\), Borel's ranks
+\cite[Theorem~VI.9.5]{f1weibel-kbook} give
+\(\operatorname{rank}K_{2k-1}(E)=r_2(E)=n/2=r_1(E^+)=\operatorname{rank}K_{2k-1}(E^+)\).
+Let \(\Omega_F\) be \(K_{2k-1}(F)\) modulo torsion, \(i\colon
+\Omega_{E^+}\to\Omega_E\) the map induced by \(E^+\subset E\) and
+\(\operatorname{tr}\colon\Omega_E\to\Omega_{E^+}\) the transfer. The
+composite \(\operatorname{tr}\circ i\) is multiplication by
+\([E:E^+]=2\) \cite[Ex.~IV.6.13]{f1weibel-kbook}. As the groups are
+torsion free and the ranks agree, \(i\) is injective and becomes an
+isomorphism after tensoring with \(\mathbf Q\). Since
+\((i\circ\operatorname{tr})\circ i=2i\), also \(i\circ\operatorname{tr}\)
+is multiplication by \(2\). So
+\(2\Omega_E\subseteq i\Omega_{E^+}\subseteq\Omega_E\), and the index is
+a power of \(2\). The regulator intertwines \(i\) with
+the pullback of functions along the restriction map
+\(\operatorname{Hom}(E,\mathbf C)\to\operatorname{Hom}(E^+,\mathbf C)\).
+Both target spaces have dimension \(n/2\) and are spanned by the
+regulator images, so this pullback is an isomorphism between them, and
+a pulled-back function is integral exactly when the original one is.
+Hence \(R_k(E)/R_k(E^+)\) is a power of \(2\). Divide the two formulas and
+use the comparison with \(E^+\) at \(p=\ell\); the factors at the other
+primes \(p\) are powers of \(p\). Comparing
+\(\ell\)-adic valuations gives
+\[
+ v_\ell(\#H^2(E)^-)=v_\ell\bigl(\zeta_E^*(1-k)/\zeta_{E^+}^*(1-k)\bigr)
+  +v_\ell\bigl(w_k(E)/w_k(E^+)\bigr).
+\]
+
+\emph{The \(L\)-values.} Let \(X_k\) be the set of characters \(\chi\)
+of \(\operatorname{Gal}(E/\mathbf Q)\), viewed as primitive Dirichlet
+characters of conductor \(f_\chi\mid N_E\), with
+\(\chi(-1)=(-1)^k\), and put
+\(\Lambda_k=\prod_{\chi\in X_k}L(1-k,\chi)\). Each factor is nonzero:
+for \(f_\chi>1\) by the functional equation \cite[(25.15.5)]{dlmf},
+since \(L(k,\bar\chi)\ne0\), the Gauss sum is nonzero and the trigonometric factor equals
+\(2e^{-\pi ik/2}\) when \(\chi(-1)=(-1)^k\); for \(\chi=1\) and even
+\(k\) by \cite[(25.6.2), (25.6.3)]{dlmf}. The factorizations
+\(\zeta_E=\prod_\chi L(s,\chi)\) and
+\(\zeta_{E^+}=\prod_{\chi(-1)=1}L(s,\chi)\) give
+\(\Lambda_k=\zeta_{E^+}(1-k)\) for even \(k\) and
+\(\Lambda_k=\zeta_E^*(1-k)/\zeta_{E^+}^*(1-k)\) for odd \(k\). By
+\cite[Theorem~4.2 and Proposition~4.1]{i2-washington},
+\(L(1-k,\chi)=-B_{k,\chi}/k\) with
+\(B_{k,\chi}=f_\chi^{k-1}\sum_{a=1}^{f_\chi}\chi(a)B_k(a/f_\chi)\).
+Moreover
+\(f^kB_k(a/f)=\sum_{j\le k}\binom kjB_ja^{k-j}f^j\)
+\cite[(24.2.5)]{f2-dlmf24}, and \(d_kB_j\in\mathbf Z\) for \(j\le k\),
+where \(d_k\) is the product of the primes at most \(k+1\), by the
+theorem of von Staudt and Clausen \cite[(24.10.1)]{f2-dlmf24} and
+\(B_1=-\tfrac12\). Hence \(kd_kf_\chi L(1-k,\chi)\) is an algebraic
+integer. Galois conjugation permutes \(X_k\) and
+\(\sigma(B_{k,\chi})=B_{k,\sigma\chi}\), so \(\Lambda_k\) is rational,
+and \(M_k=\Lambda_k\prod_{\chi\in X_k}kd_kf_\chi\) is a nonzero
+integer. For the size, \(|B_j|\le j!\) for all \(j\), by
+\cite[(25.6.2)]{dlmf} for even \(j\ge2\). So \(|B_k(x)|\le e\,k!\) for
+\(0\le x\le1\), and \(|L(1-k,\chi)|\le3(kf_\chi)^k\). With
+\(d_k\le(k+1)!\le(2k)^k\) this gives
+\[
+ \log|M_k|\le n\bigl(\log3+\log(kN_E)+k\log(2k)+k\log(kN_E)\bigr).
+\]
+Finally, if \(\ell^a\) divides \(w_k(E)\) with \(\ell\) odd, then
+\(\operatorname{Gal}(E(\mu_{\ell^a})/E)\) is cyclic of order dividing
+\(k\), and its order is at least \(\varphi(\ell^a)/n\) because \(E\) is
+abelian of degree \(n\). So \(\ell-1\le\varphi(\ell^a)\le nk\) and
+\(\ell^a\le2nk\), and the odd part of \(w_k(E)\) has logarithm at most
+\(nk\log(2nk)\). Also \(w_k(E^+)\) divides \(w_k(E)\).
+
+\emph{Conclusion.} In both parities
+\(s_\ell^-(E,r)\le v_\ell(\Lambda_k)+v_\ell(w_k(E))\le v_\ell(M_k)+v_\ell(w_k(E))\).
+Summing over a finite set \(S\) of odd primes,
+\(\sum_{\ell\in S}\log\ell\,s_\ell^-(E,r)\le\log|M_k|+\log w_k(E)'\),
+where \(w_k(E)'\) is the odd part of \(w_k(E)\).
+Put \(\mathcal L=\log(2ntN_E)\). As \(n\ge4\), \(t\ge2\) and \(N_E\ge3\),
+\(t\mathcal L\ge7\), so \(\log3\le t\mathcal L/4\); also
+\(\log(kN_E)\le t\mathcal L\), \(k\log(2k)\le t\mathcal L\),
+\(k\log(kN_E)\le t\mathcal L\) and \(nk\log(2nk)\le nt\mathcal L\). The sum is
+therefore at most \(5nt\mathcal L\) for each \(k\le t\), and summing over
+the \(t-1\) values of \(r\) gives the bound of step~3. Every group here
+is finite, so the minus parts are finite. Since \(n=2^{h+2}\), no odd
+\(\ell\) divides \([E:\mathbf Q]\). Beyond steps~1 and~2, no input from
+the release is used.
+
+\paragraph{Bounded ranks in cyclotomic towers.}
+\teamanchor{proof.selmer-cyclotomic-ranks}%
+The release's form of the theorem of Ferrero and Washington states:
+for a prime \(\ell\) and an abelian number field \(K\) containing
+\(\mu_\ell\), or \(\mu_4\) if \(\ell=2\), there is an integer \(r_K\)
+with \(\#\bigl(\mathrm{Cl}(K(\mu_{\ell^m}))/\ell\bigr)\le\ell^{r_K}\) for
+all \(m\ge0\). The bound is not uniform in \(K\).
+For odd \(\ell\) the statement follows from published theorems. As
+\(\mu_\ell\subset K\), the union \(K_\infty\) of the fields
+\(K(\mu_{\ell^m})\) is the cyclotomic \(\mathbf Z_\ell\)-extension of
+\(K\), and each \(K(\mu_{\ell^m})\) is one of its layers \(K_j\). Let
+\(X\) be the Galois group over \(K_\infty\) of the maximal unramified
+abelian pro-\(\ell\) extension of \(K_\infty\). By Iwasawa's theorem
+\(X\) is a finitely generated torsion module over
+\(\mathbf Z_\ell[[T]]\) \cite[Ch.~13]{i2-washington}, and Ferrero and
+Washington prove that its \(\mu\)-invariant vanishes
+\cite{f2-ferrero-washington}. By the structure theorem
+\cite[Ch.~13]{i2-washington}, \(X\) is then generated over
+\(\mathbf Z_\ell\) by some number \(d_K\) of elements. Choose \(j_0\)
+such that every prime of \(K_{j_0}\) that ramifies in \(K_\infty\) is
+totally ramified in \(K_\infty/K_{j_0}\); the primes above \(\ell\)
+ramify. For \(j\ge j_0\) let \(L_j\) be the maximal unramified abelian
+\(\ell\)-extension of \(K_j\). Then \(L_j\cap K_\infty=K_j\), because
+\(K_\infty/K_j\) has no nontrivial unramified subextension. So
+\(\operatorname{Gal}(L_j/K_j)\simeq\operatorname{Gal}(L_jK_\infty/K_\infty)\)
+is a quotient of \(X\), and \(\mathrm{Cl}(K_j)/\ell\) has rank at most
+\(d_K\). The finitely many remaining fields have finite class groups,
+which gives \(r_K\). For \(\ell=2\) the edition has not checked that
+the published proofs cover the prime \(2\), and takes the statement
+from the release.
+
+The size estimates are checked here. The field \(E\) is the compositum
+of \(\mathbf Q(\zeta_{2^{h+2}})^+\), of degree \(2^h\) and ramified
+only at \(2\), with \(\mathbf Q(\sqrt{-q},\sqrt{-d})\), whose quadratic
+subfields are ramified at \(q\) or \(d\). Hence
+\([E:\mathbf Q]=2^{h+2}\le8y^{2+8\varepsilon}\). As
+\(q\equiv d\equiv3\pmod4\), \(E\subseteq\mathbf Q(\zeta_{2^{h+2}qd})\),
+so \(N_E\le2^{h+2}qd\). With \(w=Z^{\varepsilon/5}\le y^{\varepsilon/5}\)
+and \(\log Z\le\log y\), the prime-pair sizes give
+\[
+ \log(tN_E)\le 401\log y+\log\bigl(8y^{2+8\varepsilon}\bigr)
+   +2y^{\varepsilon/5}(\log y)^2\le2y^{\varepsilon/4}
+\]
+for \(y\) large in terms of \(\varepsilon\). As
+\(\log(2[E:\mathbf Q])\le\log(16y^{2+8\varepsilon})\), also
+\(\log(2[E:\mathbf Q]tN_E)\le3y^{\varepsilon/4}\). The minus-part bound
+of step~3 is then at most
+\(120\,y^{804+8\varepsilon+\varepsilon/4}\le y^{806}\), which is below
+\(\tfrac13\exp(y^\varepsilon/2)\) for large \(y\). The release's final
+arithmetic uses the cruder bound \(C'\exp(8y^{\varepsilon/4})\), with a constant \(C'\), for the
+minus parts, \(\exp(y^{4\varepsilon/5})\log2\) for step~4 and
+\((tN_E)^{C}+C\exp(y^{4\varepsilon/5})\), with a constant \(C\), for the plus parts. Since
+\(\log(tN_E)\le2y^{\varepsilon/4}\), and \(4\varepsilon/5\) and
+\(\varepsilon/4\) are less than \(\varepsilon\), the sum is at most
+\(\exp(y^\varepsilon/2)\) for large \(y\)
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/CMFieldExponentialBounds/AdmissibleOfPageN.lean}{41}{Final arithmetic}.
+
+The edition therefore takes from the release Lemma~K, the cyclotomic
+tower rank bound for \(\ell=2\), the two-part and layer bound built on
+them, the reduction to characters with Counts~I, II, III and~V and the
+endpoint inputs, and the joint window. The minus parts for odd
+\(\ell\) are bounded here from the theorems of Wiles and of Huber and
+Kings, and the tower rank bound for odd \(\ell\) follows from the
+theorem of Ferrero and Washington. The edition has
+not found published theorems that give these counts uniformly in
+\(\ell\), in \(r<t\) and over fields of degree about
+\(y^{2+8\varepsilon}\). They are the new part of the candidate. Every hypothesis bundle on
+this path, including those named after published theorems, is
+instantiated by theorems of the release.
+
+For \(\psi=1\), apply the Selmer window assertion and choose \(q,d\)
 by the classical prime estimates at \(Z=X^{1/J}\). These primes work
 on \([W,W^{3/2}]\), with \(W\) arbitrarily large. At each point the
 Selmer bound at cutoff \(\lfloor x^{400}\rfloor\) feeds the local

@@ -11,9 +11,9 @@ License at https://creativecommons.org/licenses/by/4.0/
 
 MIT License
 
-This license covers the original code in build.py, the static entry page
-index.html, and the HTML, CSS and JavaScript viewer implementation in
-proof-map.html.
+This license covers the original code in build.py, proof_map.py and
+.github/workflows/check.yml, the static entry page index.html, and the HTML,
+CSS and JavaScript viewer implementation in proof-map.html.
 
 Full text in LICENSES/MIT.txt
 

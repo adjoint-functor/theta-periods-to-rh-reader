@@ -52,7 +52,10 @@ integral lattice data. A word, tuple, stage and place specify its
 local Hecke data and intended test in these coordinates.
 At a fixed \(x\), the indices have specified identifications
 of the ranks, word labels and their letters, \(q,d,Q_S\), the
-Artin coordinates and \(T,T_2\). The rank, level-prime and
+Artin coordinates, the root discriminant, the split primes
+\(g_0,g_1\), the two further level primes \(p,p'\), the uniform family
+constants
+and \(T,T_2\). The rank, level-prime and
 sample cardinality conditions are those in Section~\ref{sec:family}.
 The stage weights and the range for \(b_t\) are the raw intervals
 in Section~\ref{sec:fourier-sampling}.
@@ -64,12 +67,35 @@ The positive integer \(D_\Gamma\) at this index is a common
 multiple of the class stabilizer orders in the column chains.
 Its prime divisors are at most \(2fR_m+1\) and
 \(\log D_\Gamma\le C_\Delta fR_m\log(fR_m)\).
-Here \(C_T,C_\Delta\) are uniform family constants.
+Here \(C_T,C_\Delta\) are uniform family constants. These bounds on
+\(T_w\) and \(D_\Gamma\) are derived below, in the paragraphs on the
+size of the levels and on the stabilizer multiple. The first uses the
+column data of the record, as stated there.
 The column dimensions satisfy \eqref{eq:trace-balance} and
 \[
  C_0\Gamma^2x^{C_H}\le |W|\le C_0\Gamma^2x^{C_H}+1
 \]
-in the trace notation.
+in the trace notation, with \(C_0=3\). Only the lower bound is used
+below. The balance \eqref{eq:trace-balance} is not a separate choice.
+Section~\ref{sec:trace} derives it from the word-prime interval of the
+level choice and the level index.
+
+The selection also fixes two exponents \(u_{\rm cl},u_{\rm node}\),
+taken to be at least the cutoffs of the eventual estimates, before any
+scale. Put \(\Delta_{\rm cl}=\lceil x^{u_{\rm cl}}\rceil\)
+and \(H_{\rm node}=2\lceil x^{u_{\rm node}}\rceil\). Every index at
+\(x\) carries, for every word, the Harish--Chandra rows of
+Section~\ref{sec:integral} with these spacings. Consecutive entries in
+the initial block differ by \(4\Delta_{\rm cl}\), and the later nodes
+are \(B_\tau+lH_{\rm node}\) and \(B_\tau+(l+\tfrac12)H_{\rm node}\)
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/PairRowIffQdRows.lean}{93}{Prescribed row values}.
+Every index also carries its own embedded geometric coefficient field
+\(K_0\), fixed with the base column choice before the stages
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/PositionOfIntro.lean}{23}{Field fixed with the base column choice}.
+Both auxiliary levels are admissible for \(K_0\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{28}{Admissibility at both levels},
+and \(s(K_0)\le P_O\) beyond the family threshold
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/EventuallyConstructedPointHostSizeNumerical.lean}{19}{Size of the field}.
 
 \item The record includes admissible integers \(a_t,b_t\) on \(T\).
 In particular \(a_E\le a_t\le a_E+a_E/(kx^{13})\), where \(a_E=xb\).
@@ -79,13 +105,475 @@ labeling of \(T\). The weights at \(u\) are read from the stage data
 of this translated index.
 \end{enumerate}
 
-This statement uses the selection part of Alp\"oge's
+This statement uses the selection part of the release's
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkEx.lean}{15}{design existence theorem}
 and the \releasecite{Formalism/SharpRestriction/FamCore.lean}{76}{common data and the translate property}.
+In the release the existence of the design choices is a hypothesis of
+that theorem. It is discharged by the
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ClassSel.lean}{14}{class selection},
+which builds the hosts, ranks, level primes, word sets and tied kits
+scale by scale and then chooses constants above the staged lower
+bounds. This edition reconstructs the host sizes and rank arithmetic
+in Section~\ref{sec:family}, the column balance in
+Section~\ref{sec:trace} and the joining of the size requirements at
+the start of this subsection. The paragraphs below give the order of
+the construction and derive its analytic and combinatorial inputs:
+the level primes \(T_w\) and their size, the stabilizer multiple
+\(D_\Gamma\), the windows for the arrays, the split primes \(g_0,g_1\)
+with disjoint bad sets, the primes \(p,p'\), the word sets, and the ties and the
+translate property of item~3. The existence of the constructed record
+at each translate is taken from the release. The residual is stated
+precisely at the end of these paragraphs.
 The character estimates and the Selmer input enter through the
 arithmetic hosts of Section~\ref{sec:family}. The local, trace and
 height comparisons enter through separate hypotheses in the
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesWin.lean}{11}{subsequent assembly in the release}.
+
+\paragraph{Order of the construction.}
+\teamanchor{proof.selection-construction-order}%
+The release makes the choices in the following order. Each threshold
+depends only on the data fixed before it.
+\begin{enumerate}
+\item[(a)] \emph{Precision and constants.} The existence cutoff
+satisfies \(\varepsilon_{\rm ex}\le1/53\)
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{21}{Cutoff and gluing at one precision}.
+Fix \(\varepsilon\). The host constants, including \(C_8\), come
+with the host statement at this precision. The remaining uniform
+family constants, including \(C_\Gamma\), \(C_H\) and \(C_T\), are
+then chosen in the staged order at or above the pointwise maxima
+\(K_*\) described above
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsStdLarge.lean}{39}{Constants above the staged lower bounds}.
+After them come the exponents \(u_{\rm cl},u_{\rm node}\). This step
+only takes finitely many maxima.
+\item[(b)] \emph{Scales, ranks and host.} The statement assumes the
+hosts on intervals of Section~\ref{sec:family}. They supply, at each
+scale \(x\) beyond a threshold in a union of intervals \([Y,Y^{3/2}]\)
+with \(Y\) unbounded, the ranks and the host data
+\(q,d,Q_S,g_0,g_1,p,p',q_0,T,T_2\). The existence of \(g_0,g_1\) and
+\(p,p'\) is derived below.
+\item[(c)] \emph{Arrays.} Integers \(a_t,b_t\) on \(T\) are chosen in
+the raw windows. In the release they come with the host and satisfy a
+further admissibility condition
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/AuxiliaryPrimeMemAvoidedPrimes.lean}{122}{Hosts with admissible arrays}.
+\teamanchor{proof.selection-array-windows}%
+Both windows are nonempty. For \(a_t\) the window
+\([a_E,a_E+a_E/(kx^{13})]\) has length at least \(1\), because
+\(a_E=xb\), \(k\le x^5\) and \(b=\exp(x^\varepsilon)\ge x^{17}\) at
+large \(x\). The window for \(b_t\) is
+\([b',b'(1+2n\delta_1x^\varepsilon L_{\mathrm{a},G}/k)]\) in the
+notation of Section~\ref{sec:fourier-sampling}. Its length is
+\(2n\,\delta_1x^\varepsilon L_{\mathrm{a},G}\,b'/k\). Here \(n\ge1\),
+\(\delta_1x^\varepsilon=x^{7\varepsilon/8}\ge1\), and
+\(b'=x\exp(x^\varepsilon-x^{\varepsilon/3})\ge x^5\ge k\) at large
+\(x\). The parameter is \(L_{\mathrm{a},G}=C_{\mathrm a}N_1^2\log a_E\)
+with a family constant \(C_{\mathrm a}\ge1\)
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{58}{The window parameter},
+and the release shows \(N_1\ge1\) and
+\(x^\varepsilon\le L_{\mathrm{a},G}\) beyond a threshold depending
+only on \(\varepsilon\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/GoodTopCountLeConstMulLog.lean}{65}{Lower bound for the window parameter}.
+The same statement gives
+\(L_{\mathrm{a},G}\le2C_{\mathrm a}C_N^2(\log x)^2x^\varepsilon\) with a
+constant \(C_N\) depending only on \(\varepsilon\), and this is at most
+\(x^{\varepsilon+\varepsilon/100}\) at large \(x\).
+So the length is at least \(1\), and for instance the constant arrays
+\(a_t=\lceil a_E\rceil\), \(b_t=\lceil b'\rceil\) lie in the windows.
+This is the release's
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsWeightsInWindows.lean}{18}{Arrays in the raw windows}.
+The arrays carried by the records are chosen again inside these
+windows so that they also satisfy the admissibility condition. This
+choice is (R3) below.
+\item[(d)] \emph{Words.} A word set \(W\) of the required size is
+chosen as below.
+\item[(e)] \emph{Records at the translates.} For each \(u\in H\) one
+record is constructed from the same ranks, host, arrays \(a,b\) and
+words, with translate \(u\). Inside this construction the release
+first fixes the column data \(d_w^{(0)},D_\star\). Then the level
+primes \(T_w\) are chosen in the windows of the next paragraph. The
+record over these levels is built last
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsObjectsOfAdmissibleTwistDatumStatement.lean}{8}{Level primes inside the record construction}.
+\item[(f)] \emph{Ties and translates.} The index set at \(x\) is the
+set of translates. All records at \(x\) are built from identical
+ranks, host data, arrays and words, so the identifications at fixed
+\(x\) in item~2 hold. For a seed \(i_0\) and \(u\in H\), the index
+\(i(u)=u\) has translate \(u\) and the arrays of \(i_0\) on the common
+labeling of \(T\). This is item~3. The release records it in the
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/KitS.lean}{14}{Kit at one scale}.
+\item[(g)] \emph{Gluing.} The kits over the window scales are glued
+into one family with the common constants. The family threshold is
+the maximum of the thresholds in (b)--(f)
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsFamPOfKits.lean}{159}{Gluing the kits}.
+\end{enumerate}
+
+\paragraph{Split primes in short intervals.}
+\teamanchor{proof.level-primes-short-intervals}%
+Let \(d>3\) be a prime with \(d\equiv3\bmod4\) and put
+\(K_d=\mathbf Q(\sqrt{-d})\). Let \(M\ge3\) be an integer and put
+\(B=4dM^2\). Call a rational prime \(T\) an \emph{\(M\)-norm prime}
+if \(T=\pi\overline\pi\) with \(\pi\in\mathcal O_{K_d}\) and
+\(\pi\equiv1\bmod M\mathcal O_{K_d}\). Then also
+\(\overline\pi\equiv1\), so \(T-1\in M\mathcal O_{K_d}\cap\mathbf Z
+=M\mathbf Z\) and \(T\equiv1\bmod M\). We show the following. There are
+an absolute effective constant \(c\in(0,1]\) and an absolute \(X_0\)
+such that, if \(X\ge X_0\), \(\log B\le c\sqrt{\log X}\) and
+\(e^{-c\sqrt{\log X}}\le h\le1\), then
+\begin{equation}
+\label{eq:selection-short-norm-primes}
+ \#\{T\in(X,X(1+h)]:\ T\text{ is an }M\text{-norm prime}\}
+ \ \ge\ \frac{hX}{4B\log(2X)} .
+\end{equation}
+
+Let \(L\) be the ray class field of \(K_d\) modulo
+\(\mathfrak m=M\mathcal O_{K_d}\). Since \(\mathfrak m\) is stable
+under complex conjugation, \(L/\mathbf Q\) is Galois. Put
+\(G=\operatorname{Gal}(L/\mathbf Q)\), \(H_L=\operatorname{Gal}(L/K_d)\)
+and \(C=\{1\}\). By the Artin isomorphism of the ray class field
+\cite[Ch.~V, Theorem~3.6 and the paragraph after it]{f1milne-cft}, a prime ideal
+\(\mathfrak p\nmid\mathfrak m\) of \(K_d\) splits completely in \(L\)
+exactly when it lies in the trivial ray class, that is, when
+\(\mathfrak p=(\pi)\) with \(\pi\equiv1\bmod\mathfrak m\). There is no
+sign condition because \(K_d\) has no real place. Hence every
+rational prime \(T\) that splits completely in \(L\) is an \(M\)-norm
+prime. The group \(H_L\) is abelian and contains the class \(C\). Its
+characters are ray class characters modulo \(\mathfrak m\), so the
+quantity \(\mathcal Q\) of \cite[arXiv v3, (1.11)]{s1-thorner-zaman-chebotarev}
+satisfies \(\mathcal Q\le N\mathfrak m=M^2\). Hence
+\(D_{K_d}\mathcal Q\,n_{K_d}^{n_{K_d}}\le4dM^2=B\). The number of reduced
+forms of discriminant \(-d\) is at most \(d\), so \(h(K_d)\le d\).
+Also \(|\mathrm{Cl}_{\mathfrak m}(K_d)|\le h(K_d)N\mathfrak m\). Thus
+\(|G|=2|\mathrm{Cl}_{\mathfrak m}(K_d)|\le2dM^2\le B\).
+
+Apply \cite[arXiv v3, Theorem~1.4]{s1-thorner-zaman-chebotarev} with
+\(F=\mathbf Q\), the abelian subgroup \(H_L\) and \(g_C=1\). The error
+there increases with \(\log(D_{K_d}\mathcal Q n_{K_d}^{n_{K_d}})\), so we
+may replace that quantity by \(\log B\). For \(x\ge B^{c_2}\) this gives
+\[
+ \pi_C(x)=\frac1{|G|}\bigl(\operatorname{Li}(x)-\theta_1\operatorname{Li}(x^{\beta_1})\bigr)
+ \bigl(1+O(\mathcal E(x))\bigr),\qquad
+ \mathcal E(x)=e^{-c_3\log x/\log B}+e^{-(c_3\log x/2)^{1/2}},
+\]
+where \(\theta_1=\chi_1(1)=1\) if the exceptional zero \(\beta_1\)
+exists and \(\theta_1=0\) otherwise. Here \(c_2,c_3\) and the implied
+constant are absolute and effective
+\cite[arXiv v3, Section~2]{s1-thorner-zaman-chebotarev}.
+Suppose \(\beta_1\) exists. It is a zero of the Hecke \(L\)-function
+of a real character \(\chi_1\) of \(H_L\), and
+\(1-\beta_1<1/(8\log(4d\mathcal Q))\). Let \(K'\) be the field cut out
+by \(\chi_1\). Thus \(K'=K_d\) if \(\chi_1\) is trivial, and otherwise
+\(K'/K_d\) is quadratic. Then \(\zeta_{K'}\) is \(\zeta_{K_d}\) or
+\(\zeta_{K_d}L(s,\chi_1)\), so \(\zeta_{K'}(\beta_1)=0\). Moreover
+\([K':\mathbf Q]\le4\), and by the conductor--discriminant formula
+\(D_{K'}\le d^2N\mathfrak f_{\chi_1}\le\min\{B^2,(4d\mathcal Q)^2\}\).
+Thus \(1-\beta_1<1/(4\log D_{K'})\), and \(\beta_1\) is the possible
+Landau--Siegel zero of \(\zeta_{K'}\). Stark's bound, as recorded in
+\cite[arXiv v3, (1.4)]{s1-thorner-zaman-chebotarev} for the field
+\(K'\), gives \(1-\beta_1\gg(n_{K'}^{n_{K'}}\log D_{K'}+D_{K'}^{1/n_{K'}})^{-1}\).
+Here \(n_{K'}\in\{2,4\}\), and \(D_{K'}^{1/n_{K'}}\le B^{1/2}\) in both
+cases, since \(D_{K_d}=d\le B\) and \(D_{K'}\le B^2\). Hence
+\(1-\beta_1\ge c_SB^{-1/2}\) with an absolute effective \(c_S>0\).
+
+Take \(c=\min\{1,(c_3/8)^{1/2}\}\). Then
+\(c_3\log X/\log B\ge(c_3/c)\sqrt{\log X}\ge2c\sqrt{\log X}\) and
+\((c_3\log X/2)^{1/2}\ge2c\sqrt{\log X}\). Hence
+\(\mathcal E(X)\le2e^{-2c\sqrt{\log X}}\le2he^{-c\sqrt{\log X}}\), and
+\(\mathcal E\) decreases in \(x\). Since \(\log B\le c\sqrt{\log X}\),
+we have \(X\ge B^{c_2}\) for \(X\ge X_0\). Also
+\((1-\beta_1)\log X\ge c_S e^{-(c/2)\sqrt{\log X}}\log X\ge\log2\), so
+\(X^{\beta_1-1}\le1/2\). For \(t\ge X\) the derivative of the main
+term \(\operatorname{Li}(t)-\theta_1\operatorname{Li}(t^{\beta_1})\) is
+\((1-\theta_1t^{\beta_1-1})/\log t\ge1/(2\log t)\). Hence the main term
+increases on \((X,X(1+h)]\) by at least \(hX/(2|G|\log(2X))\).
+At either endpoint the main term lies between \(0\) and
+\(\operatorname{Li}(2X)\le4X/\log X\). The two error terms therefore
+total at most \(16C_{\rm TZ}hXe^{-c\sqrt{\log X}}/(|G|\log X)\), where
+\(C_{\rm TZ}\) is the implied constant. For \(X\ge X_0\) this is at
+most \(hX/(4|G|\log(2X))\). Subtracting gives at least
+\(hX/(4|G|\log(2X))\) primes in \((X,X(1+h)]\) that split completely
+in \(L\). All of them are \(M\)-norm primes, and \(|G|\le B\). This
+proves \eqref{eq:selection-short-norm-primes}.
+The release proves a statement of the same form, with \(B\) replaced
+by a power \(B^A\) and with \(d\ge100\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/NormPrimesImagQuadShortIntervalLowerBound.lean}{98}{Norm primes in short intervals}.
+
+\emph{Level primes.} At a record over the host, take \(M=Q_Sqd(g_0g_1)^2\),
+\(X=Y_w\) with \(Y_w\) as in Section~\ref{sec:trace}, and
+\(h=1/(fk)\). By the size of the levels derived below,
+\(\log Y_w\ge c_sm x^\varepsilon\) with \(c_s=14\). Section~\ref{sec:family}
+gives \(m\ge x^{0.49}\), \(f\le k\le x^5\),
+\(\log(Q_Sqd)\le2x^{\varepsilon/5}(\log x)^2\) and
+\(\log g_i\le9x^\varepsilon\). Hence \(\log M\le37x^\varepsilon\) and
+\(\log B\le120x^\varepsilon\) at large \(x\). Since \(\varepsilon<1/52\),
+\(c\sqrt{\log Y_w}\ge c\,c_s^{1/2}x^{0.245}\) exceeds both
+\(120x^\varepsilon\) and \(10\log x\ge\log(fk)\) at large \(x\).
+Thus \eqref{eq:selection-short-norm-primes} gives at least
+\(\exp(\log Y_w-10\log x-120x^\varepsilon-\log(4\log2Y_w))>1\) primes
+\(T_w\) in \([Y_w,Y_w(1+1/(fk))]\). Each has a norm generator
+\(\pi_{T_w}\equiv1\bmod Q_Sqd(g_0g_1)^2\), so
+\(T_w\equiv1\bmod Q_Sqd(g_0g_1)^2\). As for the five host primes in
+Section~\ref{sec:family}, it follows that \(T_w\) splits completely in
+\(E\) and \(F\). Also \(T_w>Y_w>\max\{p,p'\}\), since
+\(\log p,\log p'\le C_8\log(Q_Sqd)\) is smaller than \(c_smx^\varepsilon\).
+This is the word-prime interval of Section~\ref{sec:trace}.
+
+\emph{Size of the levels.}
+\teamanchor{proof.selection-level-bounds}%
+Inside the record construction (e), the column data are fixed before
+the levels. By the index formula of Section~\ref{sec:trace},
+\(d_w^{(0)}=d_w^*\), and \(d_w^*\) and \(D_\star\) are the
+mass--Vandermonde products of Section~\ref{sec:integral}. These
+products do not involve \(T_w\). In the notation of
+\eqref{eq:arithmetic-level-quotient} put
+\(X_w=(D_\star/d_w^*)^{1/(fk)}\), so that
+\(Y_w=X_w\Gamma^{-2/(fk)}\), and let \(L=x^\varepsilon=\log b\).
+We bound the terms of \eqref{eq:arithmetic-level-quotient} using the
+estimates proved after it, whose implied constants are absolute.
+\begin{itemize}
+\item \(0\le\log(v_0/\pi)\le\log(2v_0)\le L\). Since \(m\le k\), the
+coefficient of \(\log(v_0/\pi)\) lies in \([0,2m]\), and the
+\(\log(2v_0)\) term has modulus at most \(L\).
+\item The split primes lie in \([(kb)^8,2(kb)^8]\)
+(Section~\ref{sec:family}), and
+\(\log2+8\log k\le L\) at large \(x\). So
+\(16L\le\lambda_g\le18L\), and the coefficient of \(\lambda_g\) lies
+in \([m,2m]\).
+\item At each of the \(f\) embeddings \(\rho\), the log Vandermonde
+ratio is at least \(k\sum_j\log w_j-O(kL)\) and at most \(O(kmL)\).
+Every stage weight is at least \(1\)
+(Section~\ref{sec:fourier-sampling}). After division by \(fk\) the
+Vandermonde term therefore lies between \(-O(L)\) and \(O(mL)\).
+\end{itemize}
+Hence \(\log X_w\ge16mL-O(L)\ge15mL\) once \(m\ge x^{0.49}\) is large,
+and \(\log X_w\le C_XmL\) for an absolute constant \(C_X\). Next,
+\(\log\Gamma=C_\Gamma m^5f\log b\) and \(m^5f\log b\le128kx^{-21\varepsilon/16}\)
+give
+\[
+ 0\le\frac{2\log\Gamma}{fk}\le\frac{256\,C_\Gamma}{f}\,x^{-21\varepsilon/16}\le1
+\]
+beyond a threshold that depends only on \(C_\Gamma\) and \(\varepsilon\).
+Thus
+\[
+ 14\,m\log b\le\log X_w-1\le\log Y_w\le\log X_w\le C_Xm\log b .
+\]
+For \(T_w\in[Y_w,Y_w(1+1/(fk))]\) this gives \(T_w\ge Y_w\ge b^{14m}\ge b^{m/2}\)
+and \(\log T_w\le\log Y_w+1\le(C_X+1)m\log b\). So item~2 holds with
+any \(C_T\ge C_X+1\). This is one more staged lower bound in (a), and
+it involves only an absolute constant. The bounds agree with
+\eqref{eq:arithmetic-count-at}. They are derived here without the
+record (R1). The edition still takes from the release the
+identification of the column data with the mass--Vandermonde products
+and the grid conditions, as cited in Section~\ref{sec:integral}
+\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/ExactRanksOfRecord.lean}{11}{Column coefficient and row main term}
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/StandardLattice.lean}{500}{Grid conditions}.
+
+\emph{The stabilizer multiple.}
+\teamanchor{proof.selection-stabilizer-multiple}%
+Take \(D_\Gamma=\operatorname{lcm}_c|\Gamma_c|\) over the class
+stabilizers \(\Gamma_c\) in the column chains, as in
+Section~\ref{sec:integral}. Each \(\Gamma_c=G(F)\cap cJc^{-1}\) is taken in the unitary group
+\(G\) of one of the definite spaces \(X_j\) of the column tower, of
+rank \(k+j(t+1)\le R_m\) over \(E\). The open compact level \(J\)
+fixes an \(\mathcal O_E\)-lattice \(\Lambda\), for instance the sum of
+the finitely many translates of a standard lattice. So \(\Gamma_c\)
+preserves the lattice \(c\Lambda\) in \(X_j\). It is finite by
+definiteness, and it acts faithfully on this lattice, a free
+\(\mathbf Z\)-module of rank \(n\le2fR_m\). So \(\Gamma_c\) is a finite
+subgroup of \(\mathrm{GL}_n(\mathbf Z)\subset\mathrm{GL}_n(\mathbf Q)\). By Minkowski's
+theorem \cite[Theorem~1]{s2a-guralnick-lorenz}, the order of every
+finite subgroup of \(\mathrm{GL}_n(\mathbf Q)\) divides
+\[
+ M(n)=\prod_\ell\ell^{e_\ell(n)},\qquad
+ e_\ell(n)=\sum_{i\ge0}\left\lfloor\frac{n}{\ell^i(\ell-1)}\right\rfloor .
+\]
+Each \(e_\ell(n)\) is nondecreasing in \(n\), so \(D_\Gamma\) divides
+\(M(2fR_m)\). Moreover \(e_\ell(n)=0\) for \(\ell>n+1\), so every
+prime divisor of \(D_\Gamma\) is at most \(2fR_m+1\). For the size,
+\(e_\ell(n)\le n\ell/(\ell-1)^2\le4n/\ell\). For an integer
+\(N\ge1\),
+\[
+ N\log N\ge\log N!\ge\sum_{\ell\le N}\Bigl(\frac N\ell-1\Bigr)\log\ell
+ \ge N\sum_{\ell\le N}\frac{\log\ell}{\ell}-N\log4 .
+\]
+Here we used \(\prod_{\ell\le N}\ell<4^N\). This gives
+\(\sum_{\ell\le N}\log\ell/\ell\le\log N+\log4\). With \(N=n+1\),
+\[
+ \log D_\Gamma\le\log M(n)\le4n\bigl(\log(n+1)+\log4\bigr).
+\]
+For \(n=2fR_m\) and \(fR_m\ge2\) the right side is at most
+\(8fR_m(\log(fR_m)+\log12)\le40fR_m\log(fR_m)\). So item~2 holds with
+\(C_\Delta=40\). This is the Minkowski integer used for the
+stabilizer allowance in Section~\ref{sec:integral}.
+
+\emph{The split primes \(g_0,g_1\).} Take \(M=Q_Sqd\), \(X=(kb)^8\) and
+\(h=1\). Then \(\log B\le7x^{\varepsilon/5}(\log x)^2\), which is at most
+\(c(8x^\varepsilon)^{1/2}\le c\sqrt{\log X}\) at large \(x\). So
+\eqref{eq:selection-short-norm-primes} gives at least
+\(X/(4B\log2X)\ge X^{9/10}\) primes
+\(g\in((kb)^8,2(kb)^8]\) with \(g=\pi\overline\pi\) and
+\(\pi\equiv1\bmod Q\mathcal O_{K_d}\). These are the norm conditions of
+Section~\ref{sec:family}. For the disjointness of the bad sets
+\eqref{eq:classical-level-bad-primes}, fix one such \(g_0\) and put
+\(S=B_r(g_0)\). Every \(\ell\in S\setminus\{g_0\}\) divides some
+\(g_0^a-1\) with \(a\le r\). Hence
+\(|S|\le1+\sum_{a\le r}a\log_2(2X)\le r^2\log(2X)\), since \(r\ge k\)
+is large. A candidate \(g\) satisfies \(B_r(g)\cap S\ne\varnothing\)
+exactly when \(g\in S\), or when there are \(\ell\in S\) and \(a\le r\)
+with \(\ell^{4v_\ell(g^a-1)}>g^a\ge X^a\). In the second case
+\(g^a\equiv1\) modulo the least power \(\ell^{v}>X^{a/4}\). The
+congruence \(y^a\equiv1\bmod\ell^v\) has at most \(2a\) solutions,
+and each class contains at most \(2X/\ell^v+1\le3X^{3/4}\) integers in
+\((X,2X]\). So at most
+\(|S|(1+\sum_{a\le r}6aX^{3/4})\le7r^4X^{3/4}\log(2X)\) candidates are
+excluded. With \(r\le x^5\) and \(X\ge\exp(8x^\varepsilon)\), this is
+less than \(X^{9/10}-1\) at large \(x\). Hence some \(g_1\ne g_0\) has
+\(B_r(g_0)\cap B_r(g_1)=\varnothing\). The release proves the same
+count
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsTwoLargeNormOnePrimes.lean}{54}{Two split primes with disjoint bad sets}.
+
+\emph{The primes \(p,p'\).} Put \(m_1=\operatorname{lcm}(15,Q)\le15Q\)
+and \(u=m_1^A\), with a fixed \(A\ge12\) as large as in the argument for
+\(q_0\) in Section~\ref{sec:family}. By
+\cite[arXiv v2, Corollary~1.4]{f1thorner-zaman}, the sum of \(\log p\)
+over the primes \(p\le u\) with \(p\equiv1\bmod m_1\) equals
+\(\lambda u/\varphi(m_1)\) times \(1+O(e^{-c_4A}+e^{-c_4(\log u)^{3/5}(\log\log u)^{-1/5}})\).
+For fixed large \(A\) and large \(x\) this relative error has modulus
+less than \(1/2\). Here \(\lambda=1\) if there is no exceptional zero
+modulo \(m_1\). Otherwise
+\(\lambda>\tfrac18\min\{1,(1-\beta_{m_1})\log u\}\)
+\cite[arXiv v2, (1.7)]{f1thorner-zaman}, and
+\(1-\beta_{m_1}\ge b_0m_1^{-1/2}\) as recalled in
+Section~\ref{sec:family}. Since \(\log u\ge1\), in both cases
+\(\lambda\ge\tfrac18b_*m_1^{-1/2}\) with \(b_*=\min\{1,b_0\}\).
+Hence the sum is at least \(b_*m_1^{A-3/2}/16\), which exceeds
+\(\log u=A\log m_1\) at large \(x\). One prime contributes at most
+\(\log u\). So there are two distinct primes
+\(p,p'\equiv1\bmod m_1\) with \(p,p'\le m_1^A\le Q^{2A}\), since
+\(Q\ge15\). So \(C_8=2A\) suffices.
+
+\paragraph{Word sets.}
+\teamanchor{proof.word-sets}%
+The letters of a word are \(k-2\) bits, and a word set is an injective
+choice of \(|W|=\lceil3\Gamma^2x^{C_H}\rceil\) distinct bit strings
+of length \(k-2\)
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/MPowFiveMulFMulLLe.lean}{40}{Injective words}.
+Such a choice exists once \(3\Gamma^2x^{C_H}+1\le2^{k-2}\). With
+\(\Gamma=\exp(C_\Gamma m^5f\log b)\), Section~\ref{sec:family} gives
+\(m^5f\log b\le128kx^{-(21/16)\varepsilon}\). Hence
+\[
+ \log(3\Gamma^2x^{C_H}+1)\le2+256C_\Gamma kx^{-(21/16)\varepsilon}
+   +C_H\log x\le(k-2)\log2
+\]
+beyond a threshold that depends only on \(C_\Gamma,C_H,\varepsilon\),
+because \(k\ge x^{9/2+10\varepsilon}\). The words are inputs of the
+records in (e), so every index has
+\(3\Gamma^2x^{C_H}\le|W|\le3\Gamma^2x^{C_H}+1\).
+
+\paragraph{What the selection takes from the release.}
+\teamanchor{proof.selection-residual}%
+The edition takes the following from the release.
+\begin{enumerate}
+\item[(R1)] \emph{Record existence}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{190}{Record existence}.
+For the precision and the constants fixed in (a), taken large
+enough, there are \(c_s>0\) and \(x_0\) with the following property. For every scale \(x\ge x_0\) and every ranks, host, arrays
+and words satisfying (b)--(d), there are column data
+\(d_w^{(0)},D_\star>0\) with \(\log Y_w\ge c_smx^\varepsilon\) for every
+word. Moreover, for every choice of primes \(T_w\) in the windows with
+norm generators \(\equiv1\bmod Q_Sqd(g_0g_1)^2\), with
+\(T_w\equiv1\bmod Q_Sqd\) and \(T_w\ne p,p'\), there is a record
+over these levels. It satisfies the record, ledger, local-twist and
+validity conditions, and it carries the class property: the rows of
+item~2, the field \(K_0\), its admissibility at both auxiliary levels
+and \(s(K_0)\le P_O\). The edition derives the bound on \(\log Y_w\)
+(with \(c_s=14\)), the bounds \(b^{m/2}\le T_w\) and
+\(\log T_w\le C_Tm\log b\) and the bounds on \(D_\Gamma\) above, once
+the column data are the mass--Vandermonde products of
+Section~\ref{sec:integral}. It takes from the release the existence of
+the record over the chosen levels, that identification of the column
+data, and the class property.
+\item[(R2)] In the release, (R1) is proved from the class property by
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/MemberTopFinalContextParameters.lean}{14}{Record existence from the context parameters}.
+That proof turns volumes into masses
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/VolumesEqMassesOfUnfold.lean}{12}{Volumes equal masses}
+and uses the following inputs.
+\begin{itemize}
+\item The mass ratio for unramified CM fields
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/MassRatioAllUnramifiedCmFields.lean}{8}{Mass ratio}.
+For the standard self-dual genus this is the successive mass quotient
+\eqref{eq:arithmetic-mass-quotient}, which Section~\ref{sec:integral}
+derives from the exact mass formula of Gan--Hanke--Yu and the
+functional equation.
+\item A hyperplane volume ratio. Let \(W\) be a nondegenerate
+hermitian space over \(E/F\) of rank \(M\ge3\) with the same
+signature at every real place, and let \(\pm\) be a sign that occurs in
+that signature. There is \(x\in W\) with \(h(x,x)=\pm1\) such that
+\(W'=x^\perp\) satisfies, in the volume normalization of the release and under its
+volume tie,
+\[
+ \frac{\operatorname{vol}(W')}{\operatorname{vol}(W)}
+  =\left(\frac{(2\pi)^M}{(M-1)!}\right)^{\!f}
+   (2v_0)^{f(1/2-M)}\,L_F(M,\eta_{E/F}^{\,M})^{-1}
+\]
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/ThickPlacesCorollaryOfAnyTranslate.lean}{2330}{The hyperplane volume ratio}.
+The class selection receives it as a hypothesis
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/NonemptyHypsOfAllRows.lean}{46}{Volume ratio passed to the class selection}.
+The hypothesis is discharged at
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/HypothesesNonemptyOfUnramifiedExponents.lean}{60}{Discharge of the volume ratio}.
+There the release unfolds the volume of the orbit of \(x\) through the
+one-vector Siegel--Weil identity
+\releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/UnitaryHyperplaneVolumeRatioSiegelWeil.lean}{10}{Volume ratio from Siegel--Weil}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/VolumeRatio.lean}{14}{Unfolding and the local densities}.
+The identity used is the Siegel--Weil formula in the convergent range
+(finite volume and equality of the theta integral with the product of
+local densities). The release proves it
+\releasecite{CompanionTheory/SpectralGeometry/LocalGlobalProofs/AdelicAnalysis/Imports.lean}{10}{Convergent Siegel--Weil formula}
+and passes it through its literature bundle
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EveryCharacterOfLiteratureOfVWin.lean}{708}{Supply of the convergent Siegel--Weil formula}.
+For unitary groups compare \cite[Theorem~2 and the convergence
+statements preceding it]{tr3yamana}; the edition does not match the
+normalizations here. The finite factors can be checked
+directly. At a finite place \(v\) of \(F\), with residue
+cardinality \(q\), the lattices are self-dual and \(E/F\) is unramified
+or split. A unit-norm vector modulo the uniformizer lifts by Hensel's
+lemma, since the reduced form is nondegenerate. In the inert case a
+nondegenerate hermitian space of dimension \(M\) over
+\(\mathbf F_{q^2}\) has \(q^{M-1}(q^M-(-1)^M)\) vectors of a given
+nonzero norm. In the split case the equation \(x\cdot y=a\) on
+\(\mathbf F_q^M\times\mathbf F_q^M\) has \(q^{M-1}(q^M-1)\) solutions.
+Dividing by \(q^{2M-1}\) gives the local densities \(1-(-q)^{-M}\) and
+\(1-q^{-M}\). Both equal \(L_v(M,\eta_{E/F}^{\,M})^{-1}\), and their
+product is the \(L\)-value above. The real factors and the
+discriminant power \((2v_0)^{f(1/2-M)}\) come from the measure
+normalizations of the release and are not rederived here.
+\item The group-retwisting conditions and the bundle conditions
+\(\mathrm{ExBL}\) and \(\mathrm{RowL}\). These are supplied from the
+release's third-place hypothesis bundle at
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/HypothesesNonemptyOfUnramifiedExponents.lean}{41}{Supply of the selection hypotheses}.
+This edition identifies them only where they are used elsewhere in the
+article.
+\end{itemize}
+\item[(R3)] The arrays of (c). Their windows are nonempty by (c). The
+release chooses the arrays inside these windows so that they also
+satisfy its admissibility condition
+\[
+ \sum_{p<X',\ p\ \text{candidate}}\frac{\log p}{p}
+   \Bigl(2\cdot\mathbf 1[\,x^{-\varepsilon}<\mathrm{Sig}_p\,]+4\,\mathrm{Sig}_p\Bigr)
+   \le x^{-9}
+\]
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{149}{The admissibility condition}.
+Here the candidates and the signature excess \(\mathrm{Sig}_p\) are
+those of the local prime tables of the release. Such arrays exist at
+every point of the family by a mean-excess argument
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/WindowShareRequirementClosedFormProof.lean}{17}{Weight vectors at every point}.
+They are transferred to the host
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/WeightWindowRequirementHostOfPoint.lean}{17}{Arrays on the host}
+and attached to it
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/HostWW.lean}{27}{Hosts with admissible arrays}.
+This edition does not rederive that argument. Also the host data other
+than \(g_0,g_1,p,p'\). The latter are hypotheses of the statement,
+from Section~\ref{sec:family}.
+\end{enumerate}
+Everything else in items~1--3 follows from (R1)--(R3) and the
+derivations above.
 
 \paragraph{The rows and field on which the two section estimates hold.}
 \teamanchor{proof.section-run-family-identification}%
@@ -95,63 +583,505 @@ primes. Its numerical estimates use a common geometric coefficient
 field \(K_0\). This field is chosen before the larger field containing
 the moving character values. They also use the Harish--Chandra rows
 with specified spacings. Consecutive entries in the initial block
-differ by \(4\Delta\). In each subsequent block the nodes are
-\(B_\tau+lH\) and \(B_\tau+(l+\tfrac12)H\), with the same prescribed
-\(\Delta,H\) for all words. These choices give the gaps in the flag
+differ by \(4\Delta_{\rm cl}\). In each subsequent block the nodes are
+\(B_\tau+lH_{\rm node}\) and \(B_\tau+(l+\tfrac12)H_{\rm node}\), with
+the same prescribed \(\Delta_{\rm cl},H_{\rm node}\) for all words. These choices give the gaps in the flag
 weights and the bound on the degree and root discriminant of \(K_0\)
 used in the section heights.
 
-The remaining identification is simultaneous. For the same family
-\(\mathfrak F\) furnishing the selected period and relative trace
-data, fix a threshold before choosing a real scale. At each scale in
-its windows above that threshold, one needs a seed \(i_0\) and, for
-every \(u\in H\), an index \(i(u)\) with that seed's sample arrays.
-Each \(i(u)\) must retain the specified rows and its initial
-embedded \(K_0\) at both auxiliary levels. The periods and test
-columns must be those of \(i(u)\). One such simultaneous choice
-suffices. The fixed-level construction makes the indicated
-choices before constructing the stages. Passage to the family
-preserves properties supplied at each index. Item~2 of the selection
-statement gives intervals for the rows and an ambient coefficient
-field. An interval can contain differently spaced entries, and an
-ambient field can have arbitrarily large degree. This text proves
-the two estimates for the specified rows and field. Their simultaneous
-identification at the selected translates remains open in the
-reconstruction. The lattice and window estimates below are conditional
-on that identification.
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsRecordOverChoices.lean}{41}{Field and stages over fixed level and row choices}.
+The identification is simultaneous, and the release supplies it. The
+selection is assembled from points constructed over contexts. A
+context fixes \(\varepsilon\), \(u_{\rm cl}\), \(u_{\rm node}\), the host, the
+words and the rows above before the base level is built, and it
+requires those row values for every word
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/SetUnipotentTranslate.lean}{37}{Rows fixed in the context}.
+A point over the context therefore has stage parameter \(\Delta_{\rm cl}\)
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/ExistsStagesClauses.lean}{94}{The stage parameter}.
+At the base level the column choice fixes field data and requires the
+base coefficient field to equal the field they generate. This happens
+before the later stages are built. That field is \(K_0\). It is
+admissible at both auxiliary levels and contains the frame character
+values
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{28}{Admissibility of the exact base field}.
+It satisfies \(s(K_0)\le P_O\) beyond one threshold \(x_0\), which
+depends only on \(\varepsilon\), the family constants and
+\(u_{\rm cl},u_{\rm node}\), and is fixed before the scale
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/EventuallyConstructedPointHostSizeNumerical.lean}{19}{Eventual size of the field}.
+
+Each family index beyond the family threshold is such a constructed
+point
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{250}{Indices are constructed points},
+and one choice of the context exponents serves the whole family
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{264}{One selection for every index}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ClassSel.lean}{14}{Its use in the class selection}.
+Each such index therefore carries the rows of its point
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/PairRowIffQdRows.lean}{107}{The row values carried by a point},
+and it inherits the two field admissibilities and the bound on
+\(s(K_0)\) through the ties established for every bundle
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkedTies.lean}{32}{Ties at every bundle}.
+The periods, test columns and tied records at an index belong to the
+same point. Let \(i_0\) be a seed and \(u\in H\). The index \(i(u)\)
+of item~3 is a family index. It carries its own rows, its own \(K_0\)
+at both auxiliary levels and its own periods and test columns, and
+the values \(\Delta_{\rm cl},H_{\rm node}\) are common to all of them. The two runs are
+built at that point from these data
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ExistsRunsAt.lean}{18}{The two runs at one point}.
+The section estimates of Section~\ref{sec:integral} therefore apply at
+every selected index. The identification is supplied by the release
+and has been traced there. In the order of construction above it is
+part of the record existence (R1), and it has not been rederived in
+this edition.
 
 \paragraph{The integral lattice in the ramified columns.}
 \teamanchor{proof.ramified-donor-identification}%
-The other outstanding identification concerns each word \(w\) at
-its split level prime \(T_w\). In the complex column space,
-Section~\ref{sec:trace} computes the subspace on which the averages
-in all \(f\) residue-unit directions vanish. Its dimension is
+Fix a word \(w\) at its split level prime \(T_w\). In the complex
+column space, Section~\ref{sec:trace} computes the subspace on which
+the averages in all \(f\) residue-unit directions vanish. Let \(V_r\)
+be its rational form in \(M_w\otimes K\). Its dimension is
 \[
  d_r=d_M\left(\frac{T_w-2}{T_w-1}\right)^f,\qquad
  d_M=\operatorname{rk}M_w .
 \]
-The slope estimate uses the integral sum-zero lattice \(H_w\) in
-the definite class lattice \(M_w\), with its specified metrics at
-every complex embedding. The needed identification realizes the
-actual undivided source \(N_w\) isometrically as a full-rank
-sublattice of \(H_w\), with the zero-stage norm used by the column
-operators. At a coefficient place \(v\nmid T_w\) of absolute
-ramification index \(e_v\), it must give
+Put \(H_w=M_w\cap V_r\), with the metrics of \(M_w\) restricted to
+\(V_r\) at every complex embedding
+\releasecite{Formalism/LocalRingCardinality/DataForms.lean}{243}{The sum-zero lattice}.
+It is saturated in \(M_w\). On this sum-zero model the Gram
+determinant gives \(\mu(H_w)-\mu(M_w)=-f\log(T_w-1)/(T_w-2)\), as
+recorded in
+\releasecite{Formalism/SharpRestriction/Divisibility/LocalQuadraticParts.lean}{621}{The ramified rank and metrics}.
+
+The undivided source \(N_w\) is the sublattice of \(H_w\) determined
+by local conditions. At a served place \(v\nmid T_w\), \((N_w)_v\) is
+the preimage of the local period lattice \(N_{P,v}\). At \(v\mid T_w\)
+it is the preimage of \(T_w^{e_T}U^m(S_{0,w}\cap V_r)\). At every other
+place it is \((H_w)_v\). The release carries the first two
+characterizations with the selected data, as fields of every index
+beyond the family threshold
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{42}{The condition at a served place}
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{111}{The condition at the level prime}
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{115}{The local characterizations together}
+\releasecite{Formalism/LocalRingCardinality/DataExtra.lean}{51}{Their place in the index data}
+\releasecite{Formalism/SharpRestriction/ParConsts.lean}{77}{Every index carries them}.
+The third follows from the unserved case below. A full-rank lattice is
+determined by its localizations. Its rational space
+is \(V_r\), and every column record identifies the source space with
+\(V_r\) isometrically for the zero-stage norm
+\releasecite{Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean}{291}{The zero-stage isometry of the source}
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/ExistsDivStage.lean}{334}{The source space and its embedding}.
+Hence \(N_w\subseteq H_w\) is a full-rank isometric inclusion. The
+source is not spanned by chosen test vectors. Section~\ref{sec:periods}
+starts its descent from an arbitrary element of this lattice, so no
+further comparison with another lattice is needed.
+
+Let \(v\) be a coefficient place of absolute ramification index
+\(e_v\). If \(v\nmid T_w\) is unserved, then \(\tau_v=\iota_v=0\) and
+\((N_w)_v=(H_w)_v\)
+\releasecite{Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean}{720}{The unserved places}.
+If \(v\nmid T_w\) is served, then \(\tau_v\) is a
+nonnegative integer and the source satisfies
 \[
  (N_w)_v\subseteq\mathfrak p_v^{e_v\tau_v}(H_w)_v,\qquad
  \operatorname{length}_{\mathcal O_v}((H_w)_v/(N_w)_v)
      \le e_v d_M(\tau_v+\iota_v).
 \]
-At \(v\mid T_w\) it must give the separate weighted level-index
-bound in the \hyperlink{proof.divided-column-slopes}{calculation
-of the divided-source slopes}. On the sum-zero model the Gram
-determinant gives the global correction
-\(\mu(H_w)-\mu(M_w)=-f\log(T_w-1)/(T_w-2)\). Applying this
-formula to the actual columns requires the integral and metric
-identifications just stated. The
-reconstruction proves the slope and norm deductions with this
-identification as a hypothesis. The \hyperlink{candidate.gain}{Frobenius divisibility and loss bound}
+The \hyperlink{proof.served-length-bound}{next paragraph} derives
+both bounds from the release's lattice statement at the individual
+sample vertices. The gain valuation on the source at a served place
+is taken from the release
+\releasecite{Formalism/SharpRestriction/GrowthBounds/SmallOrderPrimes.lean}{220}{Inclusion, length and gain at a served place}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/TopChoiceBounds.lean}{1586}{The gain on the local period lattice}.
+At \(v\mid T_w\) we put \(\tau_v=0\). There \((N_w)_v\subseteq(H_w)_v\), and
+the lengths satisfy the weighted level-index bound used in the
+\hyperlink{proof.divided-column-slopes}{calculation of the
+divided-source slopes}
+\releasecite{Formalism/SharpRestriction/Divisibility/LocalQuadraticParts.lean}{621}{The ramified rank, metrics and level index}.
+The \hyperlink{proof.level-index-bound}{level-index paragraph} below
+derives this bound from the release's local Hecke relations at the
+vertices over \(T_w\) and its size data.
+These local facts hold for every family in the selected class. Its
+twist selection and the duty conditions of its members are part of
+the
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ClassSel.lean}{14}{class selection theorem}.
+The release assembles them in
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkG.lean}{13}{the closed comparison for the class},
+which lies on the path to the final theorem
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopShape.lean}{54}{Its use in the top shape}.
+
+\paragraph{The inclusion and length bound at a served place.}
+\teamanchor{proof.served-length-bound}%
+Fix a served place \(v\nmid T_w\) over \(p\). Let \(\mathcal O\) be the
+discrete valuation ring of the local coefficient field in which the
+release builds its local period model, and put \(n=v_{\mathcal O}(p)\),
+so that \(\operatorname{length}_{\mathcal O}(\mathcal O/p\mathcal O)=n\).
+Then \(n=e_ve'\), where \(e'\) is the ramification index of
+\(\mathcal O\) over \(\mathcal O_v\). The comparison map \(c\) from
+\(M_w\otimes K\) to the local column space is semilinear over an
+embedding of \(K\) with \(K\cap\mathcal O=\mathcal O_{(v)}\), and it carries a
+basis of \(M_w\otimes K\) to a linearly independent family. The
+release's local lattice \(M\) is the \(\mathcal O\)-span of \(c(M_w)\)
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{26}{The local lattice is spanned by the source}.
+It is free of rank \(d_M\). Write \(V_r\) also for the span of
+\(c(V_r)\), and put \(H=M\cap V_r\). It is saturated in \(M\) because
+\(V_r\) is a subspace. Flat base change identifies \(H\) with the
+\(\mathcal O\)-span of \(c(H_w)\)
+\releasecite{Formalism/LocalRingCardinality/Lemmas.lean}{968}{The ramified part of the local model}.
+
+The release attaches to \(v\) the following data
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{292}{The served samples}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{341}{The restriction loss}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{348}{The index allowance}.
+There is a nonempty finite set \(V_v\) of good sample orbits. Each
+\(s\in V_v\) has a vertex operator \(y_s\), and these operators are
+commuting \(\mathcal O\)-linear endomorphisms. There are integers
+\(t_s,D_v,S_s,\varepsilon_v\ge0\) and real weights \(\kappa_s\ge0\).
+At a served place
+\(\Sigma_v=m\sum_{s\in V_v}\kappa_s\le x^{-\varepsilon}\), and \(m\ge1\). Hence
+\(\Sigma_v\le\frac12\) once \(x^{-\varepsilon}\le\frac12\). With \(S=\max_sS_s\), the
+loss and the allowance are
+\[
+ \tau_v=\varepsilon_v+\tau_v',\qquad
+ \tau_v'=\sum_{s\in V_v}m(t_s+D_v+1),\qquad
+ \iota_v=2S\Sigma_v .
+\]
+Thus \(\tau_v\) is a nonnegative integer. For \(B\subseteq V_v\), put
+\(Y_B=\prod_{s\in B}y_s^m\) and \(\sigma(B)=\sum_{s\in V_v\setminus B}S_s\).
+For an \(\mathcal O\)-lattice \(L\), let
+\(N(L)=\sum_{B\subseteq V_v}p^{\sigma(B)}Y_BL\). The local period lattice is
+\[
+ N_{P,v}=N(M)\cap p^{\tau_v}M\cap V_r
+\]
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{464}{The local period lattice}.
+
+Two release statements enter. First, there is a lattice
+\(M^{\rm na}\) with \(p^{\varepsilon_v}M^{\rm na}\subseteq M\subseteq
+M^{\rm na}\), and the \(y_s\) preserve both lattices
+\releasecite{Formalism/SharpRestriction/GrowthBounds/CornerGLContinuity.lean}{191}{The lattice sandwich}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean}{1529}{The operators preserve the lattices}.
+The sandwich forces \(\operatorname{rk}M^{\rm na}=d_M\). Second, the
+good-rank property holds at every served vertex with the parameters
+\(t_s,D_v,\kappa_s\)
+\releasecite{Formalism/SharpRestriction/GrowthBounds/CornerGLContinuity.lean}{180}{The good-rank property at the served vertices}.
+The release deduces from it, together with the trivial stabilizers
+and finite classes of the local lattice tuples, an all-but statement. For every
+\(\beta\ge0\) there is a finite set \(C_\beta\subseteq M^{\rm na}\) with
+\[
+ |C_\beta|\le d_Mm^{\beta+1}e_{\beta+1}(\kappa),\qquad
+ p^{\tau_v'+\beta S}M^{\rm na}\subseteq N(M^{\rm na})
+   +\mathcal O C_\beta ,
+\]
+where \(e_k\) is the elementary symmetric function of the weights
+\((\kappa_s)_{s\in V_v}\)
+\releasecite{Formalism/SharpRestriction/GrowthBounds/SelectionLemmas.lean}{41}{The all-but statement at a vertex}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{4417}{Its proof from the good-rank property}.
+The \hyperlink{proof.all-but-walk}{walk argument} after this
+paragraph derives the statement from the release's local lattice
+system at the vertices. The rest of the argument is derived here.
+
+The operators \(Y_B\) are \(\mathcal O\)-linear, so
+\(p^{\varepsilon_v}p^{\sigma(B)}Y_Bz=p^{\sigma(B)}Y_B(p^{\varepsilon_v}z)\),
+and \(p^{\varepsilon_v}z\in M\) for \(z\in M^{\rm na}\). Hence
+\(p^{\varepsilon_v}N(M^{\rm na})\subseteq N(M)\). Multiply the all-but
+inclusion by \(p^{\varepsilon_v}\) and use \(M\subseteq M^{\rm na}\).
+With \(C'_\beta=p^{\varepsilon_v}C_\beta\subseteq M\), this gives
+\[
+ p^{\tau_v+\beta S}M\subseteq N(M)+\mathcal O C'_\beta
+ \qquad(\beta\ge0).
+\]
+Also \(N(M)\subseteq M\), and the term \(B=\varnothing\) gives
+\(p^{\sigma(\varnothing)}M\subseteq N(M)\). Since the weights are
+nonnegative, every monomial of \(e_k(\kappa)\) occurs \(k!\) times in
+\((\sum_s\kappa_s)^k\). Hence
+\(m^ke_k(\kappa)\le\Sigma_v^k/k!\) and
+\(|C_\beta|\le d_M\Sigma_v^{\beta+1}/(\beta+1)!\).
+
+Put \(Q=M/N(M)\). It is killed by \(p^{\sigma(\varnothing)}\), so it has
+finite length. Let \(Q_\beta\) be the image of \(p^{\tau_v+\beta S}M\). If
+\(S=0\), then \(\sigma(\varnothing)=0\) and \(Q=0\). Otherwise
+\(Q_{\beta+1}=p^SQ_\beta\), and \(Q_\beta=0\) once
+\(\beta S\ge\sigma(\varnothing)\). The module \(Q_\beta\) lies in the
+image of \(\mathcal OC'_\beta\). Over the discrete valuation ring
+\(\mathcal O\), a submodule of a module with \(r\) generators has at most
+\(r\) generators. Therefore
+\[
+ \operatorname{length}_{\mathcal O}(Q_\beta/p^SQ_\beta)\le |C_\beta|\,nS,
+ \qquad
+ \operatorname{length}_{\mathcal O}Q_0
+   \le nSd_M\sum_{k\ge1}\frac{\Sigma_v^k}{k!}
+   =nSd_M(e^{\Sigma_v}-1)\le 2nSd_M\Sigma_v ,
+\]
+using \(e^y-1\le2y\) for \(0\le y\le\frac12\). Now
+\(p^{\tau_v}M/(N(M)\cap p^{\tau_v}M)\cong Q_0\) and
+\(\operatorname{length}_{\mathcal O}(M/p^{\tau_v}M)=nd_M\tau_v\). Hence
+\[
+ \operatorname{length}_{\mathcal O}\bigl(M/(N(M)\cap p^{\tau_v}M)\bigr)
+   \le nd_M(\tau_v+\iota_v).
+\]
+
+Now pass to the ramified part. If \(x\in N_{P,v}\), then
+\(x=p^{\tau_v}y\) with \(y\in M\), and \(y\in V_r\). Thus \(y\in H\) and
+\(N_{P,v}\subseteq p^{\tau_v}H\). Moreover
+\(N_{P,v}=H\cap(N(M)\cap p^{\tau_v}M)\), so \(H/N_{P,v}\) embeds in
+\(M/(N(M)\cap p^{\tau_v}M)\). Hence
+\(\operatorname{length}_{\mathcal O}(H/N_{P,v})\le nd_M(\tau_v+\iota_v)\).
+
+It remains to descend to the source. By definition
+\((N_w)_{(v)}\) consists of the \(x\in(H_w)_{(v)}\) with \(c(x)\in
+N_{P,v}\)
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{42}{The condition at a served place}.
+For the inclusion, let \(x\in(N_w)_{(v)}\). Then
+\(c(p^{-\tau_v}x)\in H\subseteq M\). The coordinates of
+\(p^{-\tau_v}x\) in an \(\mathcal O_{(v)}\)-basis of \((M_w)_{(v)}\) lie
+in \(K\). Their images lie in \(\mathcal O\), because \(c\) of this basis
+is linearly independent and spans \(M\). They
+therefore lie in \(\mathcal O_{(v)}\). Since
+\(p^{-\tau_v}x\in V_r\), we get
+\(p^{-\tau_v}x\in(M_w)_{(v)}\cap V_r=(H_w)_{(v)}\). Because
+\(p\mathcal O_v=\mathfrak p_v^{e_v}\), this proves
+\((N_w)_v\subseteq\mathfrak p_v^{e_v\tau_v}(H_w)_v\).
+
+For the length bound one needs
+\(N_{P,v}=\mathcal O\,c((N_w)_{(v)})\). The inclusion \(\supseteq\) is
+immediate from the definition. The release proves the reverse
+inclusion. It shows that \(N_{P,v}\) is spanned by \(c\) of its
+\(K\)-rational elements, because each \(y_s\) is induced by a
+\(K\)-linear endomorphism of the rational column space
+\releasecite{Formalism/LocalToGlobal/GroupLattices/ComparisonMaps/YvRatOfValRat.lean}{199}{The period coordinates are rational}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/JointsLit.lean}{256}{The period lattice is spanned by rational elements}
+\releasecite{Formalism/LocalToGlobal/GroupLattices/ComparisonMaps/NpDescOfValRat.lean}{13}{Its use for the source}.
+Granting this, \(\mathcal O\) is flat over \(\mathcal O_{(v)}\), and
+\[
+ \mathcal O\otimes_{\mathcal O_{(v)}}\bigl((H_w)_{(v)}/(N_w)_{(v)}\bigr)
+   \cong H/N_{P,v}.
+\]
+For a module \(Q'\) of finite length over \(\mathcal O_{(v)}\), the
+\(\mathcal O\)-length of \(\mathcal O\otimes Q'\) is \(e'\) times the
+length of \(Q'\), since \(\mathcal O/\mathfrak p_v\mathcal O\) has
+length \(e'\). Dividing by \(e'\), we get
+\[
+ \operatorname{length}_{\mathcal O_v}((H_w)_v/(N_w)_v)
+   \le e_vd_M(\tau_v+\iota_v).
+\]
+The release records the same two bounds for the source in
+\releasecite{Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean}{664}{The inclusion for the source}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean}{720}{The length for the source}.
+
+\paragraph{The all-but statement from the local lattice system.}
+\teamanchor{proof.all-but-walk}%
+Keep the served place \(v\) and its data. The release's local ring
+\(\mathcal O\) contains an element \(\varpi\) with \(\varpi^2=p\); this is a field of
+the release's local setting at every vertex
+\releasecite{Formalism/SharpRestriction/GrowthBounds/UnramifiedQuadraticSetting.lean}{29}{The square root of \(p\) in the local ring}. A
+labelling is a map \(\gamma\) from \(V_v\) to the three labels
+base, ball and dual. For \(s\in V_v\) and a label \(\ell\), write
+\(\gamma[s\mapsto\ell]\) for the labelling that agrees with \(\gamma\)
+off \(s\) and has \(\ell\) at \(s\). For \(B\subseteq V_v\), let
+\(\gamma_B\) be the labelling with dual on \(B\) and base elsewhere.
+The release attaches to every labelling an \(\mathcal O\)-lattice
+\(L_\gamma\) in a common \(\mathcal O\)-module on which the \(y_s\)
+act. For all \(\gamma\) and \(s\in V_v\) these lattices satisfy:
+\begin{enumerate}
+\item[(i)] \(L_{\gamma_\varnothing}=M^{\rm na}\);
+\item[(ii)] \(L_{\gamma[s\mapsto{\rm base}]}\subseteq L_{\gamma[s\mapsto{\rm ball}]}\) and
+ \(L_{\gamma[s\mapsto{\rm dual}]}\subseteq L_{\gamma[s\mapsto{\rm base}]}\);
+\item[(iii)] \(\varpi^{t_s}L_{\gamma[s\mapsto{\rm ball}]}\subseteq L_{\gamma[s\mapsto{\rm base}]}\) and
+ \(\varpi^{t_s}L_{\gamma[s\mapsto{\rm base}]}\subseteq L_{\gamma[s\mapsto{\rm dual}]}\);
+\item[(iv)] for every nonempty \(B\subseteq V_v\) there is a finite set
+ \(C_B\subseteq L_{\gamma_B}\) with \(|C_B|\le d_M\prod_{s\in B}\kappa_s\) and
+ \[
+  p^{D_v+1}L_{\gamma_B}\subseteq\sum_{s\in B}y_s\,L_{\gamma_B[s\mapsto{\rm ball}]}
+   +\mathcal O C_B .
+ \]
+\end{enumerate}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{197}{The lattice system at the vertices}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{2465}{The local chain of lattices}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{4300}{The generation statement from the orbit decomposition}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{3746}{The local Smith form from the good-rank property}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{4194}{The rank count}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{2886}{Trivial stabilizers and finite classes give the decomposition}.
+The lattices consist of functions on the local lattice tuples. The
+generation statement~(iv) is proved in the release by splitting a
+function into its orbits under the level groups, which uses the trivial
+stabilizers and the finite classes, by a Smith-form computation at each
+vertex of \(B\) from the good-rank property, and by counting the orbit
+representatives against \(\operatorname{rk}M^{\rm na}=d_M\). The edition
+takes (i)--(iv) from the release. The all-but statement follows from
+them by the walk argument below, which is the release's abstract
+counting lemma
+\releasecite{Formalism/SubspaceCounting/Statement.lean}{38}{The walk statement}
+\releasecite{Formalism/SubspaceCounting/SubspaceCountingProofs/WalkSharp.lean}{722}{Its proof}.
+
+The \(y_s\) commute, are \(\mathcal O\)-linear and preserve \(M^{\rm na}\).
+For \(e\in\{0,\dots,m\}^{V_v}\) put \(y^e=\prod_sy_s^{e_s}\). If
+\(E=\{s:e_s=m\}\), then \(y^eM^{\rm na}\subseteq Y_EM^{\rm na}\), and therefore
+\[
+ p^{\sigma(E)}y^eM^{\rm na}\subseteq N(M^{\rm na}).
+ \tag{$\ast$}
+\]
+Put \(V=|V_v|\). If \(\beta+1>V\), then
+\(\sigma(\varnothing)\le VS\le\beta S\), so
+\(p^{\tau_v'+\beta S}M^{\rm na}\subseteq N(M^{\rm na})\) and
+\(C_\beta=\varnothing\) works. Let \(\beta+1\le V\), and number the
+vertices \(s_0,\dots,s_{V-1}\). A state is a pair \((B,i)\) with
+\(B\subseteq V_v\), \(|B|=\beta+1\), and \(i:B\to\{0,\dots,m-1\}\). Let
+\(\operatorname{top}(B)\) be the largest index of a vertex in \(B\). The
+exponent \(e=e(B,i)\) of the state has \(e_s=i_s\) on \(B\), \(e_s=m\) for
+\(s\notin B\) of index below \(\operatorname{top}(B)\), and \(e_s=0\) for
+\(s\) of index above \(\operatorname{top}(B)\). Its budget is
+\[
+ R(B,i)=\sum_{s\in B}\bigl(t_s+2(m-1-i_s)t_s+2(m-i_s)(D_v+1)\bigr)
+   +\sum_{s\text{ above }\operatorname{top}(B)}2m(t_s+D_v+1).
+\]
+Let \(C_\beta\) be the set of all \(y^{e(B,i)}c\) with \((B,i)\) a state
+and \(c\in C_B\). By (i) and (ii), \(C_B\subseteq L_{\gamma_B}\subseteq
+M^{\rm na}\), so \(C_\beta\subseteq M^{\rm na}\). There are
+\(m^{\beta+1}\) states for each \(B\), hence
+\(|C_\beta|\le\sum_{|B|=\beta+1}m^{\beta+1}d_M\prod_{s\in B}\kappa_s
+=d_Mm^{\beta+1}e_{\beta+1}(\kappa)\).
+
+We show that for every state \((B,i)\) and every \(z\in L_{\gamma_B}\),
+\[
+ \varpi^{R(B,i)}p^{\beta S}y^{e(B,i)}z\in N(M^{\rm na})+\mathcal OC_\beta .
+\]
+The induction runs downward on \(\sum_se(B,i)_s\le mV\). Write
+\(R=R(B,i)\) and \(e=e(B,i)\). Since \(B\) is nonempty and \(i_s<m\), we
+have \(R\ge2(D_v+1)\). By (iv),
+\(p^{D_v+1}z=\sum_{s\in B}y_sz_s+c\) with
+\(z_s\in L_{\gamma_B[s\mapsto{\rm ball}]}\) and \(c\in\mathcal OC_B\). Hence
+\(\varpi^Rp^{\beta S}y^ez=\varpi^{R-2(D_v+1)}p^{\beta S}\bigl(\sum_sy^{e+1_s}z_s+y^ec\bigr)\),
+where \(1_s\) is the indicator of \(s\). The term \(y^ec\) lies in
+\(\mathcal OC_\beta\). For the term of \(s\in B\) there are three cases.
+\begin{enumerate}
+\item[(a)] \(i_s+1<m\). By (iii) twice, \(\varpi^{2t_s}z_s\in L_{\gamma_B}\).
+ The state \((B,i+1_s)\) has exponent \(e+1_s\) and budget
+ \(R-2(D_v+1)-2t_s\). The term equals
+ \(\varpi^{R(B,i+1_s)}p^{\beta S}y^{e+1_s}(\varpi^{2t_s}z_s)\), which lies in
+ \(N(M^{\rm na})+\mathcal OC_\beta\) by induction.
+\item[(b)] \(i_s+1=m\) and \(\operatorname{top}(B)<V-1\). Let \(u\) be the
+ vertex following \(\operatorname{top}(B)\), and put
+ \(B'=(B\setminus\{s\})\cup\{u\}\), with \(i'=i\) on \(B\setminus\{s\}\) and
+ \(i'_u=0\). By (iii), \(\varpi^{t_s}z_s\in L_{\gamma_{B\setminus\{s\}}}\) and
+ \(\varpi^{t_s+t_u}z_s\in L_{\gamma_{B'}}\). Now \(s\) lies below
+ \(u=\operatorname{top}(B')\), so \(e(B',i')=e+1_s\). The budget is
+ \(R(B',i')=R-2(D_v+1)-t_s-t_u\). The term equals
+ \(\varpi^{R(B',i')}p^{\beta S}y^{e(B',i')}(\varpi^{t_s+t_u}z_s)\) and is
+ covered by induction.
+\item[(c)] \(i_s+1=m\) and \(\operatorname{top}(B)=V-1\). By (iii) and (ii),
+ \(\varpi^{t_s}z_s\in L_{\gamma_{B\setminus\{s\}}}\subseteq M^{\rm na}\). The
+ exponent \(e+1_s\) equals \(m\) off \(B\setminus\{s\}\), a set of
+ \(\beta\) vertices. Hence \(\sigma(E)\le\beta S\) for its set \(E\), and
+ \(p^{\beta S}y^{e+1_s}(\varpi^{t_s}z_s)\in N(M^{\rm na})\) by
+ \((\ast)\). The remaining factor \(\varpi^{R-2(D_v+1)-t_s}\) has a
+ nonnegative exponent.
+\end{enumerate}
+In (a) and (b) the exponent sum grows by one, so the induction is
+well founded. Finally let \(x\in M^{\rm na}\), and take
+\(B_0=\{s_0,\dots,s_\beta\}\) with \(i=0\). By (i) and (iii),
+\(\varpi^{\sum_{s\in B_0}t_s}x\in L_{\gamma_{B_0}}\), and
+\(e(B_0,0)=0\). The budget is
+\(R(B_0,0)=2\tau_v'-\sum_{s\in B_0}t_s\). Hence
+\[
+ p^{\tau_v'+\beta S}x
+ =\varpi^{R(B_0,0)}p^{\beta S}\bigl(\varpi^{\sum_{s\in B_0}t_s}x\bigr)
+ \in N(M^{\rm na})+\mathcal OC_\beta ,
+\]
+which is the all-but statement.
+
+\paragraph{The level-index bound at the level prime.}
+\teamanchor{proof.level-index-bound}%
+Fix \(w\) and a place \(v\mid T_w\) of \(K\). Then
+\(T_w\mathcal O_v=\mathfrak p_v^{e_v}\). Let \(\Lambda\) be the localization at
+\(v\) of the zero-stage integral lattice of the column chain; this is
+the lattice \(S_{0,w}\) above. It has
+rank \(d_M\). Put \(\Lambda_r=\Lambda\cap V_r\). The release attaches to \(v\) a
+finite set \(V^T_v\) of top vertices over \(T_w\) seen at \(v\). It has at
+most \(N_T\) elements, and it is empty when \(v\) is not seen
+\releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/DIVfromGLo.lean}{185}{The number of top vertices}. For each
+\(s\in V^T_v\) the release supplies an endomorphism \(U_s\) of the rational
+column space, the \(U_T\)-type Hecke operator at \(s\), with adjoint
+\(U_s^*\). It also supplies a local lattice \(A_s\) and integers
+\(a_s\), \(b_s\) and \(W_s\ge0\). The release inputs are as follows.
+\begin{enumerate}
+\item[(i)] The \(U_s\) commute. The operators \(U_s\) and \(U_s^*\) preserve
+ \(V_r\), and \(U_sU_s^*=U_s^*U_s=T_w^{k-1}\) on \(V_r\). Moreover
+ \(U_sA_s\subseteq\Lambda\) and \(U_s^*\Lambda\subseteq A_s\)
+ \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/ProductFirstZerothParts.lean}{195}{The Hecke relations over the level prime}
+ \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/FiniteModelOfAdmissibleTransports.lean}{2268}{Their proof from the admissible transports}.
+\item[(ii)] \(b_s\ge0\), \(T_w^{b_s}\Lambda\subseteq A_s\), and
+ \(\operatorname{length}(A_s/T_w^{b_s}\Lambda)=e_vd_M(a_s+kb_s)/k\)
+ \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/FiniteModelOfAdmissibleTransports.lean}{1557}{The auxiliary lattices at the vertices over the level prime}
+ \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/ProductFirstZerothParts.lean}{135}{The level-prime setting}.
+\item[(iii)] \((a_s+kb_s)/k\le a_{\max}/k+2W_s\), where \(a_{\max}\ge0\) is the
+ largest leading entry of the weights at the top places
+ \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/FiniteModelOfAdmissibleTransports.lean}{1706}{The twist inequality}.
+\item[(iv)] \((N_w)_{(v)}\) is the preimage of
+ \(\Lambda'_r=T_w^{e_T}U^m\Lambda_r\), with \(U=\prod_{s\in V^T_v}U_s\) and
+ \(e_T=m\sum_sb_s\). The length of \((H_w)_v/(N_w)_v\) equals the length
+ of \(\Lambda_r/\Lambda'_r\)
+ \releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{111}{The condition at the level prime}
+ \releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/LenAtT.lean}{8}{The local length at the level prime}.
+\item[(v)] \(a_{\max}\le2a_E\), \(W_s\le3b'\) and \(k\le b'\)
+ \releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/DIVfromGLo.lean}{166}{The bound for the top weight sums}
+ \releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/DIVfromGLo.lean}{112}{The bound for the weight widths}
+ \releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/DIVfromGLo.lean}{44}{The rank parameters in the size data}.
+\end{enumerate}
+Put \(g_s=T_w^{b_s}U_s\). Then \(T_w^{b_s}\Lambda_r\subseteq A_s\cap V_r\) and
+\(U_s(A_s\cap V_r)\subseteq \Lambda_r\), so \(g_s\Lambda_r\subseteq \Lambda_r\). Also
+\(U_s^*\Lambda_r\subseteq A_s\cap V_r\), so
+\(T_w^{k-1}\Lambda_r=U_sU_s^*\Lambda_r\subseteq U_s(A_s\cap V_r)\). The operator \(U_s\)
+is injective on \(V_r\), because \(U_s^*U_s=T_w^{k-1}\) there. Hence
+\[
+ \begin{aligned}
+ \operatorname{length}(\Lambda_r/g_s\Lambda_r)
+ &=\operatorname{length}\bigl(\Lambda_r/U_s(A_s\cap V_r)\bigr)
+  +\operatorname{length}\bigl((A_s\cap V_r)/T_w^{b_s}\Lambda_r\bigr)\\
+ &\le\operatorname{length}(\Lambda_r/T_w^{k-1}\Lambda_r)
+  +\operatorname{length}(A_s/T_w^{b_s}\Lambda)
+ \le e_vd_M\Bigl(k-1+\frac{a_s+kb_s}{k}\Bigr).
+ \end{aligned}
+\]
+The second term was bounded because \((A_s\cap V_r)/(T_w^{b_s}\Lambda\cap V_r)\)
+embeds in \(A_s/T_w^{b_s}\Lambda\). If \(g\) and \(h\) are endomorphisms
+preserving a lattice \(A\), then \(g\) maps \(A/hA\) onto \(gA/ghA\).
+Therefore
+\(\operatorname{length}(A/ghA)\le\operatorname{length}(A/gA)+\operatorname{length}(A/hA)\).
+The \(g_s\) commute, and \(\Lambda'_r=(\prod_sg_s)^m\Lambda_r\). Using the
+inputs (iii) and (v), we get
+\[
+ e_v\ell_{wv}=\operatorname{length}(\Lambda_r/\Lambda'_r)
+ \le me_vd_M\sum_{s\in V^T_v}\Bigl(\frac{a_{\max}}{k}+2W_s+k\Bigr)
+ \le7me_vd_MN_T\Bigl(\frac{a_E}{k}+b'\Bigr).
+\]
+In the level range \(2f/T_w\le\frac12\), we have
+\(d_r\ge d_M/2\). Moreover
+\(\sum_{v\mid T_w}e_v\lambda_v=\sum_{v\mid T_w}e_vf_v\log T_w/[K:\mathbb Q]=\log T_w\),
+where \(f_v\) is the residue degree. Summing over \(v\mid T_w\) gives
+\[
+ \frac{2}{d_r}\sum_{v\mid T_w}e_v\lambda_v\ell_{wv}
+ \le28N_Tm\Bigl(\frac{a_E}{k}+b'\Bigr)\log T_w .
+\]
+The release proves the bound in the same way, with its own constant
+\releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/DIVfromGLd.lean}{70}{The level-index bound from its inputs}
+\releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/DIVfromGLo.lean}{294}{Its inputs for the families}.
+
+\paragraph{What the identification still takes from the release.}
+The identification therefore reduces to these local
+characterizations, which the release carries for every family in the
+selected class. The edition derives the inclusion and the length
+bound at served places from the release's definitions of the local
+period data and from four release inputs. These are the
+identification of the local lattice with the span of the source, the
+lattice sandwich with its stable operators, the local lattice system
+(i)--(iv) at the served vertices, and the rational spanning of the
+local period lattice. The all-but statement itself is derived from
+the lattice system by the walk argument. The edition derives the
+level-index bound at \(v\mid T_w\) from the Hecke relations, the
+auxiliary lattices, the twist inequality, the characterization at the
+level prime with its length identity, and the size data listed there.
+The edition still takes these inputs from the release, together with
+the local characterizations themselves and the gain valuation on the
+source at every place. The slope and norm deductions of
+Section~\ref{sec:integral} use them as stated. The
+\hyperlink{candidate.gain}{Frobenius divisibility and loss bound}
 applies in its stated domain.
 
 \paragraph{Which character is used at a final index?}
@@ -230,12 +1160,60 @@ stage and side. Indeed, transport the extremal vector and a
 compatible polynomial frame. Their scale relation is unchanged
 on a \(K\)-basis and hence on its \(K'\)-span. Changing between
 two admissible frames of the irreducible lowest type multiplies
-the map by a scalar by Schur's lemma. Its value on a nonzero
-rational coordinate places it in the common CM subfield. The
-scalar preserves a nonzero finitely generated integral lattice
-and is therefore integral. Preservation of the Hermitian pairing
-gives \(a\bar a=1\). All its conjugates have absolute value one,
-so \(a\) is a root of unity. The scale condition is agreement
+the map by a complex scalar \(\zeta\), by Schur's lemma applied
+to their real models.
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/StarMulSelfOfPair.lean}{24}{The scalar between two frames}
+If the lowest type is zero take \(\zeta=1\). Otherwise let
+\(\phi\) be the composite of one coefficient identification of the
+frames with the inverse of the other. It is linear over the large
+coefficient field, and the coefficient map \(c\) satisfies
+\(c\circ\phi=\zeta c\). The frame data include that \(c\) sends a
+basis of the coefficient space to complex linearly independent
+vectors. Comparing coordinates of \(\phi\) in this basis, its
+diagonal entries all have complex image \(\zeta\) and the others
+vanish. Thus \(\phi\) is multiplication by an element \(a\) of the
+large coefficient field with complex image \(\zeta\). We show that
+\(a\) is a root of unity.
+\begin{enumerate}
+\item Let \(K_{\rm cm}\) be the common CM subfield, or the totally
+real subfield if there is no CM subfield. The two identifications
+send a fixed nonzero basis vector of the rational coefficient space
+to \(ay\) and \(y\), and both have coordinates in \(K_{\rm cm}\) in
+the fixed basis. Some coordinate \(y_k\) of \(y\) is nonzero, and
+\(a=(ay)_k/y_k\in K_{\rm cm}\).
+\item Both identifications carry the rational Hermitian pairing to
+the same pairing \(\langle\,,\rangle\). Thus \(\langle y,y\rangle\)
+is the rational pairing of the fixed basis vector with itself. Its
+complex image is the squared norm of the image of that vector under
+the injective complex coefficient map of the rational space, so
+\(\langle y,y\rangle\ne0\). Hence
+\(a\bar a\langle y,y\rangle=\langle ay,ay\rangle=\langle y,y\rangle\),
+so \(a\bar a=1\).
+\item Both identifications carry the integral harmonic lattice at a
+class representative onto the same nonzero finitely generated
+module \(\Lambda\) over the ring of integers of the large
+coefficient field. Thus \(a\Lambda\subseteq\Lambda\). The module
+\(\Lambda\) lies in a vector space, so it is faithful over the
+ring generated by \(a\). By \cite[Prop.~5.1]{s2b-atiyah-macdonald}
+the element \(a\) is integral over that ring of integers, hence
+over \(\mathbf Z\) by transitivity \cite[Cor.~5.4]{s2b-atiyah-macdonald}.
+\item Let \(\sigma\) be a complex embedding of \(K_{\rm cm}\). The
+totally real subfield \(K_{\rm cm}^+\) fixed by the bar has real
+image. If \(K_{\rm cm}\ne K_{\rm cm}^+\), write
+\(K_{\rm cm}=K_{\rm cm}^+(\beta)\) with \(\beta^2\in K_{\rm cm}^+\)
+and \(\bar\beta=-\beta\). Then \(\sigma(\beta)\) is not real,
+because \(K_{\rm cm}\) is totally imaginary, while
+\(\sigma(\beta)^2\) is real. So \(\sigma(\beta)^2<0\) and complex
+conjugation sends \(\sigma(\beta)\) to \(-\sigma(\beta)\). It
+therefore induces on \(\sigma(K_{\rm cm})\) the transport of the
+bar. Thus
+\(\sigma(\bar a)=\overline{\sigma(a)}\) in all cases, and
+\(|\sigma(a)|^2=\sigma(a\bar a)=1\).
+\end{enumerate}
+The conjugates of \(a\) are the values \(\sigma(a)\). An algebraic
+integer all of whose conjugates have absolute value one is a root
+of unity \cite[Lemma~1.6]{i2-washington}. Hence \(a\) and
+\(\zeta\) are roots of unity. The scale condition is agreement
 of positive powers. Taking a multiple of the order of \(a\)
 preserves it in both directions. On a tensor \(z\otimes f\) the
 normalized evaluation is
@@ -243,7 +1221,6 @@ normalized evaluation is
 \(\iota\) is the signed embedding and \(v_0\) the extremal vector.
 All three factors agree. Pure tensors span, so the rational
 spaces of values and their membership conditions agree.
-\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/StarMulSelfOfPair.lean}{127}{The integral phase}
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/ExtremalVectorMemLowestKType.lean}{234}{Admissibility of the same scalar}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExportTieMove.lean}{31}{The normalized evaluation}.
 
@@ -291,13 +1268,63 @@ Assume the three estimates of Section~\ref{sec:integral} on the
 preliminary signatures, toric distributions and theta tests.
 To transfer them, take a marked place \(w\)
 of the final coefficient field above \(\ell\), and let \(\alpha\)
-be the preliminary character at its restriction. The two readings
-of the same complex roots of order \(\ell^k\) differ by a power
-\(u_w\in(\mathbf Z/\ell^k\mathbf Z)^\times\).
-The normalized Frobenius values away from the exceptional places
-agree after this change of roots. Chebotarev on the finite ray
-quotient therefore identifies the entire final character with
-\(\alpha^{u_w}\). A primitive power on either prescribed side
+be the preliminary character at its restriction.
+
+\teamanchor{proof.selected-ray-frobenius}%
+\paragraph{Identification of the final character.}
+Let \(Q\) be the ray support of \(\alpha\) and \(G_Q\) its finite
+ray quotient, with the continuous surjective Artin map
+\(\operatorname{art}_Q\) from the absolute Galois group of \(E\).
+The character \(\alpha\) takes values in the group \(\mu\) of
+\(\ell^k\)-th roots of unity of its cyclotomic ring \(O_k\), which
+contains a primitive \(\ell^k\)-th root. Let \(\iota_\alpha\) be
+the fixed isomorphism of \(\mu\) with the complex roots of order
+\(\ell^k\), and \(\chi\) the retained reciprocity reading. For
+every place \(v\notin Q\) and every Frobenius element \(\sigma_v\)
+at \(v\) it satisfies
+\(\chi(v)^{-1}=\iota_\alpha\bigl(\alpha(\operatorname{art}_Q\sigma_v)\bigr)\).
+Let \(\alpha'\colon G_Q\to O_k^\times\) be the final character at
+\(w\), let \(L_w\) be the fraction field of the final coefficient
+DVR at \(w\), and \(j_w\colon O_k\to L_w\) the structure map.
+The final choice reads \(\alpha'\) through the same \(\chi\): if
+\(v\notin Q\) does not lie above \(\ell\) and \(y\) in the large
+coefficient field has complex image \(\chi(v)^{-1}\), then the
+image of \(y\) in \(L_w\) is
+\(j_w\bigl(\alpha'(\operatorname{art}_Q\sigma_v)\bigr)\).
+The edition takes these two readings from the release: the
+transport of \((Q,k,\alpha,\chi)\) to the final index with the same
+ray quotient and Artin map, and the compatibility of the final
+choice with \(\chi\).
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/RawPackEqPow.lean}{51}{Transport of the preliminary ray data}
+\releasecite{Formalism/LocalToGlobal/UnitaryNorms/CharGal.lean}{129}{Frobenius compatibility of the final choice}.
+
+The second pass also makes the large coefficient field contain
+every complex root of order \(\ell^k\); this is part of the
+realization of the chosen characters taken from the release above.
+The rest is derived. The complex embedding of the large coefficient
+field is injective. Sending \(u\in\mu\) to the image in \(L_w\) of the
+unique \(y\) with complex image \(\iota_\alpha(u)\) therefore
+defines an injective homomorphism \(r_w\colon\mu\to L_w^\times\).
+The restriction of \(j_w\) to \(\mu\) is also injective. The group
+\(\mu\) is cyclic of order \(\ell^k\), and the \(\ell^k\)-th roots
+of unity in the field \(L_w\) form a cyclic group of order at most
+\(\ell^k\). Both maps are therefore isomorphisms onto this group,
+and there is a unique \(u_w\in(\mathbf Z/\ell^k\mathbf Z)^\times\)
+with \(r_w(u)=j_w(u^{u_w})\) for all \(u\in\mu\).
+Now let \(\gamma\in G_Q\). The kernel of \(\operatorname{art}_Q\)
+is open, so it fixes a finite abelian extension of \(E\) with
+Galois group \(G_Q\). By Chebotarev's density theorem
+\cite[Ch.~VII, Thm.~(13.4)]{i2-neukirch} the primes of \(E\)
+unramified there with Frobenius \(\gamma\) have positive density.
+Choose one, \(v\), outside \(Q\) and not above \(\ell\), and a
+Frobenius element \(\sigma_v\) with
+\(\operatorname{art}_Q\sigma_v=\gamma\). The two readings give
+\[
+ j_w\bigl(\alpha'(\gamma)\bigr)=r_w\bigl(\alpha(\gamma)\bigr)
+   =j_w\bigl(\alpha(\gamma)^{u_w}\bigr).
+\]
+Since \(j_w\) is injective, \(\alpha'(\gamma)=\alpha(\gamma)^{u_w}\).
+Hence \(\alpha'=\alpha^{u_w}\) on all of \(G_Q\). A primitive power on either prescribed side
 is now a power \(\alpha^{\pm a u_w}\) with \(\ell\nmid a u_w\).
 It has the same conductor and the same trivial restrictions at
 the places over \(\ell\). The specialization in
@@ -314,7 +1341,6 @@ Thus the three estimates apply to the same character at this
 index, with their original tolerances. The structural selection
 identifies their arguments; their bounds come from the
 corresponding local and global calculations.
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RigidRawPacketEqPow.lean}{13}{Identification by Frobenius values}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/GoodTwistOfSeedCharacterPowers.lean}{157}{The same primitive powers in all the tests}.
 
 \teamanchor{proof.same-family-hypotheses}%
@@ -393,9 +1419,15 @@ row subspace used for the lifted tests. The actual block projection
 from \(L_j\) to \(Z_j^{\rm coord}\) first projects to \(V_j\), then
 projects for its positive Hermitian form onto \(Z_j^{\rm coord}\).
 Its restriction to the included \(Z_j^{\rm coord}\) is the identity,
-so it is onto. This is the right-inverse identity for the two
-small-level maps in the
-\releasecite{Formalism/LocalToGlobal/Divisibility/LiftLatLemmas.lean}{198}{projected coordinates}.
+so it is onto. Indeed the first step is the product of the two
+commuting idempotents. A product of commuting idempotents is an
+idempotent, here with image \(V_j\), so it fixes \(V_j\) pointwise.
+The Hermitian form is positive definite on \(V_j\), so
+\(V_j=Z_j^{\rm coord}\oplus(Z_j^{\rm coord})^\perp\) and the
+orthogonal projection fixes \(Z_j^{\rm coord}\) pointwise. Thus
+projection after inclusion is the identity of \(Z_j^{\rm coord}\).
+This is the right-inverse identity for the two small-level maps in
+the projected coordinates.
 
 Put \(i=j-1\). The map entering this rank is the auxiliary lift
 \(\Theta_{P_0,\boldsymbol\mu,j}\) from the definite group of rank \(r+t\) to
@@ -711,12 +1743,35 @@ It follows from \eqref{eq:record-individual-isot-rank} that
  \sum_p\dim_K E_p&=D_0=\dim_{\mathbf C} M_j .
  \end{aligned}
 \end{equation}
+\teamanchor{proof.base-record-rank-count}%
+In detail, dimension is unchanged by the scalar extension from
+\(K\) to \(\mathbf C\). By the preceding paragraph the
+complexification of \(E_p\) is the direct sum of the bottom
+isotypes of the \(\sigma\) with \(p(\sigma)=p\), and that of
+\(W_{i,p}\) is the direct sum of the stage isotypes
+\(M_j[\sigma]\) with \(p(\sigma)=p\). The chosen labelled basis
+\((b_k)\) is adapted to the bottom isotypic decomposition: for
+each \(\sigma\) the \(b_k\) with \(\operatorname{ft}_0(k)=\sigma\)
+span the bottom \(\sigma\)-isotype. This is part of the release's
+description of the labelled basis cited above. So the bottom
+\(\sigma\)-isotype has dimension
+\(\#\{k:\operatorname{ft}_0(k)=\sigma\}\), and by
+\eqref{eq:record-individual-isot-rank} so has \(M_j[\sigma]\).
+Summing over the \(\sigma\) with \(p(\sigma)=p\) gives the first
+line. Each occurring \(\sigma\) has exactly one label \(p(\sigma)\),
+and each \(k\) has the occurring label \(\operatorname{ft}_0(k)\).
+Hence the double sum over \(p\) and \(\sigma\) counts every
+\(k\) once, and \(\sum_p\dim_KE_p=D_0\). Since
+\(M_j=\bigoplus_\sigma M_j[\sigma]\), also
+\(\dim_{\mathbf C}M_j=\sum_\sigma\#\{k:\operatorname{ft}_0(k)=\sigma\}
+=D_0\).
 This is the rank of the indicated base row space on the same
 level. With the standard-vector equality and the level coordinate
-right inverse, the fitted map onto this \(M_j\) is surjective.
-Its Hilbert adjoint therefore has zero kernel and rank \(D_0\).
-\releasecite{Formalism/LocalToGlobal/HilbertRowConditions/ColumnsFunctionAtSubspaces.lean}{129}{The block partition and its ranks}
-\releasecite{Formalism/LocalToGlobal/NormalizedHeckeFactors/BaseRowsEqRecordRows.lean}{55}{The base record rank and its use for the fitted map}.
+right inverse, the fitted map onto this \(M_j\) is surjective,
+by the vectors \(x_a\) above. For its Hilbert adjoint,
+\(\ker\Theta^*=(\operatorname{im}\Theta)^\perp=0\) and
+\(\operatorname{rank}\Theta^*=\operatorname{rank}\Theta
+=\dim M_j=D_0\).
 
 On a nonzero carried block, the auxiliary Petersson scalar in
 \eqref{eq:actual-stage-petersson-scalar} is the scalar used when
@@ -820,17 +1875,46 @@ finite-dimensional commutative image algebra. Taking the scalar
 part therefore gives a character \(A\to O\). Its reduction modulo
 the uniformizer is onto the residue field since \(A\) contains \(O\).
 
+\teamanchor{proof.record-maximal-ideals}%
+Let \(\theta_1,\ldots,\theta_s\) be the distinct characters so
+obtained and \(M_i\) the joint summand of \(\theta_i\). Then
+\(\mathfrak m_i=\theta_i^{-1}(\varpi_wO)\), with \(\varpi_w\) a
+uniformizer of \(O\), is a maximal ideal of \(A\), being the kernel
+of a surjection onto the residue field. Every maximal ideal of
+\(A\) is one of the \(\mathfrak m_i\). Indeed, let
+\(\theta=(\theta_1,\ldots,\theta_s)\colon A\to O^s\). An element of
+its kernel acts nilpotently on each \(M_i\), hence on \(M\). Since
+\(A\subseteq\operatorname{End}_L(M)\), this kernel is a nil ideal
+and lies in every maximal ideal. Each generator has an integral
+characteristic polynomial, so it is integral over \(O\) by the
+Cayley--Hamilton theorem. The elements of the commutative ring \(A\)
+integral over \(O\) form a subring \cite[Cor.~5.3]{s2b-atiyah-macdonald},
+which contains the generators and \(O\). Hence \(A\) and its image
+\(B=\theta(A)\) are integral over \(O\). Also \(O^s\) is integral
+over \(B\): an element \(x\) is a root of \(\prod_i(X-x_i)\), whose
+coefficients lie in the diagonal copy of \(O\) in \(B\). Let \(\mathfrak m\) be a maximal ideal of \(A\). Its
+image is a maximal ideal of \(B\). By lying over and
+\cite[Thm.~5.10 and Cor.~5.8]{s2b-atiyah-macdonald} it is the
+contraction of a maximal ideal of \(O^s\). The maximal ideals of
+\(O^s\) are the inverse images of \(\varpi_wO\) under the
+coordinate projections. Hence \(\mathfrak m=\mathfrak m_i\) for
+some \(i\). In particular \(A\) has finitely many maximal ideals.
+
 For a maximal ideal \(\mathfrak m\) of \(A\), let \(M_{\mathfrak m}\)
-be the sum of the joint spaces with that residual kernel and
+be the sum of the \(M_i\) with \(\mathfrak m_i=\mathfrak m\) and
 \(p_{\mathfrak m}\) the projection along the other summands. The
 local indices over \((j,w)\) run once through the maximal ideals of
-this algebra. For such an index the lattice is the \(O\)-span of
+this algebra; the record carries this indexing and the lattices
+below.
+\releasecite{Formalism/LocalToGlobal/NumberFieldFamilies/NPartCNd.lean}{132}{The local indices and the projected generator lattice} For such an index the lattice is the \(O\)-span of
 \(p_{\mathfrak m}b\), where \(b\) runs through the realized generators
 of the specified twisted class lattice. These generators span \(M\)
 over \(L\). Applying \(p_{\mathfrak m}\) shows that the local
 lattice spans exactly \(M_{\mathfrak m}\) over \(L\). It is finite
 free, being a finitely generated torsion-free module over a DVR.
-Consequently, writing \(\Lambda_a\) for the lattice with local
+Its rank is \(\dim_LM_{\mathfrak m}\). Each \(M_i\) occurs in
+exactly one \(M_{\mathfrak m}\), and \(M\) is the direct sum of the
+\(M_i\). Consequently, writing \(\Lambda_a\) for the lattice with local
 index \(a\), we have
 \begin{equation}
  \label{eq:record-local-rank-sum}
@@ -844,9 +1928,6 @@ In every case the local projections jointly detect each vector of
 over the fraction field. The colength in
 Section~\ref{sec:integral} also depends on the position of the
 projected integral lattice relative to the intersected lattice.
-\releasecite{Formalism/LocalToGlobal/NumberFieldFamilies/NPartCNd.lean}{132}{The local indices and the projected generator lattice}
-\releasecite{Formalism/LocalToGlobal/NumberFieldFamilies/NPartCNdTie.lean}{65}{Exhaustion of the residual ideals} and the
-\releasecite{Formalism/LocalToGlobal/NormalizedHeckeFactors/CoverThm.lean}{94}{normalized Hecke comparison}.
 
 The two estimates use the same \(D(u)\). Indeed \(T,T_2,a_t\) agree
 by the translate property, the weights \(w_{u,j}\) in both sums
@@ -1105,7 +2186,7 @@ Fix \(0<\theta<1\) and \(\lambda>1\). Assume that for every
 \end{equation}
 Then \(\Phi_g\) has no pole in \(\Re s>\theta\).
 The positive part is the least nonnegative majorant of \(g\).
-Alp\"oge proves the criterion by estimating derivatives at a real
+ai agent proves the criterion by estimating derivatives at a real
 center and a vertical translate, then comparing their growth at the
 nearest pole.
 \releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/landauWindow.lean}{40}{The derivative proof in the release}
@@ -1210,7 +2291,7 @@ pole at \(s=1\) of residue \(\prod_{p\mid N}(1-p^{-1})=\varphi(N)/N\).
 Consequently, given the window bound for each primitive target,
 every \(L(s,\chi)\) is nonzero in \(\Re s>1/2\) away from the
 principal pole. Every zero in \(0<\Re s<1\) then has real part \(1/2\).
-Alp\"oge uses
+ai agent uses
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/Imprimitive.lean}{5}{the same change of conductor}
 for the right-hand nonvanishing in the
 \releasecite{Main.lean}{8}{formal Dirichlet theorem}.

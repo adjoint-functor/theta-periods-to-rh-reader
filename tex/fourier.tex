@@ -31,10 +31,18 @@ same \(t\in T\) to each \(i(u)\). Their prescribed intervals are
 Here \(L_{\mathrm{a},G}\) is the parameter in the upper endpoint of the
 interval for \(b_t\). The degree window gives \(0<a_t\le2a_E\) and,
 with \(y_t=a_t/b\), gives \(0\le y_t-x\le 1/(kx^{12})\le1\).
-The intervals for the sampling integers and their transport are
-recorded in the
-\releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{76}{size data}
-and the \releasecite{Formalism/SharpRestriction/FamCore.lean}{124}{family data}.
+These intervals are hypotheses of this section on the selected
+records. For \(\psi=1\) the interval for \(a_t\) and the transport of
+both arrays from the seed to every translate are item~3 of the
+\hyperlink{proof.choose-compatible-family}{family selection} in
+Section~\ref{sec:assembly}, with steps (c) and (f) of
+\hyperlink{proof.selection-construction-order}{its construction}.
+The window for \(b_t\) is the raw window of step (c). The bounds on
+\(L_{\mathrm{a},G}\) are taken there from the release, the windows are
+shown there to be nonempty, and the choice of admissible arrays inside
+them is the residual (R3) of
+\hyperlink{proof.selection-residual}{that construction}. This section
+uses the window only through \(b'\le b_t\le b'(1+o(1))\), shown below.
 
 Use the coordinates \(r\in P=\{(0,i,s):i\in\mathbf Z/2\mathbf Z,\ s\in H\}\)
 for the stage weights. In the original \(q,d\) sign order, the CM
@@ -51,12 +59,41 @@ at stage \(j\). With the common
  \text{all other positions in }P & [w'',w''+\eta_{\rm wt}].
 \end{array}
 \]
-The first two rows are disjoint in their second coordinates. The
-intervals use the selected embeddings and weights, as in the
-\releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{151}{three weight ranges}.
-The \releasecite{Formalism/SharpRestriction/ElevenLe.lean}{24}{rank and size ranges}
-give \(n\le x^{9/4}\), \(x^4\le k\le x^5\), and
-\(\log\eta_{\rm wt}\le x^{\varepsilon/4}\) at large \(x\). In particular,
+The first two rows are disjoint in their second coordinates.
+
+\teamanchor{proof.fourier-weight-intervals}%
+For \(\psi=1\) the table follows from the rows constructed
+\hyperlink{proof.section-run-design}{in Section~\ref{sec:integral}}.
+The thick, top and remaining labels of a record are the positions in
+the first, second and third rows of the table. Every selected index
+carries these rows, by the
+\hyperlink{proof.section-run-family-identification}{identification}
+in Section~\ref{sec:assembly}. At a label \(\tau\), the
+Harish--Chandra entry at stage \(j\in\{1,\ldots,m\}\) is the node
+\(e_{\tau,j-1}=B_\tau+(j-\tfrac12)H_{\rm node}\), and
+\(\eta_{\rm wt}=mH_{\rm node}\) with \(H_{\rm node}\ge2\). Hence
+\[
+ B_\tau+1\le w_{u,j}(r)\le B_\tau+\eta_{\rm wt}-1 .
+\]
+On the thick labels \(B_\tau\) is \(\lceil b\rceil\), increased by at
+most \(|\mu(E)|-1=1\) at one label, so \(b\le B_\tau\le b+2\). This
+gives the first row. On the top labels
+\(B_\tau=b_t+\lfloor b'/x\rfloor\) lies in \((b_t+b'/x-1,\,b_t+b'/x]\),
+which gives the second row. On the remaining labels
+\(B_\tau=\lceil w''\rceil\) lies in \([w'',w''+1)\), which gives the
+third row. The rank relations of
+\hyperlink{proof.host-realization}{Section~\ref{sec:family}} and
+\eqref{eq:classical-host-scale} give \(n\le2x^{2+8\varepsilon}\le x^{9/4}\)
+and \(x^4\le x^{9/2+10\varepsilon}\le k\le 2x^{9/2+10\varepsilon}\le x^5\)
+at large \(x\), since \(\varepsilon<1/52\). The same rows give
+\(\eta_{\rm wt}\le 2m\lceil x^{u_{\rm node}}\rceil\) with \(m\le x\),
+so \(\log\eta_{\rm wt}=O(\log x)\le x^{\varepsilon/4}\) at large \(x\).
+For \(M>1\) the edition takes the corresponding records from the
+release: the \releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{76}{size data},
+the \releasecite{Formalism/SharpRestriction/FamCore.lean}{124}{family data},
+the \releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{151}{three weight ranges}
+and the \releasecite{Formalism/SharpRestriction/ElevenLe.lean}{24}{rank and size ranges}.
+In particular,
 \[
  \frac{2n\delta_1 x^\varepsilon L_{\mathrm{a},G}}{k}
  \le 2x^{-7/4+(201/100)\varepsilon}\longrightarrow0,\qquad
@@ -199,9 +236,13 @@ normalization in \eqref{eq:prime-power-center}. We get
    \sum_{\xi\in\widehat\Gamma}\overline{\xi(g)}\,w_{p_t(g)}
                       G_\xi\bigl(a/w_{p_t(g)}\bigr).
 \end{equation}
-Taking real parts and summing over \((t,j)\) with the weights at
-\(i(u)\) gives \(D(u)\).
-\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChBalance.lean}{200}{Formal identity}.
+Here \(A(a,t,w)\) is real, and \(M(a,w)\) is real since \(\ell_c\) is
+the logarithmic derivative at \(1\) of the real character \(\eta_d\).
+Put \(a=a_t\) and \(w=w_{u,j}\) with the weights at \(i(u)\). Taking
+real parts and summing over \((t,j)\) gives \(D(u)\) by
+\eqref{eq:centered-excess-definition}. The identity uses only the
+support condition \(a_t/w_{u,j}(r)\le N\), the Euler-factor
+computation and finite inversion above.
 
 \subsection{Reduction to the large weights}
 
@@ -274,29 +315,51 @@ It is positive since \(N_T,m,b>0\) and \(\delta_2\ge x^{-\varepsilon}\).
 \subsection{Selecting the target characters}
 
 The characters of \(H/H_0\) pull back along \(h_{\rm nat}\) to the
-powers \(\psi^k\), \(0\le k<o\). View each such character \(\nu\) on
+powers \(\psi^k\), \(0\le k<o\). Indeed, restriction identifies
+\(H/H_0\) with \(\operatorname{Gal}(\mathbf Q(\psi)/\mathbf Q)\), and
+\(h_{\rm nat}\) followed by this restriction is the cyclotomic Artin
+map of \(\mathbf Q(\psi)\). It identifies the Galois group with
+\((\mathbf Z/M\mathbf Z)^\times/\ker\psi\), a cyclic group of order
+\(o\) on which \(\psi\) is faithful. Its characters are therefore the
+powers of \(\psi\). View each such character \(\nu\) on
 \(H\). As \(\nu\) and \(i,j\in\{0,1\}\) vary, the factor
 \(\nu(h_-)^{e_q}\) permutes the sign choices since \(2h_-=0\). Thus all
 \(4o\) characters in \(H_0^\perp\) have the form
 \[
  \xi(e_d,e_q,h)=(-1)^{i e_q+j e_d}\nu(h)\nu(h_-)^{e_q}.
 \]
-In \eqref{eq:artin-coordinates} the two factors \(\nu(h_-)^{e_q(a)}\)
-cancel, so on units modulo \(Q_Sqd\) the pullback is
-\(\psi^k\eta_q^i\eta_d^j\) as in the
-\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/TwistAny.lean}{115}{Dirichlet twist decomposition}.
+For a unit \(a\) modulo \(Q_Sqd\), \eqref{eq:artin-coordinates} gives
+\[
+ \xi(\operatorname{Art}(a))
+  =(-1)^{ie_q(a)+je_d(a)}\nu\bigl(h_{\rm nat}(a)+e_q(a)h_-\bigr)
+     \nu(h_-)^{e_q(a)}
+  =\eta_q(a)^i\eta_d(a)^j\,\nu(h_{\rm nat}(a))\,\nu(h_-)^{2e_q(a)} .
+\]
+Since \(\nu(h_-)^2=\nu(2h_-)=1\), the pullback is
+\(\psi^k\eta_q^i\eta_d^j\) on units modulo \(Q_Sqd\).
 Its primitive associate is \(\chi_k\eta_q^i\eta_d^j\), where \(\chi_k\)
 induces \(\psi^k\) modulo \(M\) and is primitive, with \(\chi_0=1\).
 Omit a quadratic factor with exponent zero. The conductor is
 \(\operatorname{cond}(\chi_k)q^id^j\) since each selected factor retains
-its conductor in the coprime product. Thus every term
+its conductor in the coprime product. Indeed, let \(\chi_1,\chi_2\) be
+primitive with coprime conductors \(m_1,m_2\), and suppose
+\(\chi_1\chi_2\) is trivial on the units modulo \(m_1m_2\) that are
+\(\equiv1\bmod N'\), for some \(N'\mid m_1m_2\). For a unit \(a\)
+modulo \(m_1\) with \(a\equiv1\bmod\gcd(N',m_1)\), the Chinese
+remainder theorem gives \(a'\equiv a\bmod m_1\) with
+\(a'\equiv1\bmod m_2\). Then \(a'\equiv1\bmod N'\), since
+\(N'=\gcd(N',m_1)\gcd(N',m_2)\). Hence \(\chi_1(a)=\chi_1\chi_2(a')=1\),
+so \(\chi_1\) is induced from modulus \(\gcd(N',m_1)\). Primitivity
+gives \(m_1\mid N'\), and likewise \(m_2\mid N'\). Thus
+\(\chi_1\chi_2\) is primitive of conductor \(m_1m_2\). Here
+\(\operatorname{cond}(\chi_k)\mid M\) is coprime to \(qd\). Thus every term
 with \((i,j)\ne(0,0)\) satisfies the nontrivial quadratic twist hypotheses
 of Section~\ref{sec:family}.
 At \(e(t)=(1,0,t)\) the phase is \((-1)^j\nu(t)\).
 Let \(\mathcal X\) consist of the characters with \(i=j=0\).
-Their inducing primitive characters form
-the fixed set \(\mathcal K\) attached to the
-\releasecite{Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ExplicitFormulaErrorOfHostConditions.lean}{105}{subgroup generated by \(\psi\)}.
+Their inducing primitive characters form the set \(\mathcal K\) of
+primitive associates of the powers \(\psi^k\), \(0\le k<o\). It depends
+only on the target.
 Different powers give different primitive associates since an associate
 determines its inducing values on units modulo \(M\). Thus \(\mathcal K\)
 has \(o\) elements, contains \(1,\psi\) and is closed under conjugation.
@@ -346,9 +409,14 @@ Write
 \(\Sigma(x)=\sum_{\xi\in H_0^\perp\setminus\mathcal X}|G_\xi(x)|\).
 Each term with \(\xi\notin\mathcal X\) has real part at least
 \(-|G_\xi(x)|\), since its multiplier is the mean of unit complex
-numbers. The
-\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean}{427}{lower estimate for the average}
-then gives
+numbers. Collecting the three replacements gives
+\[
+ \operatorname{Re}\frac{1}{N_T}\sum_{t\in T}\sum_{\xi\in H_0^\perp}
+                 \xi(e(t))G_\xi(y_t)
+ \ \ge\ G_{\mathcal K}(x)-\Sigma(x)-4x^{1/2+\varepsilon}.
+\]
+Multiplying by the positive factor \(Q\delta_2/2\) and comparing with
+the translate average gives
 \begin{equation}
 \label{eq:fourier-extraction}
  \frac{Q\delta_2}{2}
@@ -389,8 +457,9 @@ we have \(a_E=xb\), \(N_T\ge nx^{-\varepsilon/8}/2\), and
 \]
 For \(\psi=1\), the sample counts are \eqref{eq:classical-sampling-size}
 and the bounds for \(m,k\) follow from the prescribed ranks in
-Section~\ref{sec:family}. The same size inequalities hold for the
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/LossesSmallShares.lean}{281}{selected Dirichlet data}.
+Section~\ref{sec:family}. For \(M>1\) the edition takes the same size inequalities for the
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/LossesSmallShares.lean}{281}{selected Dirichlet data}
+from the release.
 Also \(N_2\le n\) because \(T_2\subseteq H\).
 The first and third terms have bounds \(2x/m\) and
 \(4mx^{9\varepsilon/8}\), which balance at the square-root scale
@@ -406,8 +475,9 @@ The factors from the main budget have exponent loss
  G_{\mathcal K}(x)-\Sigma(x)\le
  20x^{1/2+(C_{\rm err}+21/8)\varepsilon}
  +4x^{-1+\varepsilon}+4x^{1/2+\varepsilon}
- \le 26x^{1/2+(C_{\rm err}+21/8)\varepsilon}.
+ \le 26x^{1/2+(C_{\rm err}+21/8)\varepsilon}
 \]
+for \(x\ge2\), in particular at every scale \(x\ge3\) of this section, since then \(4x^{-1+\varepsilon}\le2x^{1/2+\varepsilon}\).
 For sufficiently large \(x\), \(26\le x^{3\varepsilon/8}\) and
 \(1+4o\le x^\varepsilon\). The first inequality bounds
 \(G_{\mathcal K}(x)-\Sigma(x)\) by \(x^{1/2+(C_{\rm err}+3)\varepsilon}\).
@@ -425,4 +495,12 @@ conductor-one target with the loss bounds \(e_D=2\) and \(e_L=0\),
 it gives \(G_1(x)\le x^{1/2+9\varepsilon}\).
 Section~\ref{sec:assembly} uses the same family and the inequality
 \eqref{eq:integral-excess} at every scale of the chosen intervals.
-\releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/CoreGm.lean}{12}{Formal pointwise estimate}.
+For \(\psi=1\) this section derives the implication from its stated
+inputs: the bound \eqref{eq:integral-excess}, the host estimates of
+Section~\ref{sec:family} and the selected records of
+Section~\ref{sec:assembly}. It cites no further statement of the
+release. The release dependencies of those records are listed in
+\hyperlink{proof.selection-residual}{Section~\ref{sec:assembly}}; they
+include the rows carried by every index (part of (R1)) and the window
+for \(b_t\) (R3), which enters here only through
+\(b_t/b'\le1+o(1)\).
