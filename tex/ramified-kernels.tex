@@ -1,0 +1,140 @@
+\paragraph{Integral averaging kernels and the projected lattice.}
+\teamanchor{proof.integral-ramified-kernel}%
+The complex dimension calculation has the following integral
+counterpart. It also distinguishes two lattices with the same
+rational span. Let \(\mathcal O\) be the ring of integers of a number
+field \(K\), let \(q\ge2\) and \(f\ge1\) be integers, and put
+\[
+ A_q=\ker(\Sigma:\mathcal O^q\longrightarrow\mathcal O),
+ \qquad \Sigma(x)=\sum_{i=1}^q x_i.
+\]
+Suppose a definite class lattice has an integral decomposition
+\[
+ M=\bigoplus_{\omega\in\Omega}
+       (\mathcal O^q)^{\otimes f}\otimes_{\mathcal O} L_\omega,
+ \qquad r=\sum_\omega\operatorname{rk}L_\omega>0,
+\]
+where the \(L_\omega\) are finite projective modules. At every
+complex embedding require the class-coordinate copies of each
+\(L_\omega\) to be orthogonal with identical Hermitian metrics;
+different orbits are orthogonal too. A common positive metric
+factor on one orbit is allowed. The partial summation map \(s_j\)
+sums over the \(j\)-th \(q\)-element coordinate, leaving all the
+other coordinates unchanged. Define
+\[
+ H=\bigcap_{j=1}^f\ker s_j\subset M,
+ \qquad d_M=q^f r,\qquad d_r=(q-1)^f r.
+\]
+Then \(H\) is saturated, has rank \(d_r\), commutes with arbitrary
+extension of the coefficient ring, and satisfies
+\begin{equation}
+\label{eq:integral-ramified-kernel}
+ H=\bigoplus_\omega A_q^{\otimes f}\otimes L_\omega,
+ \qquad
+ \mu(H)=\mu(M)-\frac{f\log q}{q-1},\qquad
+ \mu_{\max}(H)\le\mu_{\max}(M).
+\end{equation}
+The slopes use the squared metrics of the surrounding argument.
+
+To prove the integral assertion, use
+\(\mathcal O^q=A_q\oplus\mathcal O e_q\). Expanding the tensor
+product by this direct sum, the kernel of \(s_j\) consists exactly
+of the summands with \(A_q\) in position \(j\). Their intersection
+has \(A_q\) in every position. All the complementary summands are
+projective, proving saturation and the assertion after any base
+change. No division by \(q\) enters this argument.
+
+In one factor the basis \(a_i=e_i-e_q\), \(1\le i<q\), of
+\(A_q\) has Gram matrix
+\(G=I+\mathbf1\mathbf1^{\mathsf T}\), with determinant \(q\).
+Writing \(a=q-1\), the identity
+\[
+ \det(G^{\otimes f})=q^{f a^{f-1}}
+\]
+shows that the additional log squared covolume per retained rank
+is \(f\log q/a\). The contribution per rank from the fibre
+metric and its finite determinant is the same before and after
+restriction. Each orbit retains the same rank ratio \((a/q)^f\),
+so their weighted means retain the same weights. This proves
+the mean formula. Every rational subspace of \(H\otimes K\)
+has the same induced lattice and metric as its intersection with
+\(M\), since \(H\) is saturated. Its slope is bounded by
+\(\mu_{\max}(M)\), proving the last inequality.
+
+\paragraph{The denominator introduced by orthogonal projection.}
+\teamanchor{proof.ramified-projector-index}%
+Let \(e_j=I-q^{-1}J\) on the \(j\)-th factor, where every entry
+of \(J\) is one, and let \(e=\prod_j e_j\) on \(M\otimes K\).
+This is the orthogonal projection onto \(H\otimes K\) in the
+specified metrics. The projected lattice \(P=eM\) satisfies
+\begin{equation}
+\label{eq:ramified-projector-index}
+ H\subseteq P\subseteq q^{-f}H,\qquad
+ \operatorname{length}_{\mathcal O_v}(P_v/H_v)
+     =\frac{f d_r}{q-1}\operatorname{ord}_v(q)
+\end{equation}
+at every finite place \(v\), with \(\operatorname{ord}_v\) the
+integer-valued DVR valuation. In particular \(P_v=H_v\) when
+\(q\) is a unit.
+
+Indeed, \(b_i=e_i-q^{-1}\mathbf1\), \(1\le i<q\), form a basis
+of the one-factor projected lattice: the last projected coordinate
+is \(-\sum_i b_i\). The relation
+\(a_j=b_j+\sum_i b_i\) gives inclusion matrix \(G\) from the
+kernel lattice to the projected lattice. It has determinant \(q\).
+Tensoring the inclusions and choosing local bases of the
+\(L_\omega\) gives determinant valuation
+\(r f(q-1)^{f-1}\operatorname{ord}_v(q)\), proving the length.
+The first inclusion follows also from \(e|_H=I\). Since
+\(q^f eM\) is integral and killed by every \(s_j\), it lies in
+\(H\), proving the other inclusion. The Gram matrix of the
+\(b_i\) is \(I-q^{-1}\mathbf1\mathbf1^{\mathsf T}=G^{-1}\).
+Consequently the projected lattice has the opposite mean correction:
+\[
+ \mu(P)=\mu(M)+\frac{f\log q}{q-1}.
+\]
+This calculation concerns the finite class coordinates, and is a
+direct lattice calculation rather than an additional candidate
+for new mathematics.
+
+For the word-prime model take \(q=T_w-1\). The possible difference
+between these two lattices is supported on primes dividing
+\(T_w-1\). At places over \(T_w\) the two model lattices coincide.
+This does not determine the index of the actual source \(N_w\)
+there. Nor does equality of the complex spans identify \(N_w\)
+with either model. The required integral orbit decomposition and
+its metrics must themselves be identified with those of the
+actual definite class lattice.
+
+\paragraph{A local test for the remaining donor comparison.}
+\teamanchor{proof.ramified-donor-matrix-test}%
+Fix a single \(K\)-linear identification
+\(\phi:N_w\otimes K\longrightarrow H_w\otimes K\) and set
+\(q=T_w-1\) in the preceding model. At each finite place choose
+bases and let \(C_v\in\mathrm{GL}_{d_r}(K_v)\) be the matrix
+whose columns generate \(\phi((N_w)_v)\) in an \((H_w)_v\)-basis.
+Let \(\alpha_{1v}\le\cdots\le\alpha_{d_rv}\) be its elementary
+divisor valuations; these integers can be negative before
+integrality is proved. Then the two conditions away from \(T_w\)
+in the donor comparison, with \(e_v\) the absolute ramification
+index and \(\tau_v\) a nonnegative integer, are exactly
+\begin{equation}
+\label{eq:ramified-donor-matrix-test}
+ \alpha_{1v}\ge e_v\tau_v,\qquad
+ \sum_{i=1}^{d_r}\alpha_{iv}
+       \le e_v d_M(\tau_v+\iota_v).
+\end{equation}
+At \(v\mid T_w\) the corresponding conditions are
+\(\alpha_{1v}\ge0\) and the stated weighted level-index bound
+with \(e_v\ell_{wv}=\sum_i\alpha_{iv}\). Indeed Smith normal
+form gives the containment from the least exponent and, once
+all exponents are nonnegative, the quotient length from their
+sum. This proves both directions of the test.
+
+The same \(\phi\) must be an isometry at every complex embedding.
+In compatible bases this is the identity
+\(G_{N,\sigma}=C_\sigma^*G_{H,\sigma}C_\sigma\), with
+\(C_\sigma\) the matrix of that same map, not an independently
+chosen local identification. The matrix test makes the residual
+claim explicit; matrices satisfying it for the actual selected
+sources and their metrics have not been supplied here.

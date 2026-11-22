@@ -2,7 +2,7 @@
 
 Our two goals are to reconstruct and check Levent Alpöge’s announced argument for the classical Riemann hypothesis in ordinary mathematical language and to identify its genuinely new mathematical contributions. The paper follows iterated theta lifts to a one-sided estimate for a centered prime-power sum and shows how that estimate excludes nontrivial zeta zeros off the critical line. Section 6 also gives the Mellin sign-change argument for primitive Dirichlet characters from the corresponding window estimate for each target.
 
-**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the paper online (448-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the paper online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 For offline reading, extract the ZIP and open `proof-map.html` in your browser with `reading-guide.pdf` in the same folder.
 
@@ -16,7 +16,11 @@ The English paper’s six sections group the mathematics by topic. The map opens
 
 ## Progress to date
 
-We began by organizing the argument into a proof map that readers can expand step by step. At the levels shown in the map, we checked whether upstream conclusions and stated premises supply all the inputs needed downstream on the same data, with compatible normalizations and the required order of quantifiers. We then worked to fill in the arguments surrounding the candidates, giving direct derivations and citing the precise results from the primary literature wherever they apply. For example, Section 2 computes the auxiliary theta lift on the arithmetic columns, expressing each image in the prescribed basis of cusp forms. The resulting 448-page edition groups nineteen AI-proposed candidates by mathematical topic.
+We began by organizing the argument into a proof map that readers can expand step by step. At the levels shown in the map, we checked whether upstream conclusions and stated premises supply all the inputs needed downstream on the same data, with compatible normalizations and the required order of quantifiers. We then worked to fill in the arguments surrounding the candidates, giving direct derivations and citing the precise results from the primary literature wherever they apply. For example, Section 2 computes the auxiliary theta lift on the arithmetic columns, expressing each image in the prescribed basis of cusp forms. The current local edition has 449 pages and groups nineteen AI-proposed candidates by mathematical topic.
+
+The latest step gives a direct integral calculation of the ramified averaging kernels. Under an explicit integral orbit decomposition with orthogonal class metrics, it proves saturation, compatibility with coefficient base change and the squared mean-slope correction. It also computes the exact index between the kernel lattice and the projected lattice: for $q=T_w-1$, the local length is $f d_r\operatorname{ord}_v(q)/(q-1)$. The two lattices have opposite mean corrections, and the discrepancy is supported on divisors of $T_w-1$. A local elementary-divisor test now states exactly what the actual donor lattice must satisfy. An independent AI subagent checked these derivations; they are elementary lattice calculations and do not add a new candidate. [Kernel proof](reading-guide.pdf#nameddest=proof.integral-ramified-kernel) · [Projector index](reading-guide.pdf#nameddest=proof.ramified-projector-index) · [Actual-donor matrix test](reading-guide.pdf#nameddest=proof.ramified-donor-matrix-test)
+
+The classical window conclusion remains conditional. The reconstruction still needs the actual integral orbit and metric realization, the donor comparison on the selected sources, and the simultaneous realization of the two section runs' exact rows and small coefficient field. The expanded lattice argument in the proof map keeps these inputs open. The local source, PDF and map changes have not been published to the online edition.
 
 ## AI-proposed candidates for new mathematics
 
@@ -105,7 +109,7 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 我们的两个目标是用通常的数学语言重构并核查 Levent Alpöge 公布的经典黎曼猜想论证，以及辨认其中真正新增的数学结果。正文从迭代 theta 提升推到中心化素数幂和的单侧估计，再说明如何用这个估计排除临界线外的非平凡 ζ 零点。第 6 节也给出本原 Dirichlet 特征对应的 Mellin 变号论证，每个特征用到相应的区间估计。
 
-**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读英文论文（PDF，448 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读英文论文（PDF）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 离线阅读时，解压 ZIP 后用浏览器打开 `proof-map.html`，并将 `reading-guide.pdf` 留在同一目录。
 
@@ -119,7 +123,11 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 ## 当前进展
 
-我们先把论证整理成可逐层展开的证明图，在目前展示的各层核对上游结论与所列前提能否在同一组数据下给出下游所需的全部输入，并检查归一化与量词顺序是否相符。随后，我们着重补写候选命题以外的推导，对可由已有定理给出的步骤注明原始文献中的确切出处。例如，第 2 节逐列计算辅助 theta 提升，以指定的尖点形式为基写出各算术列向量经提升后的坐标。这份阅读版共 448 页，按数学主题列出 AI 提出的十九项候选。
+我们先把论证整理成可逐层展开的证明图，在目前展示的各层核对上游结论与所列前提能否在同一组数据下给出下游所需的全部输入，并检查归一化与量词顺序是否相符。随后，我们着重补写候选命题以外的推导，对可由已有定理给出的步骤注明原始文献中的确切出处。例如，第 2 节逐列计算辅助 theta 提升，以指定的尖点形式为基写出各算术列向量经提升后的坐标。目前本地阅读版共 449 页，按数学主题列出 AI 提出的十九项候选。
+
+本轮补出了分歧列平均算子的整核计算：在明确的整轨道分解与正交类坐标度量假设下，证明核格饱和、与系数基变换相容，并算出平方平均斜率的修正。同时算出了核格与投影格之间的准确指数：令 $q=T_w-1$，局部商的长度为 $f d_r\operatorname{ord}_v(q)/(q-1)$。两种格的平均斜率修正符号相反，差异支撑在整除 $T_w-1$ 的素数上。新增的局部初等因子判据明确列出了实际列格还须满足的条件。这些推导已由一个独立 AI 子智能体核查，属于初等格计算，不另增新数学候选。[整核证明](reading-guide.pdf#nameddest=proof.integral-ramified-kernel) · [投影指数](reading-guide.pdf#nameddest=proof.ramified-projector-index) · [实际列格的矩阵判据](reading-guide.pdf#nameddest=proof.ramified-donor-matrix-test)
+
+经典区间结论仍有条件：实际对象上的整轨道分解与度量、选定源格的包含关系和局部指数，以及两个截面系统的精确行与小系数域能否在同一个族中同时实现，仍需补齐。证明图展开整格论证后保留了这些未证输入。本轮源码、PDF 与证明图的改动尚未发布到在线版。
 
 ## AI 建议的新数学候选
 

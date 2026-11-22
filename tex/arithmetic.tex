@@ -12514,6 +12514,8 @@ and
 \noindent This proves \eqref{eq:adjoint-stage-covolume} in the chosen frame.
 \end{samepage}
 
+\input{ramified-kernels}
+
 \teamanchor{proof.divided-column-slopes}
 Let \(\mathcal F\) be the weighted sum of the reference exponents
 and \(Q_w\) the weighted sum for \(w\), using \(2e_v\lambda_v\)
@@ -12529,19 +12531,8 @@ class lattice in \(M_w\) and identifies the actual \(N_w\)
 isometrically with a full sublattice of this model in the
 column chain's zero-stage metric.
 
-In the identified model, put \(q=T_w-1\). On a residue-unit
-factor use the basis \(e_i-e_q\), \(1\le i<q\), of the integral
-kernel of summation in the \(q\) unit coordinates. Its Gram is
-\(I+\mathbf 1\mathbf 1^{\mathsf T}\), of determinant \(q\).
-Compared with its unrestricted residue factor, the mean
-squared slope of this kernel therefore changes by
-\(-\log q/(q-1)\). On each split class summand the identical
-coefficient and class metric factors cancel from this
-difference. The \(f\) independent unit directions use the
-tensor product of these kernels. Tensor determinants add
-the corrections per rank, and the orthogonal summands have
-the same retained rank ratio. In the metric of its integral
-inclusion this gives
+In the identified integral orbit model, apply
+\eqref{eq:integral-ramified-kernel} with \(q=T_w-1\). It gives
 \[
  \begin{gathered}
  d_M=\operatorname{rk}M_w,\quad
@@ -12551,7 +12542,10 @@ inclusion this gives
  \mu_{\max}(H_w)\le\mu_{\max}(M_w).
  \end{gathered}
 \]
-The last inequality follows by saturation in \(M_w\).
+The model is the saturated intersection of the integral summation
+kernels. The projected lattice has the different finite index
+\eqref{eq:ramified-projector-index} and the opposite mean correction;
+it cannot replace this model without a further comparison.
 
 Let \(e_v\ell_{wv}\) be the local length of \(H_w/N_w\).
 The same donor identification must supply
@@ -12568,6 +12562,9 @@ the conditions are \(\tau_v=0\) and
 These conditions concern the actual undivided lattice in the
 zero-stage norms. For a full sublattice the determinant formula
 subtracts \(2e_v\lambda_v\ell_{wv}/d_r\) at \(v\) from the mean.
+The equivalent local matrix test is
+\eqref{eq:ramified-donor-matrix-test}; it remains to verify that
+test and the archimedean isometry on the selected \(N_w\).
 \releasecite{Formalism/SharpRestriction/Divisibility/LocalQuadraticParts.lean}{621}{The ramified rank, metrics and local lengths}.
 
 Set \(g'_{wv}=e_v^{-1}\lfloor e_vg_{wv}\rfloor\).
