@@ -49,6 +49,16 @@
 \definecolor{TraceTint}{HTML}{F1EDF5}
 \definecolor{AnalysisTint}{HTML}{EAF3F0}
 \definecolor{ChoiceTint}{HTML}{F8EFE3}
+\newcommand{\rhscopelabel}[2]{%
+  {\setlength{\fboxsep}{2pt}\colorbox{#1}{%
+    \small\sffamily\bfseries\color{PageInk}#2}}}
+\newcommand{\rhrange}[3][Stronger result in pinned Lean]{%
+  \par\addvspace{.45\baselineskip}\Needspace{4\baselineskip}%
+  \begingroup\setlength{\leftskip}{.65em}\setlength{\parindent}{0pt}%
+  \noindent\rhscopelabel{TraceTint}{#1}\enspace#2\par
+  \nobreak\smallskip
+  \noindent\rhscopelabel{FieldTint}{Classical RH uses}\enspace#3\par
+  \endgroup\addvspace{.45\baselineskip}}
 \hypersetup{
   colorlinks=true,allcolors=LinkBlue,pdflang=en,bookmarksnumbered=true,bookmarksdepth=3,
   pdfauthor={The Theta Periods to RH Reading Edition contributors},
@@ -151,6 +161,11 @@ in its original source and state the special case used here. We have
 sought to fill in as much of the surrounding argument as possible by
 direct derivation, consulting the pinned Lean release for difficult
 constructions, normalizations or arguments \cite{source}.
+For example, two \hyperlink{proof.full-diagonal-estimate}{equal-word
+orbital estimates} from the release give a Gram bound. Together with
+the ramified dimension, it gives \hyperlink{proof.nonzero-anchor}{nonvanishing
+on the selected columns}, a hypothesis of the released
+\hyperlink{proof.relation-transport}{simultaneous theta--Bessel comparison}.
 
 The inventory brings together nineteen AI-proposed candidates for new
 mathematics, grouped by subject. Human specialist assessment is pending.
@@ -164,9 +179,15 @@ The analytic estimate concerns the centered sum
   \qquad(x>0).
 \end{equation}
 Here \(\Lambda\) is the von Mangoldt function, \(\gamma\) is Euler's
-constant and \(r_+=\max(r,0)\). For every sufficiently small fixed
-\(\varepsilon>0\), the assembled estimates must give arbitrarily large
-\(Y\) with
+constant and \(r_+=\max(r,0)\). For each sufficiently small fixed
+\(\varepsilon>0\), choose one classical family and fix a common
+threshold \(x_*\). The lattice argument gives the signed mean
+\(|H|^{-1}\sum_{u\in H}D(u)\le E_x\) at each real window scale
+\(x\ge x_*\), using the stated arithmetic, period and trace inputs.
+Fourier inversion uses this mean at the same scale, with the same
+samples and the auxiliary character estimates, to bound \(G_1(x)\).
+Choose an arbitrarily distant interval \([Y,Y^{3/2}]\) of the
+fixed family above \(x_*\). The pointwise bound then gives
 \[
   G_1(x)\le x^{1/2+9\varepsilon}
   \qquad\text{for every real }x\in[Y,Y^{3/2}].
@@ -176,7 +197,7 @@ over \(x\ge1\). For a zero \(\rho\) with \(1/2<\Re\rho<1\), choose
 \(1/2<\theta<\Re\rho\) and fix a sufficiently small \(\varepsilon>0\)
 with \(1/2+9\varepsilon\le\theta\).
 With the interval bound, the sign-change theorem excludes the simple
-pole at \(\rho\) \cite{z6kaczorowski-pintz-ii}. The functional equation and
+pole at \(\rho\) \cite[Thm.~1 and (2.2)]{z6kaczorowski-pintz}. The functional equation and
 classical boundary facts then give RH. Section~\ref{sec:zeros} also
 gives the Dirichlet extension from the corresponding window bound
 for each primitive target.
@@ -187,17 +208,26 @@ for each primitive target.
 {\small
 \noindent Original argument by Levent Alp\"oge.\par
 \noindent Reading edition by The Theta Periods to RH Reading Edition
-contributors, 22~November~2026.
-\par\noindent Original text and figures in this edition are licensed under
+contributors, revised 25~November~2026.\par
+\noindent Original text and figures in this edition are licensed under
 \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.
-Third-party materials retain their terms.
-\par\noindent
+Third-party materials retain their terms.\par
+\noindent
 \href{https://github.com/adjoint-functor/theta-periods-to-rh-reader}{Project repository}\quad
-\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/tree/v2026.11.22}{Edition v2026.11.22}\par}
+\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/tree/v2026.11.22}{Published edition of 22 November}\par}
 
 \clearpage
 \setcounter{tocdepth}{2}
 {\small\tableofcontents\par}
+
+\noindent
+\rhscopelabel{TraceTint}{Stronger result in pinned Lean}\enspace
+This label identifies a broader statement from the cited release.
+A callout can also point to a stronger bound obtained inside its proof.
+\rhscopelabel{FieldTint}{Classical RH uses}\enspace
+This label gives the particular conclusion used in the classical
+argument. Its proof can still rely on estimates from the release.
+\par
 
 \input{figure-overview}
 
@@ -228,15 +258,28 @@ CM field \(E\) of the prescribed type at \((h(y),q,d)\) satisfies
  \qquad\text{for every finite set \(S\) of primes}.
 \]
 Here \(s_\ell(E,r)\) is the length of the localization kernel for the
-Tate twist \((-r)\). Duality bounds these lengths at each fixed field
+Tate twist \((-r)\).
+\rhrange{The window above works for every primitive target and every
+admissible auxiliary prime pair, with the \(401\) cutoff on \([W,W^2]\).}
+{At conductor one, the analytically selected pair and its actual
+fields need the \(400\) cutoff on arbitrarily distant intervals
+\([Y,Y^{3/2}]\). The remaining odd-primary plus estimate is supplied
+by the release.}
+Duality bounds these lengths at each fixed field
 and twist in terms of \(K_{2r}(\mathcal O_E)\)
 \cite{f1milne-adt,f1weibel-kbook}. For \(\psi=1\), prime-counting,
 zero-density estimates and the explicit formula give the required three
 quadratic-twist bounds, their logarithmic-derivative bounds, and the
 large-argument estimate for all primitive host associates
 \cite{f1thorner-zaman,f1thorner-zaman-density,f1heath-brown,f1ihara-murty-shimura}.
-The windows at scale \(x\) give the bound at \(\lfloor x^{400}\rfloor\)
-and hence at the realized cutoff \(t\) for the finite-place defect in division.
+For classical zeta, \hyperlink{proof.selmer-classical-all-layers}{Mizusawa's class-group
+calculation and the two parity formulas} bound the dyadic summands at
+every layer and twist, uniformly as the auxiliary primes move.
+For the cutoff \(\lfloor x^{400}\rfloor\) needed in integral division,
+the \hyperlink{proof.selmer-classical-low-layer}{small-layer estimate}
+also bounds part of the odd-primary contribution. The remaining
+\hyperlink{proof.selmer-classical-residual}{odd-prime plus sum}
+must be controlled on the same real interval.
 
 The \textbf{\hyperlink{candidate.crystalline-rows}{lifting of integral finite
 cohomology classes with separated Hodge jumps}} occurs at inert places
@@ -273,6 +316,11 @@ signs, compatibility of the two lifts must be proved in both cyclic
 orders. The local lifts then give one exponent annihilating the
 cokernel, independently of the number of pairs. This supplies the
 corresponding inert-place term in the Hecke lattice comparison.
+\rhrange{The clustered bound is uniform over surjections with the
+stated signed jump windows and arbitrary allowed multiplicities.}
+{A cokernel bound on the installed long inert rows that fits the
+weighted Hecke length budget. Short and all-thick rows have separate
+estimates.}
 
 The \textbf{\hyperlink{candidate.residual-crystalline-admissibility}{finite
 condition for torsion extensions with prescribed crystalline lifts}}
@@ -309,6 +357,12 @@ coauthors lift a residue-field subquotient extension together with
 suitable endpoints \cite[Lemma~7.6]{atobe-harder-crystalline}.
 Here the endpoints are prescribed. The three local conclusions give
 zero local loss at the large primes satisfying the separation conditions.
+\rhrange{The release identifies the finite condition in both directions
+for arbitrary finite coefficient modules with the prescribed endpoints.}
+{At the selected large nonexceptional primes and cyclic coefficient
+lengths, admissibility implies the finite condition on the cuspidal
+slot, vanishing on the higher character slots, and unramifiedness on
+the first character slot.}
 
 At each of the two type primes a different
 \textbf{\hyperlink{candidate.tame-type-lifting}{integral lifting bound}}
@@ -342,10 +396,18 @@ corrects the monodromy of a lifted finite class. At \(g_0,g_1\) the
 argument uses \(q\le\lfloor N^2/4\rfloor\) for the graph lattices
 of the cohomology maps and their Tate duals. A length bound for
 the local Hecke defect also uses the rank of each target.
+\rhrange{Under the prime threshold the displayed annihilator is uniform
+over all the stated tame lattices and independent of \(H\), the
+splitting degree and the multiplicities.}
+{The length estimates on the actual graph lattices and their Tate
+duals at \(g_0,g_1\), multiplied by the target ranks where the
+annihilator is converted to a length bound.}
 
 The \textbf{\hyperlink{candidate.tame-selmer}{integral Selmer bound for tame
-anticyclotomic twists}} concerns the finite list of cuspidal lattices
-\(T_s\) of odd rank \(r\ge100\) at one stage over the CM field \(E\).
+anticyclotomic twists}} concerns the finite list of good cuspidal
+signatures attached to one place where the preliminary twist label
+differs from the base label. Over the prescribed CM field \(E\), their
+lattices \(T_s\) have odd rank \(r\ge100\).
 Their conjugate Tate duals are \(T_s\epsilon_\ell^t\), with \(t\)
 positive and odd. Here \(\epsilon_\ell\) is the cyclotomic character.
 The residual representations are absolutely irreducible. Use the
@@ -358,8 +420,9 @@ finite set to avoid, choose one finite \(\ell\)-power anticyclotomic
 character \(\psi\), trivial at every decomposition group over
 \(\ell\), with tame ramification at split conjugate pairs \(Q\).
 For each \(a\) prime to \(\ell\), let \(L_{a,s}\) be the normalized
-length of the relaxed finite Selmer group of the twist by
-\(\psi^{a\sigma_s}\), with the sign \(\sigma_s\) assigned to \(s\).
+length of the discrete Selmer group presented for the twist by
+\(\psi^{a\sigma_s}\), with the local conditions and sign \(\sigma_s\)
+assigned to \(s\).
 The desired conclusions are
 \[
   \sum_s (L_{a,s}-\nu_\ell)_+ \le \delta_A
@@ -372,7 +435,10 @@ for lengths over ramified coefficient fields. With these hypotheses,
 Section~\ref{sec:integral} obtains a bounded-degree coefficient of
 valuation at most \(\nu_\ell\) in each integral Selmer determinant
 for one choice of split prime pairs. A simultaneous specialization
-then gives the common character and both bounds. To pass to the
+then gives the common character and both bounds. At a good point of
+the Hecke calculation, the actual finite Selmer group maps injectively
+into this group after transport of coefficients. Its length therefore
+satisfies the same upper bound. To pass to the
 integral Hecke row, Section~\ref{sec:integral} compares the vacuum
 and the algebraic section at the same marked point of every cover.
 Their changes of frame cancel, leaving one phase and one harmonic
@@ -384,6 +450,12 @@ theorems control residual Selmer groups in suitable cyclic twists or
 give distributions in specified families of twistable modules
 \cite{tame-selmer-mazur-rubin,tame-selmer-smith}. The bound here feeds
 the cuspidal contribution to the integral Hecke comparison.
+\rhrange{The sum of the positive excesses is bounded over the
+prescribed finite list of good signatures, for every allowed signed
+reading of the single character.}
+{An upper bound for each actual Selmer length under its injection,
+and the tame, toric and projected-column bounds for that same
+character at every primitive power used at the final places.}
 
 \subsubsection*{Theta and Bessel periods}
 At a selected translate with the prescribed unitary towers, real tests,
@@ -397,14 +469,21 @@ twisting tuple \(\boldsymbol\mu\), ramified column \(\phi\) and projected row \(
  a_w\big\langle sV\iota_{\boldsymbol\mu}F_m,
              \mathcal P_w\jmath_wU_w\phi\big\rangle .
 \]
-Some positive power of the ratio \(d_{w,\boldsymbol\mu_0}/d_{w,\boldsymbol\mu}\)
-is rational and supported on the twisting primes of \(\boldsymbol\mu\).
+The general comparison controls the prime support of a positive power
+of the ratio. For the prescribed tests, cancellation of the two local
+level indices at each pair of stages leaves a
+\hyperlink{proof.period-relative-phase}{root of unity}.
 Seesaw compares matched kernels. The Bessel formula gives normalized
 squared periods of factorizable vectors in a fixed tempered representation
 with discrete Hermitian weak base change \cite{seesaw,p2bp-chaudouard-bessel}.
 The simultaneous comparison permits descent to a common row dual for
 the rank argument. The support property preserves valuations at the
 finite places where the tuple avoids the residue characteristic.
+\rhrange[Stronger conclusion from the pinned construction]{The index
+cancellation and finite-order phases give a root of unity for the
+relative constant on the installed tests.}
+{The common period comparison and the unit valuations of the relative
+constant at the actual serving places.}
 
 At a split finite place, the \textbf{\hyperlink{candidate.transfer}{transfer around a square}}
 takes an admissible test at depth \(e\ge1\) with the prescribed ramified
@@ -466,7 +545,12 @@ One threshold works for all selected translates and distinct words.
 Relative trace unfolding and density formulas give the orbit reindexing
 and primitive counts \cite{tr3getzhahn,tr3hironaka}. The signed scalar main
 term and nongeneric corank-one remainder, with absolute bounds on other
-errors, control the mixed terms of the second moment for the period span.
+errors, give the second moment for the period span.
+\rhrange{The displayed full-column estimate holds for every ordered
+pair of distinct words separately.}
+{The \hyperlink{proof.summed-mixed-estimate}{sum over ordered distinct
+pairs}, with error \(\sigma/2\) relative to
+\(\sum_{w\ne v}d_wd_v/D_\star\), where \(\sigma=x^{-C_H}\).}
 
 The \textbf{\hyperlink{candidate.diagonal}{single-word estimate}} uses the full
 columns from the mixed Gram estimate and the balance \(d_w\Gamma^2\asymp D_\star\) of
@@ -492,8 +576,13 @@ The projector's rank \(D\) on the multiplicity space satisfies
 \(|D-D_\star|\le \exp(-rf\log r/16)D_\star\). The main term \(D_\star\)
 is the product of the formal degrees, \(\operatorname{vol}([G])\), and
 \(\Re e(1)\). Section~\ref{sec:trace} compares this with multiplicity
-theorems for a fixed group and field. The uniform error as \(r,f\) vary
-lets the moments measure the span against the actual target dimension.
+theorems for a fixed group and field.
+\rhrange{The multiplicity estimate is two-sided under the stated
+signature, level, support and weight conditions.}
+{The \hyperlink{proof.one-sided-row-count}{upper counts for the full
+projector and the two bad-label projectors}, together with the
+\hyperlink{proof.full-moment-dimension}{lower dimension bound from
+the full Gram moments}.}
 
 \subsubsection*{Integral lattices and divisibility}
 For the \textbf{\hyperlink{candidate.jet}{short window for perturbed determinant jets}},
@@ -516,8 +605,12 @@ nonnegative integers contains an order \(y\) with
 \(v(\Lambda_y)\le ry((q+1)p\rho-1)+n(\log_p n+1)\).
 Cayley's identity gives the factorial normalization \cite{lt4cayley}.
 The bound for the resulting Newton coefficients makes the short
-interval accessible by finite differences. In the local normal form
-this supplies a test of controlled valuation for an odd Frobenius block.
+interval accessible by finite differences.
+\rhrange{The short-window theorem covers each perturbation satisfying
+the displayed weight and axis conditions and every interval of the
+specified length.}
+{A test of controlled valuation near the prescribed order for each
+actual marked odd Frobenius block.}
 
 The \textbf{\hyperlink{candidate.gain}{realization of Frobenius gains by integral division}}
 uses the prescribed Artin data at sufficiently large designated scales, with
@@ -528,12 +621,19 @@ ramps \eqref{eq:prime-power-ramp} through \(\lceil2xb\rceil\) is at most
 the weighted valuation gain net of restriction plus
 \(C_{\rm loss}|T|mbx^{e_L\varepsilon}\), with the same bound for the
 weighted index allowance in \eqref{eq:frobenius-gain-loss}.
+\rhrange{The release gives separate pointwise upper bounds for the
+ramp deficit and index cost on the admitted records.}
+{A signed mean bound on the joint deficit and index cost on the same
+classical samples. The integral division at each place still uses
+the rounded valuation bound on every row and column pair.}
 Height and slope inequalities and the CM period normalization give
 the comparison in the prescribed metrics
 \cite{tr3chenHN,lt4barquero,siegel-kron}. Combining those inputs with
 the realized gains gives the centered inequality \(D(u)\le E_x\) of
-\eqref{eq:integral-excess} at every tied translate \(u\). The Fourier
-projection uses this inequality with the same sampling data and cutoff.
+\eqref{eq:integral-excess} at every tied translate \(u\). For classical
+zeta the \hyperlink{proof.classical-inert-division}{local gain and selected-sample estimates}
+also supply the signed mean \eqref{eq:classical-averaged-excess} directly.
+The Fourier projection uses that mean on the same samples and cutoff.
 
 There is also a \textbf{\hyperlink{candidate.integral-weyl-content}{weightwise
 integral refinement}} of the comparison between Weyl and dual Weyl
@@ -545,8 +645,8 @@ vector. At grade \(i\), take the monic least common multiple
 shapes with nonzero value at \(a\). Each shape has \(i\) boxes,
 at most \(t\) in any column, and \(\tau\) has length at most
 that of the second block. If \(p^{e_L}\) clears the Levi weight
-lattices up to a given depth measured by a decreasing linear
-functional, then at every weight \(v\) of grade \(i\) up to
+lattices up to an integer depth measured with weakly decreasing
+integer coefficients, then at every weight \(v\) of grade \(i\) up to
 that depth one has
 \[
   p^{e_L+v_p(D_i(a))}\nabla(\lambda)_v\subseteq\Delta(\lambda)_v .
@@ -557,11 +657,13 @@ The formula includes singular specializations and primes dividing
 \(i!\). Nakahama computed the rational scalar on each isotypic
 component \cite[Theorem~1.2]{nakahama-norms}. The candidate is
 the resulting denominator on the integral weight lattice, with
-the original cutoff on its Levi coefficients. For the bound
-summed over primes in this paper, ordinary rational projectors
-with a common factorial denominator already suffice. The sharper
-statement has a separate application wherever a bound at one
-prime and one weight is required. Its historical priority is open.
+the original cutoff on its Levi coefficients. The historical priority
+of the integral inclusion is open.
+\rhrange{The displayed integral inclusion retains the polynomial
+least common multiple separately at each prime and weight.}
+{The prime-summed denominator budget for the selected weights.
+The factorial denominators of the rational projectors enter this
+budget alongside the other inclusions and transport terms.}
 
 A local estimate in the height calculation concerns
 \textbf{\hyperlink{candidate.mixed-determinant-depth}{divisibility of a
@@ -589,22 +691,19 @@ extension, with its primitive dual character
 The candidate is the bound on how many directions can lose this
 gain in an arbitrary saturated frame of mixed type. The proof
 chooses successive bases of \(p\)-typical curves and controls the
-dimensions lost at each step. Keeping the separate radius at every
-step gives a further consequence in this reconstruction,
-\[
- \delta_c\ \ge\ ic\,\frac{p}{p^2-1}
-       -jc\,\frac{p^3}{(p^2-1)^2}-i^2\log_p(c+1).
-\]
-For fixed \(p,i,j\) the loss proportional to \(jc\) in this formula
-has a coefficient independent of \(c\). On the arithmetic family
-a bounded number of steps already suffices at the small inert primes.
-This estimate concerns every integral germ. The separate bound for perturbed
-determinant jets selects a term in the jet.
+dimensions lost at each step.
+\rhrange{The order-dependent bound controls the number of directions
+losing divisibility for arbitrary saturated frames under these
+hypotheses and all positive orders.}
+{The \hyperlink{proof.mixed-determinant-multiradius}{finite-stage
+divisibility estimate} on the actual frames at the small inert primes,
+with the radii retained for the prescribed number of stages.}
 
 The \textbf{\hyperlink{candidate.marked-frobenius-pairing}{Frobenius pairing on
 two prescribed tangent planes}} occurs before the estimate for perturbed determinant jets is applied.
 Take a prime \(p\ge5\) in either alternating case of the local
-index calculation and its polarized Raynaud extension with unramified CM action.
+index calculation. Use the Raynaud chart with unramified CM action
+and the biextension pulled back from the principally polarized abelian part.
 On each of two paired Frobenius cycles the tangent ranks alternate
 between \(n+j\) and \(j'\). In the self-conjugate case use two
 copies of the factor as in Section~\ref{sec:integral}.
@@ -612,7 +711,7 @@ Fix an odd \(0<i<D\), where \(D\) is the full cycle length.
 Prescribe integral rank-\(n\) direct summands in the large types
 \(a\) and \(\overline{a+i}\) on opposite sides. Put \(q=p^i\) and
 \(E_i=1+(q-p)/(p^2-1)\). There are saturated subplanes of equal
-rank \(s\ge\max(0,n-ij'-j)\) inside these summands such that the
+rank \(s\ge\max(0,n-(i+1)j'-j)\) inside these summands such that the
 mixed coefficient of the polarized biextension, in formal
 logarithm coordinates on them, satisfies
 \[
@@ -620,24 +719,37 @@ logarithm coordinates on them, satisfies
       =-\sum_{b=1}^s x_b^q y_b
 \]
 in suitable integral bases. Here \(h\) is its rigidified additive
-gauge, \(G\) is the unit scalar of the level, and \(\mathfrak m\)
+gauge, \(G\) is the \(p\)-unit scalar of the level, and \(\mathfrak m\)
 is the maximal ideal in the valuation ring of the completed
 algebraic closure at \(p\), with \(v(p)=1\).
 The coefficient thus gives a perfect pairing after Frobenius
 twist. The proof bounds the other coefficients on the same
 planes, which allows the determinant estimate to be applied.
 Classical display theory constructs the biextension from the
-polarization \cite[\S4.3]{cartier-display}. The candidate concerns
-the uniform rank and the separation of this coefficient when
-both tangent planes are prescribed.
+polarization \cite[\S4.3]{cartier-display}. On the universal cover
+of a one-dimensional height-two Lubin--Tate formal module, the
+normalized reduction of the determinant already has leading terms
+\(XY^{q_{\rm LT}}-X^{q_{\rm LT}}Y\), where \(q_{\rm LT}\) is the
+residue cardinality \cite[Proposition~5.3.1]{weinstein-semstable-models}.
+The candidate concerns the uniform surviving rank, the integral
+scaling and the weighted remainder of the marked Raynaud biextension
+on two prescribed tangent planes.
+\rhrange[Stronger bound from the pinned construction]{An intermediate
+rank count on the same frames yields \(n_0\ge\max(0,n-ij'-j)\).}
+{The exported rank \(n_0\ge\max(0,n-(i+1)j'-j)\) and the same weighted
+normal form. The row loss fits the odd-edge jet budget.}
 
 \subsubsection*{Heights, section lattices and Fourier--Jacobi coefficients}
 The \textbf{\hyperlink{candidate.height}{finite-degree bound for metrized
 adjoint section lattices}} gives, for a birational moving system of degree
 \(d_Z\) on a flag component of dimension \(s\), a degree lower bound
 with leading term
-\(\binom{\ell-1}{s}d_Z\,\ell h_Z\), with normalized Chow height \(h_Z\) and
-the chosen degree \(\ell\ge3s+5\). It uses controlled multiplication,
+\(q_Z\ell h_Z\), with normalized Chow height \(h_Z\) and the chosen
+degree \(\ell\ge3s+5\). For the actual cusp lattice of rank \(r_Z\),
+the rank comparison requires
+\((1-z)r_Z\le q_Z=\binom{\ell-1}{s}d_Z\le r_Z\), with
+\(z=7(s^2/\ell+s\rho)\le1/2\), where \(\rho\) is the relative
+degree tolerance of the cover. It uses controlled multiplication,
 short integral frames and rank and metric comparisons. The Chow determinant
 method has precedents in David--Philippon and Chen. The chosen degree may
 lie below a projective Hilbert-point threshold. After descent from the
@@ -648,14 +760,18 @@ spaces require a separate calculation.
 
 The \textbf{\hyperlink{candidate.flag-height}{height of the metrized full flag
 at finite cutoff}} enters the mean slope on a nonterminal unitary cover.
-Let the abelian CM field \(E\) have degree \(2f\), \(f\ge2\), and take
-the CM type induced from the specified imaginary quadratic field.
+Let \(E\) be an abelian CM field of degree \(2f\) with \(f\ge2\),
+unramified over its maximal real subfield \(E^+\) at every finite
+prime. Fix \(k_0=\mathbf Q(\sqrt{-d_0})\subset E\) with \(d_0\)
+prime, \(d_0\equiv7\pmod{16}\), and a chosen square root such that
+\((1+\sqrt{-d_0})/2\in\mathcal O_E\). Take the CM type induced by
+one complex embedding of \(k_0\).
 Each label has signature \((p,q)\), with \(q\ge1\) and \(N=p+q\ge3q+1\).
 Use the prescribed good level \(M'\) with auxiliary parameter \(A=1\)
 and at most \(4fN^2\) exceptional prime divisors of
 \(2|\operatorname{disc}E|M'\). The compatible integral models are
 chosen before the weight and cutoff. For a strictly decreasing weight
-\(u\), require that, at each label, every one of the last \(q\) entries
+\(u\) with integral entries of any sign, require that, at each label, every one of the last \(q\) entries
 be at distance at least \(g>0\) from each other entry. Take an integer
 \(B\) with \(B+1>4fN^2(1+\|u\|_\infty/g)\). The integral Hodge--Tate
 lattices are used at the exceptional primes and at all primes up to \(B\).
@@ -663,7 +779,7 @@ lattices are used at the exceptional primes and at all primes up to \(B\).
 Put \(D=f\binom N2\). Let \(H_B(u)\) be the sum of the normalized
 arithmetic self-intersections of the metrized weight line on the
 components, divided by \(D+1\) times the sum of their geometric
-degrees. With the prescribed quadratic character \(\chi_{d_0}\) set
+degrees. Write \(\chi_{d_0}\) for the quadratic character of \(k_0\) and set
 \(\Lambda_B=\log(B\,\operatorname{rd}E)+|\Re(L'/L)(1,\chi_{d_0})|\).
 Section~\ref{sec:integral} obtains the absolute lower bound
 \[
@@ -684,11 +800,17 @@ model, including its toroidal boundary, and bounds the resulting
 prime tail. On each fixed cover the mixed intersections converge to
 those for the prescribed Hodge metric. The proof tests weights on the
 walls of the dominant chamber with positive last entry at each real
-place. Polynomial continuation then includes the signed weights that
-occur in the estimate. Two determinant heights account for the terms
+place. Polynomial continuation then gives the estimate for signed
+weights under the stated gap and cutoff conditions. Two determinant
+heights account for the terms
 that survive the wall tests. This gives the displayed component mean
 at the original cutoff. Applying it to a lattice of sections also
 uses the finite-place trace and the norms of sections on that cover.
+\rhrange{On the prescribed host and compatible models the estimate
+holds for every signed weight and every cutoff meeting the stated
+conditions.}
+{The height lower bound at the weights and finite cutoffs of the
+selected flag covers used in the component covolumes.}
 
 The \textbf{\hyperlink{candidate.cm-boundary-fourier-jacobi}{detection of a
 prescribed Fourier--Jacobi coefficient at a CM boundary}} concerns
@@ -711,6 +833,13 @@ of the CM tangent generators satisfy
 \[
        \max(\log n_Q,\log\Lambda_Q)\le 200X^2 .
 \]
+\rhrange[Stronger result in the pinned proof]{The choice of cusp and
+nonzero low Fourier--Jacobi coefficient can be prescribed, and the
+construction keeps their indices.}
+{For each nonzero class in the low-frequency quotient, a detector
+with the uniform size and metric bounds. The arithmetic application
+allows the coarser quartic bound on the logarithms of the two arc
+constants.}
 The same functional has bounded denominators at every finite place
 and bounded operator norm at every complex embedding, in its
 metrized value line. It therefore gives a lower bound for the
@@ -733,6 +862,18 @@ both the rational rank and the integral height of the quotient.
 \input{arithmetic}
 \input{fourier}
 \input{zeros}
+
+\paragraph*{Acknowledgments.}
+DavetheSlayer identified the two comparisons needed at the window
+application and traced the uses of the selected data in the formal
+argument (\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/issues/1}{Issue~1}).
+The coefficient-field and local-index calculations draw on the arguments
+submitted by josephuniverse01-create
+(\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/2}{PR~2}).
+foocker distinguished the integral ramified kernel from the image of the
+rational projector and gave the elementary-divisor comparison
+(\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/3}{PR~3}).
+
 \input{references}
 
 \end{document}

@@ -2,33 +2,54 @@
 \centering
 \begin{tikzpicture}[x=1mm,y=1mm]
   \node[argument block,fill=TraceTint] (diagonal) at (0,0)
-    {\hyperlink{proof.full-diagonal-estimate}{\shortstack{Diagonal Gram bound\\\(\|K_{ww}-I\|_{\mathrm{HS}}^2\le e_0 d_w\)}}};
-  \node[argument block] (anchor) at (55,0)
-    {\hyperlink{proof.nonzero-anchor}{\shortstack{Reference pairing\\Optional proof route}}};
-  \node[argument block] (periods) at (110,0)
-    {\hyperlink{proof.rational-period-map}{\shortstack{Period maps \(B_{K,w}\)\\with a common target}}};
-  \node[argument block,fill=TraceTint] (mixed) at (0,-20)
-    {\hyperlink{proof.mixed-word-estimate}{\shortstack{Off-diagonal bounds\\for \(K_{wv}\), \(w\ne v\)}}};
-  \node[argument block,fill=TraceTint] (compression) at (55,-20)
-    {\hyperlink{proof.compressed-frame-moments}{\shortstack{Trace moments after\\column restriction}}};
-  \node[argument block,fill=TraceTint] (rational) at (110,-20)
-    {\hyperlink{proof.rational-corank}{\shortstack{Codimension bound\\in the row dual \(C_K\)}}};
-  \draw[argument arrow,densely dashed] (diagonal.east) -- (anchor.west);
-  \draw[argument arrow,densely dashed] (anchor.east) -- (periods.west);
-  \draw[argument arrow] (diagonal.south) -- ++(0,-4) -| (compression.north);
-  \draw[argument arrow] (mixed.east) -- (compression.west);
-  \draw[argument arrow] (compression.east) -- (rational.west);
-  \draw[argument arrow] (periods.south) -- (rational.north);
+    {\shortstack{\hyperlink{proof.full-diagonal-estimate}{Diagonal Gram defect}\\
+      \hyperlink{proof.trace-word-count}{Full} and
+      \hyperlink{proof.ramified-column-loss}{ramified ranks}}};
+  \node[argument block,fill=TraceTint] (mixed) at (55,0)
+    {\hyperlink{proof.summed-mixed-estimate}{\shortstack{Summed mixed energy\\over \(w\ne v\)}}};
+  \node[argument block,fill=TraceTint] (bad) at (110,0)
+    {\hyperlink{proof.one-sided-row-count}{\shortstack{Upper counts for both\\bad-label projectors}}};
+  \node[argument block] (anchor) at (0,-19)
+    {\hyperlink{proof.nonzero-anchor}{\shortstack{Nonzero image of a\\ramified column}}};
+  \node[argument block,fill=TraceTint] (full) at (55,-19)
+    {\hyperlink{proof.full-moment-dimension}{\shortstack{Full trace moments\\and \(D\ge D_\star/2\)}}};
+  \node[argument block,fill=TraceTint] (fraction) at (110,-19)
+    {\hyperlink{proof.distinguished-row-count}{\shortstack{Omitted row fraction\\\(\delta=1-D'/D\)}}};
+  \node[argument block] (periods) at (0,-38)
+    {\hyperlink{proof.rational-period-map}{\shortstack{Common period maps\\\(B_{K,w}\)}}};
+  \node[argument block,fill=TraceTint] (cuts) at (55,-38)
+    {\hyperlink{proof.cut-frame-energy}{\shortstack{Retained energy and\\corank on column cuts}}};
+  \node[argument block,fill=TraceTint] (upper) at (110,-38)
+    {\hyperlink{proof.one-sided-row-count}{\shortstack{Upper count for the\\full row projector}}};
+  \node[argument block,fill=TraceTint] (rational) at (55,-57)
+    {\hyperlink{proof.rational-corank}{\shortstack{Codimension in the\\common row dual \(C_K\)}}};
+  \draw[argument arrow] (diagonal.south) -- (anchor.north);
+  \draw[argument arrow] (anchor.south) -- (periods.north);
+  \draw[draw=PageInk,line width=.6pt] (diagonal.east) -- ++(5,0)
+    -- ++(0,-9) coordinate (gramfork);
+  \draw[argument arrow] (gramfork) -| ([xshift=-13mm]full.north);
+  \draw[argument arrow] (gramfork) |- (cuts.west);
+  \draw[argument arrow] (mixed.south) -- (full.north);
+  \draw[argument arrow] (full.east) -- (fraction.west);
+  \draw[argument arrow] (bad.south) -- (fraction.north);
+  \draw[argument arrow] (full.south) -- (cuts.north);
+  \draw[argument arrow] (upper.west) -- (cuts.east);
+  \draw[argument arrow] (periods.south) |- (rational.west);
+  \draw[argument arrow] (cuts.south) -- (rational.north);
+  \draw[argument arrow] (fraction.east) -- ++(5,0) |- (rational.east);
 \end{tikzpicture}
-\caption{The dashed route gives the reference pairing for an optional
-  proof of the granted simultaneous period comparison. There the diagonal
-  and ramified rank bounds give \(\dim\ker\mathcal P_w\le e_0d_w<r_w\),
-  and full row evaluation pairs with a nonzero image of a ramified
-  column. To descend the granted comparison over \(K\), use the compatible
-  base pairing and the surjective projected row map over \(K\).
-  With the word and dimension estimates, both Gram bounds control the
-  trace moments for isometric column inclusions. Using \(J_w=\jmath_w U_w\)
-  matches those moments to the period maps. The common projection and
-  the distinguished-row dimension bound give the corank over \(K\).}
+\caption[The period and trace estimates in the rank bound]{The diagonal
+  defect and ramified rank supply the nonzero
+  image required by the simultaneous period comparison. The diagonal
+  defect, summed mixed energy and full column total give
+  \(D\ge D_\star/2\). The two bad-projector upper counts then bound the
+  omitted row fraction. The full trace square and the full-projector
+  upper bound control the moments after ramified compression. With
+  \(J_w=\jmath_w U_w\), the retained-energy bound applies to the
+  prescribed column cuts and the common row projection gives the
+  corresponding corank over \(K\). The
+  \hyperlink{proof.integrated-slope-deficit}{slope integral} uses this
+  corank with the integral maps, their heights and the
+  \hyperlink{proof.slope-at-height-scale}{arithmetic cutoff}.}
 \label{fig:trace-handoffs}
 \end{figure}
