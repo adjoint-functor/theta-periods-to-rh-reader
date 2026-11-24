@@ -7,12 +7,18 @@ and an index \(i(u)\) for each translate \(u\in H\). The
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/TieGlobal.lean}{97}{conditions at a common scale}
 identify the rank parameters, auxiliary primes, root discriminant,
 and sampling sets \(T,T_2\) under the specified identifications. The
-base index also seeds the common sampling degrees \(a_t\) for the
-family chosen in Section~\ref{sec:assembly}. The
+base index supplies both common arrays \((a_t,b_t)\) for the
+family chosen in Section~\ref{sec:assembly}. In the classical
+application, choose the
+\hyperlink{proof.classical-averaged-division}{admissible seed}
+before taking its tied representatives. The
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/LossesSmallShares.lean}{290}{construction at this scale}
 records the structural identifications. The two applications here also
-need the section-run and ramified donor identifications stated in
-Section~\ref{sec:assembly}. The weighted prime-power sums at the translates use the
+use the
+\hyperlink{proof.section-run-family-identification}{two marked section runs}
+and the
+\hyperlink{proof.selected-undivided-donor}{undivided period sources}
+on these same records. The weighted prime-power sums at the translates use the
 Artin map and the centering character of the base field. The stage
 weights \(w_{u,j}\) are read at the corresponding index \(i(u)\).
 At that index we use its Selmer estimate at its actual twist cutoff
@@ -241,12 +247,16 @@ fibre retained in \(X_{\rm type}\).
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EigenActionAtGoodPoint.lean}{45}{Action on the fibres carrying the prescribed block} and
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ExistsGood.lean}{23}{The coarse support and all its retained fibres}.
 
-Project \(M\) to \(X_{\rm type}\) in characteristic zero
-and use its image lattice. The good projection is unchanged.
-To recover the old intersection, multiply a preimage by
-\(|G|e_{\rm good}\), which kills the discarded fibres and is
-\(|G|\) on the good part. The normalized cost is at most
-\(\sum_{\pi\ {\rm good}}\dim V_\pi\,v_\ell(|G|)\).
+Write \(Q_{\rm type}\) for projection onto the generic fibres
+in \(X_{\rm type}\) and \(M'=Q_{\rm type}M\) for its image
+lattice. Write \(P\) for the good projection and \(V^+\) for its
+image in the generic fibre. Since \(X_{\rm type}\) includes every
+good point, \(PM'=PM\) and \(M\cap V^+\subseteq M'\cap V^+\).
+For \(z=Q_{\rm type}m\in M'\cap V^+\), the integral
+operator \(|G|e_{\rm good}\) sends \(m\) to \(|G|z\).
+Consequently \(|G|(M'\cap V^+)\subseteq M\cap V^+\).
+Returning to \(M\) in the congruence colength costs at most
+\(\dim V^+\,v_\ell(|G|)\) in normalized units.
 At a type residue prime, for each good \(\pi\) also use
 \(|G|e_{\mathbf s(\pi)}\) with its \emph{specified} full tuple
 at the two type primes. Its support \(X_\pi\) contains \(\pi\).
@@ -1005,6 +1015,13 @@ tame types and jumps lie in \(\Sigma\) and \(U\), respectively, the
 cokernel on \(H^1_f(\mathbf Q_p,-)\) is killed by
 \(p^{7(Nq+\eta(N+q))}\). The bound is independent of the coefficient
 field and the tame splitting degree.
+\rhrange{The exponent is uniform for the stated tame types and jump
+sets, with no dependence on the endpoint \(H\) beyond the prime
+threshold.
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/LiftSurjectionGoodCrystallineLattices.lean}{27}{The inner lifting bound}}
+{The resulting local lengths for the actual graph lattices and
+their Tate duals at \(g_0,g_1\), including the target-rank factors
+in the weighted length sum.}
 
 Take a common tame crystalline extension
 \(K'=\mathbf Q_{p^a}(\varpi)\), with
@@ -1537,7 +1554,14 @@ the chosen prime size satisfies
 \]
 Use the same signed data on the rational subquotients of the
 finite sums and on the graph lattices for the cocycle images.
-The local bound therefore applies with
+At each host place \(w\mid p\) the exponent uses the largest
+ratio period in its particular common type set. For two
+characters on a common Frobenius orbit it divides the orbit
+length, and for distinct orbits it divides the least common
+multiple of their lengths. The uniform upper bound
+\(\lfloor N^2/4\rfloor\) applies to the full common set of
+every type slice, including slices with several nontrivial
+orbits. Thus both primes can use
 \[
  e_{\max}=C_T\bigl(
    N\lfloor N^2/4\rfloor+\eta'(N+\lfloor N^2/4\rfloor)
@@ -1556,10 +1580,15 @@ and \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPair
 For each good \(\pi\) the integral type endomorphism on \(M\)
 is scalar \(b_\pi\ne0\) at \(\pi\) and zero off \(X_\pi\).
 Its normalized scalar cost is at most \(v_\ell(|G|)\).
-Compose it with a Hecke operator realizing an evaluation
-generator of the projected congruence ideal. The composition
-vanishes off the good part and acts by
-\(b_\pi\) times this generator at \(\pi\).
+The projected congruence ideal evaluates elements of the
+restricted Hecke image algebra supported on \(X_\pi\cap Z\),
+where \(Z\) is the first-character locus. An evaluation generator
+there lifts to the original image algebra by restriction.
+Compose this lift with the integral type endomorphism.
+The composition vanishes off the good part, because it
+vanishes off \(X_\pi\) and on \(X_\pi\setminus Z\), while
+\(X_\pi\cap Z\) consists of good points. It acts by \(b_\pi\)
+times the evaluation generator at \(\pi\).
 The endomorphism can have different \(X_\pi\) for different
 good points. Filtering the good projection and intersection
 lattices into their ordered generic eigenspaces makes the
@@ -2221,6 +2250,12 @@ groups has finite length and satisfies
 The denominator is the absolute ramification index of \(E_\ell'\).
 \releasecite{Formalism/SharpRestriction/LevelLetterCocycles/WachCoordinates.lean}{143}{Exact clustered estimate} and
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/TheoremECorollaryAClosingAllData.lean}{17}{Period and comparison data}.
+\rhrange{Equation~\eqref{eq:crystalline-row-lift} applies to every
+surjection with the indicated signed Frobenius clusters and all
+allowed multiplicities.}
+{At a long inert row, the cokernel estimate for the ordered-root
+evaluation in the actual right ideal, in the weighted Hecke length
+budget. The short and all-thick rows use their own comparisons.}
 
 \teamanchor{proof.crystalline-cluster-lifting}
 \paragraph{The cut exponent.}
@@ -2755,9 +2790,12 @@ zero-height convention. Thus the bracket is bounded by
 \(2G_P+(G_P+2)(j_*+1)\) in the second. Both are at most three
 times the bracket in the row allowance. The rational allowance
 is chosen between \(3C\) and \(3C+1\) times the common quantity
-without that coefficient. This allowance is used on the
-row lattices entering the local-to-global comparison. The Hecke
-congruence comparison
+without that coefficient. This allowance bounds the normalized
+colength of the fixed image \(H^1_f(E_\lambda,eR')\) in
+\(H^1_f(E_\lambda,T_\rho^\vee(1))\) under the integral
+evaluation surjection. The common image gives an annihilator
+for every cocycle in the row comparison. The Hecke congruence
+comparison
 uses the relation module above and the cutoff for its
 non-Selmer part.
 \releasecite{Development/AbelianVarietyTheory/Counterexamples/HeckeCharacterExamples/InertPlacesGoodSet.lean}{35}{Application to the actual word},
@@ -3838,11 +3876,45 @@ character. The higher fine Selmer input above controls the separate
 negative Tate-character contributions.
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/ChosenTwistAnnihilatesSelmerGroups.lean}{8}{The two selected-twist bounds}.
 
+\teamanchor{proof.common-twist-specialization}%
+At one realized nonzero preliminary twist index the same character
+gives these two inequalities, the toric evaluations with
+the bounds in \eqref{eq:selected-toric-value}, and the signed indices
+of the projected twisted column lattices at every required stage and
+side. The toric values are nonzero. The index comparison uses the
+actual unscaled projected columns and the same reference lattice
+for the base and twist. The nonnegative stage-and-side error allowances
+sum to at most \(\ell^{-2}\). The character has exact support on the
+chosen split conjugate pairs outside the prescribed avoidance set and
+is trivial on every decomposition group above \(\ell\). Each pair
+uses one primitive ray coordinate, with the inverse character read
+at the conjugate place.
+
+The construction fixes the attached signatures and the toric and
+column tests before it chooses the array of pairs. Intersect the
+toric and column congruence subgroups and unite their exclusions
+before imposing the common first Frobenius classes. Form the
+determinants on this array. The valuation argument below chooses one
+character and gives the estimates for every power prime to \(\ell\).
+This serves the
+\hyperlink{proof.selected-ray-transport}{different root readings at
+the final places}.
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/AdmissibleIndexBoundAllPowersOfConditions.lean}{92}{A common ray array for the three tests}.
+\rhrange{The release controls the sum of the positive Selmer excesses
+over the good signatures, for every primitive power of the chosen
+character.
+\releasecite{Formalism/SharpRestriction/LevelLetterCocycles/BlochKatoPhases.lean}{304}{The simultaneous excess allowance}}
+{The individual normalized length upper bounds and the tame, toric
+and projected-column estimates at every required power of that same
+character.}
+
 \noindent\leavevmode\hypertarget{candidate.tame-selmer}{}%
 \textbf{AI-proposed candidate (an integral Selmer bound for
 tame anticyclotomic twists).}
-Fix the stage, its residue prime \(\ell\), and the finite list
-of good signatures. Write \(E/F\) for the CM host. The normalized
+Fix a realized nonzero preliminary twist index of the selected
+arithmetic record and its residue prime \(\ell\). Use its finite
+list of all good attached signatures, with the prescribed sides
+and local coefficient models, over its CM host \(E/F\). The normalized
 cuspidal lattice \(T_s=\rho_s\otimes\chi_s^{-1}\) of signature \(s\)
 has odd rank \(r\ge100\), with assigned sign \(\sigma_s\in\{1,-1\}\)
 and fixed coefficient DVR \(O_s\) of fraction field \(K_s\).
@@ -3911,8 +3983,10 @@ ring. The Selmer condition above \(\ell\) is generated by the
 reductions of the prescribed integral finite cocycles multiplied
 by elements of \(K_s'/O_s'\). The condition is unrestricted
 at the fixed relaxed primes and \(Q\), and unramified elsewhere.
-Let \(L_{a,s}\) be the length of this whole discrete Selmer
-group over \(O_s'\), divided by \(v_{O_s'}(\ell)\). Then
+Let \(L_{a,s}\) be the length of the whole discrete Selmer group in
+this represented signature model over \(O_s'\), divided by
+\(v_{O_s'}(\ell)\). The sign \(\sigma_s\) includes the inversion in
+the ray evaluation convention. Then
 \begin{equation}
 \label{eq:tame-selmer-twist}
  \sum_s (L_{a,s}-\nu_\ell)_+ \le \delta_A
@@ -4067,28 +4141,29 @@ signature as well by the perfect matrix trace pairing. Thus the
 other integral image surjects onto the full matrix ring. It has
 the same rank by its matrix realization, so this is an isomorphism.
 The images of the matrix units construct an integral change of
-basis. The actual Hecke ring \(O_\alpha\) is finite free over the
-signature DVR \(O_0\). A basis of this extension shows that
-continuous cochains and the rational finite conditions above
-\(\ell\) commute with that base change, since the ray twist is
-trivial there. The finite condition on the torsion quotient is
-generated by reductions of these integral finite cochains.
-The conditions away from \(\ell\) use the same relaxed set.
+basis. For the realized Hecke lattice, the finite cocycle
+condition at \(\ell\) maps into the represented finite condition
+on the common root ring. The twist is trivial on every
+decomposition group above \(\ell\), so the matched
+representations carry the finite cocycles of the fixed
+coefficient model. Away from \(\ell\) both constructions impose
+the same relaxed or unramified requirements. The induced map
+on Selmer groups is injective and gives the upper bound for the
+normalized length on the actual Hecke lattice.
 
-The ambient coefficient ring for the specialized roots may have
-infinite residue field. Its torsion quotient is still a union of
-finite modules over the original finite ray group ring over
-\(O_0\). The universal Selmer matrix therefore computes the
-normalized length in that ring as well. The actual two signed
-readings have the same kernel on \(O_0[G_E]\). Their images
-identify a single finite character order over \(O_0\).
-Each coordinate root is the character value at an inertia
-element with that coordinate one and the others zero, hence
-belongs to the order. The specialized determinant is the
-same element of the order on both readings. The normalized
-valuations agree by uniqueness of extension on its fraction
-field. This transports the length bound to the actual Hecke
-ring using the same signed character.
+The two signed character readings identify the same finite character
+order over the signature DVR inside their respective ambient rings.
+For each independent coordinate, indexed by a split pair, an inertia
+element has value one in that coordinate and zero in the others.
+Thus its coordinate root lies in the order. The conjugate place
+reads the inverse root. For the corresponding primitive power, the
+two readings send one determinant value in the common order to the
+respective coefficient fields. Its normalized valuation agrees in
+both extensions. The estimate holds for every power prime to \(\ell\).
+The universal matrix computes the
+represented length on the whole discrete torsion quotient, including
+over a root ring with infinite residue field. Its valuation
+therefore bounds the actual cuspidal term.
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/TwistedRhoConjLatTpsi.lean}{34}{Signature matching} and
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/NlenLeLenN.lean}{190}{The local conditions and normalized length}.
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/SameCharEqOne.lean}{27}{The common character order}.
@@ -4226,27 +4301,48 @@ and
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/ExistsSmallSubgroupCocycleFormNeZero.lean}{39}{Frobenius pairing}.
 \releasecite{Development/AutomorphicArithmetic/CyclotomicBounds/ClassNumberBounds/CyclotomicTotient/TwistTrace.lean}{6}{The comparison modulo the annihilator}.
 
-Chebotarev realizes that pairing at a new pair with the prescribed
-unused ray coordinate. In the specialization over
-\(A[X,Y]/(X^2,Y^{2r})\), the new inertia variable is \(X\) and the
-Frobenius variable is \(Y\). The tame relations are \(X u_i=Y t_i\)
-after rescaling the inertia evaluations \(t_i\) by units. Here
-\(u_i\) are the Frobenius evaluations and \(1\le i\le2r\) includes
-the conjugate place. Cup-product reciprocity gives a relation
-among the \(t_i\) modulo \((X,Y)\) whose coefficients pair
-nontrivially with the old adjugate applied to the \(u_i\).
-Lift this relation in place of the corresponding old row and
-append the \(2r\) tame relations. In the new square determinant
-only terms using \(X\) once and \(Y\) to degree \(2r-1\)
-from the tame rows can survive. Their coefficient is the nonzero
-Frobenius pairing. Thus the original determinant has a coefficient
-outside \(I\) below degree \(2h+2+2r\). With the new inertia
-variable set to zero, a unit-leading linear Frobenius factor
-annihilates the \(2r\) added generators in the kernel of the map
-to the old module. Multiplying minors by its \(2r\)-th power
-therefore preserves the earlier Fitting certificates with at most
-\(2r\) extra degree. Induction over the fixed finite signature
-list proves bounded degree independently of the large ray order.
+On the realized dyadic signatures the release supplies the strict
+dual class and the nonzero paired value on the conjugate pair.
+Chebotarev realizes the pairing at a new second pair. Designate one
+previously unused first coordinate. Adjust the prescribed
+Frobenius by the inertia at the unused first pairs to set that
+coordinate to one and the other unused coordinates to zero. The
+two cocycles vanish on this inertia, so the paired value is
+preserved. At the new pair take the Frobenius lift with zero own
+second coordinate.
+
+Send the new second coordinate variable to \(X\) and its designated
+first variable to \(Y\) over \(A[X,Y]/(X^2,Y^{2r})\). The two tame
+relations, after unit rescaling, give \(Xu_i=Yt_i\) for the \(2r\)
+Frobenius and inertia evaluations. At \(X=Y=0\) the old module is
+the quotient of the new relaxed module by the inertia evaluations.
+The local cup pairing for the strict dual class gives a relation
+among the \(t_i\) at \(X=Y=0\). Its coefficients, paired with the
+old adjugate applied to the \(u_i\), give the nonzero Frobenius
+value. Lift the relation in place of the indicated old row and
+append the \(2r\) tame rows. The terms of its determinant using
+\(X\) zero times vanish by \(Y^{2r}=0\), and those using it at
+least twice vanish by \(X^2=0\). The coefficient of \(XY^{2r-1}\)
+is the paired value up to sign. The zeroth Fitting ideal of the
+new module is therefore nonzero. The specialized square
+presentation has a nonzero determinant, giving a coefficient
+outside \(I\) below degree \(2h+2+2r\).
+
+For the other signatures set the new second variable to zero.
+The new linear Frobenius factor \(u\) has a unit leading
+coefficient in the designated first variable and kills the
+\(2r\) new inertia generators. If \(P\) is the old module and
+\(P'\) the newly relaxed one, adjoining the relations for those
+generators gives \(u^{2r}\operatorname{Fitt}_j(P)\subseteq
+\operatorname{Fitt}_j(P')\) for \(j=0,1\). Multiply each new
+relation column occurring in a minor by \(u\). This gives a
+nonzero witness with at most \(2r\) extra degree. For the
+adjugate comparison set the still unused first variables to
+zero. The calculation takes place below the degrees affected by
+the finite ray relations. Using the common small subgroup, reserve
+one first slot per signature and add one second pair at a time.
+The resulting bound on the degree is uniform in the large ray
+order.
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/DetNeZeroOfLowestFormNeZeroPresentation.lean}{234}{The determinant on the new pair} and
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/ChebotarevInductionGrowBoundOfPresentation.lean}{315}{Preserving the earlier signatures}.
 
@@ -5152,6 +5248,12 @@ The local comparison is
  A_C(O)&=\ker\bigl(H^1(K,C)\longrightarrow H^1(I_K,C)\bigr).
  \end{aligned}
 \end{equation}
+\rhrange{The finite-condition equalities hold at the fixed endpoints
+for every finite coefficient module \(C\).
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/ExactLocalConditionsTopCore.lean}{75}{The exact local conditions}}
+{The forward implications for the actual cyclic coefficient modules
+at the selected large primes, with the same separation and residue
+hypotheses.}
 The scalar statements apply to every stable lattice in the character
 line, by an \(O[G_K]\)-linear choice of basis. In the first formula
 membership means that the cocycle is a finite sum of terms
@@ -5916,8 +6018,9 @@ matrices \(u(g)\) vary continuously and \(F\) has finite image.
 The torsion \(F(Y)\) has bounded exponent
 since \(Y\) is finite over \(O\).
 To verify the local admissibility of this cocycle,
-enlarge the coefficient DVR to \(O'\) to contain the embeddings
-at \(\lambda\), write \(\varpi'\) for its uniformizer, and
+enlarge the coefficient DVR to \(O'\) with fraction field
+containing the images of \(E_\lambda(\mu_\ell)\).
+Write \(\varpi'\) for its uniformizer and
 choose an integral crystalline character
 \(\theta\) with labelled jumps \(w_i\). Such characters
 are products of the labelled Lubin--Tate characters of
@@ -5961,9 +6064,12 @@ and the common Hodge list on every full summand.
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/CocycleExtensionTwistedWeilCoefficientsAdmissibl.lean}{60}{The full-lattice quotient for the cuspidal cocycle}
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/CocycleExtensionConductorTwistedCharacterAdmissi.lean}{53}{The full-lattice quotient for scalar cocycles}.
 
-Apply the signed crystalline local comparison
-\eqref{eq.top.comparison} with the shifted rank-\(r\) target
-and the shifted scalar lines. Untwisting by \(\theta\)
+Apply the three forward implications of the signed crystalline
+comparison \eqref{eq.top.comparison} with \(C=O'/\varpi'^{\,a}\),
+the shifted rank-\(r\) target and the shifted scalar lines.
+The full mixed-lattice admissibility and the residue exclusions
+at every label give the required inclusion on this cyclic module.
+Untwisting by \(\theta\)
 recovers the original normalized lattices in its three
 conclusions.
 It puts the cuspidal cocycle in the subgroup obtained from
@@ -6020,9 +6126,12 @@ coefficient place in all its good fibres. Write \(n_V=r+t\),
  V_\ell=\sum_{a=1}^{t-1}\operatorname{shaLen}_\ell(a),
  \qquad V=\sum_\ell(\log\ell)V_\ell .
 \]
-The actual Speh length satisfies \(t\le\lfloor x^{400}\rfloor\),
-within the original fine Selmer range \(\lfloor x^{401}\rfloor\).
-At the common tuple that bound gives \(V\le\sqrt b\).
+The actual Speh length satisfies \(t\le\lfloor x^{400}\rfloor\).
+At the common tuple, the classical host's
+\hyperlink{proof.selmer-classical-residual}{Selmer estimate}
+gives \(V\le\sqrt b\) in this range. The release's
+\(\lfloor x^{401}\rfloor\) estimate also supplies this input
+by restriction.
 For a negative Tate character, choosing
 a \(\mathbf Z_\ell\)-basis of \(O_\alpha\) makes the torsion coefficient
 module and its localization map a direct sum of
@@ -6065,8 +6174,30 @@ The ranks are polynomial in \(x\) and \(\eta_{\rm sz}\ge t\ge1\).
 \releasecite{Development/AutomorphicArithmetic/CyclotomicBounds/CyclotomicOrders/NuHost.lean}{12}{The cyclotomic defect}
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EtaLocLeRhs.lean}{21}{The type-prime comparison}.
 
-At a single \(v\), the sum of the good multiplicities over all
-records is at most \(D_0\), by the good-fibre comparison.
+For the integral graded comparison in a record, use its
+lattice \(M\) at a type prime and the coarse image lattice
+at the other primes. Filter \(L^+=PM\) and
+\(L^-=M\cap V^+\) for that lattice by intersection with
+successive sums of the good generic eigenspaces in any
+fixed order. If an integral Hecke-commuting operator
+kills the nongood part and is \(a_\pi\ne0\) on \(V_\pi\),
+then
+\[
+ a_\pi\,\mathrm{gr}_\pi L^+\subseteq\mathrm{gr}_\pi L^-
+                 \subseteq\mathrm{gr}_\pi L^+ .
+\]
+Indeed, lift a projected vector in the partial sum to the
+lattice and apply the operator. The result is in the
+intersection with that partial sum and has graded coordinate
+multiplied by \(a_\pi\). Additivity of length and division
+by \(\operatorname{ord}_O(\ell)\) bound the record colength
+by \(\sum_\pi\dim V_\pi\,v_\ell(a_\pi)\), with the separate
+coarse-cut cost when the coarse image lattice is used.
+At a type prime \(a_\pi\) contains the individual integral
+type scalar charged above. At a single \(v\), the sum of the
+good multiplicities over all records is at most \(D_0\), by
+the good-fibre comparison. The two chosen-twist bounds
+used here hold for the same character on all those records.
 Then sum over the chosen nonbase \(v\mid\ell\) with
 \(e_v\lambda_v=[K_v:\mathbf Q_\ell]\log\ell/[K:\mathbf Q]\).
 These weights sum to at most \(\log\ell\) by the local degree formula.
@@ -6333,41 +6464,73 @@ integral initial rows used in the finite kernel calculation.
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/OneMapOfRows.lean}{39}{Descent of the common test} and
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/KerEqOfFormula.lean}{20}{kernel calculation}.
 
-Write \(R=C^\vee\) for the row lattice. At a finite place \(v\) of the
-coefficient field \(K\), use the auxiliary twisting tuple
-\(\boldsymbol\mu(v)\) of \S\ref{sec:periods}. Its top pairing on a test
-row is the image of \(\zeta_{w,\boldsymbol\mu(v)} B_{K,w}\) on the
-corresponding descended row, in the chosen complex embedding.
-The scalar is a unit at \(v\), so the tested valuation equals that of
-\(B_{K,w}\). The descended integral test rows generate \(R_v\)
-over \(\mathcal O_{K,v}\). The ultrametric inequality extends the
-valuation bound to their span and to the localized source.
-Let \(g_{wv}\) be the sum over stages of the local gain plus the
-reference exponent minus the exponent for \(w\), with valuations
-normalized by \(v_p(p)=1\). Gains at the discarded primes are set
-to zero. The
-\releasecite{Formalism/LocalToGlobal/GroupLattices/JointServices/ValIntNonneg.lean}{73}{local division estimate}
-applies on the actual source models, subject to the
-\hyperlink{proof.ramified-donor-identification}{ramified donor identification}
-in Section~\ref{sec:assembly}. On that source it gives
+\teamanchor{proof.period-gain-tests}
+Fix a word \(w\) and a finite place \(v\) of its coefficient field \(K\),
+and write \(R=C^\vee\) for the common row lattice at this translate.
+Set \(d_{wv}=\lfloor e_v g_{wv}\rfloor\), where \(g_{wv}\) sums the
+retained stage gains and the reference exponents, then subtracts the
+exponents for \(w\). These exponents use \(v_p(p)=1\) for \(p\) below
+\(v\). Put the stage gain equal to zero at each discarded prime.
+\releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{212}{Retained and wordwise exponents}.
+
+Use the auxiliary tuple \(\boldsymbol\mu(v)\) of \S\ref{sec:periods}.
+Take generators of \((N_w)_v\) from the integral
+source \eqref{eq:selected-undivided-donor} with the localizations
+\eqref{eq:selected-donor-localizations}. Test them against the
+descended integral row generators of \(R_v\). On the placed
+rows, \eqref{eq:selected-donor-placed-period} identifies the top
+period with \(\zeta_{w,\boldsymbol\mu(v)} B_{K,w}\) in the chosen
+embedding. The scalar is a unit at \(v\), so each matrix entry
+of \(B_{K,w}\) on these generators has the tested valuation.
+
+Here the release supplies the arithmetic bound \(d_{wv}\) on
+the selected test entries. Its local proof uses the sharp column
+bound at the word level, the integral period bounds at the two
+type primes, and the terminal column bound at the remaining
+places. In the last case, a placed terminal column with scalar
+of normalized valuation at least \(g_{wv}+v_p(\Delta_w)\),
+where \(\Delta_w\) is the common stage denominator, is paired
+with an integral point and row budget of \(-v_p(\Delta_w)\).
+This gives the threshold \(g_{wv}\) in \(p\)-units before
+rounding. The selected column bridge uses the same donor and
+sharp cut. An integral row on the cut is an integral
+combination of rows in the intersection of the test carrier
+with the sharp row space.
+\releasecite{Formalism/LocalToGlobal/GroupLattices/AdmissibleAtGeneratorPlaces.lean}{214}{The three local cases},
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ClosedFamilyAdmissibleTwistLink.lean}{12}{Application on the selected family}, and
+\releasecite{Formalism/LocalToGlobal/Divisibility/RecBridgeTied.lean}{139}{The valuation input on the actual columns}.
+\rhrange[Stronger bound in the pinned proof]{On the placed integral
+tests the local argument gives the threshold \(g_{wv}\) in
+\(p\)-valuation units before rounding.}
+{The lower bound \(d_{wv}=\lfloor e_vg_{wv}\rfloor\) in uniformizer
+units on the finite generating sets, which gives the same rounded
+bound on every integral pair.}
+
+The finite matrix test is equivalent to the all-pair bound.
+Every localized row and column is an \(\mathcal O_{K,v}\)-linear
+combination of the indicated generators. Bilinearity places
+their paired value in the fractional ideal \(\mathfrak p_v^{d_{wv}}\).
+Thus
 \begin{equation}
 \label{eq:period-gain-valuation}
- \operatorname{ord}_v B_{K,w}(\phi)(F)\ge \lfloor e_vg_{wv}\rfloor
+ \operatorname{ord}_v B_{K,w}(\phi)(F)\ge d_{wv}
  \qquad (\phi\in(N_w)_v,\ F\in R_v).
 \end{equation}
-Here \(N_w\) is the source before division and
-\(\operatorname{ord}_v(0)=+\infty\). Multiplying the resulting inclusion
-in \(\mathfrak p_v^{\lfloor e_vg_{wv}\rfloor} C_v\) by the inverse local
-ideal and intersecting over the finite places gives
+Here \(\operatorname{ord}_v(0)=+\infty\).
+Since \(C_v=\operatorname{Hom}_{\mathcal O_{K,v}}(R_v,\mathcal O_{K,v})\),
+the image of \((N_w)_v\) lies in \(\mathfrak p_v^{d_{wv}}C_v\).
+Apply the inverse local ideal and intersect over the finite places to
+obtain
 \[
- I_w=\prod_v\mathfrak p_v^{-\lfloor e_vg_{wv}\rfloor},
+ I_w=\prod_v\mathfrak p_v^{-d_{wv}},
  \qquad N'_w=I_wN_w,\qquad B_{K,w}(N'_w)\subseteq C.
 \]
 The support is contained in the places of the local comparison,
 including those over the level and exceptional primes. The
 \releasecite{Formalism/LocalRingCardinality/DataDIVDefs.lean}{17}{divided source \(N'_w\)}
 in \eqref{eq:period-lattice} inherits the \(K\)-space and metrics of
-\(N_w\), with the prescribed realization in \eqref{eq:trace-slope}.
+\(N_w\), with the prescribed realization in
+\eqref{eq:selected-donor-isometry}.
 
 For a positive-rank Hermitian \(\mathcal O_K\)-lattice \(J\), use the
 determinant norm at each place. Its unit ball at a finite place is
@@ -6397,7 +6560,9 @@ with the original norms at infinity, so the degree formula gives
  =2\sum_v\lambda_v\lfloor e_vg_{wv}\rfloor .
 \]
 Tensoring by \(I_w\) pairs saturated sublattices over every \(K\)-subspace,
-so the maximal slope has the same shift. Rounding costs at most
+so the maximal slope has the same shift. For signed \(g_{wv}\),
+\(0\le e_vg_{wv}-\lfloor e_vg_{wv}\rfloor<1\).
+Rounding costs at most
 \(2\sum_{g_{wv}\ne0}\lambda_v\), and
 \(\sum_{v\mid p}2e_v\lambda_v=2\log p\).
 
@@ -6470,6 +6635,12 @@ integer \(y\) with
 \end{equation}
 For \(r_0=0\) one has \(\Lambda_y=1\) for every \(y\ge0\).
 \releasecite{Formalism/LocalToGlobal/CharacterGerms/BiadditiveInSingleVariables.lean}{106}{Statement in the release}.
+\rhrange{The theorem gives a short window from every start \(Y_0\)
+for every perturbation satisfying the displayed weight and axis
+conditions.}
+{One suitable order near the prescribed capacity at each actual
+marked odd block, with the upper valuation bound of
+\eqref{eq:short-determinant-window}.}
 
 To see the uniformity in \(Y_0\), write \(D=\det X\) and use the
 factorial pairing \(\langle P,Q\rangle=P(\partial_X)Q(0)\).
@@ -6536,10 +6707,12 @@ Here the bound on the Newton coefficients uses the weighted
 matrix perturbation and gives an interval of length \(S_0\) in \(y\).
 \cite[Theorem~2, (2.4)--(2.6)]{lt4krattenthaler-muller}
 
-The local row-depth proof uses \eqref{eq:short-determinant-window}
-as an upper valuation bound at an available order in each odd block.
-The division estimate \eqref{eq:period-gain-valuation} supplies a
-lower valuation bound for every integral evaluation of the period maps.
+The local row-depth proof uses the Newton coefficient estimate above
+to choose one order within the capacity of each retained odd block.
+The resulting upper bound concerns the valuation of the constructed
+evaluation. The division estimate \eqref{eq:period-gain-valuation}
+supplies the lower valuation bound for every integral evaluation of
+the period maps.
 \releasecite{Development/AbelianVarietyTheory/Proofs/UnramifiedDepth/SumEqOfIsHomogeneous.lean}{1058}{Row-block test}.
 
 In the continuous calculation on an even Frobenius cycle with
@@ -6625,21 +6798,24 @@ uses this support condition.
 
 \noindent\leavevmode\teamanchor{candidate.gain}%
 \textbf{AI-proposed candidate (Frobenius-weighted divisibility with uniform loss).}
-Fix the target, precision and comparison constants. At every
-sufficiently large scale with the tied data, integral models, and
-local, rank, level and size hypotheses above, the prescribed exponents
-\(g_{wv}\) satisfy \eqref{eq:period-gain-valuation} for all
-integral pairs, places and words at every tied translate \(u\).
-On the same data write \(g_{jv}\) for the retained stage gains,
+Fix the target, precision and comparison constants. On the selected
+family, the arithmetic estimates on the finite tests give the
+divisibility \eqref{eq:period-gain-valuation} for the actual period
+maps at every tied translate \(u\). They apply at every sufficiently
+large scale with the integral models and local, rank and level
+hypotheses used above. On the same data write \(g_{jv}\) for the retained stage gains,
 \(\tau_v\) for the local loss from restricting the sources, and
 \(\iota_v\) for the local index allowance. Their weighted sums are
 \[
  \mathcal G(u)=2\sum_v e_v\lambda_v\Big(\sum_{j=1}^m g_{jv}-\tau_v\Big),
  \qquad \mathcal I(u)=\sum_v e_v\lambda_v\iota_v .
 \]
-The restriction loss is charged once per place. The
-\releasecite{Formalism/LocalToGlobal/GlobalTheory/LossRequirementsOfSmallShares.lean}{86}{gain and index comparison}
-gives a constant \(C_{\rm loss}\), uniform in \(x\) and \(u\), with
+The restriction loss is charged once per place. For the classical
+target the numerical estimate used below is the signed bound
+\eqref{eq:classical-selected-loss} for the joint deficit and index
+cost. On the admitted records with the chosen tops, bad-top and
+small-share conditions, the source also supplies \(C_{\rm loss}\)
+uniform in \(x\) and \(u\) for the pointwise comparison
 \begin{equation}
 \label{eq:frobenius-gain-loss}
  \max\!\left\{
@@ -6647,12 +6823,25 @@ gives a constant \(C_{\rm loss}\), uniform in \(x\) and \(u\), with
    \mathcal I(u)
  \right\}\le C_{\rm loss}N_Tmbx^{e_L\varepsilon}.
 \end{equation}
+The release proves this with \(e_L=0\) on those records. The
+general-target slope comparison below allows \(e_L\ge0\).
+The ramp comparison uses
+the original Artin field, the arrays read from the actual record
+and a cutoff satisfying \eqref{eq:prime-power-cutoff}.
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/LossRequirementsOfSmallShares.lean}{86}{Selected gain and index comparison} and
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean}{195}{Read and cutoff conditions}.
+\rhrange{Equation~\eqref{eq:frobenius-gain-loss} bounds the ramp
+deficit and the index allowance separately at every admitted
+translate.}
+{The signed mean of the ramp deficit plus \(36\mathcal I\) on the
+same tied classical records. The local pairing divisibility is
+still required at each place.}
 At the unramified places served by the local comparison, its
 \releasecite{Formalism/SharpRestriction/GlobalTheoremInputs.lean}{122}{local inequality}
 bounds the sum of the odd-power ramps for the served samples,
 after local errors, by \(\sum_j g_{jv}-\tau_v\).
-The aggregate bound pays for unserved samples, discarded primes and
-the geometric term at \(d\). The rounding of the local exponents
+The sum also includes the costs of unserved samples, discarded primes
+and the geometric term at \(d\). The rounding of the local exponents
 and the index and level costs enter the slope error \(R_{\rm loc}(w)\)
 below. Bost obtains improved local divisibility for commuting integral
 vector fields over an absolutely unramified local field when their
@@ -6856,6 +7045,8 @@ Also \(\log T_w\ll mL\), \(\log k\le5L_a\), and
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/FlipTwoThree.lean}{442}{Column estimates with their level dependence}
 and
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/JointsL.lean}{1518}{Specialization on the family}.
+
+\input{selected-ramified-donor}
 
 The division comparison also uses cusp lattices on the indefinite
 side of the theta tower. We first state the finite-degree comparison
@@ -8443,18 +8634,23 @@ The discriminant term contributes at most \(40\log\operatorname{rd}(E)\).
 This AI-proposed candidate concerns the actual
 nonterminal root models and their prescribed metrics and
 boundary extension. The abelian CM host \(E\) has degree \(2f\)
-with \(f\ge2\). Its type extends one embedding of the host
-imaginary quadratic field, and its signature is \((p_j,q_j)\)
+with \(f\ge2\), and \(E/E^+\) is unramified at every finite prime.
+Fix the imaginary quadratic subfield \(k_0=\mathbf Q(\sqrt{-d_0})\)
+with \(d_0\) prime, \(d_0\equiv7\pmod{16}\), and a chosen root
+satisfying \((1+\sqrt{-d_0})/2\in\mathcal O_E\).
+The type extends one embedding of \(k_0\), and the signature is \((p_j,q_j)\)
 at every label, with \(q_j\ge1\) and \(p_j+q_j=r\ge3q_j+1\).
 The underlying level is good with auxiliary parameter \(A=1\)
 and level integer \(M'\). The exceptional primes, those dividing
 \(2|\operatorname{disc}E|M'\), number at most \(4fr^2\).
-The selected primes consist of these together with the primes
-at most \(B_*\). The compatible root models and their
+The compatible root models and their
 component identifications are fixed for the given PEL datum
-before the weight and cutoff are tested. At the tested weight
-\(u=u'\) the regularity, all small-slot gaps, and the strict
-inequality for \(B_*+1\) are those established above.
+before the weight and cutoff are chosen. Take any strictly decreasing
+integral weight \(u\) whose last \(q_j\) slots are each separated from
+every other slot at their label by at least \(g>0\). Take an integer \(B_*\) with
+\(B_*+1>4fr^2(1+\|u\|_\infty/g)\). The selected primes are the
+exceptional primes and all primes at most \(B_*\). The application
+above uses \(u=u'\).
 
 Let \(V_Z>0\) be the geometric volume factor of a component
 and \(I_{B_*,Z}(\ell_u^{D+1})\) its arithmetic intersection
@@ -8465,8 +8661,8 @@ out. Put \(\ell_u=-\sum_{\tau,i}u_{\tau,i}x_{\tau,i}\),
  \Lambda_{B_*}=\log(B_*\operatorname{rd}(E))
              +|\Re(L'/L)(1,\chi_{d_0})|,
 \]
-where \(\chi_{d_0}\) is the prescribed host quadratic
-character. The proposed bound is, with an absolute \(C\),
+where \(\chi_{d_0}\) is the quadratic character of \(k_0\).
+The proposed bound holds with an absolute constant \(C\).
 \begin{equation}\label{eq:candidate-flag-height}
  \frac{\sum_Z I_{B_*,Z}(\ell_u^{D+1})}
       {(D+1)G(u)\sum_Z V_Z}
@@ -8479,9 +8675,14 @@ The geometric degree on each component is \(V_ZG(u)\),
 and equality of the \(V_Z\)'s converts this volume-weighted
 quantity into the arithmetic mean. The finite-place trace
 cost above then gives the bound for \(\operatorname{mean}_Zs_Z\).
+\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/TwoWeightEqOneAddRoot.lean}{14}{The host assumptions},
 \releasecite{Development/AutomorphicSpectrum/Proofs/GeometryProofs/FullIntersectionGoodLevelStatement.lean}{15}{Root models and the geometric degree},
 \releasecite{Development/AutomorphicSpectrum/Definitions/DivisibilityTowers/HeckeSectionsIsotropicCommutatorPairingPower.lean}{84}{The arithmetic mean inequality}, and
-\releasecite{Development/AutomorphicSpectrum/Definitions/GlobalGeometry/TowerOrigin.lean}{121}{The host character}.
+\releasecite{Development/AutomorphicSpectrum/Definitions/GlobalGeometry/TowerOrigin.lean}{123}{The host character}.
+\rhrange{The finite-cutoff bound applies to all the indicated signed
+weights and cutoffs on the prescribed host and root models.}
+{The bound at the actual shifted weight \(u'\) and cutoff \(B_*\),
+followed by the finite trace subtraction for the component means.}
 
 Mumford's proportionality accounts for the geometric volume
 factors. Tamvakis computes the compact-dual arithmetic flag
@@ -9622,10 +9823,13 @@ absorbed in the same \(X\) as the mean lower bound. The weight
 budget gives \(\ell|u'|_1\le834 fmb\), \(B_*\le132b\),
 \(q_j\operatorname{spread}(u')\le6|u'|_1\), and
 \(\log\operatorname{rd}(E)+|d\log L(1)|\le9L\).
-Substitution in \eqref{eq:candidate-flag-height} gives
-\(\ell X=O(fmbL)\). This is the bound on the mean of the comparison
-slopes \(s_Z\). The next comparison relates these slopes to the
-Chow heights and the carrying section on the same cover.
+At this selected weight let \(\delta'_Z=V_ZG(u')\) be the
+geometric degree of the root line. Substitution in
+\eqref{eq:candidate-flag-height}, with the finite trace allowance,
+gives \(\sum_Z\delta'_Zs_Z\ge-X\sum_Z\delta'_Z\) with
+\(\ell X=O(fmbL)\). These geometric weights also appear in the
+carrying-section comparison with the moving Chow heights on the
+same cover.
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/BudgetOfSizeAndWeight.lean}{234}{The weight budget}.
 
 To compare with \(h_Z\), take the normalization of the schematic
@@ -10220,6 +10424,13 @@ No independent prior theorem for that assertion has
 been identified.
 \cite[Section~V]{depth-katz}
 \cite[Appendix, Theorem~(c)]{depth-lubin-tate}
+\rhrange{The order-dependent estimate controls the lost directions
+for arbitrary saturated frames satisfying the even-type conditions.
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/DetDepthLowerBoundSaturatedEvenType.lean}{199}{The saturated even-type lower bound}}
+{The \hyperlink{proof.mixed-determinant-multiradius}{finite-radius
+estimate} on the actual frames for the two small-inert-prime
+endpoints.}
+
 \paragraph{Curves of prescribed Frobenius type.}
 \teamanchor{proof.mixed-determinant-depth}%
 First work in the application at \(p\) unramified in \(E\). Extend the
@@ -10424,12 +10635,9 @@ Taking \(Q_*=Q\), the estimate in every chart gives
         c\,\frac{p}{p^2-1}
        -i^2(1+\log_p c).
 \end{equation}
-\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/DetDepthLowerBoundSaturatedEvenType.lean}{199}{The saturated even-type lower bound}.
-
 \paragraph{Keeping the individual radii.}
 \teamanchor{proof.mixed-determinant-multiradius}%
-The same stage construction gives a further bound.
-For any \(K\ge0\), construct stages through \(K\).
+For a fixed integer \(K\ge0\), construct stages through \(K\).
 In the coefficient matrix of the frame in the integral
 tangent basis, process the columns in increasing stage
 order. For a nonzero column of the remaining rows,
@@ -10452,18 +10660,10 @@ Write \(E_s=p^{-(2s+1)}/(p^2-1)\), so
    -c\left(\frac{i}{p^2-1}
           +Q_*\sum_{s=-1}^{K-1}E_s+iE_K\right).
 \]
-The left-hand side does not depend on the stage
-construction. Let \(K\to\infty\) in this numerical bound
-and use \(\sum_{s=-1}^{\infty}E_s=p^3/(p^2-1)^2\).
-With \eqref{eq:osc-depth-content-lower}, this yields
-\[
- d_G(u;c)\ge
-       \frac{icp}{p^2-1}
-       -\frac{Q_*cp^3}{(p^2-1)^2}
-       -i^2\log_p(c+1).
-\]
-The reference prime calculation below uses the stated
-mixed-type bound \eqref{eq:osc-depth-fine-lower}.
+The partial sum is at most \(p^3/(p^2-1)^2\) by the geometric
+series formula. The reference prime calculation chooses \(K\) on
+the arithmetic family so that the error \(iE_K\) fits the local
+comparison.
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/LogFGLDepthStagesLowA.lean}{124}{The stage dimensions}.
 
 \paragraph{An interval from the first stage alone.}
@@ -10839,18 +11039,27 @@ factors, use the bound \(\sum_f B_f\) without a rounding loss.
 Suppose first that \(p\) is odd, unramified in \(E\), inert in
 the quadratic subfield, and \(mp<k\). A large factor with
 \(c=c_f>0\), \(i=i_f\), lies in the starting even type.
-Use its lower bound \eqref{eq:osc-depth-fine-lower} and its
-algebraic upper bound \(c\ell_s\) from
-\eqref{eq:osc-character-colength}.
-Their difference is at most
+Here a fixed number of radii suffices. For the classical host,
+\(x\in[Z,X]\) and \(Z=X^{1/J}\). Every odd prime up to
+\(Z^{\varepsilon/5}\) splits in the quadratic field, so an inert
+prime satisfies \(p>x^{\varepsilon/(5J)}\). Fix an integer
+\(K_{\rm rad}\ge0\) with
+\((2K_{\rm rad}+2)\varepsilon/(5J)\ge9/2+\varepsilon\).
+Since \(i\le x^5\) and \(m\ge x^{1/2-\varepsilon}\), one has
+\(i\le mp^{2K_{\rm rad}+2}\) at every chosen scale.
+Apply \hyperlink{proof.mixed-determinant-multiradius}{the row radius estimate}
+with \(K=K_{\rm rad}\). With \(\theta=p/(p^2-1)\) it gives the
+all-germ lower endpoint
 \[
- c\left[
-   \Bigl(P-Q-i+Q\bigl(3/2+\tfrac12\log_p c\bigr)\Bigr)
-                  \frac{p}{p^2-1}
-   +\frac{Q}{p-1}\right]+i^2(1+\log_p c).
+ ic\theta-cQ\sum_{s=-1}^{K_{\rm rad}-1}E_s
+       -ic E_{K_{\rm rad}}-i^2\log_p(c+1).
 \]
-Since \(N-i\le m\), \(Q\le m\), and \(p/(p^2-1)\le1/(p-1)\),
-this is bounded by
+Here \(iE_{K_{\rm rad}}\le m/(p-1)\) and the sum of the \(E_s\)
+is at most \(p^3/(p^2-1)^2\le1/(p-1)\). The algebraic
+upper endpoint from \eqref{eq:osc-character-colength} is
+\(c((P-Q)\theta+Q/(p-1))\). Since \(N-i,Q\le m\), the difference
+is at most \(4mc/(p-1)+N^2\log_p(c+1)\). In particular it lies
+within the width
 \[
    \frac{cm(4+\tfrac12\log_p M_*)}{p-1}
                   +N^2(1+\log_p M_*).
@@ -11243,23 +11452,59 @@ and replace the positive part by its argument. Using
 \]
 Thus the flag bound is used with its geometric weights even though
 the target degree is divided by the total section rank.
-For \(a\ge0\),
-\(A\log(2+a)\le a+2+A\log\max(A,1)\). Put \(d_1=3D+4<\ell\).
-Since \(|h_Z|\le t_Z+c_s\), the bracket in
-\eqref{eq:finite-hilbert-samuel} is bounded below by
-\((\ell-d_1)t_Z-(\ell+d_1)c_s-O(b)\).
-Here \(A_{\rm HS}\le100\ell\) and
-\(A_{\rm HS}\log\max(A_{\rm HS},1)+R_{\rm HS}=O(b)\),
-by the frame bounds. The coefficient of \(c_s\) after summing is
-at most
+Use the determinant estimate before the height-dependent
+allowances in \eqref{eq:finite-hilbert-samuel}. Its raw
+normalized Chow height is at least \(h_Z-g_{\rm Ch}\), where
+\(g_{\rm Ch}=(\log n_Z+1)/2\), by the height comparison for the same
+moving frame. The principal \(q_Z\) columns use degree-zero
+sections and \(\ell\) factors from the moving system. The rest
+are based in degrees \(D,\ell\). Let \(\Lambda_0\) be the
+degree-zero bound and put \(c_{\rm fr}=\log(n_Z\Lambda)+g_{\rm Ch}\).
+The determinant calculation gives
 \[
-  (\ell+d_1)-(\ell-d_1)(1-z)(1-\rho)
-  \le 6D+8+\ell(z+\rho).
+  \frac{\widehat{\deg}_{\rm n}J_Z}{r_Z}
+   \ge \frac{q_Z}{r_Z}\ell h_Z-C_Z-zB_Z-c_{\rm cmp},
 \]
-With \(c_s\le P_{\rm cov}(\kappa/\ell+1)\) this term is
-\(O(zP_{\rm cov}\kappa+z\ell P_{\rm cov})=O(b)\).
-The total lower bound per target rank is
-\(-O(b+\ell X+\ell c_c)=-O(E_{\rm cov})\).
+where
+\[
+ \begin{aligned}
+ C_Z&=\ell g_{\rm Ch}+D(D+1)c_{\rm fr}
+                 +\log\Lambda_0+\tfrac{\ell}{2}\log\beta,\\
+ B_Z&=\ell c_{\rm fr}+\tfrac{\ell}{2}\log\beta
+                 +\log\Lambda_D+\log\Lambda_\ell .
+ \end{aligned}
+\]
+The cofactor's total degree is at most \(\ell(r_Z-q_Z)\);
+the height lower bound for that cofactor is minus its degree
+times \(c_{\rm fr}\). Separately the principal Chow term gives
+\(q_Z[\ell+D(D+1)]\) times the raw normalized height, which is
+at least \(-c_{\rm fr}\). The bound on the other columns uses
+their short norms and \(\sqrt\beta\) for each multiplication.
+This gives the displayed estimate using \(q_Z/r_Z\le1\) and
+\(1-q_Z/r_Z\le z\), followed by the comparison to the target.
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/ClaimSOfNumbers.lean}{56}{The determinant core}
+and
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExplicitArithmeticHilbertSamuelBound.lean}{31}{The normalized height and degree comparison}.
+
+With \(P=P_{\rm cov}\), the chosen frames give
+\(g_{\rm Ch}\le P\), \(c_{\rm fr}\le P\kappa/\ell+3P\), and
+\(\log\Lambda_0\le J_{\rm res}\). The resulting cost is at most
+\[
+ C_Z+zB_Z\le
+ (2D^2+6D)P\kappa/\ell+3zP\kappa+(6D^2+4D)P+
+                   \tfrac{11}{2}\ell P+\tfrac72 z\ell P
+ \le \tfrac{339}{28} b .
+\]
+Here \(D^2/\ell\le z/7\), \(D^2\le\ell/14\), \(zP\kappa\le b\),
+and \(\ell P\le b\). Since \(t_Z=h_Z+c_s\) and
+\(\sum_Zq_Z/R\le1\), the count bound gives
+\(\sum_Zq_Z h_Z/R\ge-(z+\rho)c_s-X-c_c\).
+Using \(\rho\le z/7\) and \(c_s\le P(\kappa/\ell+1)\), the
+cost \(\ell(z+\rho)c_s\) is at most \(12b/7\). Consequently
+\[
+ \frac1R\sum_Z\widehat{\deg}_{\rm n}J_Z
+       \ge -15b-c_{\rm cmp}-\ell(X+c_c)=-O(E_{\rm cov}).
+\]
 
 The lattice of sections at \(v\) splits by component. Its Petersson
 norm is the orthogonal sum of the squared component norms weighted
@@ -12519,56 +12764,19 @@ Let \(\mathcal F\) be the weighted sum of the reference exponents
 and \(Q_w\) the weighted sum for \(w\), using \(2e_v\lambda_v\)
 as above.
 
-The complex rank of the common kernel of the \(f\) residue-unit
-averages was computed in the
-\hyperlink{proof.ramified-column-loss}{ramified column count}.
-For the following argument require the
-\hyperlink{proof.ramified-donor-identification}{integral and metric donor identification}
-at every \(w\). It identifies \(H_w\) with the integral sum-zero
-class lattice in \(M_w\) and identifies the actual \(N_w\)
-isometrically with a full sublattice of this model in the
-column chain's zero-stage metric.
-
-In the identified model, put \(q=T_w-1\). On a residue-unit
-factor use the basis \(e_i-e_q\), \(1\le i<q\), of the integral
-kernel of summation in the \(q\) unit coordinates. Its Gram is
-\(I+\mathbf 1\mathbf 1^{\mathsf T}\), of determinant \(q\).
-Compared with its unrestricted residue factor, the mean
-squared slope of this kernel therefore changes by
-\(-\log q/(q-1)\). On each split class summand the identical
-coefficient and class metric factors cancel from this
-difference. The \(f\) independent unit directions use the
-tensor product of these kernels. Tensor determinants add
-the corrections per rank, and the orthogonal summands have
-the same retained rank ratio. In the metric of its integral
-inclusion this gives
-\[
- \begin{gathered}
- d_M=\operatorname{rk}M_w,\quad
- d_r=(1-\theta_w)d_M,\quad
- \theta_w=1-(1-1/(T_w-1))^f,\\
- \mu(H_w)=\mu(M_w)-f\frac{\log(T_w-1)}{T_w-2},\qquad
- \mu_{\max}(H_w)\le\mu_{\max}(M_w).
- \end{gathered}
-\]
-The last inequality follows by saturation in \(M_w\).
-
-Let \(e_v\ell_{wv}\) be the local length of \(H_w/N_w\).
-The same donor identification must supply
-\[
- (N_w)_v\subseteq\mathfrak p_v^{e_v\tau_v}(H_w)_v,\qquad
- \ell_{wv}\le d_M(\tau_v+\iota_v)\qquad(v\nmid T_w),
-\]
-where \(\tau_v\) is a nonnegative integer. At \(v\mid T_w\)
-the conditions are \(\tau_v=0\) and
-\[
- \frac{2}{d_r}\sum_{v\mid T_w} e_v\lambda_v\ell_{wv}
-       \ll N_Tm(a_E/k+b')\log T_w .
-\]
-These conditions concern the actual undivided lattice in the
-zero-stage norms. For a full sublattice the determinant formula
-subtracts \(2e_v\lambda_v\ell_{wv}/d_r\) at \(v\) from the mean.
-\releasecite{Formalism/SharpRestriction/Divisibility/LocalQuadraticParts.lean}{621}{The ramified rank, metrics and local lengths}.
+For each \(w\) use the common zero-stage metric of
+\eqref{eq:selected-donor-isometry} and the full sublattice
+\(N_w\subseteq H_w\) of \eqref{eq:selected-undivided-donor}.
+The rank ratio is \(d_r/d_M=1-\theta_w\) from
+\eqref{eq:selected-ramified-rank}. The lower mean
+\eqref{eq:ramified-quotient-bound} and the upper bound
+\(\mu_{\max}(H_w)\le\mu_{\max}(M_w)\) apply to this inclusion.
+The local length of \(H_w/N_w\) is \(e_v\ell_{wv}\).
+Off the level, \eqref{eq:selected-donor-off-level-index}
+gives \((N_w)_v\subseteq\mathfrak p_v^{e_v\tau_v}(H_w)_v\),
+with \(\tau_v\) a nonnegative integer, and
+\(\ell_{wv}\le d_M(\tau_v+\iota_v)\). At the level use
+\eqref{eq:selected-donor-level-index} with \(\tau_v=0\).
 
 Set \(g'_{wv}=e_v^{-1}\lfloor e_vg_{wv}\rfloor\).
 The determinant computation after division gives
@@ -12576,9 +12784,9 @@ The determinant computation after division gives
  \mu(N'_w)=\mu(H_w)+2\sum_v e_v\lambda_v
                      (g'_{wv}-\ell_{wv}/d_r)
 \]
-in these common metrics. For a comparison through an isomorphism the
-difference must be bounded in the prescribed norms, as in the release's
-\releasecite{Formalism/SharpRestriction/GlobalTheoremInputs.lean}{69}{mean-slope comparison at the local cutoff}.
+in the common metrics. The finite index subtracts
+\(2e_v\lambda_v\ell_{wv}/d_r\) at \(v\), and the ideal multiplies
+the determinant by \(I_w^{d_r}\).
 For \(v\nmid T_w\),
 \[
  \frac{\ell_{wv}}{d_r}-\tau_v
@@ -12589,15 +12797,27 @@ Bernoulli's inequality gives \(\theta_w\le f/(T_w-1)\le2f/T_w\).
 In the level range used here \(2f/T_w\le 1/2\), the index allowance
 therefore contributes at most \(4\mathcal I(u)\). The remaining
 rank correction is bounded by
-\((4f/T_w)\,2\sum_v e_v\lambda_v\tau_v\).
-The sum \(2\sum_v e_v\lambda_v\tau_v\) is at most the sum of
-the stage gains plus the error in \eqref{eq:frobenius-gain-loss},
-by nonnegativity of the ramps. The gain bound below makes this
-\(O(x^c b)\) for a fixed \(c\), so it is at most \(b^2\) for
-large \(x\). Since the selected levels satisfy \(T_w\ge b^3\)
-and \(f\) grows at most polynomially in \(x\), the rank
-correction plus \(f\log(T_w-1)/(T_w-2)\) is at most \(1\)
-beyond a common threshold.
+\((4f/T_w)T_\tau\), where \(T_\tau=2\sum_v e_v\lambda_v\tau_v\).
+\teamanchor{proof.weighted-restriction-bound}%
+The weighted restriction estimate on the selected record gives
+\[
+ 0\le T_\tau\le C mN_Ta_E\log X' + b^{\delta(x)},\qquad
+ \delta(x)\longrightarrow 0 .
+\]
+Its weights are \(2e_v\lambda_v\), and its \(\tau_v\) is the local
+restriction in \eqref{eq:selected-donor-off-level-index}. The estimate
+sums the restriction exponents of the served orbits against their
+top counts. Since \(a_E=xb\), the first term is at most \(b\)
+times a fixed power of \(x\). Hence \(T_\tau\le b^2\) past a common
+threshold. This bound is available before estimating the ramp deficit.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/TopChoiceBounds.lean}{4503}{Weighted restriction estimate} and
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/PlacesP.lean}{726}{The bound on the actual source}.
+Since \(T_w\ge b^3\) and \(f\) grows at most
+polynomially in \(x\), the rank correction is at most
+\((4f/T_w)b^2=o(1)\) uniformly. Together with
+\(\delta_{\rm ram}(w)=o(1)\) from
+\eqref{eq:ramified-quotient-bound}, the two errors fit the
+single unit allowance beyond a common threshold.
 \releasecite{Formalism/LocalToGlobal/GlobalTheory/PlacesP.lean}{706}{Lower level range for this comparison}.
 The rounding cost up to the local comparison cutoff \(X''\) is
 \(O(X'')\). The weight above one rational prime satisfies
@@ -12634,17 +12854,18 @@ with
 \[
  R_{\rm loc}(w)\ll \mathcal I(u)+N_Tm(a_E/k+b')\log T_w+X''+1.
 \]
-Here \(b'\) is the smaller scale for the weights. The fractional-ideal
-inclusion from the frozen gain statement supplies the map into \(C\).
+Here \(b'\) is the smaller scale for the weights. The finite generator
+bound \eqref{eq:period-gain-valuation} supplies the fractional-ideal
+inclusion \(B_{K,w}(N'_w)\subseteq C\).
 \subsubsection{Height of the divided map}
 \teamanchor{proof.divided-map-heights}
-Use the zero-stage isometry in the
-\hyperlink{proof.ramified-donor-identification}{ramified donor identification}.
+Use \eqref{eq:selected-donor-isometry} and the descended pairing
+\eqref{eq:selected-donor-rational-period} on \(N'_w\).
 An upper bound \(h_w\) for the divided map's squared height
 uses the operator norm in those source metrics and in the
 common target coordinates.
-If \(V_{w,\sigma}>0\) bounds the squared norm at each embedding, then
-integrality gives
+For a nonzero map, if \(V_{w,\sigma}>0\) bounds the squared
+norm at each embedding, then integrality gives
 \[
   h(B_{K,w})\le [K:\mathbf Q]^{-1}\sum_{\sigma:K\hookrightarrow\mathbf C}
                   \log V_{w,\sigma}.
@@ -12690,9 +12911,8 @@ Petersson eigenvalue below, the height expression is
  h_w=\mathrm{SZbP}(w)+\sum_j\mathrm{kernelPlaceMeanBound}_j(w)
                           -\sum_j L_{6,j}-J_\kappa.
 \]
-The rational comparison must carry the actual lattices and
-metrics, so this bounds the height of the map in the rank argument.
-Fractional-ideal division keeps the archimedean donor metric.
+By the rational period identity this bounds the map in the rank
+argument. Fractional-ideal division keeps the archimedean donor metric.
 \releasecite{Formalism/LocalToGlobal/IndefiniteForms/IndefUse.lean}{337}{Metric comparison on the types} and
 \releasecite{Formalism/LocalToGlobal/Divisibility/RecBridge.lean}{341}{Height in the linked family}.
 We now bound both norms on the same class operator, before
@@ -13619,16 +13839,12 @@ powers. With the rational coefficient form and its dual
 for the prescribed positive integer \(s\). The same notation
 for duality at \(v\) pairs the lattice at \(v\) with its conjugate
 at \(\bar v\). Let \(L=\bigoplus_c N_c^{\Gamma_c}\), with the
-class form of weight \(1/|\Gamma_c|\). For a vector \(y\in L^\#\)
-one can test against invariants supported at \(c\). The dual of
-the invariant intersection for the coefficient form is the
-orthogonal average of \(N_c^\#\). In fact restriction of an
-integral functional to the invariant intersection is surjective
-on the integral dual, since the intersection is saturated over
-each DVR. Its representing map on the rational spaces is the
-orthogonal average. Hence \(y_c/|\Gamma_c|\) is in that average
-of \(N_c^\#\), and \(sy_c\in D_c^{\Gamma_c}\), since
-\(\Gamma_c\) preserves \(D_c\). This proves \(sL^\#\subseteq L\).
+class form of weight \(1/|\Gamma_c|\). Let \(y\in L^\#\). At class \(c\), pair \(y_c\) with the integral
+orbit sum \(\sum_{\gamma\in\Gamma_c}\gamma x\) of any \(x\in N_c\).
+Since \(y_c\) is invariant and the class weight is \(1/|\Gamma_c|\),
+this is the unweighted pairing with \(x\). At \(v\) the testing
+lattice is at the conjugate place \(\bar v\). Thus \(y_c\in N_c^\#\)
+and \(sy_c\in D_c^{\Gamma_c}\), proving \(sL^\#\subseteq L\).
 \releasecite{Formalism/QuotientMetricDivisors/HermitianTwistDivisors/ClassSumDualGeOfFamily.lean}{50}{The classwise duality}.
 
 For the row at principal level take the cut of \(L\) by the
@@ -13637,10 +13853,13 @@ level-character idempotent \(e_P\). This product is self-adjoint.
 The ordinary character expression for \(e_X\) clears its
 denominator with \(|G|\), since the character values are
 algebraic integers. The averaging expression for \(e_P\)
-clears its denominator with \(|P|\). In the row form, which is
-the class form divided by \(|P|\), the dual of the cut is
-\(|P|e_Xe_P L^\#\), by the same restriction argument.
-Consequently \(s|G|\) takes this dual into the cut lattice.
+clears its denominator with \(|P|\). Thus \(|G||P|e_Xe_P\)
+takes \(L\) into \(L\cap e_Xe_P X\), where \(X\) is the rational
+class space. If \(w\) is in the row dual of this cut, pair it with
+\(|G||P|e_Xe_P x\), for \(x\in L\). The row form is the class
+form divided by \(|P|\), and the idempotent is self-adjoint and
+fixes \(w\). Hence \(|G|\langle x,w\rangle\) is integral in the
+class pairing. It follows that \(s|G|w\) belongs to the cut.
 In an orthogonal quotient the dual of the projected lattice is
 the intersection with the dual of the source in the orthogonal
 section. Indeed evaluation on the projected lattice is evaluation
@@ -14410,9 +14629,13 @@ twisted coefficient places of
     +\operatorname{ord}_v(g_{j,\boldsymbol\mu(v)})
     +\operatorname{ord}_v(s_j).
 \]
-Here \(D_0>0\) is the row rank in the Gram
-comparison, common to the actual tuples by the
-row-column comparison with the base level. The
+Here \(D_0=d_{\rm row}>0\) is the rank of the good
+base-face cut at \((P_0,\psi_0)\), identified by
+\eqref{eq:record-base-rank-sum} on the same base face as the
+\hyperlink{proof.absolute-stage-row-covolume}{Gram frame}.
+The row-column comparison carries this rank to the actual tuples.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/InpAtOf.lean}{49}{Rank equality in the divided-map application}.
+The
 factor \(g_{j,\boldsymbol\mu(v)}\) is
 \(|P|\operatorname{lcm}_c|\Gamma_c|\) in the same
 class-value frame, and \(s_j>0\) is the stage
@@ -14423,12 +14646,13 @@ and \(s_j\) for the chosen coefficient duality
 inclusion. The Weyl lifting exponent contributes
 to \(E_{1,j}\).
 With \(\lambda_v=\log|\kappa(v)|/[K:\mathbb Q]\),
-the first sum is at most \(\eta_j/D_0\). The
-actual selected twisted places lie in the specified
+the first sum is at most \(\eta_j/D_0\) by the
+local length identity \eqref{eq:auxiliary-hecke-length-normalized}.
+The actual selected twisted places lie in the specified
 support of \(\eta_j\), whose other terms
 \(\lambda_v e_v\eta_{jv}\) are nonnegative.
-If \(g_{\rm gr}\) is the specified common multiple
-of the stage group factors, use
+Take \(g_{\rm gr}\) to be the least common multiple
+of the stage group factors. Then
 \(\operatorname{ord}_v(g_{j,\boldsymbol\mu(v)})
  \le\operatorname{ord}_v(g_{\rm gr})\).
 For any positive rational integer \(a\) the product
@@ -14444,6 +14668,7 @@ proves
 \end{equation}
 \releasecite{Formalism/LocalToGlobal/Divisibility/SumLeEtaSumNum.lean}{28}{The place weights and the support of the sum}
 \releasecite{Formalism/LocalToGlobal/Divisibility/LinkDef.lean}{85}{The local numerical contribution}
+\releasecite{Formalism/LocalToGlobal/Divisibility/ZscOfNum.lean}{122}{The common stage denominator}
 \releasecite{Formalism/LocalToGlobal/Divisibility/LinkDef.lean}{162}{Its weighted global estimate}.
 
 \subsubsection{Weyl lattice comparisons on the auxiliary cut}
@@ -14694,7 +14919,7 @@ The infinitesimal entries are
 belong to \((N-1)/2+\mathbf Z\). For each translated
 rank-\(r\) seed, write its entries as \(z+\beta\), where \(z\)
 is an entry of the unitary seed and \(\beta\) is its Speh
-shift. Set \(f=(N-1)/2-\beta\). The numbers \(f-z\) are
+shift. Set \(f_0=(N-1)/2-\beta\). The numbers \(f_0-z\) are
 integers. Twisting the seed by
 \(\lvert\det\rvert^{(r-1)/2-f_0}\) makes its infinitesimal entries
 distinct in \((r-1)/2+\mathbf Z\), so it is regular algebraic.
@@ -14981,9 +15206,10 @@ where row and column indices start at zero,
 \(|\tau/\kappa|=i\), \(\ell(\tau)\le r\), each skew column
 has at most \(t\) boxes, and \(P_\tau(a)\ne0\).
 An empty least common multiple is one. For a weakly
-decreasing tuple \(\xi\) on the full set of coordinates,
-write \(\partial(w)=\xi\cdot(\lambda-w)\).
-Suppose \(p^{e_L}\) takes the dual Weyl weight lattice
+decreasing integer tuple \(\xi\) on the full set of coordinates
+and an integer cutoff \(I\), write \(\partial(w)=\xi\cdot(\lambda-w)\).
+Suppose \(e_L\) is a nonnegative integer for which \(p^{e_L}\)
+takes the dual Weyl weight lattice
 of \(\kappa\) into the Weyl lattice on all its weights
 \(w'\) with \(\partial((a^t,w'))\le I\).
 For every weight \(w\) of \(V_i\) with \(\partial(w)\le I\),
@@ -15001,6 +15227,15 @@ Nakahama's norm calculation gives the rational scalars
 used below. The precise integral inclusion with the
 inherited Levi cutoff and without a projector factorial
 is the additional statement whose priority remains open.
+\rhrange{The integral weightwise inclusion uses the polynomial
+least common multiple before evaluation, including at singular
+specializations.
+\releasecite{Formalism/PieriBlockIdeals/StatementLD.lean}{51}{The weightwise inclusion} and
+\releasecite{Formalism/PieriBlockIdeals/PieriColumnMinors/CorollaryOfParamsLinkage.lean}{9}{The graded proof}}
+{The \hyperlink{proof.weyl-weighted-cost}{weighted prime sum}
+of denominator exponents on the selected weights. Rational
+projectors with a factorial denominator, the other retained
+inclusions and the paired transports give the \(O(fmbL^2)\) bound.}
 
 Put \(W=V_0\). Its first Levi factor acts by the determinant
 to power \(a\), and its second factor is \(V(\kappa)\).
@@ -15559,9 +15794,10 @@ Together these prove the asserted bound.
 \releasecite{Formalism/PieriBlockIdeals/PieriColumnMinors/ParameterBounds.lean}{886}{The sum of the two prime branches}.
 
 \paragraph{A weighted bound from the rational spectrum.}
-The division estimate only needs the weighted bound,
-which also follows from the content spectrum and integral
-multiples of the Schur--Weyl projections. On an improved
+For the division height use the weighted bound from the content
+spectrum and integral multiples of the Schur--Weyl projections.
+At the other primes keep the full-lattice allowances above.
+On an improved
 thick label reflect with \(M=\nu_{\rho,0}\). The inner
 partition \(\kappa'\) of the reflected block has \(k_0\)
 rows of length at most \(S_{\rm cl}\) and another
@@ -15590,15 +15826,24 @@ whose denominators divide \(n!\) by the character formula.
 The quotient has no torsion, so these integral multiples
 preserve the integral kernel and descend. Thus \(R_\rho!Q_\rho\)
 clears the inverse scalar times each surviving projector
-on \(B_i(V_i)\). The weight cutoff and the one-row insertions
-from the preceding proof give the exponent bounded by
+on \(B_i(V_i)\). The mixed raising roots preserve the inherited
+cutoff on the Levi coefficients. For each one-row insertion,
+the horizontal-strip polynomials divide the product of the linear
+factors for the \(H-1\) distinct positive differences. Monic
+division by the rank-one operator polynomial clears that row by
+\((H-1)!\) after evaluation. These one-row costs give the
+improved-place exponent bounded by
 \(v_p(R_\rho!Q_\rho((H-1)!)^{j_\rho+q_\rho})\) on this label.
 The absolute log of this integer is \(O(mbL^2)\) by the
 harmonic sum in the exponent of \(Q_\rho\) and the factorial
-bound. Summing valuations by the product formula gives the
-same weighted order as above. The stronger factorial-free
-statement concerns the finer integral weight comparison
-for general shapes, with the indicated specialization.
+bound. At \(v\mid p\), multiply this rational-prime exponent by
+\(e_v\) to bound the required uniformizer exponent. Summing with
+\(\lambda_v\) uses \(\sum_{v\mid p}\lambda_v e_v=\log p\).
+Together with the full-lattice allowances, this gives
+\(\sum_{v\ {\rm twisted}}\lambda_vJ^*_{jv}=O(fmbL^2)\) for the
+required inclusions. In the classical family \(f=2n\), so this
+cost is \(O(B_0x^\varepsilon)\) per stage. The factorial-free
+inclusion above gives the single-weight integral refinement.
 
 \subsubsection{Transport of the auxiliary stage lattice}
 
@@ -16124,15 +16369,12 @@ this reference tuple.
 \teamanchor{proof.section-run-design}%
 \paragraph{The numerical choices common to the two section runs.}
 The two geometric comparisons below use the explicit row arrays
-and embedded geometric field in the following design. To apply
-the comparisons at the indices of the period and trace
-constructions, require that these exact rows and this field
-be retained by both marked runs on the same chosen records,
-including \(i_0\) and every \(i(u)\) used in the assembly.
-This identification is the separate condition described in
-\hyperlink{proof.section-run-family-identification}{Section~\ref{sec:assembly}}.
-The following arguments establish the estimates on the
-identified objects.
+and the embedded geometric field of the selected record at each
+index. The construction in
+\hyperlink{proof.section-run-family-identification}{Section~\ref{sec:assembly}}
+installs both marked runs on that record, at \(i_0\) and at every
+\(i(u)\). It compares their section spaces and lattices with
+the row coordinates used by the period and trace constructions.
 
 Use the translated witnesses with the explicit Harish--Chandra
 rows and the initial embedded coefficient field of the common
@@ -16373,7 +16615,8 @@ the companion and divided weights. The discriminant bound
 of the host and the unit class ideal give the remaining
 logarithmic bounds for the half-supremum frame.
 The degree and discriminant bounds of the geometric
-coefficient field come from its initial field construction.
+coefficient field come from the exact field pin of the
+selected record and the host-size bound below.
 The full generating set and the finite norming set then give
 the specific logarithms in the Chow coefficient estimate.
 For example \(n_W\le Z_b^4\) gives both
@@ -16400,37 +16643,76 @@ throughout.
 
 \paragraph{The coefficient field in the section heights.}
 \teamanchor{proof.section-run-coefficient-field}%
-Use the geometric \(K_0\) carried by the original marked
-selection. Its initial construction is over the fixed two
-type primes and the two choices of own prime. The data
-needed for its size estimate are the embedded \(E\), the
-Weber values at \(Qp_o\) for both \(p_o\), the indicated
-roots of unity, and the ideal and type-norm generators.
-In the original construction the Weber values lie in
-the ray fields of \(\mathbf Q(\sqrt{-d})\) of moduli \(Qp_o\).
-The chosen field is installed before making the tied stages.
-The coefficient identification sends its entire ring of
-integers to the chosen embedded integral coefficient ring.
-Conversely, those coefficient values are precisely the
-images of its integers. Taking fractions identifies the
-embedded fields. This is the geometric \(K_0\) used on
-both runs whenever the two tied records retain this
-original coefficient identification.
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsRecordOverChoices.lean}{51}{The field chosen over already fixed levels}
-and
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/FieldSmallIffOpo.lean}{10}{Identity with the geometric coefficient field}.
+On the selected constructed point \(D\), let \(K_0=K_s\) be
+its geometric coefficient field. Both runs at this index share
+the embedded field
+\[
+ K_s=\operatorname{FO}(D)=\operatorname{KsC}
+   =\operatorname{listField}(\delta,\mathbf f_{\rm fr})
+      \subseteq\delta.\Omega .
+\]
+Here \(\delta\) is the field datum and \(\mathbf f_{\rm fr}\)
+denotes the fixed frame characters. The list field contains the
+embedded \(E\), the marked ray and auxiliary fields, the fixed
+roots of unity and the normalized value fields of the fixed
+characters, including \(\mathrm{del}\) and \(\mathrm{del}'\).
+The constructed point supplies the exact pin. The field tie
+obtains the roots and Weber values for each \(g_0g_1p_o\) from
+the ray field at modulus \(g_0g_1p_{\rm de}p'_{\rm de}\)
+and uses the type-norm pin of the assembled stages.
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/CoreFrameCompatibleConstructedPoint.lean}{11}{The pin at the constructed point},
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/FixedCoefficientFieldInComplex.lean}{493}{Fixed roots and character fields},
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{28}{The exact field identity},
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{46}{Roots at each level},
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{50}{Weber containment at each level} and
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/HermitianCodeWordStagesTypeNormsPrincipal.lean}{167}{The selected type-norm pin}.
 
 Write \(s(K)=\max(\log[K:\mathbf Q],\log\operatorname{rd}(K))\).
+The host-size and Kummer bounds give
+\[
+ s(K_0)\le s(\delta.\Omega)\le
+   19fr^2L+198f^2L=P_O .
+\]
+The Kummer step adjoins a root of a generator of a power ideal
+in \(E\). Its degree and root-discriminant bound enters the
+compositum for \(\delta.\Omega\). Monotonicity then gives both
+bounds for the pinned subfield. The \(\mathrm{PinField}\)
+comparison identifies the embedded integer ring and its fraction
+field and passes the size estimate to the selected sections.
+The degree and root discriminant in their height allowance are
+\([K_0:\mathbf Q]\) and \(\operatorname{rd}(K_0)\).
+The coefficient extensions for later finite tests, including the
+marked-place and period fields, carry the given embedding of
+\(K_0\). The normalized section heights are unchanged by scalar
+extension by the local degree formula. See
+\hyperlink{proof.section-run-family-identification}{the comparison with the actual section runs}
+for the integral and metric identifications.
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/DegreeRootDiscrBoundKummerFieldOfPowerIdealRoots.lean}{25}{The Kummer size step},
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/OmegaFieldDegreeRootDiscrBoundedByRingPolynomial.lean}{52}{The bound for the compositum},
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{74}{The pinned subfield bound},
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/EventuallyConstructedPointHostSizeNumerical.lean}{19}{Host-size conditions},
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/FieldSmallIffOpo.lean}{10}{Identification under the field pin},
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/FieldSmallIffOpo.lean}{33}{Transfer of both bounds} and
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RunModelArch.lean}{37}{Application in the actual run}.
+
+\emph{An auxiliary calculation over fixed levels.}
+The fixed-choice construction gives a rich field \(K_{\rm rich}\)
+over the two type primes and the two choices of own prime.
+The following estimates describe that field. For the selected
+section runs the input is the exact field and size bound above.
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsRecordOverChoices.lean}{51}{The auxiliary field over already fixed levels}.
+
 The degree formula and the different under base change give
 \(s(KK')\le s(K)+s(K')\). A cyclotomic field of order \(a\)
-has \(s\le\log a\). For either Weber ray field, the ray exact
+has \(s\le\log a\). The auxiliary construction uses a quadratic
+Weber ray field at each modulus \(Qp_o\). The ray exact
 sequence bounds its relative degree by the class number times
 the unit residue group order, and the conductor-discriminant
 formula bounds its relative root discriminant. These two bounds
 give \(s\le 7+\tfrac32\log d+3\log(Qp_o)\), by the elementary
-quadratic class-number bound. Its order parity and the condition
-\(d>4\) hold on the selected hosts.
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsIsRayIntermediateField.lean}{31}{The two Weber fields}.
+quadratic class-number bound. The conditions on the odd modulus
+and \(d>4\) hold in this size range.
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsIsRayIntermediateField.lean}{31}{The auxiliary quadratic Weber fields}.
 
 Let \(h_E\) be the ideal class number of \(E\).
 Minkowski's bound represents every ideal class by an integral
@@ -16438,8 +16720,8 @@ ideal of norm at most \(\operatorname{rd}(E)^f\).
 Counting these ideals by the absolutely convergent sum
 at \(2\) gives
 \(\log h_E\le2f\log\operatorname{rd}(E)+2f\log\zeta(2)\le fL\)
-at a common threshold. The orders of the roots used in the
-geometric field are
+at a common threshold. The root orders in the auxiliary
+construction are
 \[
  \begin{gathered}
  \prod_{i=0}^1|\operatorname{GL}_r(\mathbf F_{g_i})|^f,\qquad
@@ -16452,7 +16734,7 @@ with both \(i\) and both \(p_o\) in their respective factors.
 The general linear group contribution is at most
 \(fr^2(18L+2)\). The two last contributions together are at
 most \(2\log h_E+4f(19L+2)+2\log2\).
-\releasecite{Development/AbelianVarietyTheory/Definitions/HeightFunctions/JointQ.lean}{33}{The roots of unity in the original field}.
+\releasecite{Development/AbelianVarietyTheory/Definitions/HeightFunctions/JointQ.lean}{29}{Roots of unity in the rich field}.
 
 For the principal generators, enlarge by roots in class-group
 steps. If a class of order \(a\) in the current quotient has
@@ -16478,24 +16760,17 @@ the norm gives it, since the exponents of each conjugate pair
 sum to \(p_j+\rho_j=r\). An \(a\)-th root preserves the condition
 when it kills a class in the current quotient. Thus these \(m\)
 passes add at most \(m\log h_E\) to either logarithmic size.
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsFieldIdealsPrincipal.lean}{75}{The class-group steps}
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsFieldIdealsPrincipal.lean}{67}{The auxiliary principalization step}
 and
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsCapitulationFieldSize.lean}{205}{The type-norm version with the metric normalization}.
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsCapitulationFieldSize.lean}{205}{The auxiliary type-norm generators}.
 
 Using \(m\le f\), \(L\ge4\), and the bounds on the installed
 primes gives the following generous total:
 \[
- s(K_0)\le fr^2(18L+2)+(m+4)fL+(79f+190)L
+ s(K_{\rm rich})\le fr^2(18L+2)+(m+4)fL+(79f+190)L
         \le 19fr^2L+198f^2L=P_O .
 \]
-This uses the geometric field before adjoining the values of
-the moving ray characters. Those values and subsequent fields
-for finite tests extend the given embedding of \(K_0\).
-The degree and root discriminant in the geometric height
-allowance are \([K_0:\mathbf Q]\) and \(\operatorname{rd}(K_0)\).
-Normalized heights of these sections are unchanged under
-subsequent scalar extensions by the local degree formula.
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsIsRayIntermediateField.lean}{81}{The size calculation in the original field construction}.
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsIsRayIntermediateField.lean}{74}{The auxiliary compositum and its size bound}.
 
 \paragraph{The scaled products and their local index.}
 Work on one of the two marked runs, at stage \(j\), and write
@@ -19571,10 +19846,11 @@ On the pseudoconvex big cell its upstairs norm is
 where \(dz\) denotes Lebesgue volume. The reduced weight
 \(\Phi_{\rm red}\) is plurisubharmonic by the same row gap.
 
-For \(a\ge1\), apply Skoda's division theorem
-\cite[Theorem~1]{skoda-division} on this cell with \(D\) generators
-in dimension \(D\), so the parameter \(q_{\rm S}\) of the theorem
-is \(D-1\). Use \(\alpha q_{\rm S}=D+a-3/2>q_{\rm S}\).
+For \(D\ge2\) and \(a\ge1\), apply Skoda's division theorem
+\cite[Theorem~1, (3.1)--(3.2)]{skoda-division} on this
+pseudoconvex cell with \(D\) generators in dimension \(D\).
+Its parameter is \(q_{\rm S}=D-1\); choose
+\(\alpha q_{\rm S}=D+a-3/2>q_{\rm S}\).
 The input power of the sum of squares is
 \(-D-a+1/2\), and the output power is \(-D-a+3/2\).
 The estimate bounds the sum of squared quotient norms by
@@ -19583,6 +19859,15 @@ Apply the step \(a_0\) times. Grouping ordered products with the
 same monomial gives \(F=\sum_{|\alpha|=a_0}s^\alpha H_\alpha\)
 with holomorphic \(H_\alpha\) and finite norms with reference
 weight \(A_{\rm hol}^{-(D-1/2)}e^{-\Phi_{\rm red}}\).
+If \(D=1\), the single generator \(s_1\) has simple zeros
+at the lifts of the transverse intersection. The reduced weight
+is smooth there, since \(S_{\rm hol}>0\). The finite input norm
+forces \(F\) to vanish to order at least \(a_0\) at each such
+zero: if the order is \(b\), the radial integral has integrand
+comparable to \(r^{2b-2a_0}\,dr\), which requires \(b\ge a_0\).
+Then \(H=F/s_1^{a_0}\) is holomorphic on the cell, and its
+norm with weight \(A_{\rm hol}^{-1/2}e^{-\Phi_{\rm red}}\)
+is exactly the initial norm of \(F\).
 This last norm is stronger than the upstairs Petersson norm
 of weight \(w_F+D w_L\) with extra factor \(k_{b_{\rm P}}^{-1}\):
 the ratio of the Petersson density to the density just used is
@@ -19610,22 +19895,42 @@ coefficients of weight \(w_F+(k+D)w_L\), as required on localizing at
 
 \paragraph{The ranks and the placed fibre.}
 \teamanchor{proof.section-generic-ranks}%
-The marked analytic cusp spaces are obtained by extension of
-scalars from the rational cusp rules in these weights.
-The deep condition is the kernel of the low coefficient readings,
-which commute with scalar extension using the separating CM arcs
-below.
+Work on each of the two marked runs at its selected level.
+Use its embedding of the common geometric field \(K_0\) from
+\hyperlink{proof.section-run-coefficient-field}{Section~\ref{sec:assembly}}.
+The marked complex cusp spaces at \(w_F+k w_L\) for \(k\ge0\),
+and at \(\kappa\), are obtained from the rational cusp rules by
+extension of scalars. The same holds for the deep subspace at
+\(\kappa\). Indeed, the marked CM functionals below annihilate
+the deep condition and detect every nonzero low-mode reading in
+the complex space. A finite collection has that common kernel
+by finite dimensionality. Adjoin their coefficients and all
+conjugate rows in a finite normal extension of \(K_0\). These
+conjugate rows still read the low cut: the cusp data are
+transported and the half-trace cutoff uses all real embeddings.
+Their common kernel therefore descends to \(K_0\), and
+extending scalars recovers the same kernel at the chosen complex
+embedding.
 \releasecite{Development/AbelianVarietyTheory/Proofs/TorusHaarMeasure/CuspReadingsSpanModelFormsShiftedWeights.lean}{36}{The actual cusp spaces at the shifted weights}.
 
-The interpolation and order-one division at the generic fibre
-identify the weight-\(w_F\) section evaluation on the localized
-algebra with that on the reduced complex intersection.
-The evaluations of \(C_{w_F}\) span this fibre.
-The short forms spanning \(C_{w_F}\)
-over \(K_0\) therefore give a basis \(\theta'_1,\ldots,\theta'_h\)
-by taking independent images over \(K_0(z)\). The evaluation
-matrix extends to every Gauss field, so the basis is fixed for
-all the places of this run and stage.
+Embed \(K_0(z)\) in \(\mathbb C\) by taking algebraically
+independent complex coefficients for the generic sections with
+the transversality and boundary separation above. The finite
+separable algebra of \(J\) then splits into \(h\) complex points,
+where \(u_0\) is nonzero. A degree-zero localized section is
+represented by \(g_0/u_0^k\), with \(g_0\) of weight
+\(w_F+k w_L\). If it evaluates to zero on \(J\), the order-one
+division above gives \(g_0u_0^{D+1}=\sum_i u_i h_i\).
+Dividing by \(u_0^{k+D+1}\) puts this section in the submodule
+generated by \(u_i/u_0\). The converse follows by evaluation.
+Value interpolation in weight \(w_F\) is surjective onto the
+\(h\) value lines. Extension of fields is faithfully flat, so
+these kernel and image statements descend to \(K_0(z)\). In
+particular the short forms spanning \(C_{w_F}\) over \(K_0\)
+give a basis \(\theta'_1,\ldots,\theta'_h\) by taking
+independent evaluation columns over \(K_0(z)\). A nonzero
+maximal minor remains nonzero in every Gauss field of this
+run, so this basis is fixed at every place.
 \releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/CuspFormVanishingAtPointsMulPowMemSpan.lean}{45}{Order-one division after localization}
 \releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/InBasisIffPointValuesLinearIndependentSpan.lean}{336}{The fibre basis and the complex values}.
 
@@ -20086,6 +20391,17 @@ the extension degree and the flag matrix to depend freely
 on the test. The analytic nonvanishing is asserted at the
 detecting embedding. The bounds concern the action of the
 chosen coefficient on the whole section space.
+\rhrange[Stronger results in the pinned proof]{The split-point
+construction accepts a prescribed nonzero coefficient at a marked
+cusp and frequency. The two arc constants have the displayed
+quadratic bounds on their logarithms.
+\releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/FundamentalDomainPointBound.lean}{210}{The specified coefficient}
+\releasecite{Development/AbelianVarietyTheory/Proofs/ThetaShiftProofs/ExistsFamilyMemberFunctionalNeZero.lean}{184}{The marked arc}
+\releasecite{Development/AbelianVarietyTheory/Proofs/ThetaShiftProofs/ExistsPolynomialBoundRunConstantsDegreeFour.lean}{15}{The bounds on the constants}}
+{One detecting functional per nonzero quotient class, with the
+simultaneous finite-place and archimedean control. The quartic
+bound used in the quotient budget below suffices for the arc
+constants.}
 
 \teamanchor{proof.marked-low-cm-arcs}%
 
@@ -20994,7 +21310,10 @@ sum of the maxima of the two orders is bounded by the sum of both
 logarithms. Thus the same test controls the first minimum of the
 integral low-mode quotient.
 
-Take \(Q=M_0/(M_0\cap C_{\rm deep})\). This is torsion free
+Take \(Q=M_0/(M_0\cap C_{\rm deep})\) on the marked run
+and in the field comparison of
+\hyperlink{proof.section-run-coefficient-field}{Section~\ref{sec:assembly}}.
+This is torsion free
 of rank \(s=r_Q\), and after localization or completion it is the
 quotient by the corresponding saturated cut. Choose \(s\) short
 sections \(\theta_1,\ldots,\theta_s\) from \(S'_K\) whose images
@@ -21005,15 +21324,15 @@ is \(q_a\), since passage to the Gauss valuation ring preserves
 the uniformizer and Smith exponents. At the definite stage the
 quotient is zero. We now treat the indefinite stages with \(s>0\).
 
-The marked CM arcs give separating rows \(\ell\) on this quotient,
+The marked CM arcs give separating rows \(\ell_i\) on this quotient,
 with their normalized fractional ideals \(\mathfrak I_\ell\) and
 absolute values \(|x|_\tau N_\ell(\tau)\) on the CM value lines.
-For each nonzero row let \(A\) be its letter degree, so
-\(A+frn_\kappa\le K_*\) by \eqref{eq:auxiliary-weight-size}.
+For each nonzero row let \(A_i\) be its letter degree, so
+\(A_i+frn_\kappa\le K_*\) by \eqref{eq:auxiliary-weight-size}.
 The preceding arc proof gives the common allowances
 \[
 \begin{aligned}
- b_a&=A\max\bigl(\operatorname{ord}_a|\operatorname{disc}(E)|,
+ b_{i,a}&=A_i\max\bigl(\operatorname{ord}_a|\operatorname{disc}(E)|,
                           \operatorname{ord}_a n_Q\bigr),\\
  B_{\deg}&=\bigl(p_{\deg}+\tfrac12\log\Lambda_Q\bigr)K_*,\\
  C_{\rm arch}&=4\pi+
@@ -21041,7 +21360,7 @@ Let \(\Delta\ne0\) be the determinant of the chosen rows on the
 short quotient basis \((\theta_i)\). At a place \(w\) of \(L_1\)
 over \(a\), the map given by the rows sends the localized quotient
 lattice into the direct sum of fractional ideals
-\(\varpi_w^{-e_{w/a}b_a}\mathfrak I_{ell_i,w}\). It is injective
+\(\varpi_w^{-e_{w/a}b_{i,a}}\mathfrak I_{\ell_i,w}\). It is injective
 on that lattice. The cokernel of the short basis in the quotient
 lattice therefore injects into the cokernel of its image in this
 larger lattice. More precisely, the smaller length is the length
@@ -21052,7 +21371,7 @@ determinant valuation, giving
  e_{w/a}q_a\le
  \operatorname{ord}_w(\Delta)
  -\sum_{i=1}^s\operatorname{ord}_w(\mathfrak I_{ell_i})
- +s e_{w/a}b_a .
+ +e_{w/a}\sum_{i=1}^s b_{i,a} .
 \]
 Here localization of the saturated cut commutes with the field
 extension. The equality of base-changed length with \(e_{w/a}q_a\)
@@ -21064,9 +21383,13 @@ on \(\Delta\) bound the sum by the following expression, where
 \(H_{\rm sh}\) bounds the mean logarithmic norm of each short form
 \(\theta_i\).
 \[
- C_Q\le s\left(H_{\rm sh}+C_{\rm arch}+B_{\deg}+\tfrac12\log s
-       +\sum_a\lambda_a b_a\right).
+ C_Q\le s\left(H_{\rm sh}+C_{\rm arch}+B_{\deg}+\tfrac12\log s\right)
+       +\sum_i\sum_a\lambda_a b_{i,a}.
 \]
+For each row the finite sum is at most
+\(K_*(\log d_E+\log n_Q)\). In this sum \(n_Q\) is the integer
+fixed by the original run data, so the bound uses the actual
+denominators even at its prime divisors.
 The short form bound may be taken as \(H_{\rm sh}=Z^4 K_*\).
 Indeed the scaled short bound \(G_0K_*\) is dominated by this
 budget. To see the determinant estimate directly, multiply row
@@ -21096,9 +21419,9 @@ from \(K_*\le C_K kfb\). The approximation uses the first
 minimum cutoff and the radius \(1/(12\pi(c_1+K_*+r))\).
 The explicit bounds for its index and its comparison of frames
 give \(\log n_Q,\log\Lambda_Q\le200(K_b Z)^4\). Substitution in
-the three estimates gives
+the three estimates gives, for every selected row \(i\),
 \[
- C_{\rm arch},\ B_{\deg},\ \sum_a\lambda_a b_a
+ C_{\rm arch},\ B_{\deg},\ \sum_a\lambda_a b_{i,a}
  \ \le C_0 Z^4 K_* .
 \]
 The rank bound for the marked section system gives \(\log s\le\log n_j\le
@@ -21420,7 +21743,41 @@ The effective orders and the weight identities give
 \]
 For the penultimate inequality use \(b_\zeta\le
 c\,\operatorname{ord}_\zeta(\eta_0)/(2i_\eta)\) on horizontal
-branches in (H2). The branch depth bound and
+branches in (H2).
+
+\teamanchor{proof.section-weighted-depth}%
+On each full run, for \(a\mid p\) in \(F=K_0\) put
+\(e_a=\operatorname{ord}_a p\) and \(\lambda_a=\log\operatorname{N}a/[F:\mathbf Q]\).
+The marked chart bound for the unscaled harmonic-germ depth
+\(\alpha_a\) in \(p\)-valuation units gives \(0\le\alpha_a\le d_L/(p-1)\),
+and \(\alpha_a=0\) for \(p>d_L\). Here \(n_W\ge fr(r+1)\ge2fr\),
+and \(3\le d_L\le\operatorname{DF}(\kappa)\le4kfb\) gives \(\log d_L\le2L\)
+past the common threshold. For the section parameter \(\mathrm{nus}(a)\),
+replace \(\alpha_a\) by \(d_L/(g_i-1)\) at \(p=g_i\). At the other primes
+add \(d_L\operatorname{ord}_p Q_S\) over \(Q_S\) and \(\lceil d_L/2\rceil\) at
+\(q,d\), then express the resulting depth in uniformizer units by multiplying
+by \(e_a\). In particular \(\mathrm{nus}\) is nonnegative with finite support.
+Using \(\sum_{a\mid p}\lambda_a e_a=\log p\) gives
+\[
+ \begin{aligned}
+  \sum_a\lambda_a\mathrm{nus}(a)
+  &\le d_L\sum_{p\le d_L}\frac{\log p}{p-1}
+    +d_L\log Q_S+\lceil d_L/2\rceil\log(qd)
+    +d_L\sum_{i=0}^1\frac{\log g_i}{g_i-1}\\
+  &\le P_N L_0,\qquad
+    P_N=2L+\log(g_0g_1)+\log(4(f/2)^2qd)+4 .
+ \end{aligned}
+\]
+The first sum on the right is over primes. The last bound uses
+\(\sum_{p\le d_L}\log p/(p-1)\le\log d_L+2.2\),
+\(Q_S\le4(f/2)^2\) and \(d_L+1\le L_0\).
+This gives the full weighted budget for each run before the local
+own-prime choice.
+\releasecite{Development/AbelianVarietyTheory/Proofs/JetHarmonics/DepthSumRecord.lean}{179}{Marked chart bound and weighted sum},
+\releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/RunHypothesesFormsScalarsOfParameterConditions.lean}{59}{Application at the selected weight}, and
+\releasecite{Formalism/SharpRestriction/Divisibility/WeightAlgebra.lean}{261}{The constant in the sum}.
+
+The branch depth bound and
 \(\sum_{\zeta\mid a} e_\zeta f_\zeta=h\) give the
 vertical shift of \(\mathcal H_{\min}\) at most
 \[
@@ -21507,7 +21864,10 @@ Use \(D+2\) rows \(V\) of length \(N+1\), and \(D+2\) variables
  \end{gathered}
 \]
 Here \(P_O\ge1\) bounds the logarithm of the root discriminant
-of \(F\). The lower norm estimate needed at this point is on
+of \(F=K_0\) by the selected field comparison. The coefficient
+quotient and the section evaluations in (H9)--(H11) use this
+field and its embeddings on the given run. The lower norm
+estimate needed at this point is on
 the actual products of \(n\) of the scaled \(w_k\). For an
 \(\mathcal O_F\)-linear combination \(s\) of these products,
 nonzero on \(C\), it gives
@@ -21718,17 +22078,32 @@ For the second use \(W\le2n\) and
 \(n'-u+1\ge7nM_1K_1h\).
 Hence \(1-z_1-z_2\ge n/W\), and
 \(\exp(z_1+z_2)\le(1-z_1-z_2)^{-1}\le W/n\).
-Also \(\log A+P_O\le n\). In fact \(n'M_1\le n^2\)
-and \(D\ge3\) give \(A\le n^{4M_1}\);
-\(\log n\le\sqrt n\), \(n\ge32M_1^2\), and \(P_O\le n/32\)
-give the desired bound. Insert these in (H11), use
-\(\overline{S_\sigma}\le G_0L_0\), and multiply by \(m_C\).
-The result is
+Also \(\log A+P_O\le n\). The inequality
+\(\binom{b+a}{a}\le(b+1)^a\) follows by bounding each
+factor \((b+i)/i\) by \(b+1\). Since \(n'M_1\le n^2\)
+and \(M_1\ge K_1+1\ge3\), we have
+\(A\le(n+1)^{K_1}(n'+1)^{M_1}\le n^{4M_1}\).
+Here \(n\ge32M_1^2\), \(P_O\le n/32\), and
+\(\log n\le\sqrt n\), so \(\log A+P_O\le n/\sqrt2+n/32<n\).
+
+If \(H_0(F_C)>0\), the right side of (H11) is positive
+because \(H_{\rm tor}(G_C)>0\). Use
+\(\overline{S_\sigma}\le G_0L_0\) for the maximum of the
+actual scaled generator norms on this run. Inserting the
+two estimates in (H11) gives
+\[
+ H_{\rm tor}(G_C)
+ \le (D+2)s_C\bigl(P'_0L_0+G_0L_0+\log(N+1)+1\bigr).
+\]
+Now \(H_0(F_C)\le m_C H_{\rm tor}(G_C)\) and
+\(m_Cs_C\le h_C\). This proves
 \[
  H_0(F_C)\le (D+2) h_C
        (P'_0 L_0+G_0 L_0+\log(N+1)+1).
 \]
-Summing over \(C\) proves (H8).
+The right side is nonnegative and so the same inequality
+holds when \(H_0(F_C)\le0\). Summing over the components of
+the given run and using \(h=\sum_C h_C\) proves (H8).
 \releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/HupsChooseRatio.lean}{70}{Binomial ratio bound}
 and
 \releasecite{ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/SumLogHeightUpperBound.lean}{78}{The component sum}.
@@ -21869,17 +22244,12 @@ then bounds the signed determinant difference on \(W\) by
 \le (E-\operatorname{ord}_v\sigma)\dim W+e(v/a)r_a ,
 \]
 where both determinants are measured in the same determinant line.
-The containment \(L_v\subseteq\sigma L_{K,v}\) also bounds the
-signed determinant difference between \(L_{K,v}\cap W\) and
-\(M_v\cap W\) by
-\[
- (E-\operatorname{ord}_v\sigma)\dim W+e(v/a)r_a .
-\]
-Indeed the same determinant line measures both lattices, and
-scalar multiplication adds its order times \(\dim W\).
 With the analogous place weight \(\lambda_v\)
 in the period field, \(\sum_{v\mid a} e(v/a)\lambda_v=\lambda_a\).
-The two runs each have this full bound. Use the run of own prime
+By the comparison in Section~\ref{sec:assembly}, the bound uses
+the placed lattices, supremum norms and scales on each of the
+two actual runs. Each run has its own bound \(n_jfmbd_2\) for
+the weighted residual, before selecting the places. Use the run of own prime
 \(p'_{\rm de}\) at places over \(p_{\rm de}\) and the run of own prime
 \(p_{\rm de}\) elsewhere. The weighted residual at the eligible
 places in each run is at most \(n_j fmbd_2\). The residual applies
@@ -22578,9 +22948,10 @@ hyperbolic polarization and to the distinct-factor chart.
 \textbf{AI-proposed candidate (the marked Frobenius pairing).}
 Let \(R\) be the valuation ring of the completed algebraic closure
 of the marked trait, with \(v(p)=1\) and \(p\ge5\).
-Use its polarized Raynaud completion and its unramified CM action,
-with large and small Lie ranks \(n+j\) and \(j'\) alternating in
-Frobenius order in each side of the paired chart. The two sides
+Use the Raynaud completion with its unramified CM action and the
+biextension from the principally polarized abelian part.
+The large and small Lie ranks \(n+j\) and \(j'\) alternate in
+Frobenius order on each side of the paired chart. The two sides
 come from distinct conjugate factors or from the integral
 two-copy change of the self-conjugate factor. Let \(D\) be the
 full even CM period. Take \(i\) odd, \(1\le i<D\), a saturated
@@ -22596,7 +22967,7 @@ Put \(q=p^i\) and
   E_i=1+\frac{q-p}{p^2-1}.
 \]
 There are saturated subplanes of common rank
-\(n_0\ge\max(0,n-ij'-j)\) in the two given planes. In their
+\(n_0\ge\max(0,n-(i+1)j'-j)\) in the two given planes. In their
 formal logarithm coordinates \(x,y\), with integral bases
 \((u_c),(v_b)\), the cross gauge \(\widetilde h=Gh\) has the form
 \[
@@ -22613,10 +22984,10 @@ integral in bidegrees of left degree \(<p^2\) and right degree
 \(<p\). The series converges at the two closed radii \(p^{-\alpha}\)
 and \(p^{-\beta}\).
 
-On these selected planes the exact bidegree \((q,1)\) of
-\(p^{E_i}\widetilde h\) lies over \(R\) and reduces to the
+On these selected planes the bidegree \((q,1)\) component of
+\(p^{E_i}\widetilde h\) has integral coefficients and reduces to the
 perfect Frobenius-semilinear pairing \(-\sum_c x_c^q y_c\).
-This bidegree is unchanged by integral rigidification units and
+Its reduction is unchanged by integral rigidification units and
 conjugate-type bilinear shifts. The coefficient uses the formal logarithm of the chart, which
 is transported by the tangent map of any pointed chart
 change. In particular, if \(\mathfrak h_{\mathrm{act}}\) is
@@ -22634,14 +23005,6 @@ the actual mixed derivative of order \((p,1)\) is a unit
 in every surviving matched pair. At the terminal stage
 \(j=m\), where \(j'=0\) and \(n>m\), the rank bound
 guarantees such pairs on an alternating chart.
-
-The release's normal-form statement uses
-\(n_0\ge n-(i+1)j'-j\), and the prime-table estimate uses the
-coarser row loss \((i+1)m\). The proof below gives
-\(n_0\ge n-ij'-j\) by using \(K=(i+1)/2\) backward
-restrictions and \(K-1\) forward steps. At its final
-level the \(A_2\) term already belongs to the weighted error,
-so only the first central coefficient is needed there.
 
 \paragraph{Proof of the marked normal form.}
 \teamanchor{proof.marked-frobenius-pairing}%
@@ -22661,33 +23024,32 @@ the paired large type of the opposite side conjugate to
  \beta=\rho+\frac12-\frac{1}{8p^i},\qquad
  e_s=(Q^s-1)/(Q-1).
 \]
-On the first side use the actual marked leading \(n\)-plane
-at type \(a\), and then the full tangent spaces at the
-distinct types \(a+2s\), \(1\le s<K\).
-Proceed backwards starting at \(s=K-1\). At level \(s\)
-first choose a good family of codimension at most \(j'\)
-by the preceding construction. If \(s<K-1\), look at the
-matrix of the \(pA_2\) coefficients from that family into
-the complement of the already retained family at level
-\(s+1\). Take the saturated kernel of the matrix of its
-\(p^2\)-th roots. Formal sums of the corresponding
-rescaled good curves remain good. Their \(pA_2\) has
-complement coordinates in \(pR\), by the multinomial
-formula. Thus each retained family has codimension at
-most \((K-s)j'\) at its level, and for its curves
-\(A_2=p^{-1}g+\lambda\) with \(g\) in the retained
-integral span at the next level and \(\lambda\) integral.
-Make the Verschiebung correction to achieve \(A_1=0\)
-before imposing the condition on \(A_2\).
+Extend the actual marked leading \(n\)-frame at type \(a\)
+to a typed integral system of typical curves. The adapted-system
+construction works backwards through the distinct types
+\(a+2s\), \(0\le s<K\), starting with \(s=K-1\).
+At each level the good-curve restriction and Verschiebung
+correction make \(A_1=0\). When there is a following level,
+the matrix of the \(pA_2\) coefficients in the complement of
+its retained family imposes the next restriction. Use the saturated
+kernel of the entrywise \(p^2\)-th roots and take formal sums of
+the rescaled curves. The mixed multinomial terms are divisible by
+\(p\), so \(A_2=p^{-1}g+\lambda\), with \(g\) in the retained
+integral span at the next level and \(\lambda\) integral. For
+the resulting adapted system the released rank estimate gives a
+saturated level-zero family of rank \(N_1\) in the given first plane
+with \(n\le N_1+(K+1)j'\).
+\releasecite{Development/AbelianVarietyTheory/Proofs/UnramifiedDepth/RowDataAdaptedChainData.lean}{586}{The adapted system on the prescribed first plane}.
 
-Iterate the residue maps \(pA_2\) through these retained
-spaces. By (F) each map drops rank by at most \(j'\).
-At the final type, (E) makes the residue map \(pB_1\)
-injective on the image. Restrict its covectors to the
-marked leading \(n\)-plane on the opposite side,
-which drops rank by at most \(j\). Hence there are
+Iterate the residue maps \(pA_2\) forward through the
+\(K-1\) transitions. By (F) the resulting image has rank at least
+\(N_1-(K-1)j'\). At the final type, (E) makes the residue
+map \(pB_1\) injective on this image. Restriction of its
+covectors to the marked leading \(n\)-plane on the opposite side
+loses at most \(j\), the codimension in that large type.
+Since \((K+1)+(K-1)=i+1\), there are
 \[
-             n_0\ge \max\{0,n-ij'-j\}
+             n_0\ge \max\{0,n-(i+1)j'-j\}
  \tag{G}
 \]
 independent surviving directions in the first retained
@@ -22790,8 +23152,8 @@ the phase itself has the form
                               +H_1(x,y).
  \tag{J}
 \]
-Every \(y\)-derivative of \(H_1\) has nonnegative
-order for the weights \((\alpha,\epsilon)\).
+Each first partial derivative of \(H_1\) with respect to a \(y_l\)
+has nonnegative order for the weights \((\alpha,\epsilon)\).
 The phase and the displayed main term vanish for
 \(y=0\). For a coefficient \(c_{\mu,\nu}\) of the
 remainder and \(\nu_l>0\), integration of its
@@ -22812,20 +23174,20 @@ with left degree \(<p^2\) and right degree \(<p\),
 since integration in these right degrees divides by
 a unit.
 
-On the selected planes, the exact bidegree
-\((p^i,1)\) of \(p^{E_i}Gh\) is integral and has residue
-\(-\sum_l x_l^{p^i}y_l\). Indeed every remainder
-coefficient of that bidegree has valuation at least
-\(E_i-p^i\alpha=5/8-\gamma_p>0\) after scaling,
-by the derivative estimate. This defines a
-Frobenius-semilinear pairing in the formal logarithm
+On the selected planes, the bidegree \((q,1)\) component
+of \(p^{E_i}Gh\) is integral and has residue
+\(-\sum_l x_l^q y_l\). The coefficient bound with
+weights \((\alpha,\beta)\) gives every remainder coefficient
+of that bidegree valuation at least
+\(E_i+\epsilon-q\alpha-\beta=1/8+1/(8q)>0\) after
+scaling. This defines a Frobenius-semilinear pairing in the formal logarithm
 planes. An integral change of pointed chart carries
 its formal logarithm by the induced linear tangent map.
 An integral rigidification unit also has logarithmic
 derivative of nonnegative order in the first-disc
 weight, while a bilinear gauge change contributes
-only in bidegree \((1,1)\). Thus the scaled bidegree
-on these planes is independent of these choices.
+only in bidegree \((1,1)\). Thus the reduction of the
+scaled component is independent of these choices.
 The proof works also with the smaller weights
 \(\rho+1/(4p^i)\) and \(\epsilon+1/p\). The final
 fixed-point bound needs only \(p/4\ge1\), and the
@@ -22833,23 +23195,71 @@ integration bound uses the difference \(1/p\).
 This strict slack gives convergence at the closed
 radii \(p^{-\alpha}\) and \(p^{-\beta}\).
 
+The backward induction in the source gives \(n\le N_1+Kj'\)
+for this same level-zero family. The same \(K-1\) forward steps
+and restriction of covectors therefore give
+\(n_0\ge\max(0,n-ij'-j)\) for the same normal form.
+\releasecite{Development/AbelianVarietyTheory/Proofs/UnramifiedDepth/RowDataAdaptedChainData.lean}{383}{The original backward count}
+and \releasecite{Development/AbelianVarietyTheory/Proofs/UnramifiedDepth/RowDataAdaptedChainData.lean}{626}{The same level-zero family}.
+\rhrange[Stronger bound from the pinned construction]{Keeping the
+original intermediate count gives \(n_0\ge\max(0,n-ij'-j)\) with
+the same frames and weighted remainder.}
+{The exported bound \(n_0\ge\max(0,n-(i+1)j'-j)\), the normalized
+leading block, and the weighted remainder vanishing on \(y=0\).
+The resulting loss is at most \((i+1)m\) on the actual chart.}
+
 \paragraph{The test of a prescribed block of \(w_L\).}
-Use \(n_0\) disjoint rows
-of the two-side chart from (J). On these rows apply
-the short-window determinant jet theorem to the phase
-\(\sum_\rho Gh(x_\rho,y_\rho)\). For an integer \(y\ge0\)
-it evaluates the leading determinants to the powers
-\(p^iy\) and \(y\) on the exponential of this phase.
-For \(n_0>0\) every forward interval of
+For the prime table, use this normal form on the two
+prescribed saturated leading \(n\)-planes. The actual chart has
+the integral polarization and the alternating typed tangent
+spaces above. For each \(p\ge5\) and odd \(0<i<D\) this normal
+form gives \(0\le n_0\le n\) with
 \[
-             S(p,i,n)=\left\lceil64n^2
-                        \big(i+3+3\log_p(n+1)\big)\right\rceil
+                  n-n_0\le (i+1)j'+j\le(i+1)m.
 \]
-consecutive integers contains an admissible \(y\). One may
-always use zero. The normalized valuation of the nonzero
-evaluation at an admissible \(y\) is at most
-\(n_0y((p^i+1)\gamma_p-1)+n(\log_p n+1)\).
-If \(n_0=0\), use the empty test for every \(y\).
+It gives the normalized mixed phase of (J) on these \(n_0\)
+matching directions, with its two-variable coefficient weight
+and vanishing on \(y=0\). In the
+release construction the two planes are the spans of the specified
+leading letters. Its integral changes of bases have unit
+determinants, so the leading minors change by units. The chart
+comparison via the cross gauge, including the two-copy change for
+a self-conjugate factor, supplies exactly these marked phases.
+\releasecite{Development/AbelianVarietyTheory/Proofs/UnramifiedDepth/RowDataMainTermNormalFormAndLevelOne.lean}{98}{The released normal form on two saturated planes}
+\releasecite{Development/AbelianVarietyTheory/Proofs/UnramifiedDepth/OddLevelBlockBoundAttained.lean}{90}{Its application to the two marked leading determinants}.
+
+Fix a real capacity \(B\ge0\) for this edge. For the positive rank
+case use \(n_0\) disjoint logical rows, with phase
+\(\sum_\rho Gh(x_\rho,y_\rho)\). Let \(\Lambda_y\) be the determinant
+evaluation of powers \(p^iy,y\) on this phase. Its Newton expansion
+above gives the normalized value
+\(b_y=\Lambda_y/(c_i^{n_0y}C_{n_0}(p^iy))
+=\sum_{s=0}^y\binom ys a_s\), where \(a_0=1\) and \(v(a_s)>0\)
+for \(s\ge S(p,i,n)\), with
+\[
+  S(p,i,n)=\left\lceil64n^2\big(i+3+3\log_p(n+1)\big)\right\rceil .
+\]
+Indeed the weighted and axis-vanishing bounds for each row also
+hold for their sum. The coefficient estimate in the Newton expansion
+gives the asserted positivity since \(n_0\le n\).
+
+Put \(N_B=\lfloor B\rfloor\) and \(S_B=S(p,i,n)\).
+If \(N_B<S_B-1\), use \(y=0\), whose evaluation is one.
+Otherwise put \(b=N_B-S_B+1\) and consider the polynomial
+\(P(Y)=\sum_{s<S_B}\binom Ys a_s\). If every \(b_y\) for
+\(b\le y\le N_B\) had positive valuation, so would every \(P(y)\)
+there. The omitted terms have positive valuation. The forward
+difference \(\Delta P(Y)=P(Y+1)-P(Y)\) gives
+\[
+              P(0)=\sum_{j=0}^{S_B-1}\binom{-b}{j}\Delta^j P(b).
+\]
+All coefficients are integers and all differences use only those
+same values of \(P\), contradicting \(P(0)=1\). Thus there is a
+\(y\) in that range with \(v(b_y)\le0\). In either case
+\(0\le y\le B\) and \(B-y<S_B\). The determinant factorial bound
+gives \(v(\Lambda_y)\le n_0y((p^i+1)\gamma_p-1)+n(\log_p n+1)\).
+If \(n_0=0\), use \(y=\lfloor B\rfloor\) with the empty test of
+value one. This also gives \(B-y<S_B\).
 
 For each of the remaining \(n-n_0\) rows use a germ whose
 principal monomial is the specified diagonal coordinate
@@ -22873,7 +23283,7 @@ at most
  +n(\log_p n+1).
  \tag{K}
 \]
-Here \(n-n_0\le2Kj'+j\le(i+1)m\) and the leading
+Here \(n-n_0\le(i+1)j'+j\le(i+1)m\) and the leading
 coefficient in (K) is nonnegative. The differential
 polynomial is the product of the two specified leading
 minors, on the typed columns determined by the two-side
@@ -22984,10 +23394,10 @@ capacities \(W'_s=(1-\theta_0)w_s/T\) and constraints
 \]
 Discard the edges \(i\ge I_0\); their total contribution
 to the maximized sum is at most \(p^{-I_0}\sum_s W'_s\).
-For each remaining edge choose the largest admissible
-integer \(y_{s,i}\le x_{s,i}\) from the chart block
-test. The deficit is at most \(S(p,i,n)+1\), by the
-forward windows and the admissibility of zero.
+For each remaining edge apply the chart block test with
+capacity \(B=x_{s,i}\). It gives an integer \(y_{s,i}\le
+x_{s,i}\) with deficit less than \(S(p,i,n)\), including
+when \(x_{s,i}<1\).
 Allow for signed thresholds by using the actual integer
 remainders
 \[
@@ -23013,9 +23423,10 @@ times
 The bound by \(n\) here controls the excess
 \(TW_s-w_s\) in (M), even when \(mI_0>n\).
 There are at most \(f(I_0-1)/2\) retained edges in all
-orbits. The window and per-edge errors are in total
-\(O(f n^3(\log k)^2)\) before multiplying by \(T\),
-since \(I_0\le 3+2\log k\) for \(p\ge5\).
+orbits. The rounding and per-edge errors are bounded
+by the sum of \(nS(p,i,n)+n(\log_p n+1)\) over these
+edges. This is \(O(f n^3(\log k)^2)\) before multiplying
+by \(T\), since \(I_0\le 3+2\log k\) for \(p\ge5\).
 
 Let \(F_{\rm orb}\) be the untruncated reference in
 the orbit, with the capacities \(n w_s\).
@@ -23043,11 +23454,11 @@ after multiplying by \(T\), is
 \]
 
 For pure conjugation use the block at \(i=1\) on
-the full two-cycle and choose the largest admissible
-\(y\le W_s/(p+1)\) at each real label. Here the
+the full two-cycle with capacity \(B=W_s/(p+1)\)
+at each real label. Here the
 unused gap is \(u_s=W_s-(p+1)y\).
 The leading cost \(n\gamma_p W_s-ny\) is at most
-\(nW_s/(p^2-1)+n(S(p,1,n)+1)\).
+\(nW_s/(p^2-1)+nS(p,1,n)\).
 This gives the reference \(n\sum_s w_s/(p^2-1)\)
 with errors bounded by (O), using (M). In the split
 case there are no edges: the characters alone give
@@ -23283,8 +23694,8 @@ classification depend on the rational prime.
 
 \paragraph{The two transport indices.}
 \teamanchor{proof.near-level-transport}%
-The geometric indices used here are those of the two runs
-on the common tied record, under the identification in
+The geometric indices used here are placed from the two runs
+on the common tied record by the comparison in
 \hyperlink{proof.section-run-family-identification}{Section~\ref{sec:assembly}}.
 In particular the comparison uses their own-prime halves
 and their shared geometric coefficient field in the same
@@ -23617,7 +24028,7 @@ zero. For \(0\le a\le h<r\) let \(U(a,h)\subset U\) have
   c_h(u)=\sum_{i+1\ne h}u_{i,i+1}.
 \]
 For a representation \(V\) of the finite general linear group, let
-\(D_h\) be the dimension of the \(\psi(c_h)\)-eigenspace on \(U\).
+\(D_h^{\rm loc}\) be the dimension of the \(\psi(c_h)\)-eigenspace on \(U\).
 Let \(T_{a,h}\) be the same dimension on \(U(a,h)\) and \(W_h=T_{0,h}\).
 The sharp subgroup in position \(a\) with block length \(c\) is
 \(U(a,a+c)\). Its character is generic on each of the blocks of
@@ -23672,17 +24083,17 @@ chain follows the old index \(a\) through \(h\), and every entry
 from that block to the old index \(a\) is zero. Consequently
 \[
   T_{a,h}=T_{a+1,h}+(q-1)W_{h-a-1},\qquad
-  W_h=D_h+(q-1)\sum_{j<h}W_j .
+  W_h=D_h^{\rm loc}+(q-1)\sum_{j<h}W_j .
 \]
-The second equation uses \(T_{h,h}=D_h\). Setting
+The second equation uses \(T_{h,h}=D_h^{\rm loc}\). Setting
 \(\gamma_q(0)=1\) and \(\gamma_q(l)=(q-1)q^{\,l-1}\) for \(l>0\),
 the recurrence gives
 \begin{equation}
  \label{eq:sharp-character-multiplicity}
-  S_{a,k}=W_k=\sum_{h=0}^{k}\gamma_q(k-h)D_h .
+  S_{a,k}=W_k=\sum_{h=0}^{k}\gamma_q(k-h)D_h^{\rm loc} .
 \end{equation}
 Indeed the partial sums satisfy
-\(\sum_{j=0}^{h}W_j=D_h+q\sum_{j=0}^{h-1}W_j\).
+\(\sum_{j=0}^{h}W_j=D_h^{\rm loc}+q\sum_{j=0}^{h-1}W_j\).
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/SymmetricPositionCharMultiplicitySuccEq.lean}{292}{The change of position}
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/FinrankMirabolicWhittakerEigenspace.lean}{387}{The root exchanges}
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/FinrankMirabolicWhittakerEigenspace.lean}{648}{The Fourier recurrence}.
@@ -23713,8 +24124,9 @@ maximal parabolic. The diagonal torus conjugates the remaining
 generic characters. \cite[Theorems~0.4'--0.5', pp.~17--18]{tr3gelfand}
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/DegenerateWhittakerDimParabolicInductionCuspidal.lean}{188}{Double cosets and the cut character}.
 
-In particular \(D_0=1\), giving the base rank one. Also
-\(D_h\le\binom rh\), by mapping a block subset to its union of
+In particular \(D_0^{\rm loc}=1\), giving multiplicity one on
+each local generic line. Also \(D_h^{\rm loc}\le\binom rh\),
+by mapping a block subset to its union of
 coordinates. Since \(1\le k<r\le q\),
 \begin{align*}
  \frac{W_k}{q^k}
@@ -23786,15 +24198,19 @@ the ranks grow at most polynomially. The reference estimate gives
 \(O(x^c b/p)\) exponent against \(\log p\) up to \(X''\le a_E\);
 the exceptional reference contributions are nonpositive.
 The weighted paired depth table and the
-\hyperlink{proof.weyl-weighted-cost}{Weyl lattice comparison}
+\hyperlink{proof.weyl-weighted-cost}{aggregate Weyl estimate from the rational spectrum}
 give \(E_{1,j}=O(fmbL^2)\) as a majorant. For \(E_{2,j}\) use
 \eqref{eq:auxiliary-e2-weighted} and \eqref{eq:integral-selmer}.
 The normalized Weyl and dual Weyl pairings on this base face
 are integrally dual, so their common coefficient duality
-integer is \(1\). The remaining stage denominators divide
-\(|G|D_\Gamma\): the level index divides \(|G|\), and the
-class stabilizer orders divide the common multiple \(D_\Gamma\)
-on the selected record. Thus one can take \(L_G=\lambda\), and
+integer is \(1\). Let \(D_\Gamma\) be the positive stabilizer multiple
+installed on this selected record. It is common to every word and
+twist, and every stabilizer of each of their chains divides it.
+The placed row and auxiliary stage stabilizers also divide it.
+Each stage factor \(g_{jt}\) is its level order times the least common
+multiple of its class stabilizer orders. Since the level order divides
+\(|G|\), the common \(g_{\rm gr}\) divides \(|G|D_\Gamma\).
+Thus one can take \(L_G=\lambda\), and
 \[
  E_{2,j}\le \eta_j/D_0+\log(|G|D_\Gamma).
 \]
@@ -23804,6 +24220,7 @@ The selected size
 \(N_c\le N_2kb\,x^{2\varepsilon}/n^2\) prove the polynomial
 times \(b\) bound on these terms as well. The remainder is \(E_3=1\).
 \releasecite{Formalism/LocalToGlobal/Divisibility/ArithClauseRec.lean}{28}{The unit coefficient duality allowance}
+\releasecite{Formalism/LocalRingCardinality/DataErr.lean}{71}{The installed stabilizer multiple}
 \releasecite{Formalism/LocalToGlobal/HilbertRowConditions/ColumnsFunctionAtSubspaces.lean}{92}{The prescribed class stabilizers}
 \releasecite{Formalism/LocalToGlobal/Divisibility/DivisibilityConstruction/RBDGam.lean}{174}{The common stage denominator}
 \releasecite{Formalism/LocalToGlobal/Divisibility/EigenvalueSumLeClosedOf.lean}{1710}{The upper bound on the base mean}.
@@ -24188,9 +24605,12 @@ since it intertwines the corresponding unitary actions and
 identifies their unit extremal lines up to sign. Hence the
 squared norm of the initial row value is at most
 \[
-   |P|\,D_\Gamma\|x\|_{\mathrm{full\ row},\sigma}^2,
-   \qquad D_\Gamma=\operatorname{lcm}_c |\Gamma_c|.
+   |P|\,D_{\Gamma,\mathrm{row}}\|x\|_{\mathrm{full\ row},\sigma}^2
+       \le |P|\,D_\Gamma\|x\|_{\mathrm{full\ row},\sigma}^2 .
 \]
+Here \(D_{\Gamma,\mathrm{row}}=\operatorname{lcm}_c |\Gamma_c|\)
+on this row space, so \(D_{\Gamma,\mathrm{row}}\mid D_\Gamma\) by the
+placed row stabilizer comparison.
 Indeed the class norm of the row basis is \(|P|\) times the
 row form and each summand of the class norm has weight
 \(|\Gamma_c|^{-1}\). This is the bound on the full good
@@ -26242,16 +26662,24 @@ tied hosts give the same \(\ell_c\) and \(v_0\).
 At a fixed translate put \(F=E^+\), \(r_{\rm row}=k+m-1\),
 and \(\lambda_g=\log(g_0g_1)\) for the two fixed auxiliary primes.
 Write \(D_\star\) for the row reference dimension of
-Section~\ref{sec:trace}, and \(d_w^*\) for the coefficient of
-\((T_w^k-1)^f\) in the full column dimension. The chosen auxiliary
-level satisfies
+Section~\ref{sec:trace}, and \(d_w^*=d_w^{(0)}\) for the
+column dimension with the two auxiliary levels and the word's
+real type retained, before adding the word-prime level. The chosen
+word prime satisfies
 \[
  X_w=\left(\frac{D_\star}{d_w^*}\right)^{1/(fk)},\qquad
  1\le\frac{T_w}{X_w\Gamma^{-2/(fk)}}\le 1+\frac1{fk},
  \qquad 0\le\frac{\log\Gamma}{fk}\le1 .
 \]
-The interval and the common \(\Gamma\) are part of the level choice.
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/JointsL.lean}{57}{The chosen interval and its logarithm}.
+Use the prime already fixed in the
+\hyperlink{proof.selection-level-bounds}{word-level construction}
+on this row and these word grids. The interval uses the pre-level
+dimensions from that construction. The common factor satisfies
+\(\log\Gamma=C_\Gamma m^5fL\). The selected rank ranges give
+\(m^5 fL/k\le128x^{-21\varepsilon/16}\), so the bound on
+\(\log\Gamma/(fk)\) holds at a common threshold.
+\releasecite{Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean}{153}{Interval at the actual word level}
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/JointsL.lean}{20}{Count on the given levels}.
 
 For a decreasing tuple \(\mathbf z=(z_i)_{0\le i<h}\), set
 \(V(\mathbf z)=\prod_{0\le i<j<h}(z_i-z_j)\) and
@@ -26334,13 +26762,13 @@ local characters. Together with the row formula this gives
          \prod_\rho \frac{V(\mathbf y_\rho)}{J_{r_{\rm row}}}.
 \]
 \releasecite{Development/AbelianVarietyTheory/Proofs/FlagMeasures/ExactRanksOfRecord.lean}{11}{The same full column coefficient and row main term}.
-The freeness needed for the column count can also be seen from the
-large split prime in the two fixed levels. A finite lattice
-automorphism group intersected with the lifted unipotent reduction
-subgroup is a \(g_i\)-group, since the principal congruence kernel is
-pro-\(g_i\). An element of order \(g_i\) would require
-\(g_i-1\le [E:\mathbf Q] k=2fk\), by restriction of scalars and the
-cyclotomic minimal polynomial. The chosen \(g_i>2fk+1\) rules this out.
+The two split auxiliary reductions force freeness before and
+after adding \(T_w\). A finite lattice stabilizer embeds at each
+\(g_i\) into the inverse image of the upper unitriangular group,
+which is pro-\(g_i\) because the congruence kernel is pro-\(g_i\).
+Its order is therefore a power of both distinct primes, so it is
+trivial. The projected word dimension uses the separate diamond
+factor from Section~\ref{sec:trace}.
 
 For \(k<s\le r_{\rm row}\) the successive mass quotient is
 \begin{equation}
@@ -26440,6 +26868,17 @@ The negative block contributes between \(0\) and
 display yields the lower bound \(k\sum_j\log w_j-O(kL)\) and
 the upper bound \(O(kmL)\).
 
+These are prelevel bounds. Each \(w_j>\beta_j\ge4k\Delta x>1\),
+the fixed prime ranges of Section~\ref{sec:family} give
+\(\lambda_g\ge16L\), and the negative discriminant term in
+\eqref{eq:arithmetic-level-quotient} is \(O(L)\). Since \(m\)
+tends to infinity uniformly, the quotient gives
+\(\log X_w\ge16mL-O(L)\ge15mL\) at sufficiently large scales.
+Thus the prelevel window center \(Y_w=X_w\Gamma^{-2/(fk)}\)
+satisfies \(14mL\le\log Y_w\ll mL\). This gives the scale for
+the prime choice with \(d_w^{(0)}\), before using the factor
+\((T_w^k-1)^f\) in the trace balance.
+
 For the variation between two words at the same translate, the
 only word-dependent Vandermonde in \eqref{eq:arithmetic-level-quotient}
 is the column one. Interior differences of distance \(h\) have
@@ -26474,16 +26913,25 @@ respectively. The prime window changes the lower bound by at most
   E_{\rm count}=C_{\rm count}L_a(1+m^2/k).
  \end{gathered}
 \end{equation}
-The calculation gives this statement at the chosen levels and
-with the actual stage weights. The corresponding arithmetic
-transport sums over the same stages and embeddings after the
-tied identifications.
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/JointsL.lean}{20}{Count at an actual index}.
+The calculation applies to the actual levels and stage weights.
+The lower bound enters the centered height through
+\(-S_a\Lambda_{\rm count}(u)\), and the upper bound controls
+the local and operator allowances. The pre-level lower bound
+and the actual prime interval give \(T_w\ge b^{m/2}\) and
+\(T_w\ge b^3\) at the common threshold. The wordwise spread also
+controls the original argument with individual heights. Below,
+the difference of adjusted slopes uses the common height
+\(h^*(u)\), whose contribution cancels. Every sum here uses the
+same stages and embeddings under the tied identifications.
+\releasecite{Formalism/SizeWindowBrackets/ChainSlopeWindows/LevelOfCongruence.lean}{68}{Spread with the individual heights}.
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean}{641}{Transport to the tied translates}.
 
 \paragraph{The finite allowance and the word exponent.}
+\teamanchor{proof.word-deduction-exponent}%
 Let \(E_{w,j}(v)\) be the prescribed signed local allowance
 entering \(Q_{w,j}=2\sum_v e_v\lambda_v E_{w,j}(v)\).
+Its stabilizer term away from \(T_w\) uses the valuation of the
+installed \(D_\Gamma\) of this record.
 Write
 \[
  d_{w,j,\rho}=\sum_{a<N(j-1)}\nu_{w,j,\rho,a},\qquad
@@ -26561,7 +27009,7 @@ contribution is exactly
        +2\operatorname{ord}_{g_i}D_\Gamma
        +2c_g f(n_*^2+m^2\eta_{\rm sz})\bigg)\log g_i .
 \]
-\releasecite{Formalism/LocalRingCardinality/DataErr.lean}{82}{The definition of the signed allowance},
+\releasecite{Formalism/LocalRingCardinality/DataErr.lean}{159}{The signed allowance with its stabilizer term},
 \releasecite{Formalism/LocalRingCardinality/DataForced.lean}{119}{The signed Fock degree},
 and
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/TypePrimeValuationSumEqLogGapFamily.lean}{13}{The conjugate-place sum}.
@@ -26713,12 +27161,13 @@ the exact identity for the leading terms is
 
 \subsection{The upper bound at each translate}
 
-Apply the two-run determinant bounds under the
-\hyperlink{proof.section-run-family-identification}{common-record identification}
-and the source slope and height bounds under the
-\hyperlink{proof.ramified-donor-identification}{ramified donor identification}
-in Section~\ref{sec:assembly}. The resulting upper bound is conditional
-on both identifications and the stated candidate conclusions.
+Apply the two-run determinant bounds on the
+\hyperlink{proof.section-run-family-identification}{selected records}
+of Section~\ref{sec:assembly}. On the same records,
+\eqref{eq:selected-undivided-donor} gives the sources of the
+slope and height bounds. The wordwise estimates and the frame
+bound below enter both the pointwise conclusion and the
+classical signed mean.
 
 Use the centered statistic
 \begin{equation}
@@ -26742,8 +27191,10 @@ Use \(h^*(u)\) in the frame estimate and let \(s\) be the rank-weighted
 mean of the adjusted source slopes \(\mu(N'_w)-h^*(u)\).
 Write \(R_*(u)=\sup_w R_{\rm loc}(w)\). Subtracting \(h^*(u)\)
 from the lower bound in \eqref{eq:arithmetic-source-slopes}
-cancels \(\mathcal F\). Using \eqref{eq:integral-cancellation}
-and taking the rank-weighted mean gives
+cancels \(\mathcal F\). Use the
+\hyperlink{proof.reference-schur-slopes}{lower mean bound for \(M_w\)},
+the \hyperlink{proof.word-deduction-exponent}{estimate for \(Q_w\)}
+and \eqref{eq:integral-cancellation}. The rank-weighted mean gives
 \[
  \begin{split}
  s-\mu(C)\ \ge\ &
@@ -26773,6 +27224,7 @@ exponent. Since \(C=R^\vee\), it follows that
 With the trace and row fraction bounds in the actual metrics,
 \eqref{eq:trace-sharp-slope} gives \(s-\mu(C)\le8U+12b\).
 
+\paragraph{Pointwise conclusion for a general target.}
 \teamanchor{proof.uniform-lattice-excess}
 Put \(B=N_Ta_E(1+m^2/k)+m(B_0+N_c)\).
 The size inequalities \(kb'\le a_E\), \(X''\le a_E\), and
@@ -26812,5 +27264,246 @@ and \(N_c\le N_2kb x^{2\varepsilon}/n^2\) gives the bound
  \end{split}
 \end{equation}
 The factor is \(x^{5\varepsilon}\) for \((e_D,e_L)=(2,0)\).
-Section~\ref{sec:fourier} uses \eqref{eq:integral-excess} at every
-translate in \(H_0\), with the same base field, samples and cutoff.
+The pointwise inequality follows in this exposition from the separate
+gain and index bounds and the slope comparison. It supplies the
+signed mean over \(H_0\) in the Dirichlet extension.
+
+\paragraph{The signed mean used for the classical target.}
+\teamanchor{proof.classical-averaged-division}%
+Fix the selected classical family and its precision. At each real scale
+\(x\), choose the admissible pair of sample arrays at \(i_0\) by the
+small-share selection and take the matching records \(i(u)\). The
+Frobenius data, \(T,T_2,(a_t,b_t)\) and
+\(N=\lceil 2a_E\rceil\) are common. Each \(w_{u,j}\) and its
+metric are those of \(i(u)\). Write \(\langle\,\cdot\,\rangle\) for
+the uniform mean over \(H_0=H\), and put
+\[
+ Q=N_Tmb,\qquad
+ J(u)=\sum_{t,j} A(a_t,t,w_{u,j})-\mathcal G(u),\qquad
+ S_g=2\sum_v e_v\lambda_v\sum_j g_{jv}.
+\]
+Here \(g_{jv}\) is the retained gain, zero at a discarded prime,
+and \(\mathcal G=S_g-T_\tau\). The signed statistic \(J\) has no
+positivity condition.
+
+The \hyperlink{proof.divided-column-slopes}{source slope calculation}
+charges \(4\mathcal I\) in the lower mean. Its separate rank
+correction is \(o(1)\) for each word by the
+\hyperlink{proof.weighted-restriction-bound}{weighted restriction estimate}.
+The upper maximal slope uses scalar containment on each rational
+subspace and carries no index allowance.
+
+Let \(E_0\) and \(U_0\) bound the nonlocal errors in the lower slope
+comparison and upper spread above. In \(R_0\) put a word-uniform
+bound for rounding, the level index, the ramified mean-slope correction
+and the rank charge just computed. One can take
+\[
+ R_0\ll N_Tm(a_E/k+b')\max_w\log T_w+X''+1 .
+\]
+Then the lower adjusted slope
+has error \(E_0+4\mathcal I+R_0\), and the upper spread has error
+\(U_0+4\mathcal I+R_0\). The wordwise heights and upper
+slopes give \eqref{eq:raw-height-cap} at the prescribed \(C_H\):
+its gain term uses \(\mathcal G\le S_g\). Apply
+\eqref{eq:trace-sharp-slope} at this translate before taking the
+outer mean. Together with \eqref{eq:integral-cancellation} this yields
+\begin{equation}
+\label{eq:classical-joint-deficit}
+ D(u)\le J(u)+36\mathcal I(u)+E_0(u)+8U_0(u)+9R_0(u)+12b .
+\end{equation}
+The coefficient \(36=(1+8)4\) is for
+\(\mathcal I=\sum_v e_v\lambda_v\iota_v\). The integral inclusions
+\eqref{eq:period-gain-valuation} and the original compensated
+operator heights still hold for each word.
+
+\paragraph{A direct estimate of the classical loss.}
+\teamanchor{proof.classical-inert-division}%
+Put \(a=a_E=xb\), \(X'=\exp(x^{\varepsilon/3})\),
+\(X''=xnX'\), \(b'=a/X'\), \(w''=a/X''\),
+\(p_0=k^2x^{26}\), and \(\delta_1=x^{-\varepsilon/8}\).
+At a rational prime use the weights
+\(\kappa_v=e_v\lambda_v/\log p\), whose sum over \(v\mid p\) is one.
+At unramified contributing primes only odd powers occur. With
+\(h_p\) the last Frobenius coordinate, the receiving position of
+the \(l\)-th power for the inert class \((e_d,e_q)=(1,1)\) is
+\((0,0,t+l h_p)\). The matched records share the ranks, Artin data,
+both arrays, \(\mathrm{Sc},\eta_{\rm sz}\), the orbit representatives,
+the offsets on this unshifted row, and the share and padding data.
+In the local prescription
+the marked orbits, their shares, \(\tau_p,\iota_p\) are therefore
+common. The two basic gain expressions and their corrections
+evaluate only at the same unshifted receiving positions on these
+orbits, including the unserved orbits. The discard test depends
+only on the common order, windows, shares and prime class.
+All word levels split in \(\mathbf Q(\sqrt{-d})\).
+Thus the inert part of \(J+36\mathcal I\), denoted by \(C_{\rm in}(x)\),
+is identical at every translate.
+\releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/GandSaa.lean}{103}{Agreement on the selected records}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{348}{Prescribed gain on all orbits}.
+
+For the signal class \((1,0)\), the receiver is \((0,1,t+l h_p)\).
+Here \(\tau_p=\iota_p=0\), and for \(p\le X''\) every signal prime
+is retained. The odd receiver has local label true, so no odd distance
+is excluded. On one orbit the prescribed gain takes the positive
+part after summing
+\(((a_t-2c_G)/p^l-(w-\kappa_j+c_G))_+\) and subtracting its
+nonnegative padding. Here \(w\) is the actual receiving weight,
+\(c_G=4\mathrm{Sc}\) and \(\kappa_j=(k+(2j-1)(t_{\rm rank}+1))/2\),
+where \(t_{\rm rank}\) is the twist-rank parameter.
+Use \(|z_+-z'_+|\le |z-z'|\) at the inner and outer positive parts.
+Relative to the raw sum of \((a_t/p^l-w)_+\), the error is at most
+the padding plus the sum of \(2c_G/p^l+|\kappa_j-c_G|\) on the
+union of their supports. Both receiving thresholds exceed one since
+\(w\ge w''\) exceeds every fixed power of \(x\). There are
+\(O(\log(2a))\) possible \(l\) per top. Each orbit padding is
+\(O(nN(m)^2\log_p(2a)+N_T\log_p^2(2a))\).
+The number of stages and tops and all ranks are polynomial in \(x\),
+and \(\mathrm{Sc}\le\exp(x^{\varepsilon/4})\). Summing even over
+all integers up to \(X''\) gives absolute error
+\(O(x^c\exp(x^{\varepsilon/3}+x^{\varepsilon/4}))=o(b)\).
+For either unramified contributing class, \(p>X''\) has zero gain.
+Only \(l=1\) and \(p\le2X''\) can then contribute. The ramp is
+at most \((a_t-a)/p\le a/(kx^{13}p)\), so Chebyshev's estimate
+on the dyadic interval gives \(O(Q/(kx^{12}))\).
+The ramified cost at \(d\) is \(O(mN_Ta\log d/d)=o(Q)\);
+all other primes have zero ramp and retained gain. Hence
+\[
+  \sup_{u\in H_0}|J(u)+36\mathcal I(u)-C_{\rm in}(x)|=o(Q).
+\]
+
+It suffices to evaluate \(C_{\rm in}\) at \(i(0)\).
+For an inert \(p<X'\) with \(\operatorname{ord}(h_p)\ge
+x^{\varepsilon/4}\), let \(B_p\) be the set of tops in bad orbits.
+For each candidate \(p\), let \(\Sigma_p\ge0\) be \(m\) times
+the sum of the shares on the good orbits. The selected tops and
+the selected pair of arrays give respectively
+\[
+ \sum_{\substack{p<X'\text{ inert class}\\
+                   \operatorname{ord}(h_p)\ge x^{\varepsilon/4}}}
+       {\log p\over p}|B_p|\le N_Tx^{-2+\varepsilon},
+ \qquad
+ \sum_{p\ {\rm candidate}}{\log p\over p}
+     \bigl(2{\bf1}_{\Sigma_p>x^{-\varepsilon}}+4\Sigma_p\bigr)
+        \le x^{-9}.
+\]
+The selected kit places the small-share condition on its chosen
+arrays. The window selection takes both arrays from a realized
+seed of that kit and transports them to the matching records.
+The bad-top bound comes from the selected tops and the bad-orbit
+condition on the same host. These two receipts precede the
+estimation of the gain deficit.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/KitS.lean}{60}{Small shares on the actual records},
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/WeightVectorSmallSharesEight.lean}{22}{The common window arrays}, and
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/LossRequirementsOfSmallShares.lean}{337}{Both selected sample bounds}.
+If an orbit with \(N_o\) tops is served, its integral allowance is
+\(S_{p,o}\le2mN_o a/p\). The formula
+\(\iota_p=2\Sigma_p\max_o S_{p,o}\), zero when no orbit is served,
+gives \(\mathcal I\le mN_Ta x^{-9}=Qx^{-8}\).
+
+Write \(a_{jtp}=\sum_{l\ {\rm odd}}(a_t/p^l-w_{j,t,l})_+\)
+and \(T_p\) for the served tops. At each retained inert
+\(p\le X''\) the local comparison gives
+\[
+ \sum_{j,t\in T_p}a_{jtp}-
+        \bigl(\textstyle\sum_jg_{jp}-\tau_p\bigr)
+     \le m |T_p|\,\mathrm{lo}_p +m\,\mathrm{fl}_p .
+\]
+Here the sum is over all stages and the indicated tops.
+This estimate remains an arithmetic input for the numerical gain
+deficit, and the separate \hyperlink{proof.period-gain-tests}{valuation
+bounds on the finite generators} give \(B_{K,w}(I_wN_w)\subseteq C\).
+\releasecite{Formalism/SharpRestriction/GlobalTheoremInputs.lean}{122}{Served-prime lower comparison}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkG.lean}{13}{Its selected-family supplier}.
+For a discarded prime each missing \(a_{jtp}\) costs at most \(3a/p\).
+The discard predicate at an inert prime in this range with small
+Frobenius order or a power in the exceptional band requires
+\(p\le 2X'\) beyond a common threshold. The classical quotient
+is \(H=(\mathbf Z/2^{h+2}\mathbf Z)^\times/\{\pm1\}\) with
+\(n=2^h\). Let \(2^s\) be the largest power of two below
+\(x^{\varepsilon/4}\). In the small-order case,
+\(v_2(5^{2^j}-1)=j+2\) gives \(p\equiv\pm1\bmod M\),
+\(M=2^{h-s+2}\ge4n/x^{\varepsilon/4}\). Summing all integers
+\(dM\pm1\), \(d\ge1\), bounds \(\sum(\log p)/p\) by
+\(O(\log^2(2X')/M)=o(x^{-1})\).
+
+In the exceptional band \(p\ge p_0\) and
+\(|p^l-X'|\le x^{-2}X'\) for some \(l\ge1\).
+For each of \(O(\log(2X'))\) possible \(l\), the interval for
+\(p\) has length \(O(x^{-2}(X')^{1/l})\), and
+\(p\asymp(X')^{1/l}\). Counting integers gives total weight
+\(O((x^{-2}+p_0^{-1})\log^2(2X'))=o(x^{-1})\).
+The selected share bound pays at most \(x^{-9}/2\) in weight
+for all large-share candidates. At all three types of discarded
+prime there is no marked orbit and \(\tau_p=0\).
+The dyadic group has no nontrivial element of odd order.
+The total discarded contribution is thus \(o(Q)\).
+For a remaining inert \(p<X'\), \(T\setminus T_p=B_p\);
+its total cost over all such primes is at most
+\(6m aN_Tx^{-2+\varepsilon}=o(Q)\). At \(X'\le p\le X''\)
+the local comparison has \(T_p=T\).
+\releasecite{Formalism/SharpRestriction/ParConsts.lean}{24}{Discard predicate}
+\releasecite{Formalism/SharpRestriction/ParConsts.lean}{79}{Width bound for the exceptional band}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{279}{Candidate primes and marked orbits}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{362}{Tops on which the comparison holds}.
+
+It remains to sum the two local error envelopes.
+\releasecite{Formalism/SharpRestriction/GlobalTheoremInputs.lean}{100}{Explicit local errors}.
+The common part of \(\mathrm{lo}_p\) is
+\(O((\mathrm{Sc}+k+\eta_{\rm sz})\log_p(2a))\), while
+\(\mathrm{fl}_p=O(fN(m)^2\log_p a+f(\log_p a)^2)\).
+Here \(\mathrm{Sc},\eta_{\rm sz}\le\exp(x^{\varepsilon/4})\) on the selected
+records. Their sums with weights \(\log p\) to \(X''\) are \(o(b)\),
+by the same estimate as for the signal primes.
+\releasecite{Formalism/SharpRestriction/AdmissibleParameterJoins/SumLogPrimeFactorsLe.lean}{619}{Size of the auxiliary weight allowance}.
+For \(p<p_0\) the next term is \(O_\varepsilon(b'\log x)\);
+\(p_0\) is polynomial, so its sum is \(o(b)\).
+For \(p_0\le p<X'\) that term is
+\[
+ O\bigl(b'/x+\eta_{\rm sz}+\mathrm{Sc}
+          +(w''+t_{\rm rank})\log x/\delta_1\bigr)+b^{\delta(x)},
+       \qquad \delta(x)\longrightarrow0 .
+\]
+Chebyshev's estimate gives \(O(b)\) for the first summand since
+\(X'b'/x=b\); the others cost \(o(b)\), using \(X'w''=b/n\).
+The last term of \(\mathrm{lo}_p\) at \(p<X'\) is bounded by
+\(O(\log x)\) times \(L_{\rm a,G}a/(pk)\) plus, with the same
+factor, \(a/p^{L_p}\) for \(p<p_0\) and \(a/p^2\) for \(p\ge p_0\),
+where \(L_p=\lceil\log_p(k^2x^{78})\rceil+1\).
+Use \(L_{\rm a,G}\le x^{2\varepsilon}\), \(k\ge x^4\),
+\(\sum_{p<X'}(\log p)/p\ll\log^2(2X')\),
+\(p^{-L_p}\le1/(pk^2x^{78})\), and
+\(\sum_{d\ge p_0}(\log d)/d^2\ll(1+\log p_0)/p_0\).
+The sum is \(o(b)\); these additional terms vanish at \(p\ge X'\).
+Multiplying the two envelopes by \(2mN_T\) and \(2m\), respectively,
+gives \(C_{\rm in}(x)\le C Q\) after the index estimate above.
+Consequently, for a fixed \(C'\) and all sufficiently large scales,
+\begin{equation}
+\label{eq:classical-selected-loss}
+  J(u)+36\mathcal I(u)\le C'Q\quad (u\in H_0),\qquad
+                   \langle J+36\mathcal I\rangle\le C'Q .
+\end{equation}
+
+Finally put
+\[
+ B^+=N_Ta_E(1+m^2/k)+m\bigl(2nmbx^\varepsilon+
+                                 N_2kb x^{2\varepsilon}/n^2\bigr).
+\]
+For \((e_D,e_L)=(2,0)\) the height, count, slope and level bounds
+above give \(E_0+8U_0+9R_0+12b\ll B^+x^{2\varepsilon}\).
+Also \(Q\le B^+\) and \(E_x=B^+x^{5\varepsilon}\).
+Averaging \eqref{eq:classical-joint-deficit} over the matched records
+of the chosen seed at this \(x\) gives the classical lattice bound
+\begin{equation}
+\label{eq:classical-averaged-excess}
+ \teamanchor{proof.classical-signed-mean}%
+      \langle D\rangle=\frac{1}{|H|}\sum_{u\in H}D(u)\le E_x .
+\end{equation}
+The sum is signed. Integral division and the trace-height cap were
+used on each matched record before taking the mean.
+The inert contribution to the joint loss is common across the
+translates and bounded directly. The translate-dependent remainder
+has a uniform absolute bound. These estimates also give
+\(D(u)\le E_x\) on the selected classical records.
+Section~\ref{sec:fourier} substitutes the signed mean bound into Fourier
+inversion at the same \(x\), with the same \(H,T,T_2\), arrays,
+actual weights, cutoff and centering.

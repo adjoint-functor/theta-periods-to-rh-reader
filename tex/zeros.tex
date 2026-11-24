@@ -6,9 +6,16 @@
 
 Take the conductor-one target \(\psi=1\). Fix the loss exponents
 \(e_D=2,\ e_L=0\) and the balance constant \(C_0=3\) used in the
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopShape.lean}{50}{window construction}.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopShape.lean}{52}{window construction}.
 
 \teamanchor{proof.join-size-requirements}%
+Fix \(C_{\rm grid}\), the depth constant \(C_F\) in the
+\hyperlink{candidate.fixed-level-period}{principal-level detection theorem}.
+Take \(C_{\rm grid}\ge6510\) and large enough for the linked row-function
+and evaluation-grid comparisons. The release combines the two grid
+thresholds before constructing the linked class and selector.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean}{52}{Choice of the grid depth}.
+
 The uniform comparisons of Sections~\ref{sec:family}--\ref{sec:fourier}
 have finitely many precision cutoffs and size requirements. A lower
 bound may be a function of earlier constants. At fixed precision take
@@ -19,51 +26,57 @@ from \eqref{eq:raw-height-cap}. Here \(P_t\) comes from the twist
 cutoff and \(C_{F,0}=c_F+1\) comes from the row height after
 the finite level change. Both are functions of the earlier data.
 Thus the same \(C_H\) is available for the height and the trace
-accuracy before choosing a scale or translate.
+accuracy. The standard construction chooses \(C_H\) as the maximum
+of \(1\) and its required middle bounds, evaluated at the earlier
+constants. Its word-code parameter \texttt{C.P.CF} is this \(C_H\).
+The later constants and the codes and levels of the records are chosen
+with this exponent fixed.
 A family meeting \(K_*\) therefore meets all of the size
 requirements. Each comparison also requires its hypotheses on the
 local models and maps.
 \releasecite{Formalism/SharpRestriction/ParamsHeightRankConstant.lean}{138}{Staged lower bounds}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsStdLarge.lean}{39}{Choice of the middle constants}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{75}{Identification of the code exponent}.
 
 \medskip
 \noindent
 \teamanchor{proof.choose-compatible-family}%
-\textbf{Simultaneous family selection (input).}
-Assume the availability of the arithmetic hosts on intervals from
-Section~\ref{sec:family}. There is an existence cutoff
+\textbf{Common family for the classical application.}
+With the grid depth fixed, use the arithmetic hosts on intervals from
+Section~\ref{sec:family} and the compatible point construction and
+signature estimates specified below. There is an existence cutoff
 \(\varepsilon_{\rm ex}>0\). For each
-\(0<\varepsilon<\min(1/52,\varepsilon_{\rm ex})\) and each
-system \(K\) of staged lower bounds there exist one family
-\(\mathfrak F\) and one exponent \(C_H\ge0\) meeting \(K\).
-The family has the following data and conditions.
+\(0<\varepsilon<\min(1/52,\varepsilon_{\rm ex})\) the construction with
+the joined staged bounds \(K_*\) gives one family \(\mathfrak F\) and
+one exponent \(C_H\ge1\). The following conditions hold together.
 
 \begin{enumerate}
 \item The set \(\operatorname{Win}(\mathfrak F)\) of real scales
 contains intervals \([Y,Y^{3/2}]\) with arbitrarily large \(Y\).
-Each scale in this set has a nonempty index set \(I_x\). Beyond a
-family threshold the indices use the prescribed arithmetic hosts
-at \(x\).
+Each scale in this set has a nonempty index set \(I_x\). The records
+used below are available at every real \(x\) in these windows above
+one threshold.
 
-\item At each such scale an index specifies \(E/F\), a coefficient
-field with its places, the ranks and weights of the towers, the
-levels, the words and their local twists, the period spaces with
-their row and column coordinates, and the corresponding test and
-integral lattice data. A word, tuple, stage and place specify its
-local Hecke data and intended test in these coordinates.
-At a fixed \(x\), the indices have specified identifications
-of the ranks, word labels and their letters, \(q,d,Q_S\), the
-Artin coordinates and \(T,T_2\). The rank, level-prime and
-sample cardinality conditions are those in Section~\ref{sec:family}.
-The stage weights and the range for \(b_t\) are the raw intervals
-in Section~\ref{sec:fourier-sampling}.
+\item At each such scale the records use the same host \(E/F\),
+the ranks, primes \(q,d,g_0,g_1,p,p',q_0\), modulus factor \(Q_S\),
+Artin coordinates, sampling sets \(T,T_2\), and word labels with their
+letters. The rank, host-prime and sample size conditions are those
+of Section~\ref{sec:family}. Each record has its own tower weights,
+word levels \(T_w\), placed coefficient fields, row and column
+coordinates, and test and integral lattice data. A word, tuple, stage
+and place specify the local Hecke data, twists and tests of that
+record. The bounds for the sample arrays and actual stage weights
+are those of Section~\ref{sec:fourier-sampling}.
 
 With \(b=\exp(x^\varepsilon)\), the level of each word satisfies
 \(b^{m/2}\le T_w\) and \(\log T_w\le C_T m\log b\).
 Write \(f=[F:\mathbf Q]\) and \(R_m=k+m(t+1)=\operatorname{rank}X_m\).
-The positive integer \(D_\Gamma\) at this index is a common
-multiple of the class stabilizer orders in the column chains.
-Its prime divisors are at most \(2fR_m+1\) and
-\(\log D_\Gamma\le C_\Delta fR_m\log(fR_m)\).
+Within each selected record \(i\), one positive integer \(D_\Gamma(i)\)
+is common to the column chains for all words, twist tuples and stages.
+Each of their class-stabilizer orders divides it. By the
+\hyperlink{proof.selection-stabilizer-multiple}{Minkowski bound}, its
+prime divisors are at most \(2fR_m+1\) and it satisfies
+\(\log D_\Gamma(i)\le C_\Delta fR_m\log(fR_m)\).
 Here \(C_T,C_\Delta\) are uniform family constants.
 The column dimensions satisfy \eqref{eq:trace-balance} and
 \[
@@ -71,88 +84,344 @@ The column dimensions satisfy \eqref{eq:trace-balance} and
 \]
 in the trace notation.
 
-\item The record includes admissible integers \(a_t,b_t\) on \(T\).
-In particular \(a_E\le a_t\le a_E+a_E/(kx^{13})\), where \(a_E=xb\).
-For any seed and any \(u\in H\) there is an index whose translate
-is \(u\) and whose two arrays agree with the seed's under the common
-labeling of \(T\). The weights at \(u\) are read from the stage data
-of this translated index.
+\item One realized seed \(i_0\in I_x\) supplies the Artin data and the
+two admissible integer arrays \(a_t,b_t\) on \(T\). In particular
+\(a_E\le a_t\le a_E+a_E/(kx^{13})\), where \(a_E=xb\).
+For each \(u\in H\) there is \(i(u)\in I_x\) with translate \(u\) and
+both arrays equal to the seed arrays under the common labeling of \(T\).
+The actual weights at \(u\) are the stage weights of \(i(u)\).
 \end{enumerate}
 
-This statement uses the selection part of Alp\"oge's
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkEx.lean}{15}{design existence theorem}
-and the \releasecite{Formalism/SharpRestriction/FamCore.lean}{76}{common data and the translate property}.
-The character estimates and the Selmer input enter through the
-arithmetic hosts of Section~\ref{sec:family}. The local, trace and
-height comparisons enter through separate hypotheses in the
-\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesWin.lean}{11}{subsequent assembly in the release}.
+The released design theorem returns one pair for the specified staged
+bounds with its design class, word-size, balance, level and determinant
+conditions. Its inputs include the compatible design choices, their
+linked selector and the class-number, level-size and character
+comparisons for that class. The application specializes it to the
+class carrying the arithmetic requirement on the actual ranked host.
+The proof that uses these records applies the local, trace and height
+comparisons on their own hypotheses.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkEx.lean}{15}{Design existence under these inputs}
+\releasecite{Formalism/SharpRestriction/ParamsHeightRankConstant.lean}{180}{Output of design existence}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopShape.lean}{48}{Specialization to the arithmetic class}
+\releasecite{Formalism/SharpRestriction/FamCore.lean}{132}{Translate property}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesWin.lean}{11}{Subsequent comparisons}.
+\rhrange{The constructed family has the translate property for every
+realized seed.}
+{At each real scale, one realized seed supplies the common arrays and
+a matching record for every translate, including the actual weights,
+levels and lattices.}
+
+\paragraph{The order of the choices.}
+\teamanchor{proof.selection-construction-order}%
+At the conductor-one target the dyadic scaling factor is \(1\).
+At each real \(x\) of a preliminary interval, the \(q,d,E\) and
+dyadic layer of Section~\ref{sec:family} give the arithmetic window
+datum of the host construction, with
+\(x^{1/J}\le Z\le x\) and Selmer cutoff \(\lfloor x^{400}\rfloor\).
+This is the cutoff in the datum used to form the ranked host.
+By \eqref{eq:classical-rank-cutoff} its actual twist cutoff is at
+most \(\lfloor x^{400}\rfloor\). Restricting the sum preserves its
+\(\sqrt b\) bound, and the point construction transports the
+arithmetic predicate with this same host field, sampling set and
+rank. The longer \(401\) cutoff in the general release supplies the
+window datum after rescaling at a general target.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/TwistForm.lean}{19}{The host window datum}
+\releasecite{Development/AutomorphicArithmetic/ShortNorms/supplyOfAdmOf.lean}{93}{The ranked host and its cutoff}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/Supply.lean}{16}{The arithmetic predicate at the constructed point}.
+
+The construction first makes an auxiliary family from raw integer
+arrays. The signature estimates there give admissible arrays on the
+same host. At each scale the final kit uses this host, its ranks, the
+two admissible arrays and one injective word code. For each translate
+call the compatible point construction with these inputs. The row
+and column data in a call give the positive pre-level coefficients
+\(d_w^{(0)}\) and \(D_\star\). These set the window for \(T_w\), after
+which the call gives the record over the chosen levels. The common
+class and selector use the matching adelic constructions and their
+mass and hyperplane-volume formulas. Gluing the kits preserves the
+real window set. The point's identification with the kit's arithmetic
+host includes its field and Artin map. The auxiliary fields and the
+two section runs are attached on the geometric side of that same
+point.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/HostWW.lean}{47}{From raw arrays to admissible arrays}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{190}{Pre-level coefficients and records}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ClassSel.lean}{14}{Compatible class and selector}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/KitS.lean}{40}{One set of inputs at each scale}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{160}{Identification with the host}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{47}{One family and its windows}.
+
+\paragraph{The data read on the selected records.}
+\teamanchor{proof.selected-record-ties}%
+At a real window scale above the common threshold, use the realized
+seed \(i_0\) of the sample estimate below. The translate property
+matches its two arrays by numerical labels at \(i(u)\) for every
+\(u\in H\). The index \(i(0)\) can differ from \(i_0\).
+The Artin identification in \eqref{eq:artin-coordinates} gives
+the same inertia groups and Frobenius cosets. The common \(d\)
+gives the same first-sign logarithmic derivative, and the common
+root discriminant gives the same \(v_0\).
+
+Each pair of complex-conjugate embeddings has exactly one label
+in \(P=\ker c\), because complex conjugation changes the first
+sign in \eqref{eq:artin-coordinates}. Read \(w_{u,j}(r)\) at the
+embedding with label \(r\in P\) at stage \(j\) of \(i(u)\). The
+periods, word primes, local tests, Hecke spaces and integral
+lattices belong to that very record. These weights and the seed's
+degrees give the same sampling data on the lattice and Fourier
+sides. The two runs and small embedded field used together at one
+record are identified below.
+\releasecite{Formalism/SharpRestriction/FamCore.lean}{90}{Common labels and arithmetic}
+\releasecite{Formalism/SharpRestriction/FamCore.lean}{187}{Matching both arrays}
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean}{395}{Artin and weight readings}
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean}{464}{Arithmetic and local data at the selected records}.
+
+\paragraph{The raw windows and arithmetic admissibility.}
+\teamanchor{proof.selection-array-windows}%
+The raw interval for \(a_t\) has length \(xb/(kx^{13})\), which
+exceeds one eventually since \(k\le x^5\) and \(b=\exp(x^\varepsilon)\).
+The interval for \(b_t\) has length
+\(2n\delta_1x^\varepsilon L_{\mathrm{a},G}b'/k\). Here
+\(\delta_1x^\varepsilon=x^{7\varepsilon/8}\), \(b'\ge k\) eventually,
+and \(L_{\mathrm{a},G}\ge x^\varepsilon\). Thus both windows contain
+integers. The latter bound on \(L_{\mathrm{a},G}\) also gives the
+lower bound \(2n\delta_1x^{2\varepsilon}b'/k\) for the same width.
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/GoodTopCountLeConstMulLog.lean}{65}{The window parameter}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsFamPOfKits.lean}{41}{The two bounds on the same endpoint}.
+On a raw auxiliary record the released numerical and plane-count
+estimates give a nonnegative signature excess \(\mathrm{Sig}_p\)
+for every array in the integer boxes and every candidate prime
+\(p<X'\). Its mean over the boxes is at most \(mN_Tx^{-12}\).
+For a nonnegative value \(s\) of the excess, the penalty
+\(2\mathbf 1_{\{s>x^{-\varepsilon}\}}+4s\) is at most
+\((2x^\varepsilon+4)s\). The sum of \((\log p)/p\) over these
+primes is at most \(2\log X'=2x^{\varepsilon/3}\). Indeed, for
+\(N=\lfloor X'\rfloor\) the valuation of \(N!\) at \(p\le N\) is
+at least \(\lfloor N/p\rfloor\ge N/(2p)\).
+Using \(m\le x^{1/2+\varepsilon/2}\) and \(N_T\le n\le 2x^{2+8\varepsilon}\),
+the mean of the total penalty is \(O(x^{-19/2+59\varepsilon/6})\).
+Since \(\varepsilon<1/52\), some pair of arrays in the boxes satisfies
+\[
+ \sum_{\substack{p<X'\\ p\ \mathrm{candidate}}}\frac{\log p}{p}
+    \left(2\,\mathbf 1_{\{x^{-\varepsilon}<\mathrm{Sig}_p\}}
+          +4\,\mathrm{Sig}_p\right)\le x^{-9}.
+\]
+The auxiliary record and the host have the same candidate primes,
+orbit coordinates, offsets and excess function on these boxes. The
+host inequality therefore holds for those same arrays, and the
+final kit installs them at every translate.
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/WindowShareRequirementClosedFormProof.lean}{17}{Uniform estimates for the auxiliary family}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/SlopeEstimateOfLemmaBSlopeLine.lean}{329}{The candidate-prime mean of the signature excess}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{149}{The host admissibility inequality}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/WeightWindowRequirementHostOfPoint.lean}{17}{The arrays on the same host}.
+
+\paragraph{The sample estimates on the realized records.}
+\teamanchor{proof.selection-realized-samples}%
+The final record certifies the displayed penalty bound for its actual
+arrays. Past the common threshold this certificate holds at every
+index. Choose any realized seed \(i_0\) and use its actual arrays
+under their numerical labels. That seed supplies the arithmetic
+data as well as the record realizing both arrays.
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/DutySevenLibrary.lean}{15}{Admissibility on the realized class}
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/WeightVectorSmallSharesEight.lean}{22}{A seed realizing both arrays}.
+
+For the bad-top estimate let \(\mathcal P\) be the specified
+large-order residue primes below \(X'\), and let \(B_p\) be the
+tops in \(T\) that fail the good-orbit condition at \(p\).
+The host construction supplies \(\delta_1 n\le 2N_T\) and
+\[
+ \sum_{p\in\mathcal P}\frac{\log p}{p}|B_p|
+ \le 4C_bx^{-2}\delta_1 n\sum_{p\in\mathcal P}\frac{\log p}{p}
+ \le 16C_bN_T x^{-2+\varepsilon/3}.
+\]
+Above a common threshold this is at most \(N_Tx^{-2+\varepsilon}\).
+These two sample estimates are available on the selected records
+before the lattice and Fourier averages.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{85}{The selected top sets}
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/Chosen.lean}{23}{Primes and the defining bad-top bound}
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/LossRequirementsOfSmallShares.lean}{337}{The two sample estimates on this class}.
+
+\paragraph{Norm primes for the levels.}
+\teamanchor{proof.level-primes-short-intervals}%
+Let \(d>3\) be a prime congruent to \(3\bmod 4\), let \(M\ge3\) be
+an integer and set \(K_d=\mathbf Q(\sqrt{-d})\) and \(B=4dM^2\).
+There are effective absolute \(c,c'>0\) such that, for sufficiently
+large \(X\), if \(\log B\le c\sqrt{\log X}\) and
+\(e^{-c\sqrt{\log X}}\le h\le1\), then
+\begin{equation}
+\label{eq:selection-short-norm-primes}
+ \#\{P\in(X,X(1+h)]: P\ \text{prime},\ P=\pi\bar\pi,\
+          \pi\in\mathcal O_{K_d},\ \pi\equiv1\bmod M\mathcal O_{K_d}\}
+ \ \ge\ \frac{c'hX}{B^3\log B\log X} .
+\end{equation}
+Use the full ray class field \(L/K_d\) modulo \(M\mathcal O_{K_d}\).
+The modulus is conjugation-stable, so \(L/\mathbf Q\) is Galois.
+Complete splitting gives a prime ideal of norm \(P\) in the trivial
+ray class, and its generator has the required congruence and norm.
+The ray class exact sequence bounds the relative degree by
+\(h(K_d)M^2\). The number of reduced forms of discriminant \(-d\) is
+at most \(d\), by counting \(|b|\le a\le\sqrt{d/3}\). Thus the
+absolute degree is at most \(B\). Every character of
+\(\operatorname{Gal}(L/K_d)\) has conductor norm at most \(M^2\).
+\cite[Ch.~V, Theorem~3.6]{f1milne-cft}
+
+Apply Thorner--Zaman to the identity class, with abelian subgroup
+\(\operatorname{Gal}(L/K_d)\), fixed field \(K_d\) and conductor
+parameter at most \(B\). The count up to \(y\) equals
+\(A(y)/[L:\mathbf Q]\) with relative error
+\(O(e^{-c_3\log y/\log B}+e^{-\sqrt{c_3\log y/2}})\), where
+\(A(y)=\operatorname{Li}(y)-\operatorname{Li}(y^\beta)\) if an
+exceptional zero \(\beta\) occurs, and \(A(y)=\operatorname{Li}(y)\)
+otherwise. The required lower bound on \(y\) is a fixed power of \(B\),
+which holds for \(y\ge X\) here. In the exceptional case the zero
+bound in the same source gives \(1-\beta\gg B^{-2}/\log B\).
+\cite[arXiv v3, Theorems~1.4 and~3.3]{f6thorner-zaman-chebotarev}
+
+Write \(q_X=1-X^{\beta-1}\) in the exceptional case and \(q_X=1\)
+otherwise. Then \(A'(y)\ge q_X/\log(2X)\) for \(X\le y\le2X\).
+In the exceptional case \(\beta>1/2\) and integrating from \(y^\beta\)
+to \(y\) gives \(0\le A(y)\le 2y(1-y^{\beta-1})/\log y\).
+Since \(2X\le X^2\), this is \(O(q_X X/\log X)\) at both endpoints.
+The same upper bound holds without an exceptional zero. On taking
+\(c\) sufficiently small, the relative error at the endpoints is
+\(O(e^{-2c\sqrt{\log X}})=o(h)\) uniformly. Their difference therefore
+counts \(\gg hX q_X/([L:\mathbf Q]\log X)\) primes. The zero bound
+gives \(q_X\gg B^{-2}/\log B\), proving \eqref{eq:selection-short-norm-primes}.
+For each such norm prime the congruence of both generators gives
+\(P\equiv1\bmod M\).
+
+\paragraph{The type primes and the scalar-character primes.}
+For \(g_0,g_1\) take \(M=Q=Q_Sqd\), \(X=(kb)^8\) and \(h=1\).
+The host bound gives \(\log B=O(x^{\varepsilon/5}(\log x)^2)\), and
+\(\log X\ge8x^\varepsilon\), so \eqref{eq:selection-short-norm-primes}
+gives at least \(X^{9/10}\) candidates for large \(x\). Choose one
+\(g_0\). The set \(S=B_r(g_0)\) in \eqref{eq:classical-level-bad-primes}
+has \(O(r^2\log X)\) elements by counting the prime divisors of
+\(\prod_{a=1}^r(g_0^a-1)\). For any \(\ell\in S\) and \(1\le a\le r\),
+if \(\ell^{4v_\ell(g^a-1)}>g^a\), then \(g^a\equiv1\) modulo the
+least \(\ell\)-power strictly exceeding \(X^{a/4}\). The unit group
+modulo that power is cyclic for odd \(\ell\) and a product of at most
+two cyclic groups, one of order at most two, for \(\ell=2\). Hence
+there are at most \(2a\) residue classes, each with \(O(X^{3/4})\)
+representatives in \((X,2X]\). Discard also the elements of \(S\).
+This excludes \(O(r^4X^{3/4}\log X)\) candidates, leaving a distinct
+\(g_1\) with \(B_r(g_0)\cap B_r(g_1)=\varnothing\).
+
+For \(p,p'\) put \(M_1=\operatorname{lcm}(15,Q)\le15Q\). At
+\(U=M_1^A\), for a fixed sufficiently large \(A\ge12\), the full
+progression estimate in Section~\ref{sec:family} has relative error
+less than \(1/2\) in the class \(1\bmod M_1\). The positive main term
+is \(\gg M_1^{A-3/2}\), using the effective bound for an exceptional
+zero in that estimate. This dominates \(\log U\), the largest possible
+contribution from one prime, so two distinct primes can be taken with
+\(p,p'\le U\le Q^{2A}\). After these choices use the prescribed
+\(q_0\) of Section~\ref{sec:family}. The resulting bounds separate
+the scalar-character primes and \(q_0\) from the larger \(g_i\).
+\cite[arXiv v2, (1.2), (1.7) and Corollary~1.4]{f1thorner-zaman}
+
+\paragraph{The primes indexed by the words.}
+\teamanchor{proof.selection-level-bounds}%
+In \eqref{eq:arithmetic-level-quotient}, \(X_w=(D_\star/d_w^*)^{1/(fk)}\)
+uses the mass and Weyl dimensions before adding \(T_w\). Identify
+\(d_w^{(0)}=d_w^*\) as in Sections~\ref{sec:trace} and~\ref{sec:integral}.
+With \(L=\log b\), the level-index term is at least \(16mL\) because
+\(\log(g_0g_1)\ge16L\). The mass term in \(\log(v_0/\pi)\) is
+nonnegative at these scales. The discriminant term and lower
+Vandermonde error are \(O(L)\), since the stage weights are at least one. The
+remaining terms give \(\log X_w\le C_XmL\) with a uniform \(C_X\).
+The bound \(m^5fL\le128kx^{-21\varepsilon/16}\) gives
+\(2\log\Gamma/(fk)\le1\) eventually. Hence for large \(x\) the centre
+\(Y_w=X_w\Gamma^{-2/(fk)}\) satisfies
+\(14mL\le\log Y_w\le C_XmL\).
+
+Take \(M=Q(g_0g_1)^2\), \(X=Y_w\) and \(h=1/(fk)\) in
+\eqref{eq:selection-short-norm-primes}. Here \(\log B=O(L)\),
+\(\log(fk)=O(\log x)\) and \(m\ge x^{0.49}\). The lower count tends
+to infinity uniformly in \(w\) and the translate. We obtain the
+required norm generator and a prime \(T_w\) in the prescribed window.
+Its congruence gives complete splitting in \(E\) and \(F\).
+It exceeds \(g_0,g_1,p,p',q_0\) by the size bounds, and satisfies
+\(b^{m/2}\le T_w\) and \(\log T_w\le(C_X+1)mL\). Each word has its
+own window and choice. Using the exact count
+\(d_w=d_w^{(0)}(T_w^k-1)^f\) gives \eqref{eq:trace-balance} on those
+levels, as shown in Section~\ref{sec:trace}.
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/StandardLattice.lean}{446}{The column count on the chosen level}.
+
+\paragraph{Stabilizers and word capacity.}
+\teamanchor{proof.selection-stabilizer-multiple}%
+At a selected record \(i\), the construction installs one integer
+\(D_\Gamma(i)\) on every twisted column chain. It is the least common
+multiple of the automorphism orders of unimodular lattices in the
+standard positive definite Hermitian spaces of the prescribed ranks.
+At each word, twist tuple and stage of this record, every actual class
+stabilizer order divides \(D_\Gamma(i)\). The least common multiple
+of the orders in any such class space therefore also divides
+\(D_\Gamma(i)\).
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/PredMemGamRanks.lean}{326}{Definition of the common integer}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ColumnLayerConditionsTrueColumnsLaterStages.lean}{77}{The integer installed on every twisted chain}
+\releasecite{Formalism/LocalRingCardinality/DataErr.lean}{71}{Class stabilizer divisibility throughout the record}.
+
+The automorphism groups used to form the common integer act faithfully on
+integral lattices of rank at most \(N=2fR_m\). By Minkowski's theorem the
+installed integer \(D_\Gamma(i)\) divides \(M(N)\), whose exponent at the
+prime \(\ell\) is \(\sum_{j\ge0}\lfloor N/(\ell^j(\ell-1))\rfloor\).
+\href{https://arxiv.org/pdf/math/0511191\#page=2}{Minkowski's theorem, as stated by Guralnick--Lorenz}
+\releasecite{Formalism/SharpRestriction/DesignExistsOfChoices.lean}{14}{Divisibility by the Minkowski integer on the selected family}.
+The prime divisors of \(M(N)\) are at most \(N+1\). Its logarithm is
+\(O(N\log N)\), since each exponent is at most \(4N/\ell\) and
+\(\sum_{\ell\le N+1}(\log\ell)/\ell=O(\log N)\) by the valuations of
+\((N+1)!\). These bounds hold uniformly at the translated records
+with the integer read on each record.
+
+\teamanchor{proof.word-sets}%
+The code has \(k-2\) bits per word. Since
+\(\log\Gamma=C_\Gamma m^5 f L=o(k)\) and \(C_H\log x=o(k)\) at fixed
+family constants, \(3\Gamma^2x^{C_H}+1\le2^{k-2}\) eventually.
+Use the same \(\lceil3\Gamma^2x^{C_H}\rceil\) distinct labels with those
+bits when building every translate record at this scale. The
+resulting code and its counts are thus properties of the selected
+records.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/KitS.lean}{40}{Code before the translated records}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{50}{Word count in the assembled family}.
 
 \paragraph{The rows and field on which the two section estimates hold.}
 \teamanchor{proof.section-run-family-identification}%
-Section~\ref{sec:integral} constructs the two auxiliary section
-systems on the base level \(g_0g_1\) with their respective additional
-primes. Its numerical estimates use a common geometric coefficient
-field \(K_0\). This field is chosen before the larger field containing
-the moving character values. They also use the Harish--Chandra rows
-with specified spacings. Consecutive entries in the initial block
-differ by \(4\Delta\). In each subsequent block the nodes are
-\(B_\tau+lH\) and \(B_\tau+(l+\tfrac12)H\), with the same prescribed
-\(\Delta,H\) for all words. These choices give the gaps in the flag
-weights and the bound on the degree and root discriminant of \(K_0\)
-used in the section heights.
-
-The remaining identification is simultaneous. For the same family
-\(\mathfrak F\) furnishing the selected period and relative trace
-data, fix a threshold before choosing a real scale. At each scale in
-its windows above that threshold, one needs a seed \(i_0\) and, for
-every \(u\in H\), an index \(i(u)\) with that seed's sample arrays.
-Each \(i(u)\) must retain the specified rows and its initial
-embedded \(K_0\) at both auxiliary levels. The periods and test
-columns must be those of \(i(u)\). One such simultaneous choice
-suffices. The fixed-level construction makes the indicated
-choices before constructing the stages. Passage to the family
-preserves properties supplied at each index. Item~2 of the selection
-statement gives intervals for the rows and an ambient coefficient
-field. An interval can contain differently spaced entries, and an
-ambient field can have arbitrarily large degree. This text proves
-the two estimates for the specified rows and field. Their simultaneous
-identification at the selected translates remains open in the
-reconstruction. The lattice and window estimates below are conditional
-on that identification.
-\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsRecordOverChoices.lean}{41}{Field and stages over fixed level and row choices}.
+\input{selected-section-runs}
 
 \paragraph{The integral lattice in the ramified columns.}
 \teamanchor{proof.ramified-donor-identification}%
-The other outstanding identification concerns each word \(w\) at
-its split level prime \(T_w\). In the complex column space,
-Section~\ref{sec:trace} computes the subspace on which the averages
-in all \(f\) residue-unit directions vanish. Its dimension is
+For each word \(w\) of a selected record, the residue-unit orbits
+give the \hyperlink{proof.ramified-residue-orbits}{integral sum-zero kernel}
+\(H_w\subseteq M_w\) in the prescribed zero-stage Hermitian class
+metrics. Here \(M_w\) is the full class lattice and the kernel has rank
 \[
  d_r=d_M\left(\frac{T_w-2}{T_w-1}\right)^f,\qquad
- d_M=\operatorname{rk}M_w .
+  d_M=\operatorname{rk}M_w,
 \]
-The slope estimate uses the integral sum-zero lattice \(H_w\) in
-the definite class lattice \(M_w\), with its specified metrics at
-every complex embedding. The needed identification realizes the
-actual undivided source \(N_w\) isometrically as a full-rank
-sublattice of \(H_w\), with the zero-stage norm used by the column
-operators. At a coefficient place \(v\nmid T_w\) of absolute
-ramification index \(e_v\), it must give
+where \(T_w\) is the word's split level prime. The
+\hyperlink{proof.selected-undivided-donor}{zero-stage coordinate isometry}
+\(\mathcal E_w\) carries the selected undivided lattice
+\(L.\mathrm{NuLat}\,w\) to the full-rank sublattice \(N_w\subseteq H_w\)
+used by the column operators. It transports the served, unserved
+and level-prime local lattices along with the base and twisted
+period pairings. At \(v\nmid T_w\) this gives
 \[
  (N_w)_v\subseteq\mathfrak p_v^{e_v\tau_v}(H_w)_v,\qquad
  \operatorname{length}_{\mathcal O_v}((H_w)_v/(N_w)_v)
      \le e_v d_M(\tau_v+\iota_v).
 \]
-At \(v\mid T_w\) it must give the separate weighted level-index
-bound in the \hyperlink{proof.divided-column-slopes}{calculation
-of the divided-source slopes}. On the sum-zero model the Gram
-determinant gives the global correction
-\(\mu(H_w)-\mu(M_w)=-f\log(T_w-1)/(T_w-2)\). Applying this
-formula to the actual columns requires the integral and metric
-identifications just stated. The
-reconstruction proves the slope and norm deductions with this
-identification as a hypothesis. The \hyperlink{candidate.gain}{Frobenius divisibility and loss bound}
-applies in its stated domain.
+Here \(e_v\) is the absolute ramification index and
+\(\tau_v\) is a nonnegative integer. At \(v\mid T_w\) use
+\(\tau_v=0\) with the separate weighted level-index bound.
+In the same metrics, the
+\hyperlink{proof.ramified-kernel-lower-mean}{quotient estimate}
+gives \(\mu(H_w)\ge\mu(M_w)-\delta_{\rm ram}(w)\) with
+\(\delta_{\rm ram}(w)=o(1)\) uniformly and
+\(\mu_{\max}(H_w)\le\mu_{\max}(M_w)\).
+The \hyperlink{proof.divided-column-slopes}{divided-source comparison}
+uses the rank ratio, the quotient lower mean and the maximal-slope
+bound, the local index bounds, and the
+\hyperlink{proof.period-gain-tests}{local valuation bounds on the
+period pairings}.
 
 \paragraph{Which character is used at a final index?}
 \teamanchor{proof.selected-ray-transport}%
@@ -162,24 +431,28 @@ above. Its preliminary index has the host, words, reference levels
 and placed class data before the moving characters are chosen.
 There is a finite set of marked places, defined by the row indices,
 local shifts and content conditions. It is the inverse image of a
-conjugation-stable set in a fixed coefficient subfield \(K_0\).
+conjugation-stable set in the fixed embedded marked-place field
+\(K_{\rm mark}\) of the
+\hyperlink{proof.section-run-family-identification}{selected record}.
 The Galois signatures, toric distributions and projected base
 theta columns at this index determine the tests for specialization.
-For each conjugacy orbit of marked places of \(K_0\) take one of the
-ray characters furnished by simultaneous specialization. Carry the
-previously chosen rational conductor primes into the next avoidance
-set. There are finitely many orbits, so the supports for distinct
-orbits can be disjoint. Keep the support, order and reciprocity
-reading of each of these particular characters. At the other places
-use the trivial character.
+The marked places give a finite set of seed twist indices. The
+mark-to-index map identifies conjugate places in the prescribed
+marking. At each realized seed twist index take one character from
+simultaneous specialization, for all its tests and primitive powers.
+Carry the previously chosen conductor support into the next avoidance
+set, including the places above its rational primes when rational
+prime avoidance is required. The supports for distinct seed indices
+are disjoint. Keep each character's support, root order and complex
+reciprocity reading. Use the trivial character at unmarked places.
 \releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/DisjointConductorPlacesExcludedSet.lean}{139}{The three marking conditions}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExistsUnlocalizedSaturatedState.lean}{64}{The preliminary arithmetic data}
-\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/TwistDataAgreeAcrossCoefficientsSymm.lean}{133}{The choice of ray data}.
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/TwistDataAgreeAcrossCoefficientsSymm.lean}{169}{The seed indices and the choice of ray data}.
 
 The second pass of the family construction takes this finite list
 as input. It adjoins its character values and the algebraic
 constants in the test models to the large coefficient field. It
-keeps \(K_0\) with its given embedding. The new marks are the
+keeps \(K_{\rm mark}\) with its given embedding. The new marks are the
 inverse images of the old ones. The base finite-level equations,
 class representatives and real frames are carried to the same
 base data. The construction realizes the moving characters with
@@ -226,18 +499,25 @@ term by term.
 \releasecite{Development/AbelianVarietyTheory/Definitions/NonGaloisDescent/AdmissibleEmptyOfGood.lean}{279}{The class sum}.
 
 Use the same scalar \(\nu\) for the real normalization at this
-stage and side. Indeed, transport the extremal vector and a
-compatible polynomial frame. Their scale relation is unchanged
-on a \(K\)-basis and hence on its \(K'\)-span. Changing between
-two admissible frames of the irreducible lowest type multiplies
-the map by a scalar by Schur's lemma. Its value on a nonzero
-rational coordinate places it in the common CM subfield. The
-scalar preserves a nonzero finitely generated integral lattice
-and is therefore integral. Preservation of the Hermitian pairing
-gives \(a\bar a=1\). All its conjugates have absolute value one,
-so \(a\) is a root of unity. The scale condition is agreement
-of positive powers. Taking a multiple of the order of \(a\)
-preserves it in both directions. On a tensor \(z\otimes f\) the
+stage and side. Transport the extremal vector and a compatible
+polynomial frame. Their scale relation is unchanged on a coefficient
+basis. For two admissible frames of the irreducible lowest type,
+Schur's lemma gives a complex scalar \(\zeta\). If the coefficient
+space is zero take \(\zeta=1\). Otherwise the composite of their
+coefficient identifications is linear over the coefficient field.
+In a basis with complex linearly independent readings its matrix
+is \(aI\) for an element \(a\) with complex image \(\zeta\).
+The ratio of a nonzero coordinate of the two images of a rational
+basis vector belongs to the common CM subfield, or to its totally
+real alternative. Both identifications carry the vector's positive
+Hermitian norm to the same norm, giving \(a\bar a=1\). They also
+identify the same nonzero integral harmonic lattice at a base class.
+Multiplication by \(a\) preserves it, so the determinant argument for
+a finite module makes \(a\) integral. Each complex embedding of the
+CM subfield intertwines its involution with complex conjugation.
+Thus all conjugates of \(a\) have modulus one and \(a\) is a root of
+unity. Taking a multiple of its order preserves the positive-power
+scale condition in both directions. On a tensor \(z\otimes f\) the
 normalized evaluation is
 \(\nu^{-1}\iota(z)\operatorname{ev}_{v_0}(f)(g)\), where
 \(\iota\) is the signed embedding and \(v_0\) the extremal vector.
@@ -287,17 +567,37 @@ lattice at the final level is estimated in Section~\ref{sec:integral}.
 \releasecite{Development/AbelianVarietyTheory/Definitions/NonGaloisDescent/AdmissibleEmptyOfGood.lean}{240}{Integral harmonic values and the level law}
 \releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/LiftSetupOverExtendedDataIntegralFormsEq.lean}{172}{Integral class coordinates in the two realizations}.
 
+\paragraph{Identification on the ray quotient.}
+\teamanchor{proof.selected-ray-frobenius}%
 Assume the three estimates of Section~\ref{sec:integral} on the
-preliminary signatures, toric distributions and theta tests.
-To transfer them, take a marked place \(w\)
-of the final coefficient field above \(\ell\), and let \(\alpha\)
-be the preliminary character at its restriction. The two readings
-of the same complex roots of order \(\ell^k\) differ by a power
+preliminary signatures, toric distributions and theta tests. At a
+marked final place \(w\mid\ell\), let \(\alpha\) be the character
+of its seed index, transported with its support \(Q\), root order
+\(\ell^k\), finite ray quotient \(G_Q\), and surjective Artin map
+\(\operatorname{art}_Q\). Denote the retained complex reciprocity
+reading by \(\chi\). Let \(\mu\subset O_k^\times\) be the group of
+\(\ell^k\)-th roots, let \(L_w\) be the fraction field at \(w\), and
+let \(j_w:O_k\hookrightarrow L_w\) be the structure map.
+The enlarged coefficient field contains all the complex roots in
+\(\chi\)'s reading of \(\mu\). Reading the unique lift of each such
+root at \(w\) gives a second map \(r_w:\mu\hookrightarrow L_w^\times\).
+Both maps identify \(\mu\) with the full group of \(\ell^k\)-th roots
+in \(L_w\). Thus \(r_w(z)=j_w(z^{u_w})\) for one
 \(u_w\in(\mathbf Z/\ell^k\mathbf Z)^\times\).
-The normalized Frobenius values away from the exceptional places
-agree after this change of roots. Chebotarev on the finite ray
-quotient therefore identifies the entire final character with
-\(\alpha^{u_w}\). A primitive power on either prescribed side
+
+For \(v\notin Q\) away from \(\ell\), the preliminary reading sends
+\(\alpha(\operatorname{art}_Q\operatorname{Frob}_v)\) to
+\(\chi(v)^{-1}\). The final reading sends the same value to
+\(j_w(\alpha'(\operatorname{art}_Q\operatorname{Frob}_v))\).
+The kernel of the Artin map cuts out a finite abelian extension of
+\(E\). Each class in \(G_Q\) is the Frobenius of a prime outside
+this finite excluded set by Chebotarev. Since \(j_w\) is injective,
+we get \(\alpha'=\alpha^{u_w}\) on the entire quotient.
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/RawPackEqPow.lean}{51}{The common ray quotient and Artin map}
+\releasecite{Formalism/LocalToGlobal/UnitaryNorms/CharGal.lean}{129}{The matching inverse reciprocity convention}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RigidRawPacketEqPow.lean}{13}{Identification by Frobenius values}.
+
+A primitive power on either prescribed side
 is now a power \(\alpha^{\pm a u_w}\) with \(\ell\nmid a u_w\).
 It has the same conductor and the same trivial restrictions at
 the places over \(\ell\). The specialization in
@@ -306,39 +606,48 @@ set of tests. When a coefficient DVR is extended, an integral
 determinant valuation and the valuation of \(\ell\) are both
 multiplied by its ramification degree. This preserves each
 normalized signed lattice index and each toric valuation.
-Extension is finite free on the Galois lattices. In an integral
-basis it commutes with cohomology, the inverse image of the
-rational finite condition and the kernels of the localization
-maps. The resulting normalized Selmer lengths are also the same.
-Thus the three estimates apply to the same character at this
-index, with their original tolerances. The structural selection
-identifies their arguments; their bounds come from the
-corresponding local and global calculations.
-\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RigidRawPacketEqPow.lean}{13}{Identification by Frobenius values}
+For the Selmer estimate, the two readings of the signature
+determinant agree in normalized valuation on their common finite
+character order. On the matched Galois lattice the actual finite
+local condition maps into the prescribed condition generated by
+finite cocycles. Above \(\ell\) this uses triviality of the ray
+twist on the full decomposition group. The fixed relaxed places
+and the unramified conditions are carried with the same support.
+The induced injection gives the required upper bound on the actual
+normalized Selmer length. Thus all three estimates apply to the
+same character on the final record with their original tolerances.
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/NlenLeLenN.lean}{232}{The length comparison on the matched lattice}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/GoodTwistOfSeedCharacterPowers.lean}{157}{The same primitive powers in all the tests}.
 
 \teamanchor{proof.same-family-hypotheses}%
-Fix \(\varepsilon\) below \(1/52\), the existence cutoff and all the
-comparison cutoffs. Apply selection once with \(K_*\). Use the same
-\(C_H\ge1\) for the trace accuracy \(x^{-C_H}\) and the height test
-\(H_*\le x^{C_H}b\). The following application uses the comparisons
-in Sections~\ref{sec:family}--\ref{sec:fourier} on this family, including
-the \hyperlink{proof.section-run-family-identification}{choice of
-rows and field at each translated index} and the
-\hyperlink{proof.ramified-donor-identification}{integral
-identification of the ramified columns}.
+Let \(\varepsilon_0\) be the minimum of \(1/52\), the existence cutoff
+and the comparison cutoffs. Fix \(0<\varepsilon<\varepsilon_0\),
+then apply selection once with \(K_*\) to obtain \((\mathfrak F,C_H)\).
+Use the same \(C_H\ge1\) for the trace accuracy \(x^{-C_H}\) and the
+height test \(H_*\le x^{C_H}b\).
+Fix the uniform constants of this family and take \(x_*\ge20\)
+above the family, arithmetic, period, trace, lattice and Fourier
+thresholds, including the thresholds for the two selected realizations.
+In particular \(x^{-C_H}\le1/20\) throughout the application.
+Each comparison threshold applies uniformly to the required indices
+at a scale. The following are the inputs to the application at each
+real \(x\ge x_*\) in \(\operatorname{Win}(\mathfrak F)\).
 
 \begin{itemize}
-\item At a fixed sufficiently large \(x\in\operatorname{Win}(\mathfrak F)\)
-choose \(i_0\in I_x\) and use its arrays as the seed. For each \(u\in H\)
-choose \(i(u)\in I_x\) by the translate property. Its arrays agree with
-the seed also for \(u=0\), whose index may differ from \(i_0\).
-At \(i_0\), Section~\ref{sec:family} gives the three auxiliary quadratic
+\item Choose a realized \(i_0\in I_x\) carrying the two
+\hyperlink{proof.selection-realized-samples}{admissible arrays}
+\((a_t,b_t)_{t\in T}\) and the base Artin data.
+For each \(u\in H\), choose \(i(u)\in I_x\) by
+the translate property. Its arrays agree with the seed also for \(u=0\),
+whose index may differ from \(i_0\). The period and trace data and the
+actual stage weights \(w_{u,j}\) are read at \(i(u)\).
+At \(i_0\), Section~\ref{sec:family} supplies the three auxiliary quadratic
 twist estimates at \(x\) and the tail estimate
 \eqref{eq:host-character-tail} for every primitive associate of a host
-character. At each \(i(u)\), the bound \eqref{eq:family-selmer} applies
-to the selected field at its actual twist cutoff
-\(t\le\lfloor x^{400}\rfloor\).
+character. At each \(i(u)\), use the
+\hyperlink{proof.selmer-classical-residual}{classical Selmer estimate}
+\eqref{eq:family-selmer} on its host field, restricted from
+\(\lfloor x^{400}\rfloor\) to its actual twist cutoff \(t\).
 
 \item Use the matched period maps at \(i(u)\). The full base image and
 small-level projections enter the rank comparison. For the actual
@@ -357,14 +666,22 @@ the good target \(M_j\) is \(d_j=D_0\) by
 The lower bound \(m\ge x^{1/2-\varepsilon}\) and evenness give
 \(m\ge4\) for large \(x\), so the bottom comparison has \(m/2-1\ge1\).
 
-\item The period maps on the divided sources and into the one row
-dual at \(i(u)\) carry the metrics of Sections~\ref{sec:trace} and
-\ref{sec:integral}. The gain and lattice estimates use the Selmer
-defect bound, the uniform Gram and reference-row bounds, the height
-and slope comparisons in those metrics, and the centered level
-count. On these hypotheses the lattice implication gives
-\(D(u)\le E_x\) by \eqref{eq:integral-excess} for each \(u\), with
-uniform constants.
+\item On the period and trace record at \(i(u)\), use the
+\hyperlink{proof.section-run-family-identification}{two selected section runs}
+for the row-dual mean bound, including the weighted stage covolumes
+and the paired near-level determinant contributions. For every word
+of the same record use the
+\hyperlink{proof.ramified-donor-identification}{transported undivided donor}
+in the source slope and map-height comparisons.
+These comparisons use the integral maps \(B_{K,w}\colon N'_w\to C=R^\vee\)
+and the metrics of Sections~\ref{sec:trace} and \ref{sec:integral}.
+The lattice implication also uses generic rank, the uniform Gram
+and reference-row bounds, the Selmer defect and the local gain and
+index estimates. It uses the lower mean and upper maximal slopes of \(N'_w\),
+the height \(h_\infty(B_{K,w})\le h_w\), the compensated maximal
+row slope and the centered level count. Use the same \(\mathcal G(u)\),
+\(\mathcal F,Q_w,J_\kappa\) and level data in the source and row
+estimates.
 \end{itemize}
 
 At the same \(i(u)\) each \(h_w\) bounds the period map on its
@@ -377,9 +694,19 @@ The height cap \eqref{eq:raw-height-cap} therefore gives
 \[
  \max(0,s-\mu_{\min}(C))\le x^{C_H}b .
 \]
-The common shift cancels in the difference of the donor slopes.
-This proves the height condition for the frame estimate with the
-exponent \(C_H\) already used in \eqref{eq:trace-accuracy}.
+This is the height condition for the frame estimate with the exponent
+\(C_H\) already used in \eqref{eq:trace-accuracy}. The common shift
+cancels in the upper spread \(U\) of the donor slopes.
+The frame inequality \eqref{eq:trace-sharp-slope} gives
+\(s-\mu(C)\le 8U+12b\). On the classical family the
+\hyperlink{proof.selection-realized-samples}{two sample estimates}
+apply on these matching records with the seed arrays. The
+\hyperlink{proof.classical-averaged-division}{rank-corrected inequality}
+and the \hyperlink{proof.classical-inert-division}{bound for the inert primes}
+then give \(\langle D\rangle\le E_x\) in \eqref{eq:classical-averaged-excess}.
+This supplies the signed mean for the
+\hyperlink{proof.translate-average-zeta}{Fourier estimate} at the
+same real \(x\), with the same \(H,T,T_2\), cutoff and centering.
 
 \paragraph{Two local rank comparisons.}
 \label{sec:window-local-ranks}
@@ -811,17 +1138,32 @@ Its generator eigenvalues belong to the valuation ring \(O\).
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/HeckeOperatorKeepsRationalIntegralLevelForms.lean}{203}{Localized coefficient lattices under the coset sum}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/SideRationalEigenData.lean}{124}{The common splitting field at the coefficient place}.
 
-Successive primary decompositions give joint generalized
-eigenspaces. Indeed each generator preserves the spaces already
-obtained, and each proper refinement increases the number of
-nonzero summands, which is at most \(\dim_L M\). On a joint summand
-the commuting nilpotent parts generate a nilpotent ideal in the
-finite-dimensional commutative image algebra. Taking the scalar
-part therefore gives a character \(A\to O\). Its reduction modulo
-the uniformizer is onto the residue field since \(A\) contains \(O\).
+Use the localized integral class lattice \(\Lambda\) in \(M\).
+The image algebra \(A\subseteq\operatorname{End}_O(\Lambda)\)
+is finite over \(O\), since it is a submodule of a finite free
+module over a DVR. In the positive definite complex realization
+the adjoint of a spherical double-coset operator is the operator
+for the inverse double coset, with the conjugate scalar
+normalization. The spherical algebra is commutative, so the
+generators commute with their adjoints and give scalar joint
+eigenspaces. This decomposition descends to the splitting field
+used at \(w\): the spectral projections of any finite set of
+generators distinguishing the characters are interpolation
+polynomials in those generators with coefficients in that field.
+Let \(X\) be the set of distinct joint characters \(\theta_\pi\)
+on the nonzero eigenspaces \(V_\pi\).
+
+Evaluation embeds \(A\) in \(O^X\). This product is integral
+over \(A\): each tuple is a root of the monic polynomial with its
+coordinates as roots and coefficients in the diagonal \(O\).
+By lying over, every maximal ideal of \(A\) is the contraction
+of a coordinate maximal ideal of \(O^X\). Thus the maximal
+ideals are precisely \(\ker\bar\theta_\pi\), where reduction of
+\(\theta_\pi\) takes values in the residue field. Several characters
+can have the same kernel.
 
 For a maximal ideal \(\mathfrak m\) of \(A\), let \(M_{\mathfrak m}\)
-be the sum of the joint spaces with that residual kernel and
+be the sum of the \(V_\pi\) with \(\ker\bar\theta_\pi=\mathfrak m\), and
 \(p_{\mathfrak m}\) the projection along the other summands. The
 local indices over \((j,w)\) run once through the maximal ideals of
 this algebra. For such an index the lattice is the \(O\)-span of
@@ -840,16 +1182,20 @@ index \(a\), we have
 \end{equation}
 If \(M=0\), its lattice is zero and the index set is empty.
 In every case the local projections jointly detect each vector of
-\(M\), since their sum is the identity. This rank computation takes place
-over the fraction field. The colength in
-Section~\ref{sec:integral} also depends on the position of the
-projected integral lattice relative to the intersected lattice.
+\(M\), since their sum is the identity. Within each such residual
+summand the congruence calculation in Section~\ref{sec:integral}
+compares two full lattices in its good generic subspace:
+the image of \(\Lambda_{\mathfrak m}\) under the good projection,
+and the intersection of \(\Lambda_{\mathfrak m}\) with that
+subspace. Their normalized colength is computed in
+\hyperlink{proof.local-hecke-defects}{the integral defect estimate}.
 \releasecite{Formalism/LocalToGlobal/NumberFieldFamilies/NPartCNd.lean}{132}{The local indices and the projected generator lattice}
 \releasecite{Formalism/LocalToGlobal/NumberFieldFamilies/NPartCNdTie.lean}{65}{Exhaustion of the residual ideals} and the
 \releasecite{Formalism/LocalToGlobal/NormalizedHeckeFactors/CoverThm.lean}{94}{normalized Hecke comparison}.
 
-The two estimates use the same \(D(u)\). Indeed \(T,T_2,a_t\) agree
-by the translate property, the weights \(w_{u,j}\) in both sums
+The lattice and Fourier calculations at a given \(x\) use the same
+\(D(u)\). The sets \(T,T_2\) and the two arrays agree by the
+translate property, the weights \(w_{u,j}\) in both sums
 come from \(i(u)\), and the inertia classes and sign character are
 read at \(i_0\), with the ramified inertia groups of
 \eqref{eq:classical-host-inertia}. By
@@ -861,31 +1207,40 @@ Both comparisons subtract the real part of \(M(a_t,w_{u,j})\) in
 log derivative at \(1\) in the same normalization. Hence the Fourier
 estimate uses exactly \eqref{eq:centered-excess-definition}.
 
-With the family, precision and constants fixed, take \(x_*\) to be
-the maximum of the family, arithmetic, period, trace, lattice and
-Fourier thresholds, increasing it to \(3\) if necessary. Each
-threshold in this maximum works for every required index at the
-scale. At every \(x\ge x_*\) in \(\operatorname{Win}(\mathfrak F)\)
-the preceding applications give the lattice bound for all \(u\) and the
-base-host character estimates. The sampling and weight comparisons
-of Section~\ref{sec:fourier} refer to these same records. Thus
-\eqref{eq:fourier-pointwise} applies with \(e_D+e_L+7=9\).
-The retained set for the conductor-one target is \(\{1\}\) with
-weight \(1\), so the function is \(G_1\) at every scale.
+For \(\psi=1\) we have \(H_0=H\). Section~\ref{sec:integral}
+gives \(|H|^{-1}\sum_{u\in H}D(u)\le E_x\) by
+\eqref{eq:classical-averaged-excess}. Substitute it into
+\eqref{eq:fourier-translate-mean} at this same \(x\).
+Replacing the large weights by \(b\) and omitting the small ones
+costs at most \(2Q/x\)
+at each tied translate, where \(Q=N_Tmb\). The
+\hyperlink{proof.translate-average-zeta}{translate average}
+has positive sampling factor \(Q\delta_2/2\) with
+\(\delta_2=N_2/n\ge x^{-\varepsilon}\).
+The degree comparison moves the arguments from \(a_t/b\) to \(x\),
+where the three base-host quadratic bounds apply. By
+\hyperlink{proof.fourier-exponent}{the Fourier error estimate},
+the exponent loss is \(e_D+e_L+7=9\) in \eqref{eq:fourier-pointwise}.
+The retained set is \(\{1\}\) with weight \(1\), giving
+\(G_1(x)\le x^{1/2+9\varepsilon}\).
+\releasecite{Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean}{23}{The tied family and uniform window threshold in the release}.
+\releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/WindowInequalityOfArtinInputs.lean}{17}{The release takes the common threshold before applying its pointwise estimate}.
 \input{figure-window}
 
 \teamanchor{proof.apply-full-window}%
-Given \(Y_0\ge2\), the window property gives \(Y\ge\max(Y_0,x_*)\)
-with \([Y,Y^{3/2}]\subseteq\operatorname{Win}(\mathfrak F)\).
-Every real \(x\) in the interval has \(x\ge x_*\), so the pointwise
-implication applies at every scale in Figure~\ref{fig:family-window}.
+Fix \(\mathfrak F\) and \(x_*\) at the chosen precision as above.
+Given any \(Y_0\ge2\), choose \(Y\ge\max(Y_0,x_*)\) with
+\([Y,Y^{3/2}]\subseteq\operatorname{Win}(\mathfrak F)\).
+At each real \(x\) in this interval the argument above uses the
+matched records at \(x\) and gives the pointwise bound. Thus
 \begin{equation}
 \label{eq:prime-window}
  G_1(x)\le x^{1/2+9\varepsilon}
  \qquad\text{for every real }x\in[Y,Y^{3/2}].
 \end{equation}
-The same family and \(x_*\) work as \(Y_0\) varies. The precision
-can be any fixed positive number below the minimum of the cutoffs.
+The realized seed may vary with \(x\). The family and \(x_*\) stay
+fixed as \(Y_0\) varies. For a different precision the family may
+change, with the same centered function \(G_1\).
 
 \subsection{The centered zeta transform}
 
@@ -907,10 +1262,11 @@ Differentiating locally uniformly yields
 For \(\Re s>1\) the transform of a ramp is
 \[
  \int_n^\infty (x/n-1)x^{-s-1}\,dx
- =n^{-s}\left(\frac{1}{s-1}-\frac{1}{s}\right).
+  =\frac{n^{-s}}{s(s-1)}.
 \]
-The sum of the absolute integrals at \(\sigma=\Re s>1\) is bounded
-by \((\sigma(\sigma-1))^{-1}\sum_n(\log n)n^{-\sigma}\).
+At \(\sigma=\Re s>1\), the sum of the absolute integrals of the ramp
+terms with their weights is
+\((\sigma(\sigma-1))^{-1}\sum_n\Lambda(n)n^{-\sigma}<\infty\).
 Interchanging sum and integral and transforming the two centering
 terms of \eqref{eq:principal-ramp} gives
 \[
@@ -966,57 +1322,66 @@ come in conjugate pairs and are locally finite in \(\Re s>0\).
 \subsection{One-sided windows and the critical line}
 
 \teamanchor{proof.one-sided-window-criterion}%
-Use the following simple-pole case of Kaczorowski and Pintz. Let \(h\)
-be real and locally integrable on \((0,\infty)\), with Mellin integral
+Use the following case of Kaczorowski and Pintz, Part~I, Theorem~1.
+Let \(h\) be real and locally integrable on \((0,\infty)\), with Mellin integral
 \(\int_0^\infty h(x)x^{-s-1}\,dx\) absolutely convergent on some closed
 right half-plane. Suppose this transform has a meromorphic continuation
 to a neighborhood of \(\Re s\ge\Theta-c_0\), for \(\Theta>0,\ c_0>0\),
 holomorphic on \(\Re s>\Theta\). Suppose its poles in the closed
 half-plane are simple, nonreal, locally finite and paired by conjugation,
-with supremum of real parts \(\Theta\). For every \(0<\delta<1\), all
-sufficiently distant intervals \([X^{1-\delta},X]\) contain both a
-strictly positive and a strictly negative value of \(h\).
-
-To apply Part~II, cut the half-plane leftward from each of these
-poles. The transform restricts holomorphically to the cut domain,
-and near each pole its expansion in (1.5) has exponent \(-1\),
-logarithmic degree \(0\), and nonzero coefficient equal to the residue.
-The pole supremum is the boundary of the half-plane of holomorphy
-whether or not a pole attains it. Conclusion (1.7) gives the two
-signs. The same case in Part~I uses zero logarithmic term.
-\cite[(1.5) and (1.7)]{z6kaczorowski-pintz-ii}~\cite[Thm.~1 and (2.2)]{z6kaczorowski-pintz}
+with supremum of real parts \(\Theta\).
+Every half-plane \(\Re s>\Theta-\eta\) with \(\eta>0\) contains
+a pole by the supremum property, which gives condition~(1) even
+if no pole occurs on the boundary line. Cut \(\Re s>\Theta-c_0\)
+leftward from the poles in this strip, and take the polynomials of
+condition~(3) to be zero. This gives the continuation required in
+conditions~(2) and (3). Conclusion~(2.2) gives, for each
+\(0<\delta<1\), both a strictly positive and a strictly negative value
+of \(h\) in every \([X^{1-\delta},X]\) with \(X>X_0(h,\delta)\).
+\cite[Thm.~1 and (2.2)]{z6kaczorowski-pintz}
 
 \teamanchor{proof.zero-precision}%
 Suppose \(\zeta(\rho)=0\) with \(1/2<\beta=\Re\rho<1\).
-Choose \(1/2<\theta<\beta\), then choose \(0<\varepsilon\) below all
-the preceding cutoffs and with \(9\varepsilon\le\theta-1/2\).
-The fixed-precision bound \eqref{eq:prime-window} gives arbitrarily
-distant intervals \([Y,Y^{3/2}]\) on which \(G_1(x)\le x^\theta\).
+Choose \(1/2<\theta<\beta\) and then fix \(0<\varepsilon<\varepsilon_0\)
+with \(9\varepsilon\le\theta-1/2\). Use the
+\hyperlink{proof.apply-full-window}{full-window premise}
+\eqref{eq:prime-window}, obtained from the selected runs and donor
+under the stated lattice and Fourier hypotheses. At this precision
+it gives arbitrarily distant \([Y,Y^{3/2}]\) on which \(G_1(x)\le x^\theta\)
+at every real point.
 
 Set \(h(x)=G_1(x)-x^\theta\) for \(x\ge1\) and \(h(x)=0\) for
 \(0<x<1\). It is real and locally integrable, and its Mellin
 integral converges absolutely on \(\Re s\ge2\). The transform there
-is \(\Phi_1(s)-1/(s-\theta)\). Let \(\Theta\) be the supremum
+is
+\[
+ \int_0^\infty h(x)x^{-s-1}\,dx
+ =\Phi_1(s)-\int_1^\infty x^{\theta-s-1}\,dx
+ =\Phi_1(s)-\frac{1}{s-\theta}.
+\]
+Let \(\Theta\) be the supremum
 of the real parts of the poles of \(\Phi_1\). By
 \eqref{eq:zeta-window-residue}, \(\Theta\ge\beta>\theta\)
 and \(\Theta\le1\). Choose \(c_0=(\Theta-\theta)/2>0\).
-On the closed half-plane \(\Re s\ge\Theta-c_0\) the correction
-term is holomorphic, and the poles are exactly those of \(\Phi_1\)
-there. They satisfy all the sign-change hypotheses and still have
-supremum \(\Theta\). Apply the theorem with \(\delta=1/3\) at
-\(X=Y^{3/2}\), taking \(Y\) large enough to exceed its threshold
-for this fixed \(h\) and \(\delta\). An interval with
-\(X^{1-\delta}=Y\) must contain \(h>0\), contradicting \(h\le0\)
-on the entire interval.
+The correction term is holomorphic on a neighborhood of
+\(\Re s\ge\Theta-c_0\) because \(\theta<\Theta-c_0\).
+The poles in this half-plane are the nonreal, simple, locally
+finite conjugate pairs of \(\Phi_1\) there. They still have real-part
+supremum \(\Theta\), and the transform is holomorphic on
+\(\Re s>\Theta\). Apply the theorem with \(\delta=1/3\) and choose
+a supplied \(Y>X_0(h,1/3)^{2/3}\). At \(X=Y^{3/2}\), the theorem
+gives \(h>0\) somewhere in \([X^{2/3},X]=[Y,Y^{3/2}]\), contradicting
+the bound \(h\le0\) throughout that interval.
 
 \teamanchor{proof.zeta-reflection}%
-We have excluded all zeros to the right of the critical line.
-For \(\Re s<1/2\), \(s\ne0\), use the functional equation
+Under the right-half exclusion just proved, the functional equation
+locates the remaining zeros. For \(\Re s<1/2\), \(s\ne0\), use
 \[
  \zeta(s)=2^s\pi^{s-1}\sin(\pi s/2)\Gamma(1-s)\zeta(1-s).
 \]
 \cite[(25.4.2)]{dlmf}
-The argument \(1-s\) lies on the zero-free side and differs from \(1\).
+The right-half exclusion and nonvanishing on \(\Re s\ge1\) away
+from the pole at \(1\) give a finite, nonzero value at \(1-s\).
 The gamma factor is holomorphic and nonzero there.
 \cite[\S5.2(i)]{dlmf}
 The sine factor vanishes precisely when \(s\) is a negative even
@@ -1028,21 +1393,37 @@ Riemann hypothesis.
 
 \subsection{Extension to Dirichlet \texorpdfstring{\(L\)}{L}-functions}
 
-For a fixed primitive target \(\psi\), assume that the arithmetic and
-period comparisons hold on its selected family. The window argument
-then gives
+\rhrange{The release proves Dirichlet nonvanishing right of \(1/2\)
+away from the principal pole, and places the zeros in
+\(0<\Re s<1\) on the critical line, for primitive and imprimitive
+characters.
+\releasecite{Main.lean}{8}{Formal Dirichlet theorems}}
+{The conductor-one window bound \eqref{eq:prime-window} and its
+consequences for \(\zeta\). The extension below takes the window
+bound for each primitive target as its additional input.}
+
+Fix a primitive target \(\psi\). For this target, assume the arithmetic
+hosts and tied family of Sections~\ref{sec:family} and \ref{sec:assembly},
+including the selected section runs and undivided donors on its tied
+records. Assume the stated period, trace, gain, height and slope
+inputs and the Fourier sampling and auxiliary character estimates
+at every point of arbitrarily distant full windows at each sufficiently
+small fixed \(\varepsilon>0\). With \(e_D=2\) and \(e_L=0\) the
+same-scale Fourier implication then gives
 \begin{equation}
 \label{eq:primitive-target-window}
  G_{\mathcal K}(x)\le x^{1/2+9\varepsilon}
- \qquad(x\in[Y,Y^{3/2}]),
+  \qquad\text{for every real }x\in[Y,Y^{3/2}],
 \end{equation}
 for arbitrarily large \(Y\) at each sufficiently small fixed
 \(\varepsilon>0\). The retained \(\mathcal K\) consists of the
-primitive associates of the powers of \(\psi\), with fixed positive
-weights, and contains \(\psi\).
+primitive associates of the powers of \(\psi\). For \(o\) the order
+of \(\psi\), the weights from Section~\ref{sec:fourier} are \(1\)
+at the trivial character and \((3o+1)^{-1}\) at the other retained
+characters, including \(\psi\) when \(\psi\ne1\).
 \releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean}{28}{The fixed-target window comparison}
 is applied to the primitive character class in the
-\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean}{24}{Dirichlet construction}.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean}{26}{Dirichlet construction}.
 
 \paragraph{The Mellin poles.}
 For any finite set \(\mathcal F\) of primitive Dirichlet characters
@@ -1108,7 +1489,7 @@ The positive part is the least nonnegative majorant of \(g\).
 Alp\"oge proves the criterion by estimating derivatives at a real
 center and a vertical translate, then comparing their growth at the
 nearest pole.
-\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/landauWindow.lean}{40}{The derivative proof in the release}
+\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/landauWindow.lean}{83}{The derivative proof in the release}.
 
 Here is the deduction from the published sign-change theorem.
 If \(\Phi_g\) has a pole \(\rho\) with \(\Re\rho>\theta\), fix

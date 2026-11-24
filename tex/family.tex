@@ -126,6 +126,17 @@ nontrivial on \(I_d\). At \(p\nmid Q\) the Frobenius is
 to \eqref{eq:prime-power-ramp} and its Fourier expansion. The character
 \(c\) induces the primitive character \(\eta_d\).
 
+\teamanchor{proof.classical-host-roots-of-unity}%
+For large scales \(q,d>3\), the roots of unity in \(E\) are
+\(\{1,-1\}\). If an odd prime \(\ell\) divides the order of a
+root of unity in \(E\), then \(\mathbf Q(\zeta_\ell)\subset E\).
+Its ramification at \(\ell\) forces \(\ell=q\) or \(d\), by
+\eqref{eq:classical-host-inertia}. Its inertia order \(\ell-1\)
+would then divide \(2\), which is impossible. The unit class equal
+to \(-1\bmod Q_S\) and \(1\bmod qd\) fixes \(E\) in
+\(\mathbf Q(\zeta_Q)\) and acts nontrivially on \(\zeta_4\).
+Thus \(E\) contains no root of unity of order divisible by \(4\).
+
 For \(h\ge1\) there is just one nontrivial real character \(\nu\)
 of \(H\). On odd integers it is \((2/\cdot)\), since the class of
 \(5\) has value \(-1\) and the map through units modulo \(8\) is even.
@@ -491,40 +502,597 @@ The required quantitative bound is
 This inequality is uniform over the choices of algebraic closure
 and prolongations.
 
+\paragraph{The local representation data used in the count.}
+\teamanchor{proof.selmer-galois-input}%
+The release uses one semisimple Galois representation for a regular
+algebraic polarized cuspidal pair \((\pi,\chi)\) on
+\(\mathrm{GL}_a(\mathbf A_{F'})\), where \(F'\) is CM and may be an
+auxiliary field in the counting argument. The polarization is
+\(\pi^c\simeq\pi^\vee\otimes(\chi\circ N_{F'/F'^{+}}\circ\det)\), with
+\(\chi_v(-1)=(-1)^a\) at the real places, allowing the replacement of
+\(\chi\) by \(\chi\delta_{F'/F'^{+}}\) with unchanged pullback to \(F'\).
+The normalized local component is
+\(\pi_v\otimes|\det|_v^{(1-a)/2}\). With geometric reciprocity,
+the inverse Artin map has valuation \(-\deg w\) on a Weil element \(w\)
+of arithmetic degree \(\deg w\).
+If \(\pi_\infty\) has the infinitesimal character of the dual of
+highest weight \(\lambda_{\iota\tau}\), its coordinates at \(\tau\)
+are \(z_j=-\lambda_{\iota\tau,a+1-j}+(a+1)/2-j\). Thus
+\((a-1)/2-z_j\) gives the multiset
+\(\{\lambda_{\iota\tau,j}+a-j\}_{j=1}^a\), using the convention
+\(\mathrm{HT}(\mathbf Q_\ell(1))=\{-1\}\).
+\releasecite{Development/AbelianVarietyTheory/PublishedTheorems/GaloisCohomology₂/GaloisRepOfPolarizedCuspidal.lean}{24}{Algebraic normalization}
+\releasecite{Development/AbelianVarietyTheory/Proofs/InertiaEigenvalues/LocalArtinExistsHolds.lean}{19}{Local reciprocity convention}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GaloisGeometry/DualIsConjByOne.lean}{53}{Polarization}
+\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/TypeConditions/WeightsConjBis.lean}{54}{Weights and local requirements}.
+
+For standard local Langlands, Barnet-Lamb, Gee, Geraghty and Taylor
+give the semisimple representation with these labelled weights,
+the conjugate multiset \(w-\mathrm{HT}_\tau\), and full
+Frobenius-semisimplified compatibility away from \(\ell\).
+Above \(\ell\) they give the de Rham property and
+Frobenius-semisimplified compatibility in the Iwahori case, where
+the representation is semistable, and crystalline in the spherical
+case \cite[Theorem~2.1.1]{f1-blggt-pacw}. Caraiani's theorem gives the
+full comparison above \(\ell\) for cohomological conjugate self-dual
+cuspidal representations in rank at least two. The published statement
+uses \(\operatorname{rec}(\Pi_v^\vee\otimes|\det|^{(1-a)/2})\) for
+the parameter of its representation \(R_\ell(\Pi)\).
+Take \(\Pi=\pi^\vee\). Its unramified Frobenius polynomials in the
+construction of \(R_\ell(\pi^\vee)\) agree with those of
+\(r_{\ell,\iota}(\pi)\), so semisimplicity and Chebotarev identify
+the two representations \cite[Theorem~1.1]{f1-caraiani-lp}.
+The condition
+\(\pi^c\simeq\pi^\vee\) concerns the automorphic representation.
+The specialization \(\psi=1\) concerns the analytic target and by itself
+imposes no condition on the polarizing character of the representations
+in the count.
+
+For the essentially conjugate self-dual case, the result above \(\ell\)
+up to semisimplification suffices for the standard parameter when that
+parameter has zero monodromy
+\cite[Theorem~A]{f1-blggt-lp2}. Indeed, apply the away-from-coefficient-prime
+theorem at the same place with a different coefficient prime.
+It shows that this standard parameter is pure. Since its monodromy
+is zero, all its Frobenius eigenvalues have the same complex absolute
+value. In the comparison above \(\ell\), the eigenvalues of the
+semisimplified Weil representation are those same values.
+The relation between the Weil action and monodromy sends each
+generalized Frobenius eigenspace to one with absolute value rescaled
+by the residue norm or its inverse. Hence the Galois parameter
+also has zero monodromy, and the comparison is valid after
+Frobenius semisimplification. This argument applies to the
+standard parameter at ramified coefficient places in the
+zero-monodromy range.
+
+The release asks for comparisons with every correspondence satisfying
+its stated axioms. For a toral parameter of zero monodromy, the
+segment classification forces all segments to have length one.
+The irreducible cuspidal parameters are then characters: an irreducible
+complex Weil representation factoring through the abelianization is
+one-dimensional. These parameters are determined by the common
+Artin map. The second case of the release comparison allows a tame
+parameter of zero monodromy at \(F'_v\simeq\mathbf Q_g\), with
+\(g>16a^2\) or \(a=1\), and requires every repeated eigenvalue of a
+tame inertia generator to have order dividing \(g-1\).
+It asks for zero monodromy and the inertia characteristic polynomials.
+For ramified \(v\mid\ell\) it also asks for potential semistability and
+the labelled jumps in its local coefficient model. The comparison
+for arbitrary correspondences in the second case uses the
+depth-zero type law, including the inertia polynomial of an inflated
+cuspidal type. We use the release's construction for this comparison
+and for its transport to the specified local models. The existence of
+a correspondence with that type law is a separate input of the release.
+\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/TypeConditions/WeightsConjBis.lean}{26}{Tame and toral comparisons}
+\releasecite{Development/AutomorphicArithmetic/Foundations/LocalLanglands/IsRecTOfIsRec.lean}{28}{Depth-zero type law}
+\releasecite{Development/AutomorphicArithmetic/Foundations/LocalLanglands/LocalCentralUnits/RecTExists.lean}{20}{Existence with the specified type law}
+\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean}{6}{Galois representation on the stated models}.
+
+\paragraph{Critical parity at odd primes on the classical host.}
+\teamanchor{proof.selmer-minus-parts}%
+For the remainder of the arithmetic comparison take \(\psi=1\), write
+\(F=E^{\langle c_\infty\rangle}\), \(n_E=[E:\mathbf Q]\), and
+\(Q=2^{h+2}qd\). Put \(k=r+1\) for a twist \(1\le r<t\).
+For odd \(\ell\), the release calls the \((-1)^r\)- and
+\((-1)^{r+1}\)-eigenspaces of the fine Selmer group the plus and minus
+parts, respectively. The Poitou--Tate pairing is equivariant for
+complex conjugation, so the latter corresponds to the
+\((-1)^k\)-eigenspace of the wild kernel. Let \(s_\ell^-(E,r)\) be its
+length and write \(H^i(L)=H^i(\mathcal O_L[1/\ell],\mathbf Z_\ell(k))\).
+By \eqref{eq:classical-host-inertia}, \(E/F\) is unramified at every
+finite place, and the finite \'etale double cover gives
+\(H^i(F)\simeq H^i(E)^{c_\infty=1}\) by transfer at odd \(\ell\).
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/LengthEqAddEigen.lean}{68}{The sign of each Selmer component}.
+
+For a number field \(L\), the \(\ell\)-part of the order \(w_k(L)\)
+of the Tate-twist roots of unity is
+\(\#H^0(L,(\mathbf Q_\ell/\mathbf Z_\ell)(k))\).
+It equals \(\#H^1(L)_{\mathrm{tors}}\) by the coefficient sequence and
+\(H^0(L,\mathbf Q_\ell(k))=0\).
+Huber and Kings give, for abelian \(L\) and \(k\ge2\), the leading
+coefficient of \(\zeta_L\) at \(1-k\), up to sign and a power of \(2\),
+as the Beilinson regulator \(R_k(L)\) times the product over primes
+of \(\#H^2(L)/\#H^1(L)_{\rm tors}\) at the respective prime.
+The Euler factors removed at \(\ell\) are \(\ell\)-units, since
+\(k\ge2\) \cite[Theorem~1.4.1 and its proof]{f2-huber-kings}.
+For even \(k\) the regulator of \(F\) has rank zero, and the formula
+for \(F\) bounds the invariant part of \(H^2(E)\). For odd \(k\)
+apply the formula to \(E\) and \(F\) and take the ratio.
+The two regulator lattices have rank \(n_E/2\) by the
+\(K_{2k-1}\) rank formula. Restriction followed by transfer is
+multiplication by \(2\). On \(K_{2k-1}\) modulo torsion, restriction
+therefore identifies the lattices after inverting \(2\), using equality
+of ranks. In the integral Betti regulator targets the map repeats the
+value at each real embedding of \(F\) at the two conjugate
+embeddings of \(E\). The twist \(k-1\) is even, so repetition
+identifies the lattices of conjugation-invariant coordinates there.
+Thus the regulator ratio contributes a power of \(2\). The ratio
+of the cohomological factors measures the anti-invariant part at
+\(\ell\), and the ratio of the zeta leading coefficients is
+the product of the odd Dirichlet \(L\)-values at \(1-k\).
+\cite[VI, \S8 and Theorem~9.5]{f1weibel-kbook}
+
+In both cases let \(\Lambda_k\) be the product over the host characters
+\(\xi\) with \(\xi(-1)=(-1)^k\) of \(L(1-k,\xi)\), using their
+primitive associates. The factors are nonzero by the functional
+equation. The odd-prime comparison just proved gives
+\[
+ s_\ell^-(E,r)\le v_\ell(\Lambda_k)+v_\ell(w_k(E)).
+\]
+Here \(w_k(F)\mid w_k(E)\), and the exact torsion factor for the
+odd-\(k\) ratio is \(w_k(E)/w_k(F)\).
+Let \(P_k\) be the product of the primes at most \(k+1\).
+For \(\xi\) of conductor \(f_\xi\) the special-value formula is
+\[
+ L(1-k,\xi)=-\frac{f_\xi^{\,k-1}}{k}
+    \sum_{a=1}^{f_\xi}\xi(a) B_k(a/f_\xi).
+\]
+This follows by decomposing \(L(s,\xi)\) into Hurwitz zeta
+functions and evaluating at \(1-k\) \cite[25.11.14 and 25.11.36]{dlmf}.
+Expanding the Bernoulli polynomial shows that
+\(kP_k f_\xi L(1-k,\xi)\) is integral over \(\mathbf Z\):
+\(P_kB_j\) is integral for \(j\le k\) by von Staudt--Clausen and
+the values of \(B_0,B_1\). This expansion also gives
+\(|B_k(u)|\le 3k!\) for \(0\le u\le1\), using \(|B_j|\le j!\).
+Consequently \(|L(1-k,\xi)|\le 3(k f_\xi)^k\).
+Since the character set is Galois-stable,
+\(M_k=\Lambda_k\prod_\xi kP_kf_\xi\) is a nonzero rational integer.
+With \(P_k\le (2k)^k\) and \(f_\xi\mid Q\), it satisfies
+\[
+ \log|M_k|
+ \le n_E\bigl(\log3+\log(kQ)+k\log(2k)+k\log(kQ)\bigr).
+\]
+If an odd prime power \(\ell^a\) divides \(w_k(E)\), the cyclic
+group \(\operatorname{Gal}(E(\mu_{\ell^a})/E)\) has order dividing \(k\).
+Thus \(\varphi(\ell^a)\le n_E k\), which gives \(\ell^a\le 2n_E k\)
+and at most \(n_E k\) possible odd primes. Summing \(v_\ell(M_k)\)
+and \(v_\ell(w_k(E))\) with weights \(\log\ell\) gives, for \(t\ge2\),
+\begin{equation}
+\label{eq:family-critical-selmer}
+ \sum_{\ell\ {\rm odd}}\log\ell \sum_{1\le r<t}s_\ell^-(E,r)
+       \le 5n_Et^2\log(2n_EtQ).
+\end{equation}
+
+\paragraph{Fixed exceptional towers.}
+\teamanchor{proof.selmer-cyclotomic-ranks}%
+For a fixed abelian field containing \(\mu_\ell\), or \(\mu_4\) when
+\(\ell=2\), adjoining the \(\ell\)-power roots gives its cyclotomic
+\(\mathbf Z_\ell\)-extension. The Ferrero--Washington theorem gives
+\(\mu=0\), so the unramified class module is finitely generated over
+\(\mathbf Z_\ell\). The class group at each sufficiently high layer
+is a quotient of this module on its \(\ell\)-primary part. Indeed,
+above the first layer where a prime is totally ramified in the
+remaining tower, the Hilbert \(\ell\)-class field of the layer
+intersects the tower trivially over that layer. Thus the
+\(\ell\)-ranks are bounded for the fixed base field
+\cite{f2-ferrero-washington}. A bound uniform in moving base fields
+requires a separate argument.
+
+For the classical target the fixed exceptional set is \(\{3,7\}\)
+and the fixed fields are \(K_\ell=\mathbf Q(\zeta_\ell)\) for
+\(\ell=3,7\). In its definition \(p_K=7\), \(p_1=3\), and the
+class number of \(\mathbf Q(\sqrt{-7})\) is one by Minkowski's bound.
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/StmtFields.lean}{57}{Exceptional primes}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/PrimeSetBoundDataOfPrimitiveChar.lean}{71}{Fixed auxiliary fields}.
+The Minkowski bounds for \(K_3\) and \(K_7\) are less than \(2\)
+and \(5\), respectively. In \(K_7\), \(2\) and \(3\) have residue
+degrees \(3\) and \(6\), so every class has an ideal representative
+of norm one. Consequently both class numbers are one.
+In each cyclotomic tower the unique prime above \(\ell\) is totally
+ramified at every step, with all other primes unramified.
+Iwasawa's one-prime criterion gives trivial \(\ell\)-primary class
+groups on every layer \cite{f2-iwasawa-class}. The class groups of
+the rings of \(\ell\)-integers are quotients of those groups, so
+their inverse-limit \(\ell\)-class module is zero. The
+wild-kernel codescent isomorphism applied at each layer gives
+zero wild kernel with coefficients \(\mathbf Z_\ell(r+1)\) for every
+\(r\ge1\) \cite[Theorem~3.1]{f2-validire}. This supplies the
+fixed-field layer bound with \(B=0\) in the character count.
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/LayerLe.lean}{12}{Fixed-layer input and aggregate bounds}.
+The moving host's \(3\)- and \(7\)-primary plus parts still enter
+the estimate on \(E\).
+
+\paragraph{A bound including small primary torsion.}
+\teamanchor{proof.selmer-lemma-k}%
+Let \(L\) be totally complex of degree \(n_L\), with discriminant
+of absolute value \(D\), and contain \(\mu_\ell\) for odd \(\ell\)
+or \(\mu_4\) at \(\ell=2\). For \(e\ge1\) put
+\[
+ R=\mathcal O_L[1/\ell],\qquad
+ A=H^2(R,\mathbf Z_\ell(e+1)),\qquad U=2en_L,\qquad L_D=\log(2D).
+\]
+The same \(K\)-theory comparison identifies \(A\) with the
+\(\ell\)-primary part of \(K_{2e}(\mathcal O_L)\), including at \(2\).
+In the localization sequence at \(v\mid\ell\), the preceding term
+\(K_{2e}(k_v)\) vanishes and \(K_{2e-1}(k_v)\) has order
+\((\mathrm N v)^e-1\), prime to \(\ell\).
+\cite[VI, Theorems~8.2 and~8.4]{f1weibel-kbook}
+The formal cohomology uses all the places above \(\ell\) and
+the \((e+1)\)-st power of the \(\ell\)-adic cyclotomic character.
+The finite coefficient comparison for \(\operatorname{Spec}R\)
+identifies these Galois and \'etale cohomology groups in the inverse
+limit, since finite-level \(H^1\) is finite.
+\releasecite{Formalism/GaloisCohomology/Statement.lean}{54}{Localizations and Tate twists}.
+Reduction of the coefficients modulo \(\ell\) injects
+\(A/\ell A\) into \(H^2(R,\mu_\ell)\), since the roots of
+unity make all mod-\(\ell\) Tate twists isomorphic on \(R\).
+The Kummer sequence bounds the order of this latter group by
+\(h_L\ell^{n_L}\), where \(h_L\) is the class number. Indeed,
+the Picard group of \(R\) is a quotient of the ideal class group
+and the Brauer invariants of a class of order dividing \(\ell\)
+are supported on the at most \(n_L\) inverted places
+\cite[VI, (8.1.1)]{f1weibel-kbook}.
+Minkowski representatives have norm at most \(2^{n_L}\sqrt D\).
+For each integer \(m\) the number of ideals of norm \(m\) is at
+most \(m^{n_L}\), by counting the exponents of the at most \(n_L\)
+prime ideals above each rational prime. This gives
+\(\log h_L\le2n_L^2L_D\). Since \(\ell\le n_L+1\), we obtain
+\(\log|A/\ell A|\le 4n_L^2L_D\).
+
+Bayer-Fluckiger, Emery and Houriet bound the order of the quotient
+of \(K_j(\mathcal O_L)_{\rm tors}\) by the subgroup generated by
+elements of order at most \(M=\max(n_L+1,2j+2)\).
+Their bound for the logarithm of this order is
+\[
+ (2j+1)^{71j^4n_L^3}\,n_L^{293j^5n_L^5}\,D^{528j^5n_L^4}
+ \qquad (j\ge2).
+\]
+\cite[Theorem~1.1]{f1bayer-fluckiger-emery-houriet}
+Take \(j=2e\). On the \(\ell\)-part the subgroup removed is
+\(A[\ell^{\lfloor\log_\ell M\rfloor}]\), whose logarithmic
+order is at most \(8U^3L_D\) by the bound for \(A/\ell A\)
+and \(\log M\le U\).
+The logarithm of the displayed expression is at most
+\((670U^5+586U^6)L_D\le U^{12}L_D\), using \(U\ge4\) and
+\(L_D>1/2\). It follows that
+\begin{equation}
+\label{eq:family-lemma-k}
+ \log|H^2(R,\mathbf Z_\ell(e+1))|
+   \le \exp(U^{12}L_D)+8U^3L_D\le \exp(U^{13}L_D).
+\end{equation}
+This supplies the cohomological estimate called Lemma~K with
+an absolute exponent. The release uses it in a dyadic comparison on
+a bounded-degree layer of \(\mathbf Q(i,\sqrt{-q},\sqrt{-d})\).
+For the classical family the all-layer argument below uses the parity
+formulas directly. The release also uses Lemma~K in its odd-prime count,
+including a degree-bounded \(e=1\) field in the small-character case.
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/GeneratorCountTuples/LemmaK.lean}{9}{The required estimate}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/LayeredIsomorphisms/PartA.lean}{24}{The dyadic comparison}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/CountVs.lean}{86}{The exceptional odd-prime application}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/WindowBoundOfLiteratureLevel.lean}{25}{Use in the automorphic counts}.
+
+\paragraph{The dyadic bound at every layer of the classical family.}
+\teamanchor{proof.selmer-classical-two-window}%
+\teamanchor{proof.selmer-classical-all-layers}%
+Let \(q\equiv3\bmod8\) and \(d\equiv7\bmod16\) be distinct primes.
+Put \(B_j=\mathbf Q(\zeta_{2^{j+2}})^+\),
+\(E_j=B_j(\sqrt{-q},\sqrt{-d})\), \(L_j=E_j(i)\), and
+\(F_j=L_j^+=B_j(\sqrt q,\sqrt d)\). For every \(j\ge0\) and \(r\ge1\),
+write \(N=2^{j+2}qd\), \(n=[L_j:\mathbf Q]=8\cdot2^j\), and \(k=r+1\).
+With an absolute implied constant, we have
+\begin{equation}
+\label{eq:classical-dyadic-all-layers}
+ s_2(E_j,r)\ll n k\log(2nkN).
+\end{equation}
+
+Indeed, let \(c\) be complex conjugation. Mizusawa treats
+\(\mathbf Q(\sqrt{-qd})(\sqrt q,\sqrt d)=L_0\) and its cyclotomic
+\(\mathbf Z_2\)-extension. His Lemma~4.2 gives the inverse limit of
+the ordinary \(2\)-class groups of the \(L_j\) as a free
+\(\mathbf Z_2\)-module of rank three. Its proof gives odd ordinary
+class number for every \(F_j\)
+\cite[\S4.2, Lemma~4.2 and its proof, p.~126]{f2-mizusawa-dyadic}.
+The operator \(1+c\) on each \(2\)-class group factors through the
+class norm to \(F_j\), so it vanishes. These conclusions give at
+most three generators and \(c=-1\) on the inverse limit \(X'\) for
+the rings of \(2\)-integers. Indeed it is a quotient of the ordinary
+limit by exactness of inverse limits of finite groups.
+
+Write \(L=L_j,\ F=F_j\). For \(K=F,L\) let
+\(H_K=H^2_{\mathrm{\acute et}}(\mathcal O_K[1/2],\mathbf Z_2(k))\),
+which is finite for \(k\ge2\)
+\cite[VI, \S8]{f1weibel-kbook}\cite{f2-kolster-relative}.
+Let \(A\) be the kernel of localization of \(H_L\) at the dyadic
+places. The codescent isomorphism identifies \(A\) with the
+coinvariants of \(X'(r)\) under \(\operatorname{Gal}(L_\infty/L)\),
+since \(i\in L\) \cite[Theorem~3.1]{f2-validire}. On the dual this
+is the group of invariant continuous homomorphisms from \(X'\) to
+\((\mathbf Q_2/\mathbf Z_2)(-r)\), with \(c\) acting on both source
+and target. Indeed, for the global cyclotomic group
+\(\operatorname{Gal}(L_\infty/L)\) and each dyadic decomposition
+subgroup, a generator minus one acts on these divisible coefficients
+by a nonzero scalar, giving \(H^1=0\), and \(H^2=0\) by cohomological
+dimension one. Inflation--restriction identifies the strict
+kernel with the invariant homomorphisms unramified everywhere and
+trivial at the dyadic places. Thus \(A\) has at most three generators and \(c\)
+acts on it by \((-1)^k\).
+By Poitou--Tate duality \(s_2(L,r)=\log_2|A|\)
+\cite[Theorem~I.4.10(a)]{f1milne-adt}.
+The extension \(L=F(i)\) is quadratic and unramified away from \(2\)
+at finite places, so restriction and corestriction are available on the
+two rings of \(2\)-integers.
+
+If \(k\) is even, then \(2A=(1+c)A\) lies in the restriction of
+\(H_F\), and hence \(\log_2|A|\le3+\log_2|H_F|\).
+For the totally real abelian field \(F\), Kolster's formula gives
+\[
+ \log_2|H_F|=v_2(\zeta_F(1-k))+v_2(w_k(F)),
+ \qquad w_k(K)=|H^0(K,\mathbf Q/\mathbf Z(k))|.
+\]
+Here \(H^1(\mathcal O_F[1/2],\mathbf Z_2(k))\) has order equal to
+the \(2\)-part of \(w_k(F)\)
+\cite[Appendix~A, Theorem~A.1 and Corollary~A.3]{f2-rognes-weibel-dyadic}.
+
+Suppose \(k\) is odd, so \(k\ge3\). Restriction \(H_F\to H_L\)
+has kernel killed by two and image in \(H_L^c\).
+The finite group \(H_F\) satisfies
+\(\log_2|H_F[2]|=\log_2|H_F/2|\le2n\). Indeed reduction modulo two
+embeds \(H_F/2\) in \(H^2(\mathcal O_F[1/2],\mu_2)\).
+The Picard group has odd order, and the \(2\)-torsion of the Brauer
+group is supported at the dyadic and real places by the Kummer
+sequence and the local invariant sequence.
+The invariant subgroup \(A^c=A[2]\) has order at most eight.
+The quotient \(H_L^c/A^c\) embeds in \(H_L/A\), which embeds
+in the product of the local \(H^2\)'s at \(2\).
+For a dyadic completion of degree \(b\), local duality bounds the
+length of this group by \(\log_2(4br)\). In fact its dual consists
+of the invariants in \((\mathbf Q_2/\mathbf Z_2)(-r)\).
+If their order is at least \(2^a\), the cyclotomic image modulo
+\(2^a\) has index at most \(b\) and exponent dividing \(r\).
+The \(r\)-torsion in \((\mathbf Z/2^a\mathbf Z)^\times\) has at
+most \(2r\) elements, so \(2^a\le4br\). Thus
+\(\log_2|H_F|\le 2n+3+n\log_2(4nr)\).
+
+For this odd \(k\), Kolster's higher relative class number formula
+for the abelian CM field \(L\) gives
+\[
+ \log_2|H_L|-\log_2|H_F|
+ = v_2\!\left(L(1-k,\chi_{L/F})\right)
+   +v_2(w_k(L))+v_2(Q_k)-[F:\mathbf Q]-1 ,
+ \qquad Q_k\in\{1,2\}.
+\]
+Here \(\chi_{L/F}\) is the nontrivial character of \(L/F\), and its
+Artin \(L\)-function agrees with \(\zeta_L/\zeta_F\) as a meromorphic
+function. Its continued value enters the formula above
+\cite{f2-kolster-relative}
+\cite[Propositions~1.2--1.3]{f2-voight-relative}.
+
+For even \(k\), \(\zeta_F(1-k)\) is the product over the even
+Dirichlet characters of \(L\). For odd \(k\), \(L(1-k,\chi_{L/F})\)
+is the product over the odd characters. In each case the product
+\(P\) is rational and nonzero, and the primitive conductors divide
+\(N\). For a factor of conductor \(f\), the Bernoulli formula and
+von Staudt--Clausen give
+\[
+ |L(1-k,\xi)|\le 3(kf)^k,\qquad
+ kf\!\prod_{p\le k+1}p\, L(1-k,\xi)
+ \ \text{is an algebraic integer},
+\]
+where the product is over primes. These are the estimates used in
+\eqref{eq:family-critical-selmer}. Clearing the displayed denominators
+in \(P\) gives a nonzero rational integer of logarithmic size
+\(O(nk\log(2kN))\), which bounds \(v_2(P)\) up to an absolute factor.
+The same cyclotomic image calculation as above gives
+\(v_2(w_k(K))\le\log_2(4nk)\) for \(K=F,L\).
+The two parity formulas therefore give
+\(\log_2|A|\ll nk\log(2nkN)\).
+Restriction of the strict fine Selmer group from \(E_j\) to \(L\)
+has kernel of order at most two by inflation--restriction, since
+the coefficient invariants over \(L\) form a finite cyclic group.
+This proves \eqref{eq:classical-dyadic-all-layers}.
+
+Fix \(0<\varepsilon<1/52\), an admissible profile \(h\) and
+\(A_0\ge1\). Whenever the pair is chosen at \(Z=X^{1/J}\), for
+every \(x\in[Z,X]\) we have \(n\le16x^{2+8\varepsilon}\) at
+\(j=h(x)\), and
+\(\log N\ll\log(2x)+x^{\varepsilon/5}(\log x)^2\).
+Summing \eqref{eq:classical-dyadic-all-layers} for
+\(1\le r<\lfloor x^{A_0}\rfloor\) thus gives a polynomial bound
+in \(x\), at most \(\exp(x^{4\varepsilon/5})\) for all sufficiently
+large \(x\), uniformly in \(q,d\). The dyadic assertion alone
+allows \(J=2\) and \(W=\sqrt X\). On any larger fixed ambient
+range the estimate is available on every subinterval needed for
+the other inputs.
+
+\paragraph{The odd-primary contribution from smaller layers and twists.}
+\teamanchor{proof.selmer-classical-low-layer}%
+At odd \(\ell\), the character idempotents of
+\(\operatorname{Gal}(E_h/\mathbf Q)\) split the strict group over
+an unramified coefficient ring \(O\) containing all the character
+values. The sum of the \(O\)-lengths is the original
+\(\mathbf Z_\ell\)-length, by extension of scalars. The summands in
+the plus part are those with \(\rho(c_\infty)=(-1)^r\). A character
+\(\rho\) has a least layer \(s=s(\rho)\) through which it factors.
+Its summand has the same length on \(E_h\) and \(E_s\). In fact
+restriction identifies the strict group on \(E_s\) with the
+\(\operatorname{Gal}(E_h/E_s)\)-invariants of the strict group on
+\(E_h\). Inflation--restriction gives the isomorphism for absolute
+cohomology and injectivity on the local groups for inertia away
+from \(\ell\) and decomposition at \(\ell\). In each case the quotient
+group has order dividing \(2^{h-s}\), a unit at \(\ell\).
+
+Write \(n_s=[E_s:\mathbf Q]=4\cdot2^s\) and \(Q_s=2^{s+2}qd\).
+The discriminant of \(E_s\) is at most \(Q_s^{n_s}\) by the
+conductor--discriminant formula. The even \(K\)-group bound gives
+\[
+ \log\!\left(2+\sum_{\ell\ {\rm odd}}(\log\ell)s_\ell(E_s,r)\right)
+ \ll (r n_s)^5\log(2r n_s Q_s).
+\]
+Here the quantitative step includes the small torsion in the
+bound. Put \(M=\max(n_s+1,4r+2)\). Bayer-Fluckiger, Emery and Houriet
+bound the logarithmic order of the quotient of
+\(K_{2r}(\mathcal O_{E_s})\) by the subgroup generated by elements
+of order at most \(M\) \cite[Theorem~1.1]{f1bayer-fluckiger-emery-houriet}.
+The logarithm of their bound is \(O((r n_s)^5\log(2r n_s Q_s))\).
+For each odd \(\ell\le M\), adjoining \(\mu_\ell\) gives a field
+of degree \(n'\le n_s\ell\) and discriminant at most
+\((Q_s\ell)^{n'}\). If \(A_\ell\) is the \(\ell\)-primary part of
+\(K_{2r}(\mathcal O_{E_s})\), reduction and prime-to-\(\ell\)
+restriction embed \(A_\ell/\ell A_\ell\) in degree-two cohomology
+with coefficients \(\mu_\ell\) on the ring of \(\ell\)-integers
+of this field. The Kummer sequence bounds its logarithmic order by
+the logarithm of the class number plus \(n'\log\ell\).
+Minkowski representatives have norm at most \(2^{n'}\sqrt D\) for
+discriminant \(D\). The number of ideals of norm at most \(u\) is
+at most \(u^2\zeta_{E_s(\mu_\ell)}(2)\le u^2 2^{n'}\), so the
+logarithmic order of \(A_\ell/\ell A_\ell\) is
+\(O(n_s\ell\log(2Q_s\ell))\). The removed primary subgroup is
+\(A_\ell[\ell^{\lfloor\log_\ell M\rfloor}]\). Summing its
+logarithmic order over these primes costs
+\(O(n_s M^2\log(2M)\log(2Q_s M))\) by the elementary divisors.
+The wild-kernel inclusion then gives the displayed estimate for
+all odd coefficient primes.
+
+Fix \(J\) and choose a pair at \(Z=X^{1/J}\). At every
+\(x\in[Z,X]\), put \(h=h(x)\). Counting each \(\rho\) at its least
+layer, the plus summands with \(r n_{s(\rho)}\le x^{\varepsilon/8}\)
+have total weighted length \(o(\exp(x^\varepsilon/2))\), uniformly
+over the pairs. Indeed \(h=O(\log x)\) and
+\(\log Q_s\le\log Q_h=O(x^{\varepsilon/5}(\log x)^2)\) for \(s\le h\).
+The logarithm of the bound for each eligible \((s,r)\) is
+\(O(x^{33\varepsilon/40}(\log x)^2)\), and there are at most
+\((h+1)x^{\varepsilon/8}\) such pairs. Descent to \(E_s\) allows
+each group of summands to be bounded by the whole group on that
+layer. This argument includes the moving fields and the
+coefficient primes \(3,7,q,d\).
+
+\paragraph{The remaining classical Selmer bound.}
+\teamanchor{proof.selmer-classical-residual}%
+Two further sets of plus summands vanish. At \(3,7\), large \(q,d\)
+give \(\ell\nmid Q_h\). The part of \(\rho\) prime to \(\ell\) away
+from the \(\ell\)-conductor is therefore \(\rho\) itself. The
+odd-order condition of Case~IV forces \(\rho=1\) on this \(2\)-group
+host. For that character the length is the strict length over
+\(\mathbf Q\) by descent, and restriction to
+\(\mathbf Q(\zeta_\ell)\) injects into the zero group proved above.
+For \(\rho=1\) at an odd prime with \(\ell-1\mid 2r\), the plus
+condition forces \(r\) even. The residual coefficient character
+\(\bar\kappa_\ell^{-r}\), for cyclotomic character \(\kappa_\ell\),
+is trivial or cuts out the real quadratic field
+\(K=\mathbf Q(\sqrt{\ell})\).
+In the trivial case, a class killed by \(\ell\) lifts to an
+additive character with values in \(\mathbf F_\ell\), by the
+multiplication-by-\(\ell\) coefficient sequence. It vanishes on
+inertia away from \(\ell\) and therefore factors through
+\(\operatorname{Gal}(\mathbf Q(\mu_{\ell^\infty})/\mathbf Q)\)
+by Kronecker--Weber \cite[Ch.~I, Theorem~4.16]{f1milne-cft}.
+The decomposition group at \(\ell\) surjects onto this quotient,
+through which the divisible coefficient
+action also factors. A local coboundary at \(\ell\) is therefore
+a global coboundary. In the quadratic case, the residual
+character is nontrivial on \(\ell\)-inertia, so the divisible
+coefficients have no invariants there. A class killed by
+\(\ell\) lifts to a residual cocycle with zero localization at
+\(\ell\) and zero inertia away from \(\ell\). Restriction to
+\(K\) is injective and gives an unramified character of its class
+group. In this field every class has an ideal representative of
+norm at most \(\sqrt\ell\). The number of such ideals is at most
+\(\sum_{m\le\sqrt\ell}d(m)\le\sqrt\ell(1+\log\sqrt\ell)<\ell\).
+In both cases the \(\ell\)-torsion of the strict group vanishes,
+which gives full vanishing. These arguments account for the
+classical specializations of Counts IV and Z.
+
+Put \(T_x=\lfloor x^{400}\rfloor\) and \(B(x)=\exp(x^\varepsilon/2)\).
+Let \(A(x)\) be the total mass with weights \(\log\ell\) through
+\(1\le r<T_x\) from the \(2\)-primary terms, the odd minus terms,
+the small layer and twist range just proved, and the vanishing
+summands, counting each term once. The preceding bounds give
+\(A(x)=o(B(x))\) uniformly throughout \([Z,X]\) on the stated
+fields. Indeed \([E_h:\mathbf Q]=O(x^{2+8\varepsilon})\), and
+\eqref{eq:family-critical-selmer} and
+\eqref{eq:classical-dyadic-all-layers} give polynomial bounds in
+\(x\) for their respective terms.
+
+For the remaining odd plus summands it suffices that, on one
+closed real interval \([U,U^{3/2}]\subseteq[Z,X]\), their weighted
+sum at each \(x\) be at most \(B(x)-A(x)\), uniformly over finite
+prime sets. This assertion is only about the same \(q,d,h(x)\)
+and twists \(r<T_x\) used at that \(x\). A bound of \(B(x)/2\) for
+the remaining terms also suffices at large scales. Adding the
+terms proves \eqref{eq:family-selmer} at \(T_x\) for every real
+point of the interval, with finiteness from the wild-kernel
+inclusion. Conjugating the local decomposition groups leaves
+the kernel unchanged.
+
+The release supplies this bound through its pointwise aggregate
+plus estimate. With the fixed auxiliary layer terms at \(3,7\)
+set to zero, it gives \((Q_h T_x)^C\) with \(C\) fixed before the
+host. The count uses \(2T_x+1<q,d\) and fixed lower thresholds
+on both primes, all satisfied eventually since \(J\) is fixed and
+\(\log q>\tfrac12 Z^{\varepsilon/5}\). The exponent is applied
+to the actual modulus \(Q_h\). Since
+\(\log(Q_h T_x)=O(x^{\varepsilon/5}(\log x)^2)\), the bound is
+\(o(B(x))\) on the whole range \([Z,X]\).
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/DirichletPrimeToLPartMulLPowerPart.lean}{164}{Host modulus and size conditions}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/LayerLe.lean}{39}{The pointwise plus estimate}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/JointWinOfCounts.lean}{16}{Assembly of the counts}.
+\rhrange{On these fields the weighted plus mass has the pointwise
+bound \((Q_hT_x)^C=o(B(x))\) throughout \([Z,X]\).}
+{For the odd-prime plus terms left after the proved reductions,
+the bound \(B(x)-A(x)\) on a single interval
+\([U,U^{3/2}]\subseteq[Z,X]\). This estimate still uses the source
+arithmetic.}
+Case~III, for nontrivial odd-order host characters, is empty.
+The bounded-order branch of Case~V, called Count~Vs in the release,
+lies in the proved small-layer range at twist one for large scales.
+Estimating the remaining terms independently of the release still
+requires the aggregate control in Case~I, the nontrivial-character
+estimates in Case~II, and the remaining Case~V estimates at \(3,7\)
+and twist one. Case~I includes the coefficient primes \(q,d\)
+since \(2r<q-1,d-1\), while Cases~II and V include the growing
+host's nontrivial terms at \(3,7\).
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/Cases.lean}{8}{Partition of the character cases}
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/CountVs.lean}{86}{The bounded-order part at twist one}.
+
 \teamanchor{proof.admissible-host-windows}%
 Fix a nonnegative integer \(h(y)\) for each real \(y\ge1\) with
 \(y^{2+8\varepsilon}\le 2^{h(y)}\le2y^{2+8\varepsilon}\).
-The release
-\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean}{4}{derives the Selmer window assertion}
-from local--global compatibility and base change. In the
-\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean}{7}{application},
-the needed compatibility is
-\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean}{6}{established from theta lifts}.
-For the fixed \(\psi,\varepsilon,h\) it gives \(J\ge1\) and \(X_0\).
-For every \(X\ge X_0\) and every pair \(q,d\) with the size and
-congruence conditions at \(Z=X^{1/J}\), there is \(W\ge Z\) with
-\(W^2\le X\).
-For every real \(y\in[W,W^2]\), the field \(E(h(y),q,d)\)
-satisfies \eqref{eq:family-selmer} at
-\(t=\lfloor y^{401}\rfloor\) with \(B=\exp(y^\varepsilon/2)\).
-The proof uses deformation-theoretic counts and controls exceptional
-components along the dyadic tower.
+For \(\psi=1\) we may take
+\(h(y)=\lceil(2+8\varepsilon)\log_2 y\rceil\).
+Choose \(J\ge2\) before selecting the prime pair, and take
+\(X\) large enough that \(Z=X^{1/J}\) exceeds all the fixed
+thresholds. The classical prime theorem selects \(q,d\) at \(Z\)
+with the analytic bounds on \([Z,X]\). On the interval
+\([U,U^{3/2}]\) of the preceding Selmer argument every real \(x\)
+has the same \(q,d\) and the field \(E(h(x),q,d)\) with the
+bound at \(\lfloor x^{400}\rfloor\). The pointwise estimate from
+the release allows \(U=Z\). The inequalities
+\(x^{1/J}\le Z\le x\le X=Z^J\) identify the prime-selection data
+used in the host. We can meet any lower endpoint request by
+taking \(X\) large enough. Fix a sequence of these intervals with
+each left endpoint beyond the preceding right endpoint. Their union
+is a single set of real scales with arbitrarily distant full windows
+and a specified \(Z,q,d\) on each interval. The field and bound are
+established before the choice of ranks, levels and translates.
 
-For \(\psi=1\) fix, for example,
-\(h(y)=\lceil(2+8\varepsilon)\log_2 y\rceil\) on \(y\ge1\).
-Apply the \hyperlink{candidate.family}{Selmer window assertion} to
-this whole profile to obtain \(J,X_0\). Take \(X\ge X_0\) so large
-that \(Z=X^{1/J}\) exceeds the prime-selection threshold for this
-fixed \(J\), and choose the pair at \(Z\). The assertion supplies
-\([W,W^2]\subseteq[Z,X]\) for this very pair. On
-\([W,W^{3/2}]\), use the field \(E(h(x),q,d)\) at each real \(x\).
-Since \(Z\le W\le x\le W^2\le X=Z^J\), the prime-pair bounds
-apply at \(x\), and \(x^{1/J}\le Z\le x\). The Selmer bound on that
-field holds at \(\lfloor x^{401}\rfloor\) with \(B=\sqrt b\), where
-\(b=\exp(x^\varepsilon)\). For every \(Y_0\ge2\) and any fixed
-lower threshold, \(X\) can be taken so large that \(Z\), hence
-\(W\), exceeds both. The pair is fixed on each such interval, and
-the layer \(h(x)\) may vary.
+For the Dirichlet extension, use the
+\hyperlink{candidate.family}{general Selmer window assertion}
+with its larger twist cutoff at the rescaled argument below. The
+release derives that theorem from local--global compatibility and
+base change, and supplies the compatibility from theta lifts.
+\releasecite{Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean}{4}{The general Selmer window}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean}{7}{Its application}
+\releasecite{Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean}{6}{The required local--global compatibility}.
 
 For \(M>1\), use the \(J\) of the window assertion when
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/WinPairs.lean}{34}{choosing the pair \(q,d\) at \(Z=X^{1/J}\)}.
@@ -580,7 +1148,10 @@ The prime-pair bounds and \(x^{1/J}\le Z\le x\) give
 Also \(\log d>\log q\) once \((\log Z)^2>2\). Hence \(d>q>x^A\)
 eventually for every fixed \(A\).
 As \(\log Q_S=O(\log x)\), these upper bounds give
-\(\log(Q_Sqd)\le2x^{\varepsilon/5}(\log x)^2\) for large \(x\).
+\(\log(Q_Sqd)\le2Z^{\varepsilon/5}(\log Z)^2\) for large \(Z\):
+\(\log Q_S=O_J(\log Z)\), \(\log q\le Z^{\varepsilon/5}\), and
+\(\log d\le Z^{\varepsilon/5}(\log Z)^2\). As \(Z\le x\), this
+also gives \(\log(Q_Sqd)\le2x^{\varepsilon/5}(\log x)^2\).
 In particular every fixed power of \(Q_Sqd\) is
 \(\exp(o(x^\varepsilon))\).
 For the root discriminant, put \(K=\mathbf Q(\zeta_{Q_Sqd})\) and
@@ -594,8 +1165,14 @@ The discriminant formula for the tower \(K/E/\mathbf Q\) gives
 \(\operatorname{rd}(E)\le\operatorname{rd}(K)\). Thus
 \(\log\operatorname{rd}(E)=o(x^\varepsilon)\).
 
-Use the ranks at this field from the common-family construction in
-Section~\ref{sec:assembly}. The prescribed rank relations are
+Choose the ranks on this field before constructing the common family.
+The released
+\releasecite{Development/AutomorphicArithmetic/CoprimeRanks/AdmChi.lean}{11}{rank-and-admission theorem}
+uses the cyclic frame of
+order \(n\) in \eqref{eq:classical-host-scale} and the arithmetic
+field with its Artin map. It also supplies the admissibility used in
+extending the field data by the host's level and sampling choices.
+The prescribed rank relations are
 \[
  x^{1/2-\varepsilon/16}\le m\le2x^{1/2-\varepsilon/16},\qquad
  x^{9/2+10\varepsilon}\le k\le2x^{9/2+10\varepsilon},\qquad
@@ -620,10 +1197,10 @@ so \(A_x\le5288x^{22.67}\). Using
 \(\lceil x^{377}\rceil\le2x^{377}\) in
 \eqref{eq:classical-rank-cutoff} gives \(t\le10708x^{399.67}\).
 For \(x\ge2^{100}\) the last bound is at most \(x^{400}\).
-Since \(t\) is an integer with
-\(t\le\lfloor x^{400}\rfloor\le\lfloor x^{401}\rfloor\),
-the same field satisfies \eqref{eq:family-selmer} at \(t\) with
-\(B=\sqrt b\), by nonnegativity of the summands. It follows
+Since \(t\) is an integer with \(t\le\lfloor x^{400}\rfloor\),
+the classical arithmetic window gives \eqref{eq:family-selmer}
+on this field at \(t\) with \(B=\sqrt b\), by nonnegativity of
+the summands. It follows
 also that \(4tr+1<q,d\) at sufficiently large \(x\).
 
 At large \(x\) the rank interval for \(m\) gives
@@ -644,29 +1221,52 @@ Thus every fixed multiple of \(m^5 f\log b\) is smaller than \(k\)
 beyond a threshold depending only on that multiple and \(\varepsilon\).
 
 \paragraph{Level and sampling conditions at the classical host.}
-Use the level primes and the sets \(T,T_2\) on the same selected
-records of Section~\ref{sec:assembly}. Write \(K_d=\mathbf Q(\sqrt{-d})\)
-and \(Q=Q_Sqd\). The selected level conditions specify two distinct
+\teamanchor{proof.classical-ranked-host-supply}%
+At fixed \(\varepsilon,J\), the released pointwise host theorem
+supplies the level and sampling data on each of the ranked fields
+above with uniform constants and a common lower bound on \(x\).
+Its arithmetic field input is furnished by the conductor-one
+specialization of the field construction. At these scales the dyadic
+layer exceeds its fixed threshold, \(q\ne3\), the prescribed small odd
+primes split, and \(\lfloor Z^{\varepsilon/5}\rfloor\ge4\).
+Its bounded-parameter requirements hold with a bound at least
+\(\max(J,8)\), using \(Q_S/n=4\) and \(Q_S=2^{h+2}\). Apply the
+pointwise theorem with the prime-pair bounds on \([Z,x]\) and the
+admissibility of the chosen ranks. The weighted Selmer estimate
+at \(t\) already holds for this same field by
+\eqref{eq:classical-rank-cutoff}. This gives the ranked hosts before
+the raw array and geometric choices of Section~\ref{sec:assembly}.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/FieldChi.lean}{20}{The arithmetic field and its Artin data}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/HostOfField.lean}{8}{The pointwise host theorem}
+\releasecite{Development/AutomorphicArithmetic/ShortNorms/supplyOfAdmOf.lean}{93}{The host on the prescribed field with the actual Selmer cutoff}.
+
+Write \(K_d=\mathbf Q(\sqrt{-d})\) and \(Q=Q_Sqd\). The level
+conditions specify two distinct
 primes \(g_0,g_1\) in \([(kb)^8,2(kb)^8]\) with
 \[
  g_i=\pi_i\overline{\pi_i},\qquad
  \pi_i\in\mathcal O_{K_d},\qquad \pi_i\equiv1\bmod Q\mathcal O_{K_d}.
 \]
-They also specify distinct primes \(p,p'\le Q^{C_8}\) for fixed
-\(C_8\), with \(p,p'\equiv1\bmod\operatorname{lcm}(15,Q)\).
+They also specify distinct primes \(p,p'\le Q^{C_p}\) for a fixed
+\(C_p\), with \(p,p'\equiv1\bmod\operatorname{lcm}(15,Q)\).
 These conditions are the level data of
 \releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{101}{the chosen host}.
-The auxiliary twisting prime \(q_0\) on the actual record is the
+For the host supplied to the point construction take the auxiliary
+twisting prime \(q_0\) to be the
 \releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/AuxiliaryPrimeMemAvoidedPrimes.lean}{75}{least prime}
 congruent to \(1\bmod \ell_0Q\), where \(\ell_0\) is the least prime
 not dividing \(Q(p-1)(p'-1)\). The host has unit ideal \(\mathfrak c_K\).
 A prime divisor of \(Q(p-1)(p'-1)+1\) bounds
-\(\ell_0\) by \(Q^{1+2C_8}+1\). If \(m_0=\ell_0Q\), the
+\(\ell_0\) by \(Q^{1+2C_p}+1\). If \(m_0=\ell_0Q\), the
 full-interval prime theorem below at \(m_0^A\), for sufficiently
 large fixed \(A\ge12\), has relative error of modulus less than \(1/2\).
 The full-interval version of \eqref{eq:family-prime-multiplier}
 gives a positive main term in the class \(1\bmod m_0\). Hence
-\(q_0\le m_0^A\le Q^{A(3+2C_8)}\).
+\(q_0\le m_0^A\le Q^{A(3+2C_p)}\). The released level adjustment
+replaces the initial auxiliary prime by this \(q_0\) with a uniform
+exponent \(C_8\) bounding \(p,p',q_0\) by \(Q^{C_8}\). It keeps the
+field, ranks, Artin map, sampling sets and Selmer bound on that host.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/SmallestPrimePolynomialBound.lean}{64}{The host with the prescribed least prime}.
 The congruences distinguish \(q_0\) from \(p,p'\), since
 \(\ell_0\) divides neither \(p-1\) nor \(p'-1\).
 Since \(g_i\equiv1\bmod Q\) by the norm identity, all five primes
@@ -711,7 +1311,16 @@ For sufficiently large \(x\) these same sets therefore satisfy
  \qquad n x^{-\varepsilon}\le N_2\le n .
 \end{equation}
 Every element of \(T\) lies in the sole coset of \(H/H_0\), so its
-share in that coset is \(1\).
+share in that coset is \(1\). The same host construction supplies
+\(4L_wN_2\le n\) and \(4L_ws<n\) for the nonnegative integer labels
+\(s\in T_2\). For distinct labels \(s_1,s_2,s_3\), it excludes
+\(j(s_2-s_1)=i(s_3-s_1)\) for distinct integers \(i,j\) with
+\(0<|i|,|j|\le L_w\). It also supplies the top-set estimate used
+in the \hyperlink{proof.selection-realized-samples}{sample bounds}.
+The point construction carries these host data to the final records.
+\releasecite{Development/AutomorphicArithmetic/ShortNorms/hostOfFieldOf.lean}{71}{Sizing and spacing of the thick sample}
+\releasecite{Development/AutomorphicArithmetic/ShortNorms/hostOfFieldOf.lean}{217}{The top set on the same host}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/KitS.lean}{40}{The ranked host in each translated point}.
 
 For \(M>1\), at each sufficiently large \(x\) in the intervals Alp\"oge
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/SupplyChi.lean}{8}{chooses ranks, level primes, an Artin map and sampling sets}
@@ -869,6 +1478,14 @@ At every real \(y\in[W,W^2]\), the field \(E(h(y),q,d)\) satisfies
 \eqref{eq:family-selmer} with \(t=\lfloor y^{401}\rfloor\) and
 \(B=\exp(y^\varepsilon/2)\), uniformly over all finite prime sets
 and all choices of decomposition data.
+\rhrange{The preceding window applies to every admissible prime pair at
+a fixed primitive target, and permits the \(401\) cutoff at every
+point of \([W,W^2]\).}
+{At \(\psi=1\), \eqref{eq:family-selmer} through the \(400\) cutoff
+on arbitrarily distant power-\(3/2\) intervals for one analytically
+selected pair per interval. The residual plus contribution is
+bounded as in the \hyperlink{proof.selmer-classical-residual}{classical
+estimate}.}
 
 Poitou--Tate duality and \(K\)-theory give finiteness at fixed field
 and twist. Lim's \(\mu\ell^n+\lambda n+O(1)\) growth formula for
@@ -888,10 +1505,10 @@ for the regulator on the same fields and twists
 \cite[Corollary~1.2]{f1burns-flach}
 \cite[\S5.4, (26)]{f1soule-torsion}.
 
-For \(\psi=1\), assume the Selmer window assertion and choose \(q,d\)
-by the classical prime estimates at \(Z=X^{1/J}\). These primes work
-on \([W,W^{3/2}]\), with \(W\) arbitrarily large. At each point the
-Selmer bound at cutoff \(\lfloor x^{400}\rfloor\) feeds the local
+For \(\psi=1\), the
+\hyperlink{proof.selmer-classical-residual}{classical Selmer estimate}
+gives the bound at cutoff \(\lfloor x^{400}\rfloor\) on a common
+prime-pair interval. At each point the bound feeds the local
 division of Section~\ref{sec:integral}. The quadratic-twist estimates
 and the large-argument estimate \eqref{eq:host-character-tail} on the
 same fields feed Section~\ref{sec:fourier}.

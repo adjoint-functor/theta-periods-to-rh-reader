@@ -1,0 +1,344 @@
+Fix the admissible precision. Use the witness constructed in the
+proof of simultaneous family selection with the staged bounds \(K_*\).
+Choose the cloud exponent \(c_D\) at least \(805\), then the node
+exponent \(c_h\) at least \(1000\), in each position taking the maximum
+with the other bounds there. The family \(\mathfrak F\) is constructed
+with these constants. Its selected period and trace records give
+the two section systems used below.
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/SzRowDelTOGap.lean}{12}{Cloud exponent}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/SzRowNodeGapBlockLength.lean}{61}{node exponent}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{29}{order of choices}.
+
+The simultaneous choice gives one class and one bundle selector for
+the period, twist, divisor and row conditions. A built point carries
+its own numerical record and its weight certificate. Membership in
+the selected class identifies the triple of that record, its auxiliary
+object and its bundle by a dependent equality with the selected triple.
+Thus the weight certificate and the properties of the bundle transport
+along the same equality. The final change of division data carries
+both sample arrays and the weight certificate. Geometric compatibility
+supplies comparison data on each bundle, giving one compatible
+selector. The resulting point retains the bundle's period face,
+summands and columns. The primitivity, divisor, goodness and class-sum
+inputs give the point conditions. The geometric comparison gives the
+additional condition called \texttt{More} on that point. These two
+conditions are the inputs for the construction of the two runs at the
+selected index.
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{250}{Built triple and selection}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/SetUnipotentTranslate.lean}{381}{transport of the certificate}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/NonemptyHypsOfAllRows.lean}{49}{joint class and selector}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/PartSel.lean}{32}{data retained by the comparison}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TupAllUsedAtPart.lean}{46}{point conditions and their use}.
+
+Take one threshold \(x_*\) dominating the finitely many thresholds of
+the retained comparisons and the family's covering threshold. At any
+real scale \(x\in\operatorname{Win}(\mathfrak F)\) above \(x_*\),
+choose a seed \(i_0\in I_x\). In the classical window argument,
+use the realized seed with the admissible pair of sample arrays.
+For each \(u\in H\) the covering
+property gives an index \(i(u)\in I_x\) with translate \(u\) and the
+seed's \(a_t,b_t\) under the common numerical labels. The common word
+labels preserve their bits. The constructions below apply to the seed
+and to all these representatives, using each index's own periods,
+tests and columns. The zero representative \(i(0)\) may differ from
+\(i_0\). The windows contain arbitrarily distant intervals \([Y,Y^{3/2}]\)
+above this threshold.
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{55}{Intervals before the scale is chosen}
+\releasecite{Formalism/SharpRestriction/FamCore.lean}{110}{word bits}
+\releasecite{Formalism/SharpRestriction/FamCore.lean}{132}{all seed-matched translates}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RowRRowsOfParts.lean}{26}{uniform row thresholds}.
+
+At each such index the numerical certificate gives, with
+\(\Delta=\lceil x^{c_D}\rceil\) and \(H_{\rm node}=2\lceil x^{c_h}\rceil\),
+\[
+  v_a=4\Delta(k-2-a),\qquad
+  b_{\tau,l}=B_\tau+lH_{\rm node},\qquad
+  e_{\tau,l}=b_{\tau,l}+\tfrac12 H_{\rm node}
+  \quad(0\le a\le k-2,\ 0\le l<m).
+\]
+For \(0\le a\le k-3\), the interior entry in position \(a+1\) of a
+word is \(v_a-\tfrac12-\epsilon_a\Delta\), where \(\epsilon_a\) is its bit.
+The consecutive cloud gap is \(4\Delta\), the bit displacement is
+\(\Delta\), and the intervening node has displacement \(H_{\rm node}/2\).
+The top start is \(b_t+\lfloor b'/x\rfloor\). A thick start belongs to
+\([\lceil b\rceil,\lceil b\rceil+|\mu(E)|-1]\) with the prescribed
+torsion condition, and a thin start is the prescribed \(\lceil w''\rceil\).
+The node allowance is \(\eta_{\rm wt}=mH_{\rm node}\).
+All words use these two spacings in the
+\hyperlink{proof.section-run-design}{section weight estimates}.
+At stage \(j=1,\ldots,m\) the signature blocks have sizes \(k+j-1\)
+and \(m-j\). At each embedding the first tableau reads the entries
+\(a_+^Q\) of the selected record, and the second reads \(-a_-^Q\)
+in reverse order. These are the same entries as in the geometric
+section weight, with common copy number \(r+t\). Thus the row weight
+equals \(\kappa_j\) at every stage, with an empty second block at
+\(j=m\).
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/PairRowIffQdRows.lean}{93}{Exact weight certificate}
+\releasecite{Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean}{91}{word arrays}
+\releasecite{Formalism/LocalRingCardinality/DataKap.lean}{20}{entries of both tableaux}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsIsRec.lean}{24}{equality of tableaux and copy numbers}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RunModelArch.lean}{55}{ordinary and terminal signatures}.
+
+Now work at one selected index. Write \(Q=g_0g_1\). Its marked
+polarized core gives a common base level \(Q\), a single level action
+and two covers at \(Qp_o\), with distinct own primes
+\(p_o=p_{\rm de},p'_{\rm de}\). The refinement at \(p_o\) uses its
+marked half and fixed determinant character \(\delta_{p_o}\). At a
+finite place \(v\) use the run with \(p_o(v)=p'_{\rm de}\) if
+\(v\mid p_{\rm de}\), and with \(p_o(v)=p_{\rm de}\) elsewhere. At
+either refinement the coefficient
+field equals the base field. Changing the copy number changes the
+coefficient function on the same cover.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ExistsRunsAt.lean}{18}{Both runs with their joint action}
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsSpecialPrimeLevelCoverOfFieldConditions.lean}{41}{field of the refinement}
+\releasecite{Development/AbelianVarietyTheory/Definitions/Jets/EmbShortThLeThetaPlain.lean}{72}{the cover at other copy numbers}.
+
+Let \(K_s\) be the embedded geometric field called \(K_0\) in the
+section estimate. The preliminary column witness pins its exact
+value. On the assembled stages the point's field comparison gives
+\[
+ K_s=\operatorname{FO}(D)=\operatorname{image}_{\mathbb C}(\text{\texttt{Base.Ks}})
+    =\operatorname{listField}(\text{field data},\text{fixed frame}).
+\]
+The equality of embedded fields follows by identifying the images
+of the rings of integers and taking fractions. The list includes
+the embedded \(E\), the marked CM field \(M'\), the ray field of
+\(E\), the specified roots of unity, the unramified finite readings
+of \(\mu_{0,j},\eta,\delta,\delta'\), the finite \(\omega\)-values,
+and the type-norm fields of all stages. For \(\eta\) the reading at
+\(a\) is \(\eta(a)(\mathrm{N}a)^{-1/2}\). The two finite-order
+characters \(\delta,\delta'\) also have their required idele values
+in this field. The ray modulus \(Qp_{\rm de}p'_{\rm de}\) contains
+both \(Qp_o\) as divisors, giving the required Weber values. The fixed
+character readings thus occur before adjoining the moving characters.
+The marking field \(K_{\rm mark}\) (\texttt{LL0}) contains the values
+of the separate character \(\chi_\Psi\). Both embedded fields persist
+in the enlargement to the period field \(K\) (\texttt{LL}), with
+\(K_s\subseteq K_{\rm mark}\subseteq K\). The identity for \(K_s\)
+is at the given index and allows the fields to vary with the translates.
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/CoreFrameCompatibleConstructedPoint.lean}{11}{Exact field pin at the constructed point}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{28}{assembled field and both level pins}
+\releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/FieldSmallIffOpo.lean}{10}{embedded integral readings and fractions}
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/FixedCoefficientFieldInComplex.lean}{493}{fixed frame values}
+\releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/FixedCoefficientFieldInComplex.lean}{585}{the separate character}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/AddLargeBaseCoreSlot.lean}{22}{the preserved fields}.
+
+The list field is contained in the compositum of \(M'\), the ray
+field, the cyclotomic field of order \(N\) and the power-ideal Kummer
+field \(V_{h_*}\). Here \(N\) is the least common multiple of
+\(3^4 5^4\) and \(\prod_{a=0}^1|\mathrm{GL}_r(\mathbb F_{g_a})|^f\),
+and \(h_*\) is the relative ray degree. The Kummer factor contains
+the prescribed ideal and type-norm generators.
+The even exponents of \(\mu_{0,j}\), the half shift of \(\eta\) and the
+support and tameness of \(\delta,\delta'\) put the required readings of
+these characters in that factor. The \(\omega\)-values are cyclotomic.
+Put \(L=\log b=x^\varepsilon\) and \(r=k+m-1\).
+The host bounds give \(\log(Qp_{\rm de}p'_{\rm de})\le20L+2\).
+The ray exact sequence and \(\log h_E\le10 fL\) then give
+\(\log h_*\le51 fL\). The finite level orders give
+\(\log N\le19fr^2L+24\). The Kummer bound adds at most
+\((u_E+2)\log h_*+\log h_E\) to the corresponding bound for \(E\),
+where \(u_E\le2f\) is the unit rank. The CM bound uses the marked
+quadratic discriminant parameter with logarithm at most \(4L\).
+Adding the four degree and discriminant budgets and using \(f\ge8\)
+and \(L\ge4\) bounds both logarithms by
+\[
+ 19fr^2L+102f^2L+163fL+36L+46\le P_O=19fr^2L+198f^2L.
+\]
+Degree and root discriminant decrease on taking a subfield, so
+\(\max\{\log[K_s:\mathbb Q],\log\operatorname{rd}(K_s)\}\le P_O\).
+The point's field comparison applies this bound to the embedded
+coefficient field of both runs and hence to the linked row summand.
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ClassNumberDvdHstar.lean}{347}{Fixed character containment}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/DegreeRootDiscrBoundKummerFieldOfPowerIdealRoots.lean}{25}{power-ideal Kummer bound}
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/OmegaFieldDegreeRootDiscrBoundedByRingPolynomial.lean}{52}{four size budgets}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RowEPartTies.lean}{22}{field bound on the linked summand}.
+
+At stage \(j\) the geometric cusp space \(C_{j,w}\) consists of the
+framed section rules of weight \(w\) on this core over \(K_s\).
+At a base point, read a short rule on the lift to its own marked
+cover. The finite character and harmonic transformation law give the
+same corrected value under a change of lift and the required covariance
+under a change of frame. Uniqueness makes this reading natural under
+base change and gives its descent to a section over \(K_s\). On the
+marked models with the prescribed short-cover laws, chart and
+component compatibilities, the positive last entry and copy number
+at least \(8fr+4\) give complex spanning at the three short weights.
+The readings of a \(K_s\)-basis are
+linearly independent over \(\mathbb C\), so a proper \(K_s\)-span of
+the short rules would remain proper after taking complex readings.
+The finite lists in the
+\hyperlink{proof.run-short-section-generators}{generator estimates}
+therefore belong to this model. Their scaled norms and the integral
+full list at \(w_L\) use the same field bound at either cover.
+\releasecite{Formalism/LocalToGlobal/ProjectiveLattices/RecPJThAllNeBot.lean}{28}{Full and short rules of the actual model}
+\releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortValTotOfPinned.lean}{62}{descent of the short reading}
+\releasecite{Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/ShortThetaSeriesSpanCuspFormsWeight.lean}{17}{stable-range spanning}
+\releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/RunScalarsNonzeroBoundedSupBound.lean}{52}{bounded integral lists}.
+
+Write \(D_{\rm fl}=f\binom r2\), \(T_{\rm sec}=\lceil x^{377}\rceil\),
+\(w_0=w_F+D_{\rm fl}w_L\), \(\kappa_j=w_F+T_{\rm sec} w_L\) and
+\(C_j=C_{j,\kappa_j}\). On the run with own prime \(p_o\), let
+\(\mathcal T_{j,p_o}\) be the inverse image under the weight inclusion
+of \(C_j\) into the section algebra of the three scaled products
+\[
+ (A'_L)^{T_{\rm sec}}S'_F
+      +(A'_L)^{T_{\rm sec}-D_{\rm fl}}S'_0+S'_{\kappa_j}.
+\]
+The \hyperlink{proof.geometric-section-index}{section index theorem}
+puts this inverse image inside the canonical lattice \(M_{0,j,\kappa_j}\)
+and a scalar multiple of the unscaled short lattice \(S_{\kappa_j,p_o}\).
+Its hypotheses use the short-cover laws, the weight and growth
+estimates and the prescribed chart data of this core.
+\releasecite{Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/RunHypothesesFormsScalarsOfParameterConditions.lean}{49}{Scaled modules at the common weights}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/RunsHoldOfTies.lean}{20}{both applications of the section theorem}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RunModelArch.lean}{37}{the actual field bound on the model}.
+
+Put \(n_j=\dim_{K_s} C_j\). The marked
+comparison matches the finite test points and their individual norms
+on \(C_j\). Their unit balls intersect in the canonical lattice. The
+two refinements use one isomorphism at this stage,
+\(z_j:K^{n_j}\xrightarrow{\sim}K\otimes_{K_s}C_j\), and the same
+base level action. For an integral module \(B\subset C_j\), write
+\(\operatorname{pl}_{z_j}(B)=\operatorname{span}_{\mathcal O_K}
+\{z_j^{-1}(1\otimes b):b\in B\}\). In the row coordinates the
+comparison gives
+\[
+ \begin{aligned}
+ M_j &= \operatorname{pl}_{z_j}(M_{0,j,\kappa_j}), &
+ L_{vj} &= \operatorname{pl}_{z_j}(\mathcal T_{j,p_o(v)}),\\
+ L_{K,vj} &= \operatorname{pl}_{z_j}(S_{\kappa_j,p_o(v)}), &
+ \sigma_{vj} &= \text{the prescribed section scalar in }K^\times.
+ \end{aligned}
+\]
+Here \(L_{K,vj}\) is the short lattice and \(v\) selects the run.
+Localizing gives the comparison over \(\mathcal O_v\). Write \(e_j\)
+for cusp reading into the \(K_s\)-form of the row space. The period
+coordinate map is \((1\otimes e_j)\circ z_j\), using the identification
+of that form after extending scalars to \(K\). It intertwines the level
+action and good projector, identifies the good character cut of \(M_j\)
+with \(J_j^{\rm row}\), and gives the base and twisted theta-column
+lattices in the same coordinates. The rational class-sum identity
+uses its original class-sum hypothesis.
+\releasecite{Formalism/LocalToGlobal/IndefiniteReal/FWTie.lean}{17}{Equality of finite tests and norms}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/NotOntoOfCharAlone.lean}{550}{common comparison for both runs}
+\releasecite{Development/AbelianVarietyTheory/Definitions/Jets/EmbShortThLeThetaPlain.lean}{57}{placed lattices, action and scalar}
+\releasecite{Development/AbelianVarietyTheory/Definitions/Foundations/ThetaSeriesTies.lean}{155}{period coordinates and class sums}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/NotOntoOfCharAlone.lean}{445}{good row lattice}.
+
+At a finite place \(a\) of \(K_s\) on either run, let \(E_a\) be
+the prescribed ceiling, which bounds the product depth in the
+geometric index theorem. In a local Smith basis write \(b_l\) for
+the elementary exponents of the product lattice in the canonical
+lattice. Apply the all-subspace bound at \(a\) to the span of the
+basis vectors with \(b_l>E_a\). The bound gives
+\(\sum_l(b_l-E_a)_+\le r_{aj}\), where \(r_{aj}\ge0\) is the
+geometric remainder for this run and stage. On extending to \(v\mid a\)
+both the exponents and the ceiling multiply by \(e(v/a)\). Write
+\(E_{vj}=e(v/a)E_a\). The lattice
+\(M_{j,v}\cap\varpi_v^{-E_{vj}}L_{vj,v}\) consequently has index
+length at most \(e(v/a)r_{aj}\) in \(M_{j,v}\). For any \(K\)-subspace
+\(V'\), work in its local extension \(V'_v\). The quotient of
+\(M_{j,v}\cap V'_v\) by its intersection with this lattice injects into
+the same finite quotient. Multiplying that intersection by
+\(\varpi_v^{E_{vj}}\) puts it in \(L_{vj,v}\cap V'_v\) at additional
+cost \(E_{vj}\dim_K V'\). Thus the same remainders give
+\[
+ \begin{gathered}
+ \operatorname{length}_{\mathcal O_v}
+   \big((M_{j,v}\cap V'_v)/(L_{vj,v}\cap V'_v)\big)
+     \le E_{vj}\dim_K V'+\rho_{vj}^{(p_o(v))},\\
+ \sum_{v\in A}\lambda_v\rho_{vj}^{(o)}\le n_j fmb\,d_2
+    \quad (A\text{ finite},\ o=p_{\rm de},p'_{\rm de}).
+ \end{gathered}
+\]
+The two budgets follow from the geometric sums and the local degree
+formula \(\sum_{v\mid a}\lambda_v e(v/a)=\lambda_a\) with
+\(\lambda_v=\log(\mathrm{N}v)/[K:\mathbb Q]\). They cover all cuts,
+including the character cuts defined over \(K\). In the signed index
+for the short lattice, \(L_{vj}\subseteq\sigma_{vj}L_{K,vj}\)
+subtracts \(\operatorname{ord}_v(\sigma_{vj})\dim_K V'\). The depth
+comparison uses \((E_{vj}-\operatorname{ord}_v\sigma_{vj})/e_v\) on
+that run, with \(e_v\) the absolute ramification index. The two own-prime sums
+and the conjugate pairing contribute at most
+\(4n_j fmb/(\delta d)\le12 fmb\) per stage to the normalized
+determinant estimate, since \(d_2\le1\) and \(n_j/\delta<3d\).
+Here \(d\) is the good character-cut dimension and \(\delta\) the
+index of the upper unipotent subgroup in the finite mirabolic group.
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/HasIndexBoundOfRuns.lean}{95}{All cuts after extension}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/HasIndexBoundOfRuns.lean}{129}{the two separate budgets}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/GeoStOfPageSt.lean}{29}{index and depth on the selected point}.
+See the \hyperlink{proof.near-level-transport}{determinant calculation}.
+
+At every embedding \(\iota:K\to\mathbb C\), the corresponding
+framed readings give the supremum and Petersson norms on the
+geometric model. The row comparison uses the extremal evaluation
+when the restriction of \(\iota\) is good and the conjugate evaluation
+when its conjugate is good. The common-measure identity gives, on
+every cusp vector \(F\) in the selected model with the row norm taken
+in its chosen embedding,
+\[
+ \|e_j F\|_{{\rm row},\iota}
+    =\sqrt{\operatorname{rat}_j}\,\|F\|_{{\rm Pet},\iota|_{K_s}}.
+\]
+The ratio \(\operatorname{rat}_j>0\) is evaluated on the chosen theta
+data. Its two logarithmic bounds give the required absolute bound on
+the logarithm of the norm factor at the common threshold. By polarization
+the same squared-norm comparison identifies the Gram forms. On the
+primitive good space the pullback of \(J_{\rm good}\) to the stage
+frame preserves its finite components and scales its vector norm by
+\(n_{\rm lev}^{-1/2}\), where \(n_{\rm lev}\) is the order of the
+base-face level group. Let \(M_j^{\rm main}\) denote the stage main
+term of \eqref{eq:adjoint-stage-covolume}. In squared-slope units the
+normalized log covolume satisfies
+\[
+ \frac{\operatorname{lcv}(J_j^{\rm row})}{d_{\rm row}}
+     =-\mu(J_{\rm good})-\log n_{\rm lev}
+     \le M_j^{\rm main}+C_3E_{\rm cov} .
+\]
+The last inequality uses the retained ordinary and terminal estimates
+for this good lattice. It gives the \(L_{3,j}\) term in the mean.
+The principal-level \(P_0,P_1\) character cuts then use their metric factors in
+\eqref{eq:actual-row-level-metric} and the common squared-metric
+compensation of the selected bundle.
+\releasecite{Formalism/LocalToGlobal/ProjectiveLattices/XcLat.lean}{40}{Geometric norms at all embeddings}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ExactAtOfRows.lean}{64}{both evaluation signs}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/CoveringMeasureReductionBound.lean}{18}{positive measure ratio and its bounds}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RecAtOfGramAt.lean}{17}{the frame and scaling}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EventualL3OfCovolume.lean}{14}{the covolume on the selected summands}.
+See the \hyperlink{proof.absolute-stage-row-covolume}{stage covolume}
+and \hyperlink{proof.row-level-mean}{compensated mean}.
+
+\rhrange[Stronger compatibility from the pinned construction]{The
+selected common core realizes both section runs over one small
+embedded field at the index in question.}
+{The cut bounds and both weighted budgets for the placed lattices,
+the short-lattice inclusion with its scalar and depth, and the
+covolume bounds in the normalized stage frames. This derivation
+uses the common core, including the level action, projected tests
+and period coordinates.}
+The trace also uses the exact cloud and letters to obtain its
+\hyperlink{proof.trace-word-ratios}{Vandermonde ratios}. The good
+character share and discarded-type estimates use the marked two-level
+action. At an ordinary stage the shifted rank comparison uses the
+archimedean two-level calculation. At the terminal stage the free
+level action gives the regular representation. Both comparisons
+respect the character equations and good projector. The surjectivity
+argument combines the index, depth, rank, share, twist and period
+conditions on the same runs and coordinate object. Its norm estimate
+enters the row proposition alongside the separate lower-eigenvalue
+scalar estimate, the covolume, the functional and remaining row
+bounds, and the definite-side condition. The original representation,
+trace, period and numerical inputs continue to apply.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RunModelArch.lean}{87}{Archimedean two-level comparison}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/BadWStOfRegular.lean}{40}{regular and shifted rank comparisons}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/OntoPath.lean}{49}{the joint application}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkROfIsLinked.lean}{80}{row proposition carried by the selector}.
+
+This choice supplies the section systems for the simultaneous
+existence argument. A separately specified geometric model requires
+its own comparison of canonical and short lattices, marked evaluations,
+level actions and metrics, or bounds for their discrepancies within
+the same finite and archimedean allowances. Even rank-one lattices
+\(\mathcal O_v\) and \(\varpi_v^a\mathcal O_v\) over the same field
+and in the same rational span differ by arbitrary local length \(a\).

@@ -1,0 +1,461 @@
+\subsubsection{The ramified column lattice of a selected word}
+\label{sec:selected-ramified-donor}
+
+At a fixed translate of the selected family take \(w\in W\), put
+\(T=T_w\) and \(q=T-1\), and write \(M=M_w\) for the full
+stage-zero class lattice. We work over the coefficient field \(K\)
+of this translate. The selection identifies the point, its object
+carrying the arithmetic parameters \(L\), and its bundle witness as
+one dependent triple at a constructed point. The point and the
+true-column condition are obtained from the same local lattice
+record. The comparison with the geometric realization preserves
+the selected word, its column coordinates, the level operators and
+the period data. This choice is available at each index of the
+family, including the translated indices.
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{250}{Selection of the point, object and witness},
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsObjectsOfAdmissibleTwistDatum.lean}{114}{The common local record},
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TwistedBundle.lean}{57}{The true-column bundle},
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkROfIsLinked.lean}{50}{The level and period data} and
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExistsSelectedRealization.lean}{189}{The word and coordinates in the selected realization}.
+
+Let \(\kappa_w\) be evaluation of a rational decorated class
+function on the chosen representatives in the formal stage-zero
+space \((D.\mathrm{fm}\,w).\mathrm{lat}\,0\).
+The class covariance gives its inverse, as in the evaluation of
+\(M_w\) above. Evaluation preserves integrality because the
+formal lattice uses the same polynomial coefficient lattice
+at each representative. It intertwines each diamond: taking
+a translated point back to its representative applies the same
+coefficient transport. The norm is the orthogonal weighted sum
+of the normalized class forms in either description, at every
+coefficient embedding.
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/ColStep0MemLat.lean}{48}{The integral class test},
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/EmbFColFormMemMram.lean}{51}{The diamond action under evaluation} and
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/NrmStepZeroEq.lean}{54}{The class forms at all embeddings}.
+
+Let \(S_a\) be the sum of the \(q\) diamonds in direction \(a\)
+for \(1\le a\le f\), and put
+\[
+ V_{\rm ram}^{\rm class}=\bigcap_{a=1}^f\ker(S_a:M_K\to M_K),
+ \qquad H=H_w=M\cap V_{\rm ram}^{\rm class}.
+\]
+The map \(j_w=D.\mathrm{nuIn}\,w\) includes the rational
+space of \(D.\mathrm{div}.\mathrm{Nu}\,w\) into the formal
+stage-zero space with image its ramified subspace. It induces
+the stage-zero metric on that source. Since \(\kappa_w\)
+intertwines the sums, the required rational comparison is
+\begin{equation}
+\label{eq:selected-donor-isometry}
+ \mathcal E_w=\kappa_w^{-1}j_w:
+     (D.\mathrm{div}.\mathrm{Nu}\,w).V
+           \xrightarrow{\ \sim\ } V_{\rm ram}^{\rm class},
+ \qquad
+ \mathcal E_w(\text{\rm integral ramified pullback})=H_w .
+\end{equation}
+The second identity is the stage-zero integrality test on this
+subspace. The comparison is an isometry of the Hermitian forms
+at every embedding. In particular conjugate embeddings use the
+conjugate class forms.
+\releasecite{Development/AbelianVarietyTheory/Proofs/SatakeParameters/RamifiedColumnsTrueColumnsEqConcrete.lean}{18}{The comparison on the true columns},
+\releasecite{Formalism/LocalRingCardinality/DataDIVDefs.lean}{12}{The integral pullback} and
+\releasecite{Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean}{291}{The isometric inclusion and its image}.
+
+\paragraph{Integral rank and the lower mean.}
+\leavevmode\teamanchor{proof.ramified-residue-orbits}%
+The diamond group \((\mathbf F_T^\times)^f\) acts freely on
+classes by the argument in the
+\hyperlink{proof.ramified-column-loss}{ramified column count}.
+Translate the integral fibre \(L_o\) at one chosen representative
+of each free orbit \(o\). The integral Weyl lattice and determinant
+factor are preserved in the transported frame. The finite-order
+level character acts by a unit of absolute value one at every
+embedding. The translates have the same class weight and
+disjoint supports. Thus the following module identification
+gives the orthogonal class metric at every embedding:
+\[
+ M=\bigoplus_o(\mathcal O_K^q)^{\otimes f}\otimes L_o,\qquad
+ A_q=\ker(\Sigma:\mathcal O_K^q\to\mathcal O_K),\qquad
+ H=\bigoplus_o A_q^{\otimes f}\otimes L_o .
+\]
+For the last equality split \(\mathcal O_K^q=A_q\oplus\mathcal O_K e_q\),
+where \(e_q\) is the last coordinate vector and \(\Sigma\) the
+coordinate sum. In direction \(a\), \(S_a\) factors as summation
+followed by the diagonal inclusion. The latter has a left inverse
+given by taking a coordinate. The simultaneous kernel therefore
+retains exactly the summands with \(A_q\) in every position. The
+saturation and the kernel description survive every base change,
+including at places dividing \(q\). Writing
+\(r_\diamond=\sum_o\operatorname{rk}L_o\), we obtain
+\begin{equation}
+\label{eq:selected-ramified-rank}
+ d_M=q^f r_\diamond,\qquad d_r=(q-1)^f r_\diamond,\qquad
+ \theta_w=1-d_r/d_M=1-(1-1/q)^f .
+\end{equation}
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/GL6/DiagonalSlopes/SlopeRamifiedInducedPrimeField.lean}{653}{The slice and its translates},
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/GL6/DiagonalSlopes/SlopeRamifiedInducedPrimeField.lean}{731}{Integral membership},
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/GL6/DiagonalSlopes/SlopeRamifiedInducedPrimeField.lean}{809}{Orthogonality} and
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/GL6/DiagonalSlopes/SlopeFormulaOfCharacterFinite.lean}{17}{The character metric}.
+
+\leavevmode\teamanchor{proof.ramified-kernel-lower-mean}%
+Give \(Q=M/H\) its quotient metric. The sum operators induce an
+integral injection \(Q\to M^{\oplus f}\). Each \(S_a\) has norm
+at most \(q\) as a sum of \(q\) isometries. Taking the least-norm
+lift in \(M\otimes_{\mathcal O_K,\sigma}\mathbb C\) at each
+embedding \(\sigma\) gives a squared operator bound of \(fq^2\)
+for the injection. For the orthogonal direct sum,
+\(\mu_{\max}(M^{\oplus f})=\mu_{\max}(M)\). Indeed, filter a
+saturated sublattice by the successive coordinate kernels. Each
+quotient injects integrally and contractively into the next
+coordinate. Passing to the saturation of its image can only
+raise the degree. Additivity of degrees with quotient metrics
+gives the upper bound and using a single coordinate gives equality.
+The determinant inequality for the injection of \(Q\) now gives
+\(\mu(Q)\le\mu_{\max}(M)+\log(fq^2)\), since its image lies in the
+saturation in \(M^{\oplus f}\) and its squared determinant norm
+is at most \((fq^2)^{\operatorname{rk}Q}\).
+Degree additivity for \(H\subseteq M\) yields
+\begin{equation}
+\label{eq:ramified-quotient-bound}
+ \mu(H_w)\ge\mu(M_w)-\delta_{\rm ram}(w),\qquad
+ \delta_{\rm ram}(w)=\frac{\theta_w}{1-\theta_w}
+  \bigl(\mu_{\max}(M_w)-\mu(M_w)+\log(fq^2)\bigr).
+\end{equation}
+Any rational subspace of \(H_K\) has the same saturated lattice
+and induced metric in \(H\) and in \(M\). Hence
+\(\mu_{\max}(H)\le\mu_{\max}(M)\).
+
+Here \(\delta_{\rm ram}(w)=o(1)\) uniformly. Indeed
+\(\theta_w\le f/(T_w-1)\), \(T_w\ge b^3\), and the
+\hyperlink{proof.reference-schur-slopes}{reference estimates}
+bound the spread \(\mu_{\max}(M_w)-\mu(M_w)\) by
+\(O(N_Ta_E L_a(1+m/k))\), with \(a_E=xb\) and
+\(L_a=\log(a_E\operatorname{rd}(E))\).
+All the remaining factors and \(\log T_w\) are polynomially
+bounded in \(x\) at fixed precision. This is the mean estimate
+used in the \hyperlink{proof.divided-column-slopes}{divided-source slopes}.
+
+\paragraph{The exact mean and the projected lattice.}
+\leavevmode\teamanchor{proof.ramified-integral-kernel}%
+The integral description also gives an exact formula. In the
+one-factor basis \(e_i-e_q\), \(1\le i<q\), the Gram matrix is
+\(G=I+\mathbf1\mathbf1^{\mathsf T}\) of determinant \(q\).
+In the \(f\)-fold tensor the determinant is
+\(q^{f(q-1)^{f-1}}\). The finite determinants of the orbit
+fibres and the class metrics contribute the same amount per
+rank on both sides, since each orbit retains the same rank
+fraction. Thus the squared-norm convention gives
+\begin{equation}
+\label{eq:exact-ramified-column-slope}
+ \mu(H_w)=\mu(M_w)-\frac{f\log(T_w-1)}{T_w-2}.
+\end{equation}
+This is the mean clause of the fitted \(\mathrm{adm26}\) input.
+For comparison let \(P\) be the image of \(M\) under the product
+of the rational orthogonal projections
+\(I-q^{-1}\mathbf1\mathbf1^{\mathsf T}\) in the \(f\) directions.
+In one factor the projected basis \(e_i-q^{-1}\mathbf1\),
+\(1\le i<q\), has Gram \(G^{-1}\). The inclusion of the
+difference basis has matrix \(G\) in this basis. Its integral
+Smith factors are \(q\) once and \(1\) repeated \(q-2\) times,
+because the determinant is \(q\) and the cokernel is generated
+by the common class of the projected basis vectors. Tensor
+the Smith bases and localize. The exponent \(j\operatorname{ord}_v(q)\)
+has multiplicity \(r_\diamond\binom fj(q-2)^{f-j}\) for
+\(0\le j\le f\), with multiplicities added when exponents
+coincide. In particular,
+\[
+ H\subseteq P\subseteq q^{-f}H,\qquad
+ \operatorname{length}_{\mathcal O_v}(P_v/H_v)
+      =\frac{f d_r}{q-1}\operatorname{ord}_v(q),\qquad
+ \mu(P)=\mu(M)+\frac{f\log q}{q-1}.
+\]
+At every \(v\mid T_w\) the integer \(q\) is a unit, so
+\(P_v=H_v\). The donor index there is the Hecke index below.
+\releasecite{Formalism/LocalToGlobal/Columns/SliceIntegralDeltaNeBot.lean}{858}{The exact concrete mean} and
+\releasecite{Formalism/SharpRestriction/Divisibility/LocalQuadraticParts.lean}{621}{The formula in the fitted normalization}.
+\rhrange{Equation~\eqref{eq:exact-ramified-column-slope} gives the exact
+squared-metric mean of the integral ramified lattice.}
+{The \hyperlink{proof.ramified-kernel-lower-mean}{quotient lower mean}
+\(\mu(H_w)\ge\mu(M_w)-o(1)\) and
+\(\mu_{\max}(H_w)\le\mu_{\max}(M_w)\), with the actual rank,
+donor and local indices.}
+
+\paragraph{The undivided period source.}
+\leavevmode\teamanchor{proof.selected-undivided-donor}%
+Let \(e_{\nu,w}\) denote the map from the fixed rational
+column coordinates to \((D.\mathrm{div}.\mathrm{Nu}\,w).V\).
+If \(z\) has class function \(\phi_z\) in those coordinates,
+evaluation on every representative gives
+\[
+ j_w(e_{\nu,w}z)=\kappa_w(\phi_z),
+ \qquad \mathcal E_w(e_{\nu,w}z)=\phi_z .
+\]
+Injectivity of \(j_w\) determines \(e_{\nu,w}\) from this equation.
+The all-embedding Gram identity for this map follows from the
+stage-zero isometry \eqref{eq:selected-donor-isometry}. With these
+coordinates the division construction chooses the undivided lattice
+as \(e_{\nu,w}^{-1}(L.\mathrm{NuLat}\,w)\). Consequently the
+class-function lattice in the period descent is
+\begin{equation}
+\label{eq:selected-undivided-donor}
+ N_w=\mathcal E_w(L.\mathrm{NuLat}\,w)
+      \subseteq H_w\subseteq M_w .
+\end{equation}
+The selected divided coordinate lattice has image
+\(I_w(L.\mathrm{NuLat}\,w)\) under \(e_{\nu,w}\), with
+\(I_w=\prod_v\mathfrak p_v^{-\lfloor e_vg_{wv}\rfloor}\).
+Transport commutes with multiplication by this fractional ideal.
+Applying its inverse recovers the undivided lattice, so the
+comparison from the final divided realization uses the same choice.
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/ExistsRowsKCColPins.lean}{146}{The tied coordinates and period data},
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ChKerCCongr.lean}{112}{The column identity and all-place Gram identity},
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/Wire4F.lean}{83}{Application at the selected index},
+\releasecite{Formalism/LocalToGlobal/Divisibility/RecBridgeMkF.lean}{57}{The undivided lattice in coordinates},
+\releasecite{Formalism/LocalToGlobal/Divisibility/DivisibilityConstruction/ShiftOfColTie.lean}{53}{The fractional-ideal shift} and
+\releasecite{Formalism/LocalToGlobal/GroupLattices/JointServices/ShiftIdealSgFl.lean}{57}{Its cancellation}.
+
+For every used tuple \(\boldsymbol\mu\), let \(e_{\boldsymbol\mu}\)
+be the realization of its placed top row coordinates, and let
+\(\mathcal P_{w,\boldsymbol\mu}(\phi,z)\) be the \(K\)-valued
+top class sum of Section~\ref{sec:periods} in those coordinates.
+On \(n\) in the formal rational column space and a placed test
+row \(z\), the pairing identity is
+\begin{equation}
+\label{eq:selected-donor-placed-period}
+ \operatorname{perCol}(w,\boldsymbol\mu)
+       (j_N n,e_{\boldsymbol\mu}z)
+   =\iota_K\bigl(\mathcal P_{w,\boldsymbol\mu}(\mathcal E_w n,z)\bigr),
+\end{equation}
+where \(j_N\) is the induced complex inclusion. At the base
+tuple this is evaluation of the terminal class sum. At a moving
+tuple, transport the initial class values by the prescribed
+tuple map and apply the normalized step entries on the moved
+representatives. The class evaluation and the coefficient
+transport intertwine that map, so the sum gives the placed period
+with its tuple normalization. At the base let \(e_R\) be the
+identification of the descended row coordinates with the formal
+ones. The period kills the projection kernel and the descended
+rows span. Thus \eqref{eq:selected-donor-placed-period} and
+injectivity of \(\iota_K\) give
+\begin{equation}
+\label{eq:selected-donor-rational-period}
+ D.\mathrm{div}.\mathrm{Bk}\,w(e_{\nu,w}x,e_R y)
+     = B_{K,w}(\phi_x)(y).
+\end{equation}
+In particular the word's norm and the base and twisted periods
+are all computed with the same rational comparison.
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ChKerCCongr.lean}{137}{The placed identity for every tuple} and
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/RationalPairingEqColumnPairing.lean}{60}{The identity on the descended row}.
+
+\paragraph{The local lattices.}
+Write \(N_{(v)},H_{(v)}\) for the localizations inside the
+rational class space. For a served place \(v\) let \(c_v\) be
+the formal semilinear comparator composed with \(\kappa_w\).
+It is class evaluation in the prescribed coefficient frame
+at the chosen place embedding. Its image of a basis is
+linearly independent over the local coefficient extension,
+and the images of integral vectors span the full integral
+class model there. In a moving frame it is the base
+comparison composed with the inverse tuple transport.
+The place is served when the good-prime conditions hold and
+the set of sampling vertices is nonempty. Write \(N_{P,v}\)
+for the integral test module of that service. The selected
+lattice is characterized by
+\begin{equation}
+\label{eq:selected-donor-localizations}
+\begin{aligned}
+ v\nmid T,\ {\rm served}: &&N_{(v)}
+   &=\{\phi\in V_{\rm ram}^{\rm class}:c_v(\phi)\in N_{P,v}\},\\
+ v\mid T: &&N_{(v)}
+   &=\{\phi\in V_{\rm ram}^{\rm class}:\kappa_w(\phi)\in N_{\lambda,v}\},\\
+ v\nmid T,\ {\rm unserved}: &&N_{(v)}&=H_{(v)}.
+\end{aligned}
+\end{equation}
+Here \(N_{\lambda,v}\) at \(v\mid T\) is the rational preimage
+under the stage-zero complex embedding of
+\[
+ T^{\,m\sum_{s\in\mathcal T_v} b_s}
+       \Bigl(\prod_{s\in\mathcal T_v} U_s\Bigr)^m
+         \operatorname{emb}_0(S_{\rm ram}),
+\]
+where \(S_{\rm ram}\) is the formal integral ramified lattice
+at \(v\) and \(\mathcal T_v\) consists of the selected top
+places if the record marks \(v\) as seen, and is empty
+otherwise. The \(U_s\) sum the placed up-neighbours with
+coefficient transport. The local up-lattice
+\(\Lambda_P+\pi_P^{-1}\mathcal O_P x\) recovers the residual
+line of \(x\), and the residual functional condition
+\(f_P(x)=1\) fixes its representative. Each term therefore
+has the same neighbour, multiplicity and action in the
+evaluation on classes. The seen-place label fixes the top
+set and the exponents for this word.
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{13}{The comparator and its integral image},
+\releasecite{Formalism/LocalToGlobal/GroupLattices/ComparisonMaps/ComparisonZeroEmbedding.lean}{21}{The moving frame},
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{42}{The served preimage},
+\releasecite{Formalism/LocalRingCardinality/DataLatDefs.lean}{67}{The placed level image},
+\releasecite{Formalism/LocalToGlobal/Columns/TiedUpDnA.lean}{42}{The up-lattice},
+\releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/LvSameZero.lean}{156}{The decorated up-neighbours} and
+\releasecite{Formalism/LocalToGlobal/Columns/AtTOwedS.lean}{266}{The selected top places and exponents}.
+
+Only the places over \(T\) and served primes below \(X'\) can
+change the lattice. Each prescribed module is commensurable with
+the local \(H_{(v)}\). Choose one integer \(d>0\) with
+\(dH_{(v)}\subseteq N_{(v)}\subseteq d^{-1}H_{(v)}\) everywhere.
+In \(d^{-1}H/dH\), the local submodules specify one submodule
+by its primary components. Its preimage in \(d^{-1}H\) has the
+given localizations. Equality at every finite localization gives
+global equality. The constructor uses these tests for
+\(L.\mathrm{NuLat}\,w\), and the unipotent translate carries this
+lattice and its inclusion to the final point. Thus the glued
+lattice is precisely \eqref{eq:selected-undivided-donor}.
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsLedPart.lean}{119}{Gluing the selected tests},
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsLedPart.lean}{187}{The local lengths in the record} and
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/SetUnipotentTranslate.lean}{372}{Carrying the record to the divided point}.
+
+\paragraph{Local length off the level.}
+At \(v\mid p\), let \(\alpha_{1v}\le\cdots\le\alpha_{d_r v}\)
+be the elementary-divisor exponents of \(N_v\) in \(H_v\) over
+the local DVR. The length recorded in the family is normalized
+by \(e_v=\operatorname{ord}_v(p)\):
+\begin{equation}
+\label{eq:selected-donor-raw-length}
+ \operatorname{length}_{\mathcal O_v}(H_v/N_v)
+     =\sum_j\alpha_{jv}=e_v\ell_{wv}.
+\end{equation}
+At a served prime off \(T\), write \(M_g\) and \(V_g\) for the
+integral class model and rational ramified space over the
+extension DVR. For a local lattice \(A\) put
+\[
+ Y(A)=\sum_B p^{\sum_{s\notin B} S_s}
+                  \Bigl(\prod_{s\in B}y_s^m\Bigr)A,\qquad
+ S=\max_s S_s,\qquad Y=Y(M_g).
+\]
+The sum runs over subsets of sampling vertices and uses their
+prescribed operators \(y_s\) and integer exponents \(S_s\ge0\).
+The tested module is \(N_{P,v}=V_g\cap Y\cap p^{\tau_v}M_g\).
+The empty product contains a power of \(p\) times \(M_g\).
+
+The all-but estimate on \(M^{\rm na}\) uses a leading exponent
+\(\tau'_v\) and
+\(p^{\varepsilon_v}M^{\rm na}\subseteq M_g\subseteq M^{\rm na}\).
+Multiplication by \(p^{\varepsilon_v}\) sends
+\(Y(M^{\rm na})\) into \(Y(M_g)\), so the new leading exponent is
+\(\tau_v=\tau'_v+\varepsilon_v\). For every \(\beta\ge0\) the
+image \(Q_\beta\) of \(p^{\tau_v+\beta S}M_g\) modulo \(Y\)
+has at most \(d_M\Sigma^{\beta+1}/(\beta+1)!\) generators,
+where \(\Sigma=m\sum_s\kappa_s\le1/2\) in the served range.
+Indeed, for each set \(B\) with \(\beta+1\) vertices the walk
+allows at most \(d_M\prod_{s\in B}\kappa_s\) exceptions at each
+of \(m^{\beta+1}\) exponent choices. Summing over \(B\) gives
+the factorial bound. The image is a submodule of the quotient
+generated by the exceptions, and over a DVR a submodule needs
+at most as many generators. Since \(Q_{\beta+1}=p^S Q_\beta\),
+the length of \(Q_\beta/Q_{\beta+1}\) is bounded by
+\(\operatorname{ord}_g(p)S d_M\Sigma^{\beta+1}/(\beta+1)!\).
+For \(S>0\) these images eventually vanish by the empty-product
+term. When \(S=0\) that term gives \(Y=M_g\), so the test is
+\(p^{\tau_v}(M_g\cap V_g)\). Summing the layers and using
+\(e^\Sigma-1\le2\Sigma\) bounds the length of
+\(M_g/(Y\cap p^{\tau_v}M_g)\) by
+\(\operatorname{ord}_g(p)d_M(\tau_v+\iota_v)\) with
+\(\iota_v=2S\Sigma\). The ramified quotient injects into this
+quotient.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{464}{The tested module},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/SelectionLemmas.lean}{41}{The all-but length bound} and
+\releasecite{Formalism/SubspaceCounting/SubspaceCountingProofs/WalkSharp.lean}{427}{The walk count}.
+
+The comparator gives \(M_g\cap V_g=\mathcal O_g c_v(H_{(v)})\)
+by extension of a basis adapted to the saturated inclusion.
+Rational spanning for the tested module gives
+\(N_{P,v}=\mathcal O_g c_v(N_{(v)})\).
+Scalar extension multiplies raw lengths by the relative
+ramification index \(e'\), and \(\operatorname{ord}_g(p)=e'e_v\).
+The containment in \(p^{\tau_v}M_g\) contracts by the integral
+basis comparison to \(p^{\tau_v}H_{(v)}\). It follows that
+\begin{equation}
+\label{eq:selected-donor-off-level-index}
+ \alpha_{1v}\ge e_v\tau_v,\qquad
+ \ell_{wv}\le d_M(\tau_v+\iota_v)\qquad(v\nmid T).
+\end{equation}
+In the concrete local generators one can take
+\(M\cap c_v^{-1}(Y)\) as the full-column submodule at this place.
+It contains a power of \(p\) times \(M\), and after localization
+its intersection with \(p^{\tau_v}M_{(v)}\) and
+\(V_{\rm ram}^{\rm class}\) is exactly \(N_{(v)}\) by
+\eqref{eq:selected-donor-localizations}. At an unserved place
+off \(T\) the length and both parameters vanish.
+\releasecite{Formalism/LocalToGlobal/GroupLattices/LinkGConcreteNoKer.lean}{28}{Rational descent on the tied comparison},
+\releasecite{Formalism/LocalRingCardinality/Lemmas.lean}{1061}{Scalar extension on the two lattices},
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkG.lean}{23}{The selected service} and
+\releasecite{Formalism/LocalToGlobal/Columns/FiniteSumNonzeroLargeDepth.lean}{1315}{Concrete local generators}.
+
+\paragraph{Local length at the level.}
+Write \(\Lambda\) for the stage-zero lattice over \(v\mid T\)
+and \(V_{{\rm ram},v}\) for the image of \(H_w\otimes_{\mathcal O_K}K_v\)
+under \(\kappa_w\). Let
+\(\Lambda_r=\Lambda\cap V_{{\rm ram},v}\) and \(g_s=T^{b_s}U_s\).
+The auxiliary lattice \(A_s\) satisfies
+\(T^{b_s}\Lambda\subseteq A_s\),
+\(U_sA_s\subseteq\Lambda\) and
+\(U_s^*\Lambda_r\subseteq A_s\cap V_{{\rm ram},v}\).
+Together with \(U_sU_s^*=U_s^*U_s=T^{k-1}\) on the rational
+ramified space, these relations give
+\[
+ g_s\Lambda_r\subseteq U_s(A_s\cap V_{{\rm ram},v})\subseteq\Lambda_r,
+ \qquad
+ T^{k-1}\Lambda_r\subseteq U_s(A_s\cap V_{{\rm ram},v}).
+\]
+Split the index at \(U_s(A_s\cap V_{{\rm ram},v})\).
+Injectivity of \(U_s\) on the ramified space and the
+auxiliary index give
+\[
+ \operatorname{length}(\Lambda_r/g_s\Lambda_r)
+    \le e_v d_M\bigl(k-1+(a_s+kb_s)/k\bigr).
+\]
+The twist bound is \((a_s+kb_s)/k\le a_{\max}/k+2W_s\),
+with \(a_{\max}\le2a_E\), \(W_s\le3b'\) and \(k\le b'\).
+Thus \(k-1+(a_s+kb_s)/k\le 2a_E/k+7b'\).
+Lengths add for the preserving injective products and their
+\(m\)-th powers over at most \(N_T\) top places. Use
+\(d_r\ge d_M/2\) beyond the common threshold,
+\(\lambda_v=\log(\mathrm N\mathfrak p_v)/[K:\mathbf Q]\), and
+\(\sum_{v\mid T}e_v\lambda_v=\log T\). This gives
+\begin{equation}
+\label{eq:selected-donor-level-index}
+ \tau_v=0,\quad \alpha_{1v}\ge0\quad(v\mid T),\qquad
+ \frac2{d_r}\sum_{v\mid T} e_v\lambda_v\ell_{wv}
+       \le 28N_Tm(a_E/k+b')\log T.
+\end{equation}
+Here \(\tau_v=0\) by the support of the service. The raw length
+in \eqref{eq:selected-donor-raw-length} is the length of the
+Hecke image via the same inclusion \(j_w\). The fitted family
+bound uses coefficient \(36\), and either bound gives the
+stated absolute-constant allowance.
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/GL6/CongruenceNoKernelOfHeckeRamified.lean}{44}{The one-operator index},
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/FiniteModelOfAdmissibleTransports.lean}{1706}{The twist bound},
+\releasecite{Formalism/LocalRingCardinality/Lemmas.lean}{1521}{The raw level length},
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/PlacesMin.lean}{101}{The support and integrality of \(\tau_v\)} and
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/LinkMin.lean}{587}{The fitted weighted allowance}.
+
+These localizations and \eqref{eq:selected-donor-placed-period}
+apply the valuation test to the very generators used in the
+period descent, at the base tuple and at every finite-place tuple.
+The unit in the \hyperlink{proof.local-unit-comparison}{moving-tuple comparison}
+preserves their valuations. At the level prime, at the two
+auxiliary primes and at the remaining primes, the corresponding
+integral tests give \eqref{eq:period-gain-valuation}. Hence the
+fractional-ideal division there maps \(I_wN_w\) into the dual of
+the descended integral row lattice. Its rational pairing is
+\eqref{eq:selected-donor-rational-period}, and its source norms
+are those of \eqref{eq:selected-donor-isometry}. The local
+indices above thus enter the same slopes whose map height is
+computed in the \hyperlink{proof.divided-map-heights}{quotient row metric}.
+\releasecite{Formalism/LocalToGlobal/GroupLattices/AdmissibleAtGeneratorPlaces.lean}{214}{The three valuation cases} and
+\releasecite{Formalism/LocalToGlobal/Divisibility/RecBridge.lean}{631}{The test and division on this source}.
+
+For an independently prescribed lattice \(A\) and a rational
+comparison \(\Phi:A_K\to V_{\rm ram}^{\rm class}\), identification
+with \(N_w\) requires \(\Phi(A)_v=(N_w)_v\) at every finite
+place. In local Smith coordinates this means all the signed
+exponents relative to \((N_w)_v\) vanish. The same \(\Phi\)
+must carry the Hermitian forms at every embedding and transport
+the base and moving periods.

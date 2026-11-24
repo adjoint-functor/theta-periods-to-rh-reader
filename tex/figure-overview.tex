@@ -6,37 +6,50 @@
   \node[argument block] (periods) at (55,0)
     {\hyperlink{proof.full-bessel-realization}{\shortstack{Bottom operators, periods\\and relative traces}}};
   \node[argument block,fill=TraceTint] (lattice) at (110,0)
-    {\hyperlink{proof.uniform-lattice-excess}{\shortstack{Division, heights and the\\prime-power comparison}}};
+    {\hyperlink{proof.classical-signed-mean}{\shortstack{Division and heights give\\the signed mean at \(x\)}}};
   \node[argument block,fill=ChoiceTint] (family) at (0,-18)
     {\hyperlink{proof.choose-compatible-family}{\shortstack{One family with\\compatible data}}};
   \node[argument block,fill=ChoiceTint] (inputs) at (55,-18)
-    {\hyperlink{proof.same-family-hypotheses}{\shortstack{Lattice and character\\hypotheses at each scale}}};
+    {\hyperlink{proof.same-family-hypotheses}{\shortstack{Selmer bound, section runs\\and donor at the tied records}}};
   \node[argument block,fill=AnalysisTint] (fourier) at (110,-18)
-    {\hyperlink{proof.fourier-exponent}{\shortstack{Pointwise implication\\by Fourier inversion}}};
+    {\hyperlink{proof.fourier-exponent}{\shortstack{Fourier inversion gives\\the bound for \(G_1(x)\)}}};
   \node[argument block,fill=AnalysisTint] (window) at (55,-36)
-    {\hyperlink{proof.apply-full-window}{\shortstack{Prime-sum bound on\\an entire interval}}};
+    {\hyperlink{proof.apply-full-window}{\shortstack{Bound for every real\\\(x\in[Y,Y^{3/2}]\)}}};
   \node[argument block,fill=AnalysisTint] (zeros) at (0,-36)
     {\hyperlink{proof.one-sided-window-criterion}{\shortstack{Zero exclusion and the\\functional equation}}};
-  \draw[argument arrow] (fields.east) -- (periods.west);
   \draw[argument arrow] (periods.east) -- (lattice.west);
   \draw[argument arrow] (fields.south) -- (family.north);
-  \draw[argument arrow] ([xshift=-8mm]lattice.south) -- ++(0,-3.5) -| (inputs.north);
+  \draw[argument arrow] (family.north east) -- (periods.south west);
+  \draw[argument arrow] (inputs.north) -- ++(0,3.5) -| ([xshift=-8mm]lattice.south);
   \draw[argument arrow] ([xshift=15mm]lattice.south)
-    -- node[left,font=\scriptsize\sffamily,text=PageInk,inner sep=1pt] {sum and cutoff}
+    -- node[left,font=\scriptsize\sffamily,text=PageInk,inner sep=1pt] {signed mean}
        ([xshift=15mm]fourier.north);
   \draw[argument arrow] (family.east) -- (inputs.west);
-  \draw[argument arrow] (inputs.south) -- (window.north);
+  \draw[argument arrow] ([xshift=12mm]family.south) -- ++(0,-3)
+    -| ([xshift=-12mm]fourier.south);
+  \draw[argument arrow] ([xshift=-9mm]family.south) -- ++(0,-6)
+    -| (window.north);
   \draw[argument arrow] (fourier.south) |- (window.east);
   \draw[argument arrow] (window.west) -- (zeros.east);
 \end{tikzpicture}
-\caption{The period and trace arguments of
+\caption[From theta periods to zero exclusion]{The period and trace arguments of
   Sections~\ref{sec:periods}--\ref{sec:trace} share a box.
   Section~\ref{sec:family} supplies Selmer and Artin data for
   Section~\ref{sec:integral} and character estimates for Section~\ref{sec:fourier}.
-  Apply the lattice inequality once its period, rank and height
-  hypotheses hold on the selected records. Then apply the Fourier
-  implication with the same cutoff and centering term and the character
-  estimates on the base field.
+  The chosen family supplies the word code and the prime level of each word
+  for the column-dimension estimates in Section~\ref{sec:trace}.
+  At each translate the
+  \hyperlink{proof.section-run-family-identification}{selected section runs}
+  supply the section comparison and the
+  \hyperlink{proof.ramified-donor-identification}{transported donor}
+  supplies the column comparison. Apply the lattice implication with
+  the other period, rank, trace, gain, height and slope inputs.
+  Fourier inversion has two inputs in this schematic. The lattice
+  calculation gives the \hyperlink{proof.classical-signed-mean}{signed mean}.
+  The selected family gives the sampling data and the auxiliary
+  character estimates. Both use the same \(x,H,T,T_2\), cutoff, weights
+  and centering. They yield the pointwise bound at every real \(x\) in
+  an arbitrarily distant full interval of that family.
   The \href{proof-map.html}{\mbox{ten-stage proof overview}} links these
   implications to their statements and arguments in the paper.}
 \label{fig:overview}
