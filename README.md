@@ -106,22 +106,17 @@ Fix the selected family. At each selected translate the normalized Bessel Poinca
 
 - **Finite-degree bound for an adjoint section lattice.** On a nonterminal cover component $Z$, the lower bound for the degree of the actual adjoint section lattice in the prescribed metrics has leading Chow-height term $q_Z\ell h_Z$ at the specified degree $\ell$. It uses the rank comparison $(1-z)r_Z\le q_Z\le r_Z$, where $q_Z=\binom{\ell-1}{s}d_Z$ for the flag dimension $s$ and moving degree $d_Z$, $r_Z$ is the rank of the actual cusp lattice, and the prescribed loss $z$ is at most $1/2$. David–Philippon and Chen give earlier finite-degree determinant estimates using the Chow form. The narrower comparison concerns this selected degree and rank, with uniform control of the norm and index losses in transferring to the actual lattice. Descent and truncation turn the component bounds into covolume estimates for cusp sections in the indefinite tower. These enter the division estimates. A separate calculation gives the reference slopes of the definite column lattices. [Precise statement](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=candidate.height)
 
-- **Arithmetic height of the full flag at a finite cutoff.** Fix an abelian CM field $E$ of degree $2f$, $f\ge2$, with $E/E^+$ unramified at every finite prime. Fix $k_0=\mathbf Q(\sqrt{-d_0})\subset E$ with $d_0$ prime and $d_0\equiv7\pmod{16}$, and choose the root with $(1+\sqrt{-d_0})/2\in\mathcal O_E$. Use the type induced by one embedding of $k_0$ and a nonterminal unitary cover of constant signature $(p,q)$ with $q\ge1$ and $N=p+q\ge3q+1$. Fix the good level $M'$ with $A=1$ and the compatible integral models before choosing the weight $u$ and cutoff $B$. Vary the integral flags at the exceptional primes and the primes up to $B$. The exceptional primes are the divisors of $2|\operatorname{disc}E|M'$ and number at most $4fN^2$. Take a strictly decreasing integral weight of arbitrary signs. Each of the last $q$ weights at a label must be separated from every other weight there by at least $g>0$. The cutoff satisfies
+- **Arithmetic height of the full flag at a finite cutoff.** Fix an abelian CM field $E$ of degree $2f$, $f\ge2$, with $E/E^+$ unramified at every finite prime. Fix $k_0=\mathbf Q(\sqrt{-d_0})\subset E$ with $d_0$ prime and $d_0\equiv7\pmod{16}$, and choose the root with $(1+\sqrt{-d_0})/2\in\mathcal O_E$. Use the type induced by one embedding of $k_0$ and a nonterminal unitary cover of constant signature $(p,q)$ with $q\ge1$ and $N=p+q\ge3q+1$. Fix the good level $M'$ with $A=1$ and the compatible integral models before choosing the weight $u$ and cutoff $B$. Vary the integral flags at the exceptional primes and the primes up to $B$. The exceptional primes are the divisors of $2\lvert\mathrm{disc}(E)\rvert M'$ and number at most $4fN^2$. Take a strictly decreasing integral weight of arbitrary signs. Each of the last $q$ weights at a label must be separated from every other weight there by at least $g>0$. The cutoff satisfies
 
-  ```math
-  B+1 > 4fN^2 \left(1+\frac{\lVert u\rVert_{\infty}}{g}\right).
-  ```
+  $$B+1 \gt 4fN^2 \left(1+\frac{\lVert u\rVert_\infty}{g}\right).$$
 
-  With $\chi_{d_0}$ the quadratic character of $k_0$, the component-volume-weighted mean height $H_B(u)$ satisfies
+  Write $\Delta_\tau(u)=\max_i u_{\tau i}-\min_i u_{\tau i}$ for the spread of the weights at $\tau$. The mean height, weighted by the component volumes, satisfies
 
-  ```math
-  \begin{aligned}
-  &H_B(u) \ge -C\Bigl(\Lambda_B \lVert u\rVert_1\\
-  &\qquad {}+ q\sum_{\tau}\bigl(\max_i u_{\tau i}-\min_i u_{\tau i}\bigr)\Bigr),\\[3pt]
-  &\Lambda_B = \log\!\bigl(B\,\operatorname{rd}(E)\bigr)\\
-  &\qquad {}+ \left\lvert\Re\!\left(\frac{L'}{L}(1,\chi_{d_0})\right)\right\rvert .
-  \end{aligned}
-  ```
+  $$H_B(u) \ge -C\left(\Lambda_B\lVert u\rVert_1 + q\sum_\tau \Delta_\tau(u)\right),$$
+
+  where $\chi_{d_0}$ is the quadratic character of $k_0$, $\mathrm{rd}(E)$ is the root discriminant of $E$, and
+
+  $$\Lambda_B = \log\bigl(B\,\mathrm{rd}(E)\bigr) + \left|\Re\left(\frac{L'}{L}(1,\chi_{d_0})\right)\right|.$$
 
   This supplies a geometric input to the finite-degree estimate for sections. The paper computes the change on the common finite model when a good prime is added, including its toroidal boundary, and bounds the resulting prime tail. On these same components it compares mixed intersections for the limiting Hodge metric. Testing weights on the walls of the dominant chamber and calibrating the two surviving determinant terms gives the bound at the original cutoff. The application to the section lattice also uses a finite-place trace and section norms. Historical priority is open. [Statement and mathematical status](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=candidate.flag-height)
 
@@ -251,22 +246,17 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 - **伴随线丛截面格的有限次数界。** 在覆盖的非终端分量 $Z$ 上，取指定的次数 $\ell$ 和度量，实际伴随线丛截面格的度下界以 Chow 高度项 $q_Z\ell h_Z$ 为主项。这里 $q_Z=\binom{\ell-1}{s}d_Z$，其中 $s$ 是旗簇维数，$d_Z$ 是动线性系的次数。记实际尖点截面格的秩为 $r_Z$，则须有 $(1-z)r_Z\le q_Z\le r_Z$，其中给定的相对秩损失 $z\le1/2$。David–Philippon 与 Chen 已用 Chow 形给出有限次数的行列式估计。这里较窄的比较要求在选定次数与秩下，一致控制转到实际格时的范数和指数损失。经下降和截断后，各分量上的界给出不定酉群塔中尖点截面格的余体积估计，供除法估计使用。定号酉群一侧列格的参考斜率另行计算。 [精确陈述](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=candidate.height)
 
-- **有限截断下全旗簇的算术高度。** 取 $2f$ 次阿贝尔 CM 数域 $E$，要求 $f\ge2$，且 $E/E^+$ 在所有有限素位均非分歧。固定虚二次数域 $k_0=\mathbf Q(\sqrt{-d_0})\subset E$，其中 $d_0$ 是满足 $d_0\equiv7\pmod{16}$ 的素数，并选定平方根，使 $(1+\sqrt{-d_0})/2\in\mathcal O_E$。取由 $k_0$ 的一个嵌入诱导的 CM 型及各无穷位符号均为 $(p,q)$ 的非终端酉群覆盖，要求 $q\ge1$ 且 $N=p+q\ge3q+1$。先固定辅助参数为 $A=1$ 的好水平 $M'$ 和相容的整模型，再选权 $u$ 与截断值 $B$。在例外素数与不超过 $B$ 的素数处更换整旗。例外素数是 $2|\operatorname{disc}E|M'$ 的素因子，其数目至多为 $4fN^2$。取各分量严格递减的整权，分量可为正、零或负。每一标号下最后 $q$ 个权中的任一个与同一标号下其余每个权的间距至少为 $g>0$。截断值满足
+- **有限截断下全旗簇的算术高度。** 取 $2f$ 次阿贝尔 CM 数域 $E$，要求 $f\ge2$，且 $E/E^+$ 在所有有限素位均非分歧。固定虚二次数域 $k_0=\mathbf Q(\sqrt{-d_0})\subset E$，其中 $d_0$ 是满足 $d_0\equiv7\pmod{16}$ 的素数，并选定平方根，使 $(1+\sqrt{-d_0})/2\in\mathcal O_E$。取由 $k_0$ 的一个嵌入诱导的 CM 型及各无穷位符号均为 $(p,q)$ 的非终端酉群覆盖，要求 $q\ge1$ 且 $N=p+q\ge3q+1$。先固定辅助参数为 $A=1$ 的好水平 $M'$ 和相容的整模型，再选权 $u$ 与截断值 $B$。在例外素数与不超过 $B$ 的素数处更换整旗。例外素数是 $2\lvert\mathrm{disc}(E)\rvert M'$ 的素因子，其数目至多为 $4fN^2$。取各分量严格递减的整权，分量可为正、零或负。每一标号下最后 $q$ 个权中的任一个与同一标号下其余每个权的间距至少为 $g>0$。截断值满足
 
-  ```math
-  B+1 > 4fN^2 \left(1+\frac{\lVert u\rVert_{\infty}}{g}\right).
-  ```
+  $$B+1 \gt 4fN^2 \left(1+\frac{\lVert u\rVert_\infty}{g}\right).$$
 
-  记 $k_0$ 的二次特征标为 $\chi_{d_0}$。以各分量的几何体积加权得到的平均高度 $H_B(u)$ 满足
+  记 $\Delta_\tau(u)=\max_i u_{\tau i}-\min_i u_{\tau i}$ 为标号 $\tau$ 处最大权与最小权之差。以各分量的几何体积加权得到的平均高度满足
 
-  ```math
-  \begin{aligned}
-  &H_B(u) \ge -C\Bigl(\Lambda_B \lVert u\rVert_1\\
-  &\qquad {}+ q\sum_{\tau}\bigl(\max_i u_{\tau i}-\min_i u_{\tau i}\bigr)\Bigr),\\[3pt]
-  &\Lambda_B = \log\!\bigl(B\,\operatorname{rd}(E)\bigr)\\
-  &\qquad {}+ \left\lvert\Re\!\left(\frac{L'}{L}(1,\chi_{d_0})\right)\right\rvert .
-  \end{aligned}
-  ```
+  $$H_B(u) \ge -C\left(\Lambda_B\lVert u\rVert_1 + q\sum_\tau \Delta_\tau(u)\right),$$
+
+  其中 $\chi_{d_0}$ 是 $k_0$ 的二次特征标，$\mathrm{rd}(E)$ 是 $E$ 的根判别式，且
+
+  $$\Lambda_B = \log\bigl(B\,\mathrm{rd}(E)\bigr) + \left|\Re\left(\frac{L'}{L}(1,\chi_{d_0})\right)\right|.$$
 
   这给出了有限次数截面估计需要的一项几何输入。正文已算出加入一个好素数给共同有限整模型的交数带来的改变，涵盖环面边界，并由此控制了其余素数的可求和尾项。正文在同一批分量上比较了极限 Hodge 度量的混合交数，再由优势室壁上的权和两项行列式高度得到原截断处的下界。用于截面格时还要计入有限处的迹和截面范数。首创性尚待考证。[完整命题与证明进展](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=candidate.flag-height)
 
