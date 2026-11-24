@@ -108,15 +108,27 @@ Fix the selected family. At each selected translate the normalized Bessel Poinca
 
 - **Arithmetic height of the full flag at a finite cutoff.** Fix an abelian CM field $E$ of degree $2f$, $f\ge2$, with $E/E^+$ unramified at every finite prime. Fix $k_0=\mathbf Q(\sqrt{-d_0})\subset E$ with $d_0$ prime and $d_0\equiv7\pmod{16}$, and choose the root with $(1+\sqrt{-d_0})/2\in\mathcal O_E$. Use the type induced by one embedding of $k_0$ and a nonterminal unitary cover of constant signature $(p,q)$ with $q\ge1$ and $N=p+q\ge3q+1$. Fix the good level $M'$ with $A=1$ and the compatible integral models before choosing the weight $u$ and cutoff $B$. Vary the integral flags at the exceptional primes and the primes up to $B$. The exceptional primes are the divisors of $2\lvert\mathrm{disc}(E)\rvert M'$ and number at most $4fN^2$. Take a strictly decreasing integral weight of arbitrary signs. Each of the last $q$ weights at a label must be separated from every other weight there by at least $g>0$. The cutoff satisfies
 
-  $$B+1 \gt 4fN^2 \left(1+\frac{\lVert u\rVert_\infty}{g}\right).$$
+  <div align="center">
 
-  Write $\Delta_\tau(u)=\max_i u_{\tau i}-\min_i u_{\tau i}$ for the spread of the weights at $\tau$. The mean height, weighted by the component volumes, satisfies
+  $$\displaystyle B+1 \gt 4fN^2 \left(1+\frac{\lVert u\rVert_\infty}{g}\right).$$
 
-  $$H_B(u) \ge -C\left(\Lambda_B\lVert u\rVert_1 + q\sum_\tau \Delta_\tau(u)\right),$$
+  </div>
+
+  Write $\Delta_\tau=\max_i u_{\tau i}-\min_i u_{\tau i}$ for the spread of the weights at $\tau$. The mean height, weighted by the component volumes, satisfies
+
+  <div align="center">
+
+  $$\displaystyle H_B(u) \ge -C\left(\Lambda_B\lVert u\rVert_1 + q\sum_\tau \Delta_\tau\right),$$
+
+  </div>
 
   where $\chi_{d_0}$ is the quadratic character of $k_0$, $\mathrm{rd}(E)$ is the root discriminant of $E$, and
 
-  $$\Lambda_B = \log\bigl(B\,\mathrm{rd}(E)\bigr) + \left|\Re\left(\frac{L'}{L}(1,\chi_{d_0})\right)\right|.$$
+  <div align="center">
+
+  $$\displaystyle \Lambda_B = \log(B\cdot\mathrm{rd}(E)) + \left|\Re\frac{L'(1,\chi_{d_0})}{L(1,\chi_{d_0})}\right|.$$
+
+  </div>
 
   This supplies a geometric input to the finite-degree estimate for sections. The paper computes the change on the common finite model when a good prime is added, including its toroidal boundary, and bounds the resulting prime tail. On these same components it compares mixed intersections for the limiting Hodge metric. Testing weights on the walls of the dominant chamber and calibrating the two surviving determinant terms gives the bound at the original cutoff. The application to the section lattice also uses a finite-place trace and section norms. Historical priority is open. [Statement and mathematical status](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=candidate.flag-height)
 
@@ -248,15 +260,27 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 - **有限截断下全旗簇的算术高度。** 取 $2f$ 次阿贝尔 CM 数域 $E$，要求 $f\ge2$，且 $E/E^+$ 在所有有限素位均非分歧。固定虚二次数域 $k_0=\mathbf Q(\sqrt{-d_0})\subset E$，其中 $d_0$ 是满足 $d_0\equiv7\pmod{16}$ 的素数，并选定平方根，使 $(1+\sqrt{-d_0})/2\in\mathcal O_E$。取由 $k_0$ 的一个嵌入诱导的 CM 型及各无穷位符号均为 $(p,q)$ 的非终端酉群覆盖，要求 $q\ge1$ 且 $N=p+q\ge3q+1$。先固定辅助参数为 $A=1$ 的好水平 $M'$ 和相容的整模型，再选权 $u$ 与截断值 $B$。在例外素数与不超过 $B$ 的素数处更换整旗。例外素数是 $2\lvert\mathrm{disc}(E)\rvert M'$ 的素因子，其数目至多为 $4fN^2$。取各分量严格递减的整权，分量可为正、零或负。每一标号下最后 $q$ 个权中的任一个与同一标号下其余每个权的间距至少为 $g>0$。截断值满足
 
-  $$B+1 \gt 4fN^2 \left(1+\frac{\lVert u\rVert_\infty}{g}\right).$$
+  <div align="center">
 
-  记 $\Delta_\tau(u)=\max_i u_{\tau i}-\min_i u_{\tau i}$ 为标号 $\tau$ 处最大权与最小权之差。以各分量的几何体积加权得到的平均高度满足
+  $$\displaystyle B+1 \gt 4fN^2 \left(1+\frac{\lVert u\rVert_\infty}{g}\right).$$
 
-  $$H_B(u) \ge -C\left(\Lambda_B\lVert u\rVert_1 + q\sum_\tau \Delta_\tau(u)\right),$$
+  </div>
 
-  其中 $\chi_{d_0}$ 是 $k_0$ 的二次特征标，$\mathrm{rd}(E)$ 是 $E$ 的根判别式，且
+  记 $\Delta_\tau=\max_i u_{\tau i}-\min_i u_{\tau i}$ 为标号 $\tau$ 处最大权与最小权之差。以各分量的几何体积加权得到的平均高度满足
 
-  $$\Lambda_B = \log\bigl(B\,\mathrm{rd}(E)\bigr) + \left|\Re\left(\frac{L'}{L}(1,\chi_{d_0})\right)\right|.$$
+  <div align="center">
+
+  $$\displaystyle H_B(u) \ge -C\left(\Lambda_B\lVert u\rVert_1 + q\sum_\tau \Delta_\tau\right),$$
+
+  </div>
+
+  这里用 $\chi_{d_0}$ 表示 $k_0$ 的二次特征标，用 $\mathrm{rd}(E)$ 表示 $E$ 的根判别式，并取
+
+  <div align="center">
+
+  $$\displaystyle \Lambda_B = \log(B\cdot\mathrm{rd}(E)) + \left|\Re\frac{L'(1,\chi_{d_0})}{L(1,\chi_{d_0})}\right|.$$
+
+  </div>
 
   这给出了有限次数截面估计需要的一项几何输入。正文已算出加入一个好素数给共同有限整模型的交数带来的改变，涵盖环面边界，并由此控制了其余素数的可求和尾项。正文在同一批分量上比较了极限 Hodge 度量的混合交数，再由优势室壁上的权和两项行列式高度得到原截断处的下界。用于截面格时还要计入有限处的迹和截面范数。首创性尚待考证。[完整命题与证明进展](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=candidate.flag-height)
 
