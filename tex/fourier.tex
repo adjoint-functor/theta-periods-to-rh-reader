@@ -1,15 +1,13 @@
 \section{Fourier inversion and the pointwise bound}
 \label{sec:fourier}
 
-At a real scale \(x\ge x_*\) of the fixed classical family,
-Section~\ref{sec:integral} gives the signed mean bound
-\eqref{eq:classical-averaged-excess} over \(H\).
-Insert that bound into the Fourier calculation at this same \(x\).
-Use the Artin data and character estimates of the seed \(i_0\), and
-keep \(T,T_2,(a_t,b_t)_{t\in T},N\), the actual weights \(w_{u,j}\)
-at the matched records \(i(u)\), and the centering in
-\eqref{eq:centered-excess-definition}. The sampling estimates and
-auxiliary character bounds apply on these data.
+At each real scale of the fixed classical family, the host and the
+seed's arrays specify a numerical sum for every translate. Its largest
+value selects the translate for the lattice comparison. On the matching
+record use the actual stage weights, cutoff and centering in
+\eqref{eq:centered-excess-definition}. The pointwise bound from
+Section~\ref{sec:integral} on that record gives the upper bound for the
+numerical mean.
 
 For the general fixed-target calculation, fix the target, precision
 and family as in Sections~\ref{sec:family} and \ref{sec:assembly}.
@@ -29,13 +27,11 @@ other scales are
  X'=\exp(x^{\varepsilon/3}),\qquad b'=\frac{a_E}{X'},\qquad
  w''=\frac{b'}{xn},\qquad \delta_1=x^{-\varepsilon/8}.
 \]
-The sampling integers \(a_t,b_t\) are read at \(i_0\) and carried by the
-same numerical label \(t\in T\) to each \(i(u)\). The
+The sampling integers \(a_t,b_t\) are read at the seed \(i_0\). The
 \hyperlink{proof.selection-realized-samples}{admissibility inequality}
 holds at every index over a sufficiently large scale of the selected family.
-In particular the arithmetic base \(i_0\) itself
-can supply the two arrays. The covering property then supplies an index
-with these arrays at each prescribed translate.
+At any prescribed translate \(u\), the covering property supplies a
+record \(i(u)\) carrying both arrays with the same numerical labels.
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/WeightVectorSmallSharesEight.lean}{22}{Choice of the base arrays}
 \releasecite{Formalism/SharpRestriction/FamCore.lean}{132}{Transport of both arrays}.
 Their prescribed intervals are
@@ -47,8 +43,7 @@ Their prescribed intervals are
 Here \(L_{\mathrm{a},G}\) is the parameter in the upper endpoint of the
 interval for \(b_t\). The degree window gives \(0<a_t\le2a_E\) and,
 with \(y_t=a_t/b\), gives \(0\le y_t-x\le 1/(kx^{12})\le1\).
-The representative \(i(0)\) may differ from \(i_0\). The degree and lower \(b_t\)
-bounds come from the
+The degree and lower \(b_t\) bounds come from the
 \releasecite{Formalism/LocalRingCardinality/DataParams₂.lean}{76}{size data}.
 The upper \(b_t\) bound uses the
 \releasecite{Formalism/SharpRestriction/FamCore.lean}{123}{common upper endpoint}
@@ -132,8 +127,8 @@ both \(6f(x+1)(\eta_{\rm wt}+1)/b\) and \(2f(x+1)\vartheta\) are
  2f(x+1)\vartheta\le1/x .
 \end{equation}
 Each threshold here follows from the fixed precision and the uniform
-record bounds. In particular it applies to every \(j\) and \(u\) at
-one scale, using the actual \(a_t,b_t\) from the common seed.
+record bounds. These estimates hold at every stage of a matched
+record with the seed arrays.
 
 \subsection{Finite Fourier inversion}
 \teamanchor{proof.fourier-inversion-thin}
@@ -262,7 +257,7 @@ summed over \((t,j)\), is exactly \(D(u)\) in
 Let \(H_0\le H\) be the distinguished cyclic subgroup from
 \S\ref{sec:family}, with \(o=[H:H_0]\) equal to the order of the target
 character \(\psi\). Embed \(H_0\) into \(\Gamma\) by \(h\mapsto(0,0,h)\).
-Put \(\delta_2=N_2/n\). For each \(u\in H_0\) and stage \(j\),
+Put \(\delta_2=N_2/n\). On a matching record for \(u\in H_0\) and at stage \(j\),
 the positions with \(s\in T_2\subset H_0\) in the first row of the
 weight table are distinct. Section~\ref{sec:fourier-sampling}
 places their weights in \([b,b+\eta_{\rm wt}+1]\) and all other
@@ -288,15 +283,15 @@ For a small weight \(w\), \(b'X'=xb\) and \(x\ge3\) imply
  (\xi\in\widehat\Gamma,\ y\ge X'/3).
 \]
 Thus each omitted term has modulus at most \((x+1)b\vartheta\).
-The estimate covers every \(\xi\), because the small weights are
-omitted before taking the average over \(H_0\). The sum in
+The estimate covers every \(\xi\) in the calculation at this translate.
+The sum in
 \eqref{eq:fourier-balance} has \(f\) positions, \(2f\) characters
 and prefactor \(1/f\). Multiplying each of the two error bounds by
 \(2f\) and applying \eqref{eq:fourier-weight-costs} gives a total
 error at most \(2b/x\) for each \((t,j,u)\). This uses the tail
 \eqref{eq:host-character-tail} at \(i_0\).
 
-\subsection{The translate average}
+\subsection{The numerical sum over translates}
 \teamanchor{proof.translate-average-zeta}
 
 Write \(e(h)=(1,0,h)\). The preimage of \((0,1,s+u)\) under \(p_t\)
@@ -307,48 +302,78 @@ is \(e(s+u-t)\). Its conjugate character value is
 \]
 Indeed \(e(s+u-t)=-e(t)+(0,0,s)+(0,0,u)\) since the first coordinate
 has order two.
-By character orthogonality on \(H_0\), the mean over \(u\) vanishes unless
-\(\xi\in H_0^\perp=\{\xi:\xi|_{H_0}=1\}\). For such a character,
-\(s\in H_0\) also gives a factor of \(1\), so all \(N_2\) large
-weights contribute equally. Put \(Q=N_Tmb\) and
-\(\overline D_x=|H_0|^{-1}\sum_{u\in H_0}D(u)\).
-The replacement estimate bounds the real part of the reduced sum
-at a fixed \(u\) by \(D(u)+2Q/x\), since there are \(mN_T\) pairs
-\((t,j)\). Each replaced term uses \(bG_\xi(y_t)\),
-which is independent of the stage and the translate. Averaging the
-real inequality gives
+Define, using the host and the seed arrays,
+\begin{equation}
+\label{eq:fourier-numerical-translate}
+ F_x(u)=\frac1{N_TN_2}\Re\sum_{t\in T}\sum_{s\in T_2}
+           \sum_{\xi\in\widehat\Gamma}
+          \xi(e(t))\overline{\xi(0,0,s+u)}\,G_\xi(y_t)
+       \qquad(u\in H_0).
+\end{equation}
+By orthogonality over \(H_0\), only \(\xi\in H_0^\perp\) survive in
+the mean. For such a character every \(s\in T_2\subseteq H_0\) also
+contributes a factor of \(1\). Hence
+\begin{equation}
+\label{eq:fourier-numerical-mean}
+ L_x:=\frac1{|H_0|}\sum_{u\in H_0}F_x(u)
+    =\frac1{N_T}\Re\sum_{t\in T}\sum_{\xi\in H_0^\perp}
+                 \xi(e(t))G_\xi(y_t).
+\end{equation}
+\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean}{56}{The numerical group sum}.
+
+At any one matched record \(i(u)\), write \(Q=N_Tmb\). The weight
+replacement in \eqref{eq:fourier-balance} and the phase identity above
+give
+\begin{equation}
+\label{eq:fourier-one-translate}
+ \left|\frac{Q\delta_2}{2}F_x(u)-D(u)\right|\le\frac{2Q}{x}.
+\end{equation}
+Each retained weight contributes \(bG_\xi(y_t)\) with its indicated phase,
+so the factor is \(mN_TbN_2/f=Q\delta_2/2>0\). There are \(mN_T\)
+replacement errors of at most \(2b/x\). This comparison uses the actual
+weights and cutoff of this record.
+\releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean}{75}{Weight replacement at a prescribed shift}.
+
+\paragraph{A prescribed translate for classical zeta.}
+\teamanchor{proof.classical-maximizing-translate}%
+For \(\psi=1\) we have \(H_0=H\). Choose the least numerical label
+\(u_*\in H\) maximizing \(F_x(u)\). The mean identity gives
+\(F_x(u_*)\ge L_x\). The contribution \(L_x\) of the characters trivial
+on \(H\), including the principal term, is constant in \(u\). Equivalently,
+maximize \(F_x(u)-L_x\) using the characters nontrivial on \(H\).
+This choice depends on the host and arrays, which
+are available before choosing the word levels and stage weights for that
+shift. Use the matching record \(i(u_*)\) of the fixed selected family,
+with its fitted class and selector, as in Section~\ref{sec:assembly}.
+Apply \eqref{eq:classical-selected-excess} on that record. Then
+\begin{equation}
+\label{eq:classical-numerical-upper}
+ \frac{Q\delta_2}{2}L_x\le \frac{Q\delta_2}{2}F_x(u_*)
+                      \le D(u_*)+\frac{2Q}{x}\le E_x+\frac{2Q}{x}.
+\end{equation}
+
+\paragraph{The signed mean route.}
+With matching records over \(H_0\), summing
+\eqref{eq:fourier-one-translate} gives
 \begin{equation}
 \label{eq:fourier-translate-mean}
- \frac{Q\delta_2}{2}\operatorname{Re}
-   \frac{1}{N_T}\sum_{t\in T}\sum_{\xi\in H_0^\perp}
-                 \xi(e(t))G_\xi(y_t)
- \le \overline D_x+\frac{2Q}{x}.
+ \frac{Q\delta_2}{2}L_x\le \overline D_x+\frac{2Q}{x},\qquad
+ \overline D_x=\frac1{|H_0|}\sum_{u\in H_0}D(u).
 \end{equation}
-The factor \(Q\delta_2/2=mN_TbN_2/f\) comes from the \(m\) stages,
-the \(N_2\) positions and the \(1/f\) in \eqref{eq:fourier-balance}.
-It is positive since \(N_T,m,b>0\) and \(\delta_2\ge x^{-\varepsilon}\).
-Here \(\overline D_x\) is the uniform mean of the signed centered
-statistic on all the tied representatives at this one real scale.
-For classical zeta \(H_0=H\) and \(\overline D_x=\langle D\rangle\).
-The lattice bound
-\eqref{eq:classical-averaged-excess} therefore bounds the right-hand
-side by \(E_x+2Q/x\). For the Dirichlet extension the same upper
-bound follows by averaging \eqref{eq:integral-excess} over \(H_0\).
-
-\rhrange{The release's application of the Fourier theorem uses a
-separate upper bound at each translate. In the matched normalization
-its inequality for \texttt{gapA} reads \(D(u)\le E_x\) for every
-translate at the fixed classical scale.
+For the classical family, \eqref{eq:classical-averaged-excess} is an
+alternative supply of \(\overline D_x\le E_x\). In the Dirichlet
+extension this mean bound follows from \eqref{eq:integral-excess} on
+its own matched records.
+\rhrange{The release's Fourier application uses a bound for
+\texttt{gapA} at each translate, which in the matched normalization
+reads \(D(u)\le E_x\).
 \releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/SplitInertia.lean}{50}{The centered quantity}
 \releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean}{37}{The pointwise bound}
 \releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/CoreGm.lean}{55}{Its actual Fourier application}}
-{The single inequality \(\overline D_x=\langle D\rangle\le E_x\)
-obtained in \eqref{eq:classical-averaged-excess} by summing the
-classical joint-deficit inequality. Summing the Fourier comparisons
-retains the signed mean on the right of
-\eqref{eq:fourier-translate-mean}. Orthogonality evaluates the left.}
-The release also has a conditional estimate of the whole-group
-mean of the same statistic, \texttt{topExcess}, under its own
+{For classical zeta, \(D(u_*)\le E_x\) at the prescribed maximizing
+shift suffices. The signed mean route uses the separate sufficient
+input \(\overline D_x\le E_x\).}
+The cited release bounds the mean over the full group under its
 slope and loss hypotheses.
 \releasecite{Formalism/SizeWindowBrackets/GrowthBoundGivesRiemannHypothesis.lean}{50}{The whole-group mean}
 \releasecite{Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean}{45}{Its bound under those hypotheses}.
@@ -376,14 +401,10 @@ Substituting \eqref{eq:artin-coordinates}, the pullback at a unit
 \]
 Its primitive associate is \(\chi_k\eta_q^i\eta_d^j\), where \(\chi_k\)
 induces \(\psi^k\) modulo \(M\) and is primitive, with \(\chi_0=1\).
-Omit a quadratic factor with exponent zero. For a product of primitive
-characters of pairwise coprime conductors, the Chinese remainder theorem
-lets us vary the unit in one factor while setting every other component
-to \(1\). If the product factors through a divisor of the product
-modulus, each original factor must then factor through the part of this
-divisor supported on its own conductor. By primitivity that part equals
-its full conductor. Since \(q,d\) are coprime to \(M\), the conductor here
-is \(\operatorname{cond}(\chi_k)q^id^j\). Thus every term
+Omit a quadratic factor with exponent zero. The distinct primes
+\(q,d\) are coprime to \(M\), so the
+\hyperlink{proof.coprime-character-product}{coprime conductor rule}
+gives conductor \(\operatorname{cond}(\chi_k)q^id^j\). Thus every term
 with \((i,j)\ne(0,0)\) satisfies the nontrivial quadratic twist hypotheses
 of Section~\ref{sec:family}.
 At \(e(t)=(1,0,t)\) the phase is \((-1)^j\nu(t)\).
@@ -441,10 +462,8 @@ Write
 \(\Sigma(x)=\sum_{\xi\in H_0^\perp\setminus\mathcal X}|G_\xi(x)|\).
 Each term with \(\xi\notin\mathcal X\) has real part at least
 \(-|G_\xi(x)|\), since its multiplier is the mean of unit complex
-numbers. The real character sum averaged over \(t\) on the left of
-\eqref{eq:fourier-translate-mean}, before multiplication by
-\(Q\delta_2/2\), is therefore at least
-\(G_{\mathcal K}(x)-\Sigma(x)-4x^{1/2+\varepsilon}\). This gives
+numbers. Thus \(L_x\ge G_{\mathcal K}(x)-\Sigma(x)-4x^{1/2+\varepsilon}\).
+For the signed mean route, \eqref{eq:fourier-translate-mean} gives
 \begin{equation}
 \label{eq:fourier-extraction}
  \frac{Q\delta_2}{2}
@@ -455,28 +474,27 @@ The bound \(|G_\xi(x)|\le x^{1/2+\varepsilon}\) for these twists
 gives \(\Sigma(x)\le4o\,x^{1/2+\varepsilon}\).
 
 \leavevmode\teamanchor{proof.zeta-specialization}%
-For \(\psi=1\), \(o=1\) and \(H_0=H\). The expression in the
-translate average at each \(t\) has the four terms
-\[
- G_1(y_t)+G_{\eta_q}(y_t)-G_{\eta_d}(y_t)-G_{\eta_q\eta_d}(y_t).
-\]
-The signs are the evaluations at \((1,0,0)\). The three auxiliary
-characters have conductors \(q,d,qd\) and enter \(\Sigma(x)\) through
-the quadratic twist bounds. In particular the classical average is
-at least \(G_1(x)-3x^{1/2+\varepsilon}-C\log x\), with a constant
-uniform in the selected \(q,d\), since \(|\ell_\xi|\le4\log x\) for
-those twists. This calculation uses the size of \(T\) and the
-degree interval. The retained sum is \(G_{\mathcal K}=G_1\).
+For \(\psi=1\), \(o=1\) and \(H_0=H\), so \(L_x\) is the mean over
+\(t\) of
+\(G_1(y_t)+G_{\eta_q}(y_t)-G_{\eta_d}(y_t)-G_{\eta_q\eta_d}(y_t)\).
+The signs come from \((1,0,0)\). The slopes on \([x,x+1]\) of these
+four continuous functions are \(O(\log x)\) between breakpoints,
+using the Mertens estimate and \(|\ell_\xi|\le4\log x\) for the three
+auxiliary characters. The degree window gives \(0\le y_t-x\le1/(kx^{12})\).
+Together with the three quadratic bounds at \(x\), this gives
+\begin{equation}
+\label{eq:classical-character-extraction}
+ L_x\ge G_1(x)-3x^{1/2+\varepsilon}-O\bigl((\log x)/(kx^{12})\bigr).
+\end{equation}
+The constant is uniform in the selected hosts.
 
 \subsection{The square-root scale}
 \teamanchor{proof.fourier-exponent}
 
-The lattice bound just substituted also bounds the right-hand side
-of \eqref{eq:fourier-extraction} by \(E_x+2Q/x\).
-Write \(C_{\rm err}=e_D+e_L+3\). For \(\psi=1\) the budget is
-\(E_x=B^+x^{5\varepsilon}\) from \eqref{eq:classical-averaged-excess}.
-For the Dirichlet extension it is the budget of \eqref{eq:integral-excess}.
-Dividing by \(Qx^{C_{\rm err}\varepsilon}\) gives
+The classical budget in \eqref{eq:classical-selected-excess} and the
+fixed-target budget in \eqref{eq:integral-excess} both have the form
+\(E_x=B^+x^{C_{\rm err}\varepsilon}\), where \(C_{\rm err}=e_D+e_L+3\).
+Thus \(E_x/(Qx^{C_{\rm err}\varepsilon})\) is
 \[
  \frac{a_E}{mb}+\frac{a_E m}{bk}
      +2\frac{n}{N_T}m x^\varepsilon
@@ -491,17 +509,34 @@ For \(\psi=1\), the sample counts are \eqref{eq:classical-sampling-size}
 and the bounds for \(m,k\) follow from the prescribed ranks in
 Section~\ref{sec:family}. The same size inequalities hold for the
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/LossesSmallShares.lean}{281}{selected Dirichlet data}.
-Also \(N_2\le n\) because \(T_2\subseteq H\).
-The first and third terms have bounds \(2x/m\) and
-\(4mx^{9\varepsilon/8}\), which balance at the square-root scale
-up to powers \(x^{O(\varepsilon)}\). The four bounds in order are
+Also \(N_2\le n\) because \(T_2\subseteq H\). The four bounds in order are
 \(2x^{1/2+\varepsilon}\), \(2\),
 \(4x^{1/2+13\varepsilon/8}\), and \(2x^{1/2+9\varepsilon/8}\).
-Their sum is at most \(10x^{1/2+13\varepsilon/8}\).
-Divide the resulting estimate by \(Q\delta_2/2>0\) and use
-\(\delta_2\ge x^{-\varepsilon}\).
-The factors from the main budget have exponent loss
-\(C_{\rm err}+13/8+1=C_{\rm err}+21/8\), giving
+Thus \(B^+/Q\le10x^{1/2+13\varepsilon/8}\). The sampling bound
+\(\delta_2\ge x^{-\varepsilon}\) gives
+\[
+ \frac{E_x+2Q/x}{Q\delta_2/2}
+   \le20x^{1/2+(C_{\rm err}+21/8)\varepsilon}+4x^{-1+\varepsilon}.
+\]
+
+For the classical target \((e_D,e_L)=(2,0)\). By
+\eqref{eq:classical-numerical-upper} and
+\eqref{eq:classical-character-extraction},
+\begin{equation}
+\label{eq:classical-fourier-pointwise}
+ \begin{split}
+ G_1(x)&\le20x^{1/2+61\varepsilon/8}+4x^{-1+\varepsilon}
+            +3x^{1/2+\varepsilon}+O\bigl((\log x)/(kx^{12})\bigr)\\
+       &\le x^{1/2+9\varepsilon}
+ \end{split}
+\end{equation}
+above a threshold depending on the fixed precision and uniform
+constants. In each selected interval above that threshold,
+Section~\ref{sec:assembly} applies this estimate at its
+\hyperlink{proof.apply-full-window}{prime-sum maximizer}.
+
+For the Dirichlet extension, insert \(\overline D_x\le E_x\) in
+\eqref{eq:fourier-extraction}. Dividing by \(Q\delta_2/2>0\) gives
 \[
  G_{\mathcal K}(x)-\Sigma(x)\le
  20x^{1/2+(C_{\rm err}+21/8)\varepsilon}
@@ -520,10 +555,4 @@ Absorbing it gives
  G_{\mathcal K}(x)\le x^{1/2+(e_D+e_L+7)\varepsilon} .
 \end{equation}
 The threshold in this calculation depends on the target, fixed
-precision and uniform comparison constants. For \(\psi=1\),
-\(\mathcal K=\{1\}\) with weight \(1\) and \((e_D,e_L)=(2,0)\).
-With the signed mean from Section~\ref{sec:integral} and the classical
-sampling and auxiliary character estimates, \eqref{eq:fourier-pointwise}
-gives \(G_1(x)\le x^{1/2+9\varepsilon}\) at this same \(x\).
-Section~\ref{sec:assembly} applies this conclusion throughout the
-real intervals of the fixed family.
+precision and uniform comparison constants.

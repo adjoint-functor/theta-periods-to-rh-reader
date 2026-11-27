@@ -15,7 +15,7 @@ To suggest an improvement or share a review, [open a GitHub issue](https://githu
 
 Our two goals are to reconstruct and check Levent Alpöge’s announced argument for the classical Riemann hypothesis in ordinary mathematical language and to identify its genuinely new mathematical contributions. The paper follows iterated theta lifts to a one-sided estimate for a centered prime-power sum and shows how that estimate excludes nontrivial zeta zeros off the critical line. Section 6 also gives the Mellin sign-change argument for primitive Dirichlet characters, assuming the corresponding window estimate for each target.
 
-**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the paper online (485-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the paper online (825-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 For offline reading, extract the ZIP and open `proof-map.html` in your browser with `reading-guide.pdf` in the same folder.
 
@@ -42,7 +42,7 @@ Let $S$ be a stronger statement attributed to the original argument and $W$ a we
 
 ## Reading the proof map
 
-The English paper’s six sections group the mathematics by topic. The map opens to **Proof overview**, which shows the classical zeta argument in ten stages. Select a step to see what it uses and proves. **Article** links to the relevant passages, and **Known results** lists the earlier results used where applicable. Use **+** to expand a step, or select **Periods, trace and rank** to expand those parts of the argument together. The **ten-stage proof overview** link in the caption of Figure 1 (PDF page 3) opens the map.
+The map opens on **Weighted square-scale route**, the argument in Part I. Select **Earlier window route** to follow the six sections of Part II. Part III of the paper collects the nineteen AI-proposed candidates. Select a step to see its inputs and conclusions. Use **+** to expand it, **Article** to open the relevant passage, and **Known results** to find the classical theorems used there. The **weighted proof map** link on the first page of the PDF returns to the map. [Weighted route](https://adjoint-functor.github.io/theta-periods-to-rh-reader/proof-map.html#weighted) · [Earlier window route](https://adjoint-functor.github.io/theta-periods-to-rh-reader/proof-map.html#window)
 
 ## Progress to date
 
@@ -55,6 +55,12 @@ We began by organizing the argument into a proof map that readers can expand ste
 The 485-page revision addresses DavetheSlayer’s questions about the window argument and zero exclusion, draws on josephuniverse01-create’s coefficient-field and local-index arguments and foocker’s elementary-divisor comparison for the integral ramified kernel, and uses 仿射变换’s AI-assisted assessment of all nineteen candidates to check their scope. [Issue #1](https://github.com/adjoint-functor/theta-periods-to-rh-reader/issues/1) · [PR #2](https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/2) · [PR #3](https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/3)
 
 The revision identifies both auxiliary section systems and the undivided ramified period lattice on one selected family. Under the S/W principle, the required lower slope bound follows directly from a quotient-lattice estimate. Fourier inversion uses the signed mean and the sampling estimates on the same translates at each real scale of the interval. These derivations simplify the proof of classical RH in the reading edition and narrow the remaining gaps in the natural-language proof. The paper marks the inputs that still come from the pinned Lean proof. [The two section systems](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=proof.section-run-family-identification) · [Lower slope bound](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=proof.ramified-kernel-lower-mean) · [Signed mean](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=proof.classical-signed-mean)
+
+### 26–27 November 2026 · The weighted prime-power argument
+
+On 26 November we adopted the Lean revision of Alpöge’s argument by Luke Sernau and collaborators. On 27 November we completed the natural-language reconstruction of its weighted route. After fixing the precision and choosing an auxiliary quadratic character for the zero test, the argument needs an arithmetic estimate at just one square in each covering interval. At that square, the period and relative trace estimates enter a volume comparison on the same rows, giving a one-sided bound for the remainder in a weighted prime-power sum. Maximality and interpolation extend the estimates to all sufficiently large real scales, giving the bound used to exclude nontrivial zeta zeros off the critical line. [Formal source](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207)
+
+The argument now forms Part I of the 825-page reading edition. Readers can check its derivations from the text and the cited primary literature. The Lean references identify their formal sources. Independent AI readers reviewed the key deductions, and we checked at each level of the map that the upstream conclusions and stated premises together supply every downstream input. Part II retains the earlier window argument. Both routes can be explored in the same map. The originality and mathematical significance of the nineteen AI-proposed candidates in Part III still await assessment by human specialists.
 
 ## AI-proposed candidates for new mathematics
 
@@ -163,7 +169,7 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 我们的两个目标是用通常的数学语言重构并核查 Levent Alpöge 公布的经典黎曼猜想论证，以及辨认其中真正新增的数学结果。正文从迭代 theta 提升推到中心化素数幂和的单侧估计，再说明如何用这个估计排除临界线外的非平凡 ζ 零点。第 6 节也给出本原 Dirichlet 特征的 Mellin 变号论证，对每个特征都以相应的区间估计为前提。
 
-**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读英文论文（PDF，485 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读英文论文（PDF，825 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 离线阅读时，解压 ZIP 后用浏览器打开 `proof-map.html`，并将 `reading-guide.pdf` 留在同一目录。
 
@@ -192,7 +198,7 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 ## 阅读证明图
 
-英文论文按主题分为六节。证明图默认打开 **Proof overview**，按推导顺序展示经典 ζ 函数论证的十个阶段。点开一步，可查看所用的输入和所得结论。**Article** 栏链接到正文相关段落，如有用到的已有结果，会列在 **Known results** 栏。点击 **+** 可展开一步的证明，点击 **Periods, trace and rank** 可同时展开周期、迹和秩估计。PDF 第 3 页图 1 的图注中，**ten-stage proof overview** 链接可打开证明图。
+证明图默认打开 **Weighted square-scale route**，对应正文第一部分的加权路线。选择 **Earlier window route**，可阅读第二部分的六个窗口论证专题。第三部分汇集此前由 AI 提出的十九项新数学候选。点开图中的一步可查看输入与结论。用 **+** 展开推导，点 **Article** 跳到正文，**Known results** 栏列出这一步用到的经典定理。PDF 首页的 **weighted proof map** 链接可返回证明图。[加权路线](https://adjoint-functor.github.io/theta-periods-to-rh-reader/proof-map.html#weighted) · [原有窗口路线](https://adjoint-functor.github.io/theta-periods-to-rh-reader/proof-map.html#window)
 
 ## 当前进展
 
@@ -205,6 +211,12 @@ These licenses apply to the extent the contributors hold rights to license the m
 485 页版回应了 DavetheSlayer 关于区间估计和零点排除的疑问，采用了 josephuniverse01-create 关于系数域和局部指数的论证、foocker 对分歧整核所作的初等因子比较，并参考了仿射变换借助 AI 对全部十九项候选所作的评议，核对各命题的适用范围。[Issue #1](https://github.com/adjoint-functor/theta-periods-to-rh-reader/issues/1) · [PR #2](https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/2) · [PR #3](https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/3)
 
 修订稿在同一个选定的算术族上确定了两套辅助截面和除法前用于周期配对的分歧格。按照 S/W 原则，所需的斜率下界可直接由商格估计推出。对区间内每个实尺度，Fourier 反演在同一组平移上使用带符号均值和采样估计。这些推导简化了阅读版中的经典黎曼猜想证明，进一步缩小了自然语言证明中尚存的缺口。正文标明了仍由固定版本的 Lean 证明给出的输入。[两套辅助截面](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=proof.section-run-family-identification) · [斜率下界](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=proof.ramified-kernel-lower-mean) · [带符号均值](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf#nameddest=proof.classical-signed-mean)
+
+### 2026 年 11 月 26–27 日 · 加权素数幂和路线
+
+11 月 26 日，我们引入 Luke Sernau 等人对 Alpöge 论证的 Lean 改写，27 日完成了加权主线的自然语言重构。给定精度后，先选定零点检验所用的辅助二次特征，再在每个覆盖区间选一个平方数作算术估计。在这个平方点上，周期与相对迹的估计通过同一组行进入体积比较，给出加权素数幂和余项的单侧上界。利用选点的极大性和插值，可将估计推广到所有充分大的实数尺度，进而排除临界线外的非平凡 ζ 零点。[形式化来源](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207)
+
+这条论证现列在 825 页综合阅读版的第一部分，读者可以凭正文和所引原始数学文献逐段核查。Lean 引用标明形式化来源。独立的 AI 审读者复核了关键推导，我们也逐层核对了证明图中上游结论和已列明的前提能否共同给出下游所需的全部输入。第二部分保留原有的窗口路线，两条路线可在同一张互动图中切换阅读。第三部分列出的十九项新数学候选由 AI 提出，其原创性和数学价值仍待人工审核。
 
 <a name="candidates-zh"></a>
 

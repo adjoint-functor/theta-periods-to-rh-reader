@@ -1,0 +1,615 @@
+\subsection*{Calculations with centered prime sums}
+
+\teamanchor{proof.centered-ramp-count}%
+Let \(\Lambda\) be the von Mangoldt function and \(v_+=\max(v,0)\).
+Take complex coefficients \(b(n)\) with \(|b(n)|\ll\Lambda(n)\).
+For \(y\ge1\) and constants \(a,c\), put
+\[
+ A_b(y)=\sum_{n\le y}b(n),\qquad H_b(y)=A_b(y)-ay,\qquad
+ \mathcal R_b(y)=\sum_{n\ge1}b(n)(1/n-1/y)_+-a\log y-c .
+\]
+Write \(D_b(s)=\sum_{n\ge1}b(n)n^{-s}\) for \(\Re s>1\).
+Integrating the step function \(A_b\) gives
+\begin{equation}\label{eq:common-ramp-count}
+ \mathcal R_b(y)+c=\int_1^y H_b(t)t^{-2}\,dt,\qquad
+ \int_1^\infty H_b(t)t^{-s-1}\,dt
+   =\frac{D_b(s)}s-\frac{a}{s-1}\quad(\Re s>1).
+\end{equation}
+Indeed, a term at \(n\) contributes the integral over \(t\ge n\).
+For the infinite integral, the absolute sum of those integrals at
+\(\sigma=\Re s>1\) is \(\sigma^{-1}\sum_n |b(n)|n^{-\sigma}<\infty\).
+
+\teamanchor{proof.mellin-ramp-kernel}%
+Suppose \(D_b\) continues meromorphically to \(\Re s>0\) and
+\(C_b(s)=D_b(s)-as/(s-1)\) is holomorphic at \(1\).
+Choose \(c=C_b(1)\). For \(\Re s>1\), the Mellin integral of
+\(y\mathcal R_b(y)\) converges absolutely and satisfies
+\begin{equation}\label{eq:common-ramp-mellin}
+ \Phi_b(s)=\int_1^\infty y\mathcal R_b(y)y^{-s-1}\,dy
+ =\frac{D_b(s)}{s(s-1)}-\frac{a}{(s-1)^2}-\frac{c}{s-1}
+ =\frac{C_b(s)/s-c}{s-1}.
+\end{equation}
+The integral of one ramp is
+\(\int_n^\infty (y/n-1)y^{-s-1}\,dy=n^{-s}/[s(s-1)]\).
+At \(\sigma=\Re s>1\) the sum of the absolute integrals is
+\(\sum_n |b(n)|n^{-\sigma}/[\sigma(\sigma-1)]<\infty\).
+Integration of \(y\log y\) and \(y\) gives the remaining two terms.
+The last expression makes \(1\) removable. At a simple pole
+\(\rho\ne1\) of \(D_b\) in \(\Re s>0\), the residue of \(\Phi_b\) is
+\(\operatorname{Res}_{s=\rho}D_b(s)/[\rho(\rho-1)]\).
+
+If \(\int_1^\infty |H_b(t)|t^{-2}\,dt<\infty\), take the limit
+along real \(s\downarrow1\) in \eqref{eq:common-ramp-count}.
+By dominated convergence its value is \(C_b(1)=c\). Consequently
+\begin{equation}\label{eq:common-ramp-tail}
+ \mathcal R_b(y)=-\int_y^\infty H_b(t)t^{-2}\,dt .
+\end{equation}
+
+\teamanchor{proof.centered-ramp-maximum}%
+For real \(b(n),a,c\), fix \(0<\alpha<1\) and \(\kappa>0\).
+The continuous function \(D(y)=\mathcal R_b(y)-\kappa y^{\alpha-1}\)
+attains a maximum on every nonempty compact set of scales in \([1,\infty)\).
+The maximizers form a compact set, so there is a least one \(y_*\).
+If \(\mathcal R_b(y_*)\le \kappa y_*^{\alpha-1}\), then
+\(\mathcal R_b(y)\le \kappa y^{\alpha-1}\) at every scale in the set.
+The constant \(c\) does not affect the choice.
+
+On a real interval \([Y,Z]\), \eqref{eq:common-ramp-count} gives
+\begin{equation}\label{eq:common-ramp-maximum}
+ D(y)-D(Y)=\int_Y^y
+      \frac{A_b(t)-at+(1-\alpha)\kappa t^\alpha}{t^2}\,dt
+       \qquad (Y\le y\le Z).
+\end{equation}
+If \(a>\alpha(1-\alpha)\kappa Y^{\alpha-1}\), the function
+\(at-(1-\alpha)\kappa t^\alpha\) is strictly increasing on this interval.
+Between consecutive changes of \(A_b\) it follows from the integrand
+that \(D\) has at most one internal critical point.
+The first piece uses \(A_b(Y)\), and each interior support point
+adds its coefficient to the count.
+It suffices to compare the endpoints, the support points of \(b\)
+in \((Y,Z)\), and the interior point where
+\(at-(1-\alpha)\kappa t^\alpha=A_b(t)\) in each open piece if it exists.
+For a finite set of scales one can compare its values directly.
+
+\subsection*{The signed remainder as a weighted prime sum}
+
+\teamanchor{proof.weighted-prime-series}%
+Keep \(M=18480\) and a fixed prime \(d\equiv9239\pmod M\). Write
+\(\chi_d(n)=(n/d)\) for the Legendre symbol. For \(Q\in\{M,1\}\) and
+real \(y\ge1\), define
+\begin{align*}
+ \lambda_{d,Q}(n)&=\mathbf{1}_{n\equiv1\bmod Q}\Lambda(n)(1-\chi_d(n)),\\
+ S_{d,Q}(y)&=\sum_{n\le y}\lambda_{d,Q}(n)\left(\frac1n-\frac1y\right),\\
+ R_{d,Q}(y)&=S_{d,Q}(y)-\frac{\log y}{\varphi(Q)}-c_{d,Q}.
+\end{align*}
+At \(Q=1\) the progression condition is automatic, with \(\varphi(1)=1\),
+and the weight is still \(\Lambda(n)(1-\chi_d(n))\).
+
+For any Dirichlet character \(\xi\), let \(\widetilde L_\xi(s)=L(s,\xi)\) for
+nonprincipal \(\xi\) and let \(\widetilde L_\xi(s)=(s-1)L(s,\xi)\) for
+principal \(\xi\), with the value at \(1\) supplied by continuation. The
+twist \(\xi\chi_d\) is a character modulo \(Qd\). Euler products are taken
+at the declared moduli. The regularized functions are holomorphic on
+\(\Re s>0\) and nonzero on \(\Re s\ge1\), as shown in the
+\hyperlink{proof.dirichlet-zero-free-line}{boundary calculation}.
+Put
+\begin{equation}\label{eq:weighted-centered-log-derivative}
+ G_{d,Q}(s)=\frac{1}{\varphi(Q)}
+ \left(\sum_{\xi\bmod Q}\left(
+ \frac{\widetilde L'_{\xi\chi_d}(s)}{\widetilde L_{\xi\chi_d}(s)}
+ -\frac{\widetilde L'_\xi(s)}{\widetilde L_\xi(s)}\right)-1\right),
+ \qquad c_{d,Q}=\Re G_{d,Q}(1).
+\end{equation}
+Since \((d,Q)=1\), the Chinese remainder theorem gives a unit modulo
+\(Qd\) that is \(1\) modulo \(Q\) and on which \(\chi_d\) is \(-1\).
+Hence every twist is nonprincipal. Let
+\(F_{d,Q}(s)=\sum_{n\ge1}\lambda_{d,Q}(n)n^{-s}\) for \(\Re s>1\).
+For every \(n\), character orthogonality gives
+\(\varphi(Q)\mathbf 1_{n\equiv1\bmod Q}(1-\chi_d(n))
+=\sum_{\xi\bmod Q}(\xi(n)-(\xi\chi_d)(n))\).
+This includes multiples of \(d\), at which the twisted term vanishes.
+The differentiated Euler products \eqref{eq:common-character-series}
+therefore give
+\begin{equation}\label{eq:weighted-series}
+ F_{d,Q}(s)=\frac{s}{\varphi(Q)(s-1)}+G_{d,Q}(s).
+\end{equation}
+Only the untwisted principal character contributes the pole term.
+The coefficients of \(F_{d,Q}\) are real, so \(G_{d,Q}\) is real for
+real \(s>1\) and, by continuation, at \(1\). Thus \(c_{d,Q}=G_{d,Q}(1)\).
+At \(Q=1\) there is just the untwisted function \((s-1)\zeta(s)\) and
+its twist \(L(s,\chi_d)\). The Laurent expansion of \(\zeta\) at \(1\) gives
+\(\widetilde L'_1(1)/\widetilde L_1(1)=\gamma\), so
+\(c_{d,1}=-1-\ell_d\) for
+\(\ell_d=\gamma-\Re(L'(1,\chi_d)/L(1,\chi_d))\).\footnote{\href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/PrimeError.lean\#L23-L65}{Compact rewrite, definition of the error and evaluation at modulus one}.}
+
+\teamanchor{proof.weighted-prime-identity}%
+Take the \hyperlink{proof.weighted-data}{same datum} used for the row
+comparison, with set \(\mathcal T\) of top places, set \(\mathcal J\) of
+thick places, \(T=\#\mathcal T\), \(J=\#\mathcal J\) and
+\(f=\varphi(M)T\). Recall that top places are the class \(1\) in the
+reduction of the place group from conductor \(N_1\) to \(M\), and thick
+places belong to the class \(-1\). If \(n\) is a unit modulo \(M\), it is a
+unit modulo \(N_1\) because \(N_1/M\) has only the prime factors \(2,3\),
+which divide \(M\). Then \(\tau\mapsto[-n]\tau\) sends the top fiber
+bijectively onto the class \(-n\). For the other \(n\) the place \([-n]\)
+is the identity. In either case the number of top places for which
+\([-n]\tau\) is thick is \(J\mathbf{1}_{n\equiv1\bmod M}\).
+
+In \eqref{eq:weighted-remainder}, the nominal weight \(w\) equals \(a/x\)
+at a thick place and \(a/x_1\) elsewhere. Both scales are at most \(a\),
+since \(a\ge xb\)
+and \(\log x_1\le\log b\) for these data. In the sum
+\(\operatorname{Ask}(a,\tau)\), the positive part of
+\(a/n-w([-n]\tau)\), divided by \(a\), is therefore the kernel of
+\(S_{d,1}(x)\) or of \(S_{d,1}(x_1)\) according to the translated
+place. Counting the two kernels over the top places gives
+\[
+ \frac1a\sum_{\tau\in\mathcal T}\operatorname{Ask}(a,\tau)
+ =J\bigl(S_{d,M}(x)-S_{d,M}(x_1)\bigr)+T S_{d,1}(x_1).
+\]
+The top sum of the main ask is evaluated using the same weights.
+Specifically \(\bar w=f^{-1}\sum_\sigma\log w(\sigma)\) is
+\(\log a-\log x_1-(J/f)(\log x-\log x_1)\), so
+\[
+ \frac{T}{a}\operatorname{MainAsk}
+ =\frac{J}{\varphi(M)}(\log x-\log x_1)+T(\log x_1+c_{d,1}).
+\]
+Here the modulus-one evaluation \(c_{d,1}=-1-\ell_d\) is the one from
+\hyperlink{proof.weighted-prime-series}{the series calculation}.
+The two occurrences of \(c_{d,M}\) in the progression difference cancel.
+Subtracting the main ask from each term of the top sum gives the identity
+for the remainder in the \hyperlink{proof.weighted-height}{height inequality},
+\begin{equation}\label{eq:weighted-prime-identity}
+ \operatorname{rem}=a\{J(R_{d,M}(x)-R_{d,M}(x_1))+T R_{d,1}(x_1)\}.
+\end{equation}
+This is the counting argument in the compact
+\href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/ShortAndEnough.lean\#L84-L112}{remainder identity}.
+
+\subsection*{The error at the supplied second scale}
+
+\teamanchor{proof.weighted-second-scale}%
+\teamanchor{proof.fixed-modulus-pnt}%
+For each \(A>0\), Koukoulopoulos's progression theorem gives
+uniformly for \(t\ge3\), \(u\le(\log t)^A\) and \((r,u)=1\)
+\[
+ \sum_{n\le t,\ n\equiv r\bmod u}\Lambda(n)
+ =\frac{t}{\varphi(u)}
+  +O_A\!\left(t\exp\!\left(-c_A(\log t)^{3/5}
+                             (\log\log t)^{-1/5}\right)\right).
+\]
+The positive constant \(c_A\) is ineffective.
+\cite[Theorem~1.1, arXiv v3, p.~2]{f1koukoulopoulos}
+Take \(A=1\). Each fixed \(u\ge2\) satisfies the modulus bound
+eventually, and at this fixed modulus the error is
+\(O_{u,B}(t/(\log t)^{B+1})\) for every \(B>0\).
+For \(u=1\) take the odd class modulo \(2\) and restore the powers of
+\(2\), which have total weight \(O(\log t)\). Since
+\(\varphi(1)=\varphi(2)=1\), for every fixed \(u\ge1\), reduced class
+\(r\bmod u\) and \(B>0\), as real \(t\to\infty\),
+\begin{equation}\label{eq:weighted-fixed-pnt}
+ \sum_{n\le t,\ n\equiv r\bmod u}\Lambda(n)
+ =\frac{t}{\varphi(u)}+O_{u,B}\!\left(\frac{t}{(\log t)^{B+1}}\right).
+\end{equation}
+For the weighted estimate the moduli \(1,d,M,Md\) are held fixed as
+\(t\) varies. The selection of the twist prime below uses only
+\(u=M\). The applications need only eventual estimates at those moduli.
+
+\teamanchor{proof.dirichlet-zero-free-line}%
+For any character \(\xi\bmod u\), let \(\delta_\xi\) be \(1\) if \(\xi\)
+is principal and \(0\) otherwise. The Euler product, differentiated
+in \(\Re s>1\), gives
+\begin{equation}\label{eq:common-character-series}
+ \sum_{n\ge1}\frac{\Lambda(n)\xi(n)}{n^s}
+  =-\frac{L'(s,\xi)}{L(s,\xi)}
+  =\delta_\xi\frac{s}{s-1}
+       -\frac{\widetilde L'_\xi(s)}{\widetilde L_\xi(s)}-\delta_\xi .
+\end{equation}
+\cite[(25.2.11), (25.15.1)--(25.15.4)]{dlmf}
+The product gives nonvanishing for \(\Re s>1\). The nonprincipal
+\(L\)-functions are entire, and the factor \(s-1\) removes the
+principal pole. Summing \eqref{eq:weighted-fixed-pnt} against \(\xi\)
+gives \(H_b(t)=O_{u,B}(t/(\log t)^{B+1})\) for
+\(b(n)=\Lambda(n)\xi(n)\), \(a=\delta_\xi\) in
+\eqref{eq:common-ramp-count}. Therefore
+\(-\widetilde L'_\xi(s)/\widetilde L_\xi(s)-\delta_\xi
+=s\int_1^\infty H_b(t)t^{-s-1}\,dt\) there. The integral has a finite
+limit along each horizontal approach from the right to \(\Re s=1\).
+A zero of \(\widetilde L_\xi\) at any such point would give a pole
+of its logarithmic derivative. This proves nonvanishing of
+\(\widetilde L_\xi\) on \(\Re s\ge1\) for every fixed modulus,
+including \(u=1\).
+
+For \(Q\in\{M,1\}\), write \(A_{d,Q}(t)=\sum_{n\le t}\lambda_{d,Q}(n)\)
+and \(H_{d,Q}(t)=A_{d,Q}(t)-t/\varphi(Q)\).
+Apply \eqref{eq:weighted-fixed-pnt} to the reduced classes modulo \(Qd\)
+that are \(1\) modulo \(Q\). By the Chinese remainder theorem the weights
+\(1-\chi_d\) on these classes sum to \(d-1\), and
+\(\varphi(Qd)=(d-1)\varphi(Q)\). Among the remaining terms, only powers
+of \(d\) can have \(\Lambda(n)\ne0\) and \(n\equiv1\bmod Q\), and their
+total weight is \(O(\log t)\). Thus for every \(B>0\),
+\[
+ H_{d,Q}(t)=O_{Q,d,B}\!\left(t(\log t)^{-B-1}\right).
+\]
+With \(b=\lambda_{d,Q}\), \(a=1/\varphi(Q)\), the series
+\eqref{eq:weighted-series} gives \(C_b=G_{d,Q}\). Then
+\eqref{eq:common-ramp-count} reads
+\begin{equation}\label{eq:weighted-centered-count}
+ \int_1^\infty H_{d,Q}(t)t^{-s-1}\,dt
+ =\frac{F_{d,Q}(s)}{s}-\frac{1}{\varphi(Q)(s-1)}
+ =\frac{G_{d,Q}(s)}{s} \qquad (\Re s>1).
+\end{equation}
+Since \(c_{d,Q}=G_{d,Q}(1)\) by the series calculation, this is the
+centering in \eqref{eq:common-ramp-tail}. For all sufficiently large real \(y\),
+\begin{equation}\label{eq:weighted-fixed-remainder}
+ R_{d,Q}(y)=-\int_y^\infty H_{d,Q}(t)t^{-2}\,dt
+ =O_{Q,d,B}\big((\log y)^{-B}\big).
+\end{equation}
+This verifies the centering in the compact identity at both moduli.\footnote{The
+\href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh/src/New/Reduction/Zeros/PrimeNumberTheorem.lean\#L211-L237}{readable rewrite's fixed-modulus estimate}
+uses the same centering.}
+
+Fix \(0<\varepsilon<1/100\) as well as \(d\). Let \(x\) be a sufficiently
+large first scale carrying the matching datum and row comparison.
+The selected argument uses the \hyperlink{proof.weighted-square-selection}{test squares}
+specified below. The original auxiliary scale satisfies
+\(\log x_1=x^{\varepsilon/6}\), and \(\log b=x^\varepsilon\).
+Choose \(B>12/\varepsilon\) in \eqref{eq:weighted-fixed-remainder}.
+The implied constants at the two fixed moduli are then absorbed by the
+exponent margin, so \(\lvert R_{d,M}(x_1)\rvert\) and
+\(\lvert R_{d,1}(x_1)\rvert\) are at most \(x^{-2}\) for all sufficiently
+large \(x\). Divide \(m\operatorname{rem}\le fa(\log b)^5\) by \(maJ>0\).
+Using \eqref{eq:weighted-prime-identity}, \(f=\varphi(M)T\),
+\(T/J\le\log b\), and \(m\ge\sqrt x\) gives
+\begin{align*}
+ R_{d,M}(x)
+ &\le \frac{f(\log b)^5}{mJ}
+       +R_{d,M}(x_1)-\frac{T}{J}R_{d,1}(x_1)\\
+ &\le \varphi(M)x^{-1/2+6\varepsilon}+(1+x^\varepsilon)x^{-2}.
+\end{align*}
+Since \(x^{2\varepsilon}\) eventually exceeds \(\varphi(M)+2\), this is
+\begin{equation}\label{eq:weighted-square-bound}
+ R_{d,M}(x)\le x^{-1/2+8\varepsilon}
+ \qquad\text{at every such sufficiently large }x.
+\end{equation}
+The fixed-modulus theorem controls the errors at the supplied second scale.
+The saving at the first scale comes from the comparison on the common rows.
+
+\subsection*{One twist prime for the entire character family}
+
+\teamanchor{proof.weighted-twist-density}%
+For an integer \(k\ge13\), put \(\beta_k=1/2+1/k\) and
+\(\varepsilon_k=1/(16k)\). We need a single prime \(d_k\) in the class
+\(a_0=M/2-1=9239\pmod M\) with
+\begin{equation}\label{eq:weighted-twist-free}
+ \widetilde L_{\xi\chi_{d_k}}(s)\ne0
+ \qquad\bigl(\xi\bmod M,\ \Re s\ge\beta_k,\ |\Im s|\le k\bigr).
+\end{equation}
+The class is a unit because \(a_0^2\equiv1\pmod M\). Its primes satisfy
+\(d_k\equiv7\pmod8\), \(M\mid2(d_k+1)\) and \(M\nmid d_k+1\), as
+required by the arithmetic datum.
+
+\paragraph{Conductors and Euler factors.}
+\teamanchor{proof.coprime-character-product}%
+The product of primitive characters of pairwise coprime conductors
+is primitive of conductor equal to their product. In fact, the
+Chinese remainder theorem lets us restrict the character to the
+units of one factor with all other coordinates equal to \(1\).
+If the product were induced from a proper divisor of the product
+modulus, this restriction would factor through a proper divisor
+of some factor conductor, contrary to primitivity.
+
+\teamanchor{proof.dirichlet-change-of-conductor}%
+If \(\xi\) modulo \(u\) is induced by \(\xi^*\) of conductor \(f\),
+their Euler products give the meromorphic identity
+\begin{equation}\label{eq:common-character-conductor}
+ L(s,\xi)=L(s,\xi^*)\prod_{\substack{p\mid u\\p\nmid f}}(1-\xi^*(p)p^{-s}).
+\end{equation}
+\cite[(25.15.4)]{dlmf}
+These finite factors are nonzero on \(\Re s>0\), since
+\(|\xi^*(p)p^{-s}|<1\) there.
+
+\paragraph{The candidate twists.}
+\teamanchor{proof.weighted-twist-conductor}%
+For a fixed character \(\xi\bmod M\), let \(\xi^*\) be its primitive
+associate of conductor \(f_\xi\mid M\). At a candidate prime \(d\) in the
+class \(a_0\), the character \(\psi_d=\xi^*\chi_d\) is primitive of
+conductor \(f_\xi d\) by the
+\hyperlink{proof.coprime-character-product}{coprime conductor rule},
+and is nonprincipal because \(d>1\). In particular
+\(\widetilde L_{\xi\chi_d}(s)=L(s,\xi\chi_d)\) at its declared modulus
+\(Md\), so \eqref{eq:common-character-conductor} gives
+\[
+ \widetilde L_{\xi\chi_d}(s)=L(s,\psi_d)
+      \prod_{\substack{p\mid M\\p\nmid f_\xi}}(1-\psi_d(p)p^{-s}).
+\]
+A failure of
+\eqref{eq:weighted-twist-free} for this candidate therefore supplies a zero
+of \(L(s,\psi_d)\) in \(\beta_k\le\Re s\le1\), \(|\Im s|\le k\), by
+nonvanishing for \(\Re s>1\).
+
+\teamanchor{proof.weighted-twist-exceptions}%
+\teamanchor{proof.weighted-nonreal-twist-density}%
+For each fixed \(\xi\bmod M\), write \(\Delta=\beta_k-1/2=1/k\).
+Let \(\mathcal P(X)\) be the candidate primes \(d\le X\) in the class \(a_0\),
+and let \(\mathcal B_\xi(X)\) consist of those for which
+\(L(s,\psi_d)\) has a zero in the box
+\[
+ \beta_k\le\Re s\le1,\qquad |\Im s|\le k .
+\]
+We will bound \(\#\mathcal B_\xi(X)\) by \(O_{M,k}(X^{1-\Delta^2/16})\).
+The compact and readable rewrites obtain a density bound by detecting
+zeros with Gaussian theta integrals. The argument below uses two finite
+Dirichlet polynomials and the quadratic large sieve.
+\footnote{See the \href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/Lib/Analytic/QuadraticTwist/ZeroFreeTwist.lean\#L144-L186}{compact density bound} and the
+\href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh/src/Lib/Analytic/QuadraticTwist.lean\#L679-L722}{readable count after the Gaussian estimate}.}
+
+\teamanchor{proof.weighted-mollified-zero-test}%
+For integral \(X\ge3\), take \(U=\lfloor X^{\Delta/4}\rfloor\) and
+\(P=\lfloor X/U\rfloor\). Then \(N=UP\le X\) and \(P\ge U\).
+For a primitive nonprincipal character \(\psi\) of conductor \(q\),
+the P\'olya--Vinogradov inequality gives
+\(|A_\psi(t)|\ll\sqrt q\log(2q)\) for \(A_\psi(t)=\sum_{n\le t}\psi(n)\).
+Indeed its finite Fourier coefficients have modulus \(\sqrt q\) at
+unit frequencies and vanish at nonunits. A change of variable shows
+that the coefficients at units differ by unit-modulus factors.
+For a nonunit frequency \(h\), multiplication by a unit congruent to
+\(1\bmod q/(q,h)\) on which \(\psi\) is nontrivial fixes the additive
+phase, giving zero. Such a unit exists by primitivity, and finite
+Parseval then gives the magnitude \(\sqrt q\).
+Fourier inversion and the geometric-sum bound
+\(O(q/\min(h,q-h))\) for \(1\le h<q\) give the inequality.
+For \(\Re s>0\), partial summation gives
+\[
+ L(s,\psi)-\sum_{n\le P}\psi(n)n^{-s}
+   =-A_\psi(P)P^{-s}+s\int_P^\infty A_\psi(t)t^{-s-1}\,dt .
+\]
+At a tested zero \(\rho\) of \(L(s,\psi_d)\), we have \(q\le MX\),
+\(\Re\rho\ge\beta_k\) and \(|\rho|\ll_k1\). The finite sum at \(\rho\)
+therefore has size \(O_{M,k}(X^{1/2}P^{-\beta_k}\log(2X))\).
+Multiply it by the finite sum
+\(\mathcal M_U(s,\psi_d)=\sum_{m\le U}\mu(m)\psi_d(m)m^{-s}\),
+where \(\mu\) is the M\"obius function.
+Since \(|\mathcal M_U(\rho,\psi_d)|\ll_k U^{1-\beta_k}\) and
+\(P\asymp X/U\), the product at \(\rho\) is
+\[
+ O_{M,k}\bigl(X^{-\Delta}U\log(2X)\bigr)
+     =O_{M,k}\bigl(X^{-3\Delta/4}\log(2X)\bigr).
+\]
+The coefficient of \(n^{-s}\) in the product is
+\(b_{U,P}(n)\psi_d(n)\), where
+\[
+ b_{U,P}(n)=\sum_{\substack{m\mid n\\m\le U,\ n/m\le P}}\mu(m).
+\]
+It satisfies \(b_{U,P}(1)=1\), \(b_{U,P}(n)=0\) for \(1<n\le U\),
+and \(|b_{U,P}(n)|\le\tau(n)\), the number of divisors of \(n\).
+Hence for all sufficiently large \(X\), uniformly over the tested zeros,
+\begin{equation}\label{eq:weighted-mollified-zero-test}
+ \left|E_d(\rho)\right|\ge\tfrac12,\qquad
+ E_d(s)=\sum_{U<n\le N}b_{U,P}(n)\xi^*(n)\chi_d(n)n^{-s}.
+\end{equation}
+
+\teamanchor{proof.weighted-mollified-mean}%
+Let \(S(Q_0)\) be the real primitive characters of conductor at most
+\(Q_0\). Heath-Brown's quadratic large sieve for arbitrary complex
+coefficients gives
+\[
+ \sum_{\chi\in S(Q_0)}
+       \left|\sum_{n\le N}a_n\chi(n)\right|^2
+ \ll_\alpha (Q_0N)^\alpha(Q_0+N)
+     \sum_{\substack{n,m\le N\\nm\text{ a square}}}|a_n a_m|
+ \qquad(\alpha>0).
+\]
+\cite[Corollary~2, p.~238]{f1heath-brown}\footnote{\href{https://matwbn.icm.edu.pl/ksiazki/aa/aa72/aa7234.pdf\#page=4}{Heath-Brown, original printing, Corollary~2 on p.~238}.}
+
+Apply the inequality with \(Q_0=X\) to the distinct real primitive
+characters \(\chi_d\). The fixed factor \(\xi^*(n)\) occurs in
+\(a_n=b_{U,P}(n)\xi^*(n)n^{-s}\) on \(U<n\le N\).
+For \(\Re s\ge1/2+\Delta/2\), the divisor bound
+\(\tau(n)\ll_\Delta n^{\Delta/8}\) gives
+\[
+ |a_n|\ll_\Delta U^{-\Delta/4} n^{-1/2-\Delta/8}.
+\]
+Writing \(n=h r^2\), \(m=h t^2\) with a common squarefree \(h\) when
+\(nm\) is a square shows that the square-pair sum is
+\(O_\Delta(U^{-\Delta/2})\). The remaining sum is bounded by the
+product of the three convergent sums of \(h^{-1-\Delta/4}\),
+\(r^{-1-\Delta/4}\), and \(t^{-1-\Delta/4}\). Since \(N\le X\),
+taking \(\alpha=\epsilon/2\) for \(\epsilon>0\) gives
+\[
+ \sum_{d\in\mathcal P(X)}|E_d(s)|^2
+      \ll_{\Delta,\epsilon} X^{1+\epsilon} U^{-\Delta/2}
+ \qquad (\Re s\ge1/2+\Delta/2).
+\]
+
+For each \(d\in\mathcal B_\xi(X)\), choose one zero \(\rho_d\) in its
+box. The disk of radius \(\Delta/2\) about \(\rho_d\) lies in the fixed
+rectangle
+\[
+ \mathcal R=\bigl\{s:1/2+\Delta/2\le\Re s\le1+\Delta/2,\
+                          |\Im s|\le k+\Delta/2\bigr\}.
+\]
+The finite Dirichlet polynomial \(E_d\) is entire. The submean inequality
+for \(|E_d|^2\) on that disk, followed by \eqref{eq:weighted-mollified-zero-test}, gives
+\[
+ \frac{\#\mathcal B_\xi(X)}4
+ \le \frac{4}{\pi\Delta^2}
+       \int_{\mathcal R}\sum_{d\in\mathcal P(X)}|E_d(s)|^2\,dA(s)
+ \ll_{M,k,\epsilon} X^{1+\epsilon}U^{-\Delta/2}.
+\]
+Here \(dA\) is planar area. Since \(U\asymp X^{\Delta/4}\), take
+\(\epsilon=\Delta^2/16\) to get the asserted count.
+
+\teamanchor{proof.weighted-twist-choice}%
+The union of the exceptional sets over all characters modulo \(M\)
+has cardinality \(O_{M,k}(X^{1-1/(16k^2)})=o(X/\log X)\).
+In the class \(a_0\), \eqref{eq:weighted-fixed-pnt} gives total von
+Mangoldt weight asymptotic to \(X/\varphi(M)\), and the proper prime
+powers contribute \(O(\sqrt X\log X)\). The class therefore has
+\(\gg_M X/\log X\) primes up to \(X\). Choose one \(d_k\) outside the
+union. This supplies \eqref{eq:weighted-twist-free} on the whole
+character family before any first scale is chosen.
+
+\teamanchor{proof.weighted-real-twist-density}%
+For the real characters there is also a sharper estimate. For fixed
+real \(\xi\), distinct \(d\) give distinct real primitive \(\psi_d\)
+of conductor \(f_\xi d\le MX\). The
+\hyperlink{proof.real-character-zero-density}{Heath-Brown zero-density
+theorem} with conductor cutoff \(MX\), height \(k\), and left edge
+\(\beta_k\) gives for the number of failing primes
+\(O_{M,k,\alpha}(X^{1-4/(3k-2)+\alpha})\) for every \(\alpha>0\).
+In particular \(\alpha=2/(3k-2)\) gives
+\(O_{M,k}(X^{1-2/(3k-2)})\).
+\cite[Corollary~1 and Theorem~3]{f1heath-brown}
+
+\subsection*{One test square per block}
+
+\teamanchor{proof.weighted-square-selection}%
+Hold \(M,k,d_k\) fixed. For each integer \(j\ge1\), put \(X_j=2^{2^j}\).
+Both endpoints of \([X_j,X_{j+1}]\) are squares, so its set of integer
+squares is finite and nonempty. Choose the least square \(y_j\) in this
+interval maximizing
+\begin{equation}\label{eq:weighted-square-selection}
+ S_{d_k,M}(y)-\frac{\log y}{\varphi(M)}-\tfrac12 y^{\beta_k-1}.
+\end{equation}
+This also maximizes \(R_{d_k,M}(y)-\tfrac12 y^{\beta_k-1}\), since the
+centering constant \(c_{d_k,M}\) is common to all points. This is the
+\hyperlink{proof.centered-ramp-maximum}{centered ramp maximum} on the
+finite square set, with \(b=\lambda_{d_k,M}\), \(a=1/\varphi(M)\),
+\(\alpha=\beta_k\) and \(\kappa=1/2\). The weights specify the test
+squares before any arithmetic datum is chosen at them.
+
+\teamanchor{proof.weighted-squares}%
+At each selected \(y_j\) use the matching datum and row comparison with
+\(d=d_k\) and \(\varepsilon=\varepsilon_k\). Put
+\(\alpha_k=1/2+8\varepsilon_k=1/2+1/(2k)<\beta_k\). By
+\eqref{eq:weighted-square-bound}, \(R_{d_k,M}(y_j)\le y_j^{\alpha_k-1}\)
+for all large \(j\), since \(y_j\ge X_j\to\infty\) and the threshold is
+fixed. Eventually \(y_j^{\alpha_k-1}\le\tfrac12 y_j^{\beta_k-1}\).
+The centered ramp maximum rule gives
+\(R_{d_k,M}(y)\le\tfrac12 y^{\beta_k-1}\) at every square in that interval.
+The consecutive intervals \([X_j,X_{j+1}]\) cover the entire tail, hence
+the last inequality holds at all sufficiently large squares.
+
+For real \(x\ge1\) put \(y=\lceil\sqrt x\rceil^2\). Because the weights
+are nonnegative and each kernel \((1/n-1/x)_+\) is nondecreasing in \(x\),
+\(S_{d_k,M}(x)\le S_{d_k,M}(y)\). For sufficiently large \(x\) we obtain
+\begin{align*}
+ R_{d_k,M}(x)
+ &\le R_{d_k,M}(y)+\frac{\log(y/x)}{\varphi(M)}\\
+ &\le \tfrac12 x^{\beta_k-1}+\frac{2}{\varphi(M)\sqrt x}
+ \le x^{\beta_k-1}.
+\end{align*}
+Here \(\beta_k<1\), and \(\log(y/x)\le2\log(1+x^{-1/2})\le2x^{-1/2}\).
+The second half of the power bound absorbs the correction because
+\(x^{\beta_k-1/2}\to\infty\). Thus
+\begin{equation}\label{eq:weighted-real-bound}
+ R_{d_k,M}(x)\le x^{\beta_k-1}\qquad\text{for every sufficiently large real }x.
+\end{equation}
+The size threshold may depend on \(k\) and on its chosen prime \(d_k\).
+The \hyperlink{proof.weighted-window-variant}{power-window variant}
+uses its own intervals with a positive-majorant criterion.
+
+\subsection*{The polar transform and Landau's lemma}
+
+\teamanchor{proof.weighted-polar}%
+Apply \eqref{eq:common-ramp-mellin} with \(b=\lambda_{d,Q}\) and
+\(a=1/\varphi(Q)\). The series identity \eqref{eq:weighted-series} gives
+\(C_b=G_{d,Q}\) and \(c_{d,Q}=G_{d,Q}(1)\). Thus the function being
+transformed is \(y\mathcal R_b(y)=yR_{d,Q}(y)\).
+On \(\Re s>1\), set
+\[
+ \Phi_{d,Q}(s)=\int_1^\infty \bigl(yR_{d,Q}(y)\bigr)y^{-s-1}\,dy
+ =\int_0^\infty R_{d,Q}(e^v)e^{(1-s)v}\,dv
+\]
+and the shared calculation gives
+\begin{equation}\label{eq:weighted-polar}
+ \Phi_{d,Q}(s)=\frac{F_{d,Q}(s)}{s(s-1)}
+   -\frac{1}{\varphi(Q)(s-1)^2}-\frac{c_{d,Q}}{s-1}
+   =\frac{G_{d,Q}(s)/s-c_{d,Q}}{s-1}.
+\end{equation}
+The formula continues meromorphically to \(\Re s>0\), and the shared
+calculation removes the apparent pole at \(1\). The nonvanishing of the
+regularized \(L\)-functions makes \(\Phi_{d,Q}\) holomorphic at every other
+point with \(\Re s\ge1\). At each point
+\(\rho\) with \(0<\Re\rho<1\), a logarithmic derivative has at most a
+simple pole with residue equal to its zero order. Thus the poles there
+are at most simple and the residue, taken to be zero at a regular point,
+is
+\begin{equation}\label{eq:weighted-residue}
+ r_{d,Q}(\rho)=
+ \frac{\displaystyle\sum_{\xi\bmod Q}
+       \bigl(\operatorname{ord}_\rho\widetilde L_\xi-
+             \operatorname{ord}_\rho\widetilde L_{\xi\chi_d}\bigr)}
+      {\varphi(Q)\rho(1-\rho)}.
+\end{equation}
+This is the residue convention of the compact
+\href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/PrimeError.lean\#L66-L90}{polar-transform theorem}.
+
+\teamanchor{proof.weighted-landau}%
+Take \(d=d_k\), \(Q=M\), and put \(\beta=\beta_k\). For every real
+\(\beta<\sigma<1\), all the twisted orders at \(\sigma\) vanish by
+\eqref{eq:weighted-twist-free}, and the denominator in
+\eqref{eq:weighted-residue} is positive. Thus \(r_{d,M}(\sigma)\ge0\).
+At real \(\sigma\ge1\) there is no pole. These are the signs on the whole
+real interval \(\sigma>\beta\) required by the compact
+\href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/Lib/Analytic/Landau/PolarLandau.lean\#L84-L123}{one-sided Landau lemma}.
+
+Put \(E(v)=R_{d,M}(e^v)\). The ramp kernels are continuous and locally only
+finitely many are nonzero, so \(E\) is continuous. By
+\eqref{eq:weighted-real-bound}, take
+\(K\ge1\) large enough that \(g(v)=K e^{\beta v}-e^v E(v)\ge0\) for
+all \(v\ge0\). Its Laplace transform is
+\[
+ P(s)=\int_0^\infty g(v)e^{-sv}\,dv
+     =\frac{K}{s-\beta}-\Phi_{d,M}(s) \qquad (\Re s>2).
+\]
+Suppose the abscissa of convergence \(\sigma_c\) of the nonnegative
+integral satisfies \(\sigma_c>\beta\). In \(\Re s>\sigma_c\) the integral
+is holomorphic and agrees with the displayed expression by continuation.
+At \(\sigma_c\) that expression has at most a simple pole, with residue
+\(-r_{d,M}(\sigma_c)\le0\). For real \(s>\sigma_c\), the integral gives
+\((s-\sigma_c)P(s)\ge0\). Its limit as \(s\downarrow\sigma_c\) is the
+residue, hence the residue is zero and \(P\) is holomorphic in a
+neighborhood of \(\sigma_c\).
+
+Choose a real center \(a>\sigma_c\) so close to \(\sigma_c\) that the
+Taylor series of \(P\) at \(a\) converges at some real \(a-\delta<\sigma_c\).
+The derivatives at \(a\) are obtained by differentiating the integral in
+its half-plane of convergence. Positivity of \(g\) and monotone
+convergence give
+\[
+ \sum_{j\ge0}\frac{P^{(j)}(a)(-\delta)^j}{j!}
+ =\int_0^\infty g(v)e^{-av}\sum_{j\ge0}\frac{(\delta v)^j}{j!}\,dv
+ =\int_0^\infty g(v)e^{-(a-\delta)v}\,dv.
+\]
+The left side is finite, contradicting the abscissa. It follows that
+\(P\) is holomorphic for \(\Re s>\beta\), and by the continuation formula
+so is \(\Phi_{d,M}\). In particular \(r_{d,M}(\rho)=0\) for
+\(\Re\rho>\beta\).
+
+\subsection*{The classical zeta target}
+
+\teamanchor{proof.weighted-rh}%
+Suppose that \(\zeta(\rho)=0\) with \(1/2<\Re\rho<1\). Choose
+\(k\ge13\) with \(\beta_k<\Re\rho\) and \(|\Im\rho|\le k\), and use the
+same \(d_k\) in the arithmetic bound and in the residue formula. The
+conductor-one principal character induces the principal character
+\(\xi_0\bmod M\). By \eqref{eq:common-character-conductor},
+\[
+ \widetilde L_{\xi_0}(s)=(s-1)\zeta(s)\prod_{p\mid M}(1-p^{-s}).
+\]
+The finite factors are nonzero at \(\rho\), so the
+untwisted principal term contributes a positive zero order to
+the numerator of \eqref{eq:weighted-residue}. All other untwisted orders
+are nonnegative and all twisted orders vanish by
+\eqref{eq:weighted-twist-free}. The residue is then nonzero, contrary to
+Landau's lemma. This proves the right-strip exclusion for the classical
+zeta function.
+
+The compact source's
+\href{https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Main.lean\#L169-L197}{Dirichlet GRH deduction}
+uses the arithmetic at modulus \(18480q\) for each target modulus \(q\).
+Here the full auxiliary character family at the single modulus \(18480\)
+enters the residue test for the classical target.
+
+\input{zeta-reflection}

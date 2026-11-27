@@ -73,19 +73,17 @@ embedding. The translates have the same class weight and
 disjoint supports. Thus the following module identification
 gives the orthogonal class metric at every embedding:
 \[
- M=\bigoplus_o(\mathcal O_K^q)^{\otimes f}\otimes L_o,\qquad
+ M=\bigoplus_o(\mathcal O_K^q)^{\otimes f}\otimes_{\mathcal O_K} L_o,\qquad
  A_q=\ker(\Sigma:\mathcal O_K^q\to\mathcal O_K),\qquad
- H=\bigoplus_o A_q^{\otimes f}\otimes L_o .
+ H=\bigoplus_o A_q^{\otimes f}\otimes_{\mathcal O_K} L_o .
 \]
-For the last equality split \(\mathcal O_K^q=A_q\oplus\mathcal O_K e_q\),
-where \(e_q\) is the last coordinate vector and \(\Sigma\) the
-coordinate sum. In direction \(a\), \(S_a\) factors as summation
-followed by the diagonal inclusion. The latter has a left inverse
-given by taking a coordinate. The simultaneous kernel therefore
-retains exactly the summands with \(A_q\) in every position. The
-saturation and the kernel description survive every base change,
-including at places dividing \(q\). Writing
-\(r_\diamond=\sum_o\operatorname{rk}L_o\), we obtain
+For the last equality apply the
+\hyperlink{proof.diamond-augmentation-kernels}{free-orbit kernel calculation}
+to these integral fibres, with \(S_a\) the nondivided sum of
+the shifts. The complement is a direct sum of copies of the
+torsion-free \(L_o\), so \(H\) is saturated in \(M\), and the
+kernel description commutes with every scalar extension. With
+\(r_\diamond=\sum_o\operatorname{rk}L_o\), this gives
 \begin{equation}
 \label{eq:selected-ramified-rank}
  d_M=q^f r_\diamond,\qquad d_r=(q-1)^f r_\diamond,\qquad
@@ -332,8 +330,25 @@ extension DVR. For a local lattice \(A\) put
 The sum runs over subsets of sampling vertices and uses their
 prescribed operators \(y_s\) and integer exponents \(S_s\ge0\).
 The tested module is \(N_{P,v}=V_g\cap Y\cap p^{\tau_v}M_g\).
-The empty product contains a power of \(p\) times \(M_g\).
+The empty product contains \(p^{\sum_s S_s}M_g\). Put
+\(A_p=\max(\tau_v,\sum_s S_s)\). Intersecting with the same
+ramified space gives
+\[
+ p^{A_p}(M_g\cap V_g)\subseteq N_{P,v}
+          \subseteq p^{\tau_v}(M_g\cap V_g).
+\]
+Hence its length in \(M_g\cap V_g\) is at most
+\(\operatorname{ord}_g(p)d_r A_p\). This supplies the required
+length whenever \(d_r A_p\le d_M(\tau_v+\iota_v)\). If
+\(\sum_s S_s\le\tau_v\), both inclusions are equalities.
 
+For its general-target index bound the pinned local estimate supplies
+the exceptional generators on the actual orbit operators and dominant
+weights. Below \(p_0\) it uses the second local comparison theorem.
+For \(p_0\le p<X'\) it uses the defining rank bound for the
+installed share on each served orbit.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/Joints.lean}{2040}{The local orbit comparisons} and
+\releasecite{Formalism/SharpRestriction/GrowthBounds/DefsInst.lean}{68}{Attainment of the prescribed share}.
 The all-but estimate on \(M^{\rm na}\) uses a leading exponent
 \(\tau'_v\) and
 \(p^{\varepsilon_v}M^{\rm na}\subseteq M_g\subseteq M^{\rm na}\).
@@ -387,6 +402,171 @@ off \(T\) the length and both parameters vanish.
 \releasecite{Formalism/LocalRingCardinality/Lemmas.lean}{1061}{Scalar extension on the two lattices},
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/LinkG.lean}{23}{The selected service} and
 \releasecite{Formalism/LocalToGlobal/Columns/FiniteSumNonzeroLargeDepth.lean}{1315}{Concrete local generators}.
+
+\paragraph{The weighted off-level index on the classical family.}
+\leavevmode\teamanchor{proof.classical-donor-first-cut}%
+Fix the actual classical record \(i(u)\) at scale \(x\), a word
+\(w\), and a served place \(v\mid p\) away from \(T_w\). All the
+local lattices and operators below are those of
+\eqref{eq:selected-donor-localizations}. In the extension DVR
+\(\mathcal O_g\), put \(H_g=M_g\cap V_g\), where
+\(V_g\) is the rational ramified space. Write \(V_p\) for the
+marked orbits, \(S_{p,o}\) for their nonnegative integer
+exponents and \(\kappa_o\) for their shares. Set
+\[
+ C_p=\sum_{o\in V_p} S_{p,o},\qquad
+ \Delta_p^N=(C_p-\tau_p)_+,\qquad
+ \Sigma_{p,A}=m\sum_{o\in A}\kappa_o \quad (A\subseteq V_p).
+\]
+Let \(t_o=\lceil t_v(o)\rceil_+\), \(c_{p,o}=m(t_o+D_p+1)\) and
+\(e_p^{\rm inst}=\lceil C_e f k^2\log_p a_E\rceil_+\). The prescribed exponent is
+\(\tau_p=e_p^{\rm inst}+\sum_{o\in V_p}c_{p,o}\).
+For \(\Delta_p^N>0\) we may take
+\[
+ A_p=\{o\in V_p:S_{p,o}>c_{p,o}\}.
+\]
+More generally any \(A_p\subseteq V_p\) such that
+\[
+ e_p^{\rm inst}+\sum_{o\in A_p}c_{p,o}
+       +\sum_{o\in V_p\setminus A_p}S_{p,o}\le \tau_p
+ \tag{*}
+\]
+works in the proof. Use \(A_p=\varnothing\) if \(\Delta_p^N=0\).
+On this record the orbit placement assigns distinct operator
+positions to the marked orbits and use the same exponents and weights
+for those positions.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{336}{Orbit exponents and the restriction},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{430}{The orbit placement and the tested module}.
+
+\emph{A bound for one operator.}
+Let \(M^{\rm na}\) be the naive class lattice in this same model and
+\(d_{\rm na}\) its rank. For an orbit \(o\) use the actual side
+lattices \(P_o^-\) and \(P_o^+\) on class functions. They use the
+predual of \(N_{\rm tgt}\) and the source lattice \(N_{\rm src}\),
+respectively, in the slot for \(o\), with all other slots in their
+base lattices. The side inclusions, with \(z^2=p\) in
+\(\mathcal O_g\), give
+\[
+ z^{t_o} M^{\rm na}\subseteq P_o^-\subseteq M^{\rm na}
+   \subseteq P_o^+,\qquad
+ z^{t_o}P_o^+\subseteq M^{\rm na},\qquad
+ y_o P_o^+\subseteq P_o^-.
+\]
+Here \(z\) is the root provided by the local quadratic setting.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{701}{The source, predual and base slots},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{805}{The scalar inclusions on class functions},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{1233}{The normalized operator on these slots}.
+
+Consider a representative of a decorated target class for this
+operator. The local rank test at its \(o\)-coordinate uses the
+actual dominant weight, with \(t_{\rm II},D_{\rm II},\kappa_{\rm II}\)
+below \(p_0\), and \(t_{\rm I},D_{\rm I}\) with the installed share
+otherwise. Let \(P\) be the predual target fibre of \(P_o^-\), of
+rank \(d_o\), and \(B\subseteq P\) the span of the normalized
+source values at their specified target. Each such value is
+\(p^{\mathrm{ArV}(v(o))}F\), with the actual operator position
+\(v(o)\) and its normalization. The rank test pairs these values
+with functionals in \(N_{\rm tgt}\), which are integral on \(P\).
+It gives
+integral linear combinations of these values and integral
+functionals on \(P\) whose pairing matrix is \(p^{D_p}I_j\), with
+\(j\ge(1-\kappa_o)d_o\). In a Smith basis of \(B\subseteq P\),
+write the resulting matrix as
+\(U\operatorname{diag}(\pi^{a_i})V=p^{D_p}I_j\), with unit
+factors absorbed in \(U\) and \(V\) and zero Smith entries omitted.
+The terms with \(a_i>\operatorname{ord}_g(p)D_p\) sum to a matrix
+in \(\pi p^{D_p}\operatorname{Mat}_j(\mathcal O_g)\). Dividing the
+remaining sum by \(p^{D_p}\) gives a matrix congruent to \(I_j\)
+modulo \(\pi\). Its rank over the fraction field is at most the
+number of remaining terms. Thus at least \(j\) basis vectors
+of \(P\) belong to \(B\) after multiplication by \(p^{D_p}\).
+\releasecite{Formalism/SharpRestriction/GrowthBounds/UnramifiedQuadraticSetting.lean}{188}{The side lattices and local rank test},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/Joints.lean}{2040}{Application to the actual local weights},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{3746}{Normalized source values in the predual}.
+
+Tensor with bases for the other base slots and use their values
+at this same decorated representative. A normalized source
+section on its chosen incident edge gives its prescribed target
+value modulo \(p^{D_p+1}P_o^-\) on class functions. Indeed the
+equivariant section supported on the source class contributes
+that value at the chosen edge. At every other target the
+off-edge congruence gives the factor \(z^{c_*}\), which is
+divisible by \(p^{D_p+1}\) since \(c_*\ge4(D_p+1)\).
+The actual trivial stabilizers make the chosen contribution
+occur once. The discarded tensor directions at each target
+are the exceptional \(o\)-basis vectors tensored with every
+other base direction. Their class sections give a set
+\(E_o\subseteq P_o^-\) with \(\#E_o\le\kappa_o d_{\rm na}\).
+For the count, evaluation of equivariant class sections identifies
+the values at a finite set of representatives, and the sum of the
+products of the fibre dimensions there is at most \(d_{\rm na}\).
+We obtain
+\[
+ p^{D_p}P_o^-\subseteq y_o P_o^+ +\langle E_o\rangle
+                                     +p^{D_p+1}P_o^- .
+\]
+Apply Nakayama's lemma to the image of \(p^{D_p}P_o^-\) modulo
+\(y_oP_o^++\langle E_o\rangle\). This image equals its multiple
+by \(p\), so it is zero. Multiplying the resulting inclusion by
+\(z^{t_o}\) and using \(z^{t_o}M^{\rm na}\subseteq P_o^-\) proves
+\begin{equation}
+\label{eq:classical-donor-one-operator}
+ p^{t_o+D_p+1}M^{\rm na}
+       \subseteq y_o M^{\rm na}+\langle z^{t_o}E_o\rangle .
+\end{equation}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{3339}{The chosen edge and the other target values},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{3875}{Tensoring the normalized sections},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{4194}{Rank from the class representatives},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/LatticeSystems.lean}{4300}{Classwise assembly and the local-ring step}.
+
+\emph{The image at the prescribed scalar restriction.}
+Apply \eqref{eq:classical-donor-one-operator} \(m\) times for each
+orbit in \(A_p\). In order, multiplying the current inclusion
+by the scalar of the next step leaves the earlier error spans in
+their span. Substituting the next inclusion within the current
+operator product adds the new exceptions acted on by that product.
+This gives
+\[
+ p^{\sum_{o\in A_p}c_{p,o}}M^{\rm na}
+     \subseteq \Big(\prod_{o\in A_p} y_o^m\Big) M^{\rm na}
+                          +\langle E\rangle,
+ \qquad \#E\le d_{\rm na}\Sigma_{p,A_p},\qquad E\subseteq M^{\rm na}.
+\]
+The operators preserve \(M^{\rm na}\) and commute. Multiply by
+\(p^{e_p^{\rm inst}+\sum_{o\notin A_p}S_{p,o}}\), where the
+complement is in \(V_p\). The sandwich
+\(p^{e_p^{\rm inst}} M^{\rm na}\subseteq M_g\subseteq M^{\rm na}\)
+puts the product in the term of \(Y(M_g)\) indexed by \(A_p\), and
+the scaled error generators are in \(M_g\). By \((*)\), the image
+of \(p^{\tau_p}M_g\) in \(M_g/Y(M_g)\) lies in a submodule generated
+by at most \(d_{\rm na}\Sigma_{p,A_p}\) elements. Every submodule
+of a finitely generated module over a DVR can be generated by at
+most as many elements as the module. This follows by taking
+the preimage in a free module on a set of generators.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/SelectionLemmas.lean}{19}{The term of the actual product},
+\releasecite{Formalism/LocalToGlobal/GroupLattices/AdmissibleFamilyNoKernel.lean}{265}{The installed sandwich}.
+
+By saturation, \(N_{P,v}=Y(M_g)\cap p^{\tau_p}H_g\). Thus
+\(p^{\tau_p}H_g/N_{P,v}\) injects into the same image. The
+empty-product term contains \(p^{C_p}M_g\) and kills this
+quotient after multiplication by \(p^{\Delta_p^N}\). If
+\(C_p\le\tau_p\), the quotient is zero. Otherwise its length is
+at most \(\operatorname{ord}_g(p)\, d_{\rm na}
+\Sigma_{p,A_p}\Delta_p^N\). Splitting the index at \(p^{\tau_p}H_g\)
+and descending the raw lengths as in
+\eqref{eq:selected-donor-raw-length} gives
+\begin{equation}
+\label{eq:classical-donor-length}
+ 0\le \ell_{wv}-d_r\tau_p
+       \le d_{\rm na}\Sigma_{p,A_p}\Delta_p^N .
+\end{equation}
+The normalized length of the scalar restriction is exactly
+\(d_r\tau_p\). For an unserved off-level place the length and
+\(\tau_v\) vanish. The scalar containment at every off-level
+place is the containment in \eqref{eq:selected-donor-localizations}.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean}{464}{The tested intersection and its length},
+\releasecite{Formalism/SharpRestriction/GrowthBounds/MultisetValuation/StabilizerCount.lean}{120}{Comparison of the two full ranks},
+\releasecite{Formalism/LocalRingCardinality/Lemmas.lean}{1061}{Scalar extension of the lengths}.
 
 \paragraph{Local length at the level.}
 Write \(\Lambda\) for the stage-zero lattice over \(v\mid T\)

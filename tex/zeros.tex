@@ -7,6 +7,8 @@
 Take the conductor-one target \(\psi=1\). Fix the loss exponents
 \(e_D=2,\ e_L=0\) and the balance constant \(C_0=3\) used in the
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopShape.lean}{52}{window construction}.
+The admitted family supplies the estimates on a power window.
+The classical application tests them at one scale of that window.
 
 \teamanchor{proof.join-size-requirements}%
 Fix \(C_{\rm grid}\), the depth constant \(C_F\) in the
@@ -43,8 +45,8 @@ local models and maps.
 \teamanchor{proof.choose-compatible-family}%
 \textbf{Common family for the classical application.}
 With the grid depth fixed, use the arithmetic hosts on intervals from
-Section~\ref{sec:family} and the compatible point construction and
-signature estimates specified below. There is an existence cutoff
+Section~\ref{sec:family}, the host array estimates and the compatible
+point construction below. There is an existence cutoff
 \(\varepsilon_{\rm ex}>0\). For each
 \(0<\varepsilon<\min(1/52,\varepsilon_{\rm ex})\) the construction with
 the joined staged bounds \(K_*\) gives one family \(\mathfrak F\) and
@@ -106,15 +108,15 @@ comparisons on their own hypotheses.
 \releasecite{Formalism/SharpRestriction/FamCore.lean}{132}{Translate property}
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesWin.lean}{11}{Subsequent comparisons}.
 \rhrange{The constructed family has the translate property for every
-realized seed.}
-{At each real scale, one realized seed supplies the common arrays and
-a matching record for every translate, including the actual weights,
-levels and lattices.}
+realized seed at every scale in its windows.}
+{At the selected scale \(x_I\), one seed supplies the common arrays
+and its matching record at the maximizing translate supplies the
+actual weights, levels and lattices.}
 
 \paragraph{The order of the choices.}
 \teamanchor{proof.selection-construction-order}%
 At the conductor-one target the dyadic scaling factor is \(1\).
-At each real \(x\) of a preliminary interval, the \(q,d,E\) and
+At each real \(x\) of the arithmetic interval, the \(q,d,E\) and
 dyadic layer of Section~\ref{sec:family} give the arithmetic window
 datum of the host construction, with
 \(x^{1/J}\le Z\le x\) and Selmer cutoff \(\lfloor x^{400}\rfloor\).
@@ -126,24 +128,19 @@ arithmetic predicate with this same host field, sampling set and
 rank. The longer \(401\) cutoff in the general release supplies the
 window datum after rescaling at a general target.
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/TwistForm.lean}{19}{The host window datum}
-\releasecite{Development/AutomorphicArithmetic/ShortNorms/supplyOfAdmOf.lean}{93}{The ranked host and its cutoff}
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/Supply.lean}{16}{The arithmetic predicate at the constructed point}.
 
-The construction first makes an auxiliary family from raw integer
-arrays. The signature estimates there give admissible arrays on the
-same host. At each scale the final kit uses this host, its ranks, the
-two admissible arrays and one injective word code. For each translate
-call the compatible point construction with these inputs. The row
-and column data in a call give the positive pre-level coefficients
-\(d_w^{(0)}\) and \(D_\star\). These set the window for \(T_w\), after
-which the call gives the record over the chosen levels. The common
-class and selector use the matching adelic constructions and their
-mass and hyperplane-volume formulas. Gluing the kits preserves the
-real window set. The point's identification with the kit's arithmetic
-host includes its field and Artin map. The auxiliary fields and the
-two section runs are attached on the geometric side of that same
-point.
-\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/HostWW.lean}{47}{From raw arrays to admissible arrays}
+At each eligible scale the
+\hyperlink{proof.selection-array-windows}{host orbit estimate}
+supplies the admissible arrays. Use this host, its ranks, the two arrays
+and one injective word code in the final kit. Its point construction
+accepts the label as an input. The row and column data at each label
+give positive pre-level coefficients \(d_w^{(0)}\) and \(D_\star\),
+which determine the word-level intervals. The kit supplies the records
+at the prescribed shifts and the gluing keeps the real windows. The
+common class and its selector use the matching adelic constructions,
+mass and hyperplane-volume formulas. Each fitted point carries the kit's
+field and Artin map together with its own auxiliary fields and section runs.
 \releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{190}{Pre-level coefficients and records}
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ClassSel.lean}{14}{Compatible class and selector}
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/KitS.lean}{40}{One set of inputs at each scale}
@@ -152,10 +149,11 @@ point.
 
 \paragraph{The data read on the selected records.}
 \teamanchor{proof.selected-record-ties}%
-At a real window scale above the common threshold, use the realized
-seed \(i_0\) of the sample estimate below. The translate property
-matches its two arrays by numerical labels at \(i(u)\) for every
-\(u\in H\). The index \(i(0)\) can differ from \(i_0\).
+At an eligible scale use the realized seed \(i_0\) of the sample
+estimate below. For a prescribed \(u\),
+the translate property supplies a record \(i(u)\) in the admitted family
+with both arrays matching by numerical labels. In the main classical
+argument take \(u=u_*\). The index \(i(0)\) can differ from \(i_0\).
 The Artin identification in \eqref{eq:artin-coordinates} gives
 the same inertia groups and Frobenius cosets. The common \(d\)
 gives the same first-sign logarithmic derivative, and the common
@@ -175,69 +173,254 @@ record are identified below.
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean}{395}{Artin and weight readings}
 \releasecite{Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean}{464}{Arithmetic and local data at the selected records}.
 
-\paragraph{The raw windows and arithmetic admissibility.}
+\paragraph{Choosing the arrays on the arithmetic host.}
 \teamanchor{proof.selection-array-windows}%
-The raw interval for \(a_t\) has length \(xb/(kx^{13})\), which
-exceeds one eventually since \(k\le x^5\) and \(b=\exp(x^\varepsilon)\).
-The interval for \(b_t\) has length
-\(2n\delta_1x^\varepsilon L_{\mathrm{a},G}b'/k\). Here
-\(\delta_1x^\varepsilon=x^{7\varepsilon/8}\), \(b'\ge k\) eventually,
-and \(L_{\mathrm{a},G}\ge x^\varepsilon\). Thus both windows contain
-integers. The latter bound on \(L_{\mathrm{a},G}\) also gives the
-lower bound \(2n\delta_1x^{2\varepsilon}b'/k\) for the same width.
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/GoodTopCountLeConstMulLog.lean}{65}{The window parameter}
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsFamPOfKits.lean}{41}{The two bounds on the same endpoint}.
-On a raw auxiliary record the released numerical and plane-count
-estimates give a nonnegative signature excess \(\mathrm{Sig}_p\)
-for every array in the integer boxes and every candidate prime
-\(p<X'\). Its mean over the boxes is at most \(mN_Tx^{-12}\).
-For a nonnegative value \(s\) of the excess, the penalty
-\(2\mathbf 1_{\{s>x^{-\varepsilon}\}}+4s\) is at most
-\((2x^\varepsilon+4)s\). The sum of \((\log p)/p\) over these
-primes is at most \(2\log X'=2x^{\varepsilon/3}\). Indeed, for
-\(N=\lfloor X'\rfloor\) the valuation of \(N!\) at \(p\le N\) is
-at least \(\lfloor N/p\rfloor\ge N/(2p)\).
-Using \(m\le x^{1/2+\varepsilon/2}\) and \(N_T\le n\le 2x^{2+8\varepsilon}\),
-the mean of the total penalty is \(O(x^{-19/2+59\varepsilon/6})\).
-Since \(\varepsilon<1/52\), some pair of arrays in the boxes satisfies
+Fix the precision and the staged constants. Use the actual ranked
+classical host and write \(n=|H|\), \(N_T=|T|\), \(A=xb\),
+\(\beta=b'=A/X'\), \(Y_{\mathrm a}=x^{13}\), and \(Y_b=x^\varepsilon/20\).
+In the range-one theorem the local weight parameter is \(k-1\).
+Use the orbit parameters \(r_G,G',N_1\) of
+\hyperlink{proof.classical-top-sample}{the classical top sample}.
+Here \(\lceil\,\cdot\,\rceil_+\) denotes the nonnegative integer
+ceiling.
+With the fixed window coefficient \(K_{\mathrm a}\) set
+\(\mathcal L_{\mathrm a}=K_{\mathrm a}N_1^2\log A\).
+The two integer intervals at each top are obtained from
 \[
- \sum_{\substack{p<X'\\ p\ \mathrm{candidate}}}\frac{\log p}{p}
-    \left(2\,\mathbf 1_{\{x^{-\varepsilon}<\mathrm{Sig}_p\}}
-          +4\,\mathrm{Sig}_p\right)\le x^{-9}.
+ [A,A+A/(kY_{\mathrm a})],\qquad [\beta,\beta+\Delta_b],
+ \qquad
+ \Delta_b=\frac{2n\delta_1x^\varepsilon\mathcal L_{\mathrm a}\beta}{k}.
 \]
-The auxiliary record and the host have the same candidate primes,
-orbit coordinates, offsets and excess function on these boxes. The
-host inequality therefore holds for those same arrays, and the
-final kit installs them at every translate.
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/WindowShareRequirementClosedFormProof.lean}{17}{Uniform estimates for the auxiliary family}
-\releasecite{Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/SlopeEstimateOfLemmaBSlopeLine.lean}{329}{The candidate-prime mean of the signature excess}
-\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{149}{The host admissibility inequality}
-\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/WeightWindowRequirementHostOfPoint.lean}{17}{The arrays on the same host}.
+Outside \(T\) both arrays are zero. The two interval lengths
+exceed one eventually, since \(k\le x^5\),
+\(2n\delta_1\ge1\), and \(\beta\) grows faster than every fixed
+power of \(x\). The width of the second interval is at least
+\(2n\delta_1 x^{2\varepsilon}\beta/k\) since \(K_{\mathrm a}\ge1\)
+and \(N_1\ge1\).
+
+\leavevmode\teamanchor{proof.selection-orbit-means}%
+For a candidate prime use the canonical representative of each orbit
+of \(t\mapsto t+h_p\). In the host definition it is the representative
+with the least numerical label. Preserve this representative when
+reading the parity of the cyclic coordinates. For a good orbit of
+length \(n'\), let \(\mathcal T\subseteq\{0,\dots,n'-1\}\) be its
+top positions, \(N=|\mathcal T|\), and \(N_+=40n'\delta_1\).
+The good-orbit and candidate conditions are tested on the host.
+A candidate belongs to the top-sampling prime set and, for
+\(p\ge p_0=k^2Y_{\mathrm a}^2\), satisfies the band exclusion below.
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/IsResidueClassZero.lean}{189}{Candidate primes and the good-orbit sum}
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/IsResidueClassZero.lean}{267}{Canonical representatives and the host instance}
+
+For \(p\ge p_0=k^2Y_{\mathrm a}^2\), the host contribution
+\(\kappa_I(p,n',\mathcal T,a,b)\) is the infimum of the
+nonnegative losses \(\kappa\) for the following rank condition.
+In each qualifying unramified quadratic setting, at each dominant
+base weight for the arrays, and for each target lattice, one needs
+source test vectors on incoming edges at depth
+\(\lceil t_{If}\rceil_+\). For all other edges with the same source,
+each test vector must satisfy the prescribed extra divisibility
+by the uniformizer to the power \(c_*=8(D_p+1)\), where \(D_p\)
+is the host degree parameter. On the target dual lattice at this
+depth the evaluations against the vectors must admit an integral
+matrix and an integral map of rank \(r\) whose composite is
+\(p^{D_p}\) times the identity, with \(r\ge(1-\kappa)\dim V\) in
+the coefficient space \(V\). The set contains \(1\), using rank zero
+and an empty list of test vectors. The parameters come from the
+host, the staged constants and the arrays. The host offset is
+\(c_G=16k\lceil x^{c_D}\rceil_+\) and the local weight tolerance
+is \(c_{\rm cl}=\lfloor c_G\rfloor_+\).
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{30}{The base and its offsets}
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/IsResidueClassZero.lean}{254}{The host infimum}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/UnramifiedQuadraticSetting.lean}{200}{The rank and depth condition}
+
+Take \(K_{\mathrm a}\ge\max(1,T_0)\) for the range-one theorem,
+where \(T_0\) is its absolute lower bound. Take
+\(C_{\mathrm{loc}}=T_2(K_{\mathrm a})\) and
+\(C_{\mathrm{av}}=C(K_{\mathrm a})\) from
+that theorem. Stage the constants \(K_{\mathrm I},K_{\mathrm D},
+K_\rho,K_{\mathrm{t},1},K_{\mathrm{t},2}\) for the depth, degree
+and band comparisons to satisfy
+\[
+ C_{\mathrm{loc}}\le \min(K_{\mathrm I},K_{\mathrm D}),\qquad
+ 2C_{\mathrm{loc}}\le K_\rho,\qquad
+ 2C_{\mathrm{av}}\le K_{\mathrm{t},1},\qquad
+ C_{\mathrm{av}}\le K_{\mathrm{t},2}.
+\]
+The local conclusion takes an ambient datum and its formula is
+independent of that datum. The prior geometric and counting
+supplier for single points gives one such datum. At one eligible
+scale above the point and code thresholds use the host, any
+integer pair in the raw windows, an injective word code of the
+prescribed size and label \(0\). This application precedes the
+array-admissibility step. Fix the resulting ambient datum. The
+orbit calculation at scale \(x\) uses the numerical data on its
+actual host.
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/TensorOfPairLift.lean}{637}{Absolute constants for the range-one theorem}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/ProjectionLemmaBaseLevel.lean}{78}{Its local conclusion}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/ObjCTrue.lean}{30}{The geometric and counting input before array admissibility}
+
+The top-sampling construction gives \(N\le N_+\),
+\(N_1=O_\varepsilon(\log x)\) and
+\(G'=O_\varepsilon(x^{\varepsilon/8}\log x)\).
+At every candidate prime \(n'\ge x^{\varepsilon/4}\ge3G'\) and
+\(2L_1(p)\le L_2<\lceil1/\delta_1\rceil_+\).
+The good-orbit segment lemma gives at least two even tops and
+bounds the segment lengths and interior top counts by \(G'\)
+and \(N_1\), respectively.
+\releasecite{Formalism/SharpRestriction/GrowthBounds/TopChoiceBounds.lean}{310}{Orbit counts and logarithmic bounds}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/TopChoiceBounds.lean}{706}{Even-top segments on a good orbit}
+
+The local theorem uses the relative band parameter
+\[
+ d_I=C_{\mathrm{loc}}N_1\mathcal L_{\mathrm a}/k+2\Delta_b/\beta .
+\]
+Put \(\rho=4\Delta_b/\beta+K_\rho N_1\mathcal L_{\mathrm a}/k\).
+Choose the staged \(C_N\) above the bound for \(N_1/\log x\) and
+put \(\rho_B=4\Delta_b/\beta+
+K_\rho(C_N\log x)\mathcal L_{\mathrm a}/k\),
+with the same \(\Delta_b\) and \(\mathcal L_{\mathrm a}\).
+Then \(2d_I\le\rho\le\rho_B\). For \(p\ge p_0\) the candidate test
+excludes every positive power of \(p\) in
+\([X'(1-\rho_B),X'(1+\rho_B)]\). In particular no odd power meets
+\([X'(1-2d_I),X'(1+2d_I)]\), as required with \(X'=A/\beta\).
+The two half-widths are \(\rho_B X'\) and \(2d_I X'\). The relative
+parameters tend to zero by the rank bounds and
+\(\mathcal L_{\mathrm a}=O_{\varepsilon,K}(x^\varepsilon\log^2 x)\).
+This gives \(d_I<1/6\) and \(\Delta_b\le\beta/2\).
+
+For the lower width inequality use
+\(Y_bN\le x^\varepsilon(2n\delta_1)\). Also
+\(8\log(NY_{\mathrm a})\le\mathcal L_{\mathrm a}\) and \(2N_1+2\le k-1\)
+eventually. To see the other size comparisons, use
+\(n'\le n\le x^3\) and \(x^{9/2}\le k\le x^5\).
+Both \(2Y_bN\mathcal L_{\mathrm a}\) and
+\(C_{\mathrm{loc}}N\mathcal L_{\mathrm a}^2\) are
+\(O_{\varepsilon,K}(x^{3+2\varepsilon}\log^4 x)=o(k)\).
+The product \(kY_{\mathrm a}^2Y_bN\mathcal L_{\mathrm a}\log A\) grows
+at most polynomially and is eventually at most \(X'\).
+We also have \(C_{\mathrm{loc}}\le Y_b\) and
+\(c_{\rm cl}\le\mathcal L_{\mathrm a}\beta/k\).
+The degree bound
+\[
+ C_{\mathrm{loc}}N Y_{\mathrm a}^2(N_1^5+k^3)\log_p A\le
+ D_p=\big\lceil K_{\mathrm D}N_+Y_{\mathrm a}^2(N_1^5+k^3)\log_p A\big\rceil_+
+\]
+follows from \(C_{\mathrm{loc}}\le K_{\mathrm D}\) and \(N\le N_+\).
+For the depth bound put \(Q_p=p^{G'}\). Uniformly for \(p<X'\),
+\[
+ \log Q_p=O_\varepsilon(x^{11\varepsilon/24}\log x)=o(x^\varepsilon).
+\]
+The other factors of
+\(C_{\mathrm{loc}}k^3NQ_p^4(c_*+Nc_{\rm cl}+n'c_{\rm cl})Y_{\mathrm a}\)
+grow at most polynomially for fixed \(c_D\). Their product with
+\(Q_p^4\) is eventually at most
+\(\beta=x\exp(x^\varepsilon-x^{\varepsilon/3})\).
+Together with \(1\le Y_{\mathrm a}\), \(k^2Y_{\mathrm a}^2\le p<A/\beta\),
+\(1\le N_1\), and the even-top segment bounds, these are the
+hypotheses of the local theorem with the exact two array intervals.
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/IsResidueClassZero.lean}{40}{Host band, degree and depth parameters}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/ProjectionLemmaBaseLevel.lean}{40}{Numerical hypotheses of the local theorem}
+
+The theorem supplies a nonnegative majorant \(\kappa^\sharp\)
+on the two top-coordinate boxes, with mean at most
+\(C_{\mathrm{av}}NN_1/Y_{\mathrm a}\). Its rank condition
+applies at the host depth. In the leading term of its depth \(t_I\),
+the preceding even top agrees with the host's backward distance
+\(d_{\rm Minus}\). The first error term is bounded by the first
+host error term using \(\beta\le A/p\) and
+\(2C_{\mathrm{av}}\le K_{\mathrm{t},1}\).
+In the second term the local budget
+\[
+ c_*+C_{\mathrm{av}}N k\log_p A+4N c_{\rm cl}+2n'c_{\rm cl}
+\]
+is at most the host budget \(c_{6f}\), using \(N\le N_+\),
+\(c_{\rm cl}\le c_G\), and
+\(C_{\mathrm{av}}\le K_{\mathrm{t},2}\).
+These comparisons bound the second error term and
+\(2n'c_{\rm cl}\) by the corresponding host terms. Thus
+\(t_I\le t_{If}\), with the same degree bound and \(c_*\).
+For every pair in the boxes, \(\kappa^\sharp\) belongs to the
+set defining the host infimum. Restricting the uniform global
+arrays to the orbit gives the uniform law on its two boxes, since
+every pair of restrictions has the same number of extensions.
+With the missing positions set to zero this yields
+\[
+ 0\le \kappa_I,\qquad \mathbb E\kappa_I\le C_{\mathrm{av}}NN_1x^{-13}.
+\]
+\releasecite{Formalism/SharpRestriction/GrowthBounds/Joints.lean}{1161}{Comparison of the depths}
+\releasecite{Formalism/SharpRestriction/GrowthBounds/Joints.lean}{1283}{Passage from the local majorant to the infimum}
+
+The good orbits are disjoint, so \(\sum N\le N_T\) at each
+prime. For \(p<p_0\) the contribution is the array-independent
+\(\min(1,K_{\mathrm{II}}Nr_G^2 kx^{-26})\).
+Hence \(\mathrm{Sig}_p=m\sum\kappa_{p,O}\) in this branch is
+\(O(x^{-37/2+17\varepsilon/2})\), using
+\(mN_T=O(x^{5/2+17\varepsilon/2})\). This is eventually below
+\(x^{-\varepsilon}\). The weighted low-prime penalty is
+\(O(x^{-37/2+53\varepsilon/6})\), since
+\(\sum_{p<X'}(\log p)/p\le2\log X'\).
+For \(s\ge0\) use
+\(2\mathbf1_{\{s>x^{-\varepsilon}\}}+4s\le(2x^\varepsilon+4)s\).
+The expected weighted high-prime penalty is
+\[
+ O_{\varepsilon,K}\bigl(
+ mN_T x^{-13}N_1 x^\varepsilon\log X'\bigr)
+ =O_{\varepsilon,K}\bigl(x^{-21/2+59\varepsilon/6}\log x\bigr).
+\]
+Both penalties are \(o(x^{-9})\) uniformly above a threshold.
+A pair of arrays on this host therefore satisfies
+\begin{equation}
+\label{eq:classical-array-penalty}
+ \sum_{p\,{\rm candidate}}\frac{\log p}{p}
+   \left(2\mathbf1_{\{\mathrm{Sig}_p>x^{-\varepsilon}\}}
+       +4\,\mathrm{Sig}_p\right)\le x^{-9}.
+\end{equation}
+This is the host condition with the same \(T\), orbit coordinates,
+offsets and rank data.
+\releasecite{Formalism/LocalToGlobal/GlobalTheory/IsResidueClassZero.lean}{120}{The deterministic low-prime term}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{143}{The array windows and host condition}
+
+\paragraph{Realization at a prescribed shift.}
+\teamanchor{proof.selection-prescribed-point}%
+Fix the admissible arrays and a common injective word code at the
+scale in question. The host and these arrays determine the
+\hyperlink{proof.classical-maximizing-translate}{maximizing label \(u_*\)}.
+The full single-point construction uses the prescribed label
+\(u\in H\), the ranked host, its arithmetic conditions, the least
+prime \(q_0\) and these array windows. It supplies positive pre-level
+coefficients, levels and ledger at that label, together with the
+point predicate of the final design. Its identification preserves
+the field, Artin data, ranks, both samples, the arrays and the word
+bits. The canonical orbit coordinates transfer the host penalty
+bound, and \(q_0<X'\) supplies the distinguished-prime condition
+of the point decoration. Use the same full point predicate
+at every label in the final kit, including \(u_*\). The gluing,
+compatible class and selector then give the admitted family with
+its required comparisons. Use the two auxiliary runs and their
+coefficient field on the selected record in that class. In the
+classical comparison at \(x_I\) evaluate the fitted entry at \(u_*\).
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{204}{Single-point premises}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsObjectsOfAdmissibleTwistDatum.lean}{91}{Construction at the given label}
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ThinScalesIffHostBound.lean}{160}{Identification with the prescribed inputs}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/WeightRequirementOfValid.lean}{32}{Transport of the host condition}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/KitS.lean}{40}{Decoration and completion of the kit}
+\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{36}{Gluing with full real windows}.
 
 \paragraph{The sample estimates on the realized records.}
 \teamanchor{proof.selection-realized-samples}%
-The final record certifies the displayed penalty bound for its actual
-arrays. Past the common threshold this certificate holds at every
-index. Choose any realized seed \(i_0\) and use its actual arrays
-under their numerical labels. That seed supplies the arithmetic
-data as well as the record realizing both arrays.
+The identification with the host transfers
+\eqref{eq:classical-array-penalty} to the actual arrays at each index
+above the common threshold, with its numerical labels and offsets.
+Choose a realized seed \(i_0\) carrying those arrays and its Artin
+data. The same field, Frobenius orbits and top labels transfer
+the \hyperlink{proof.classical-top-sample}{weighted bad-top bound}
+to the fitted record. In the notation there the sum is at most
+\(N_Tx^{-2+\varepsilon}\) above the uniform threshold. These two
+bounds apply together on the record used for the classical lattice
+comparison.
 \releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/DutySevenLibrary.lean}{15}{Admissibility on the realized class}
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/WeightVectorSmallSharesEight.lean}{22}{A seed realizing both arrays}.
-
-For the bad-top estimate let \(\mathcal P\) be the specified
-large-order residue primes below \(X'\), and let \(B_p\) be the
-tops in \(T\) that fail the good-orbit condition at \(p\).
-The host construction supplies \(\delta_1 n\le 2N_T\) and
-\[
- \sum_{p\in\mathcal P}\frac{\log p}{p}|B_p|
- \le 4C_bx^{-2}\delta_1 n\sum_{p\in\mathcal P}\frac{\log p}{p}
- \le 16C_bN_T x^{-2+\varepsilon/3}.
-\]
-Above a common threshold this is at most \(N_Tx^{-2+\varepsilon}\).
-These two sample estimates are available on the selected records
-before the lattice and Fourier averages.
-\releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{85}{The selected top sets}
-\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/Chosen.lean}{23}{Primes and the defining bad-top bound}
+\releasecite{Formalism/SharpRestriction/GlobalSchurBounds/WeightVectorSmallSharesEight.lean}{22}{A seed realizing both arrays}
+\releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/BadCharacterBound.lean}{50}{Transport of the bad-top bound}
 \releasecite{Formalism/LocalToGlobal/GlobalTheory/LossRequirementsOfSmallShares.lean}{337}{The two sample estimates on this class}.
 
 \paragraph{Norm primes for the levels.}
@@ -254,6 +437,14 @@ large \(X\), if \(\log B\le c\sqrt{\log X}\) and
  \ \ge\ \frac{c'hX}{B^3\log B\log X} .
 \end{equation}
 Use the full ray class field \(L/K_d\) modulo \(M\mathcal O_{K_d}\).
+Here the ray class field theorem identifies
+\(\operatorname{Gal}(L/K_d)\) by the Artin map with the ideals
+prime to \(M\) modulo the principal fractional ideals having
+a generator congruent to \(1\) modulo \(M\) at each prime of
+the modulus. The infinite modulus is empty because \(K_d\)
+is imaginary quadratic. Characters of this quotient give
+Hecke characters with finite conductor dividing the modulus.
+\cite[Ch.~V, Theorem~3.6, p.~158]{f1milne-cft}
 The modulus is conjugation-stable, so \(L/\mathbf Q\) is Galois.
 Complete splitting gives a prime ideal of norm \(P\) in the trivial
 ray class, and its generator has the required congruence and norm.
@@ -264,17 +455,39 @@ absolute degree is at most \(B\). Every character of
 \(\operatorname{Gal}(L/K_d)\) has conductor norm at most \(M^2\).
 \cite[Ch.~V, Theorem~3.6]{f1milne-cft}
 
-Apply Thorner--Zaman to the identity class, with abelian subgroup
-\(\operatorname{Gal}(L/K_d)\), fixed field \(K_d\) and conductor
-parameter at most \(B\). The count up to \(y\) equals
-\(A(y)/[L:\mathbf Q]\) with relative error
-\(O(e^{-c_3\log y/\log B}+e^{-\sqrt{c_3\log y/2}})\), where
+In the identity-class case of Thorner--Zaman, take the abelian
+subgroup \(H=\operatorname{Gal}(L/K_d)\). For their conductor
+parameter \(Q=\max_{\chi\in\widehat H}N\mathfrak f_\chi\), the
+threshold is \(y\ge(4dQ)^{c_2}\), since \([K_d:\mathbf Q]=2\)
+and \(|D_{K_d}|=d\). The number of unramified rational primes
+of identity Frobenius up to \(y\) is
+\[
+ \frac{A(y)}{[L:\mathbf Q]}
+ \left(1+O\!\left(e^{-c_3\log y/\log(4dQ)}
+                   +e^{-\sqrt{c_3\log y/2}}\right)\right),
+\]
+with absolute effective \(c_2,c_3>0\) and an absolute effective
+error constant. The function is
 \(A(y)=\operatorname{Li}(y)-\operatorname{Li}(y^\beta)\) if an
-exceptional zero \(\beta\) occurs, and \(A(y)=\operatorname{Li}(y)\)
-otherwise. The required lower bound on \(y\) is a fixed power of \(B\),
-which holds for \(y\ge X\) here. In the exceptional case the zero
-bound in the same source gives \(1-\beta\gg B^{-2}/\log B\).
-\cite[arXiv v3, Theorems~1.4 and~3.3]{f6thorner-zaman-chebotarev}
+exceptional real Hecke zero with
+\(0<1-\beta<1/(8\log(4dQ))\) occurs. Its coefficient is \(1\)
+because the class is the identity. In the other case
+\(A(y)=\operatorname{Li}(y)\). We have \(4dQ\le B\), so the
+threshold holds for \(y\ge X\) here.
+
+For the lower bound on the exceptional gap, use Stark's bound as
+in the proof of Thorner--Zaman's Theorem~3.3. If the exceptional
+character is trivial, \(\beta\) is a zero of \(\zeta_{K_d}\).
+If it is quadratic, \(\beta\) is a zero of \(\zeta_{K'}\), where
+\(K'/K_d\) is the quadratic field it defines, since
+\(\zeta_{K'}=\zeta_{K_d}L(s,\chi)\).
+This field has degree \(4\) over \(\mathbf Q\) and discriminant
+of absolute value \(d^2N\mathfrak f_\chi\le B^2\).
+For either field, of degree \(n\le4\) and absolute
+discriminant \(D\le B^2\), the effective bound
+\(1-\beta\gg(n^n\log D+D^{1/n})^{-1}\) implies
+\(1-\beta\gg B^{-2}/\log B\).
+\cite[Theorems~1.4 and~3.3 and (1-4), pp.~1040, 1042, 1052]{f6thorner-zaman-chebotarev}
 
 Write \(q_X=1-X^{\beta-1}\) in the exceptional case and \(q_X=1\)
 otherwise. Then \(A'(y)\ge q_X/\log(2X)\) for \(X\le y\le2X\).
@@ -460,8 +673,8 @@ the same ray groups, toric distributions and finite Hecke
 correspondences. The final index retains the choice of side,
 support and order. The geometric input here is the existence of
 this matched adelic realization for the chosen preliminary data,
-at every final index above one family threshold and before any
-Fourier translate is picked.
+at every final index above one family threshold. In particular the
+record at the prescribed classical translate has that realization.
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/FiniteLevelAndSecond.lean}{83}{Realization of the chosen characters}
 \releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/CoefAEqOfHeq.lean}{166}{The compatible geometric enlargement}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExistsMemberOfConstructionStepsSecondPass.lean}{49}{Passage to the final member}.
@@ -629,27 +842,28 @@ Fix the uniform constants of this family and take \(x_*\ge20\)
 above the family, arithmetic, period, trace, lattice and Fourier
 thresholds, including the thresholds for the two selected realizations.
 In particular \(x^{-C_H}\le1/20\) throughout the application.
-Each comparison threshold applies uniformly to the required indices
-at a scale. The following are the inputs to the application at each
-real \(x\ge x_*\) in \(\operatorname{Win}(\mathfrak F)\).
+Each threshold applies uniformly to the required indices at an eligible
+real scale \(x\ge x_*\). The classical application below uses the
+comparisons at the single scale \(x=x_I\) chosen in
+\hyperlink{proof.classical-window-test-scale}{each supplied window}.
 
 \begin{itemize}
 \item Choose a realized \(i_0\in I_x\) carrying the two
 \hyperlink{proof.selection-realized-samples}{admissible arrays}
 \((a_t,b_t)_{t\in T}\) and the base Artin data.
-For each \(u\in H\), choose \(i(u)\in I_x\) by
-the translate property. Its arrays agree with the seed also for \(u=0\),
-whose index may differ from \(i_0\). The period and trace data and the
-actual stage weights \(w_{u,j}\) are read at \(i(u)\).
-At \(i_0\), Section~\ref{sec:family} supplies the three auxiliary quadratic
-twist estimates at \(x\) and the tail estimate
+Choose \(u_*\) from this data by the
+\hyperlink{proof.classical-maximizing-translate}{numerical prescription}
+and choose the matching record \(i_*=i(u_*)\in I_x\). The period and
+trace data and the actual stage weights \(w_{u_*,j}\) are read at \(i_*\).
+On the seed's host, Section~\ref{sec:family} gives the three auxiliary
+quadratic twist estimates at \(x\) and the tail estimate
 \eqref{eq:host-character-tail} for every primitive associate of a host
-character. At each \(i(u)\), use the
+character. At \(i_*\), use the
 \hyperlink{proof.selmer-classical-residual}{classical Selmer estimate}
 \eqref{eq:family-selmer} on its host field, restricted from
 \(\lfloor x^{400}\rfloor\) to its actual twist cutoff \(t\).
 
-\item Use the matched period maps at \(i(u)\). The full base image and
+\item Use the matched period maps at \(i_*\). The full base image and
 small-level projections enter the rank comparison. For the actual
 tuple at a finite place, \eqref{eq:period-selected-twist-avoidance}
 gives the required prime avoidance, and
@@ -666,47 +880,55 @@ the good target \(M_j\) is \(d_j=D_0\) by
 The lower bound \(m\ge x^{1/2-\varepsilon}\) and evenness give
 \(m\ge4\) for large \(x\), so the bottom comparison has \(m/2-1\ge1\).
 
-\item On the period and trace record at \(i(u)\), use the
+\item On the period and trace record at \(i_*\), use the
 \hyperlink{proof.section-run-family-identification}{two selected section runs}
 for the row-dual mean bound, including the weighted stage covolumes
 and the paired near-level determinant contributions. For every word
 of the same record use the
 \hyperlink{proof.ramified-donor-identification}{transported undivided donor}
-in the source slope and map-height comparisons.
-These comparisons use the integral maps \(B_{K,w}\colon N'_w\to C=R^\vee\)
-and the metrics of Sections~\ref{sec:trace} and \ref{sec:integral}.
+and its adjusted divided lattice \(\widetilde N'_w\).
+The proved local integrality gives
+\(B_{K,w}\colon\widetilde N'_w\to C=R^\vee\).
+The complexifications and the archimedean metrics are those of
+Sections~\ref{sec:trace} and \ref{sec:integral}.
 The lattice implication also uses generic rank, the uniform Gram
 and reference-row bounds, the Selmer defect and the local gain and
-index estimates. It uses the lower mean and upper maximal slopes of \(N'_w\),
-the height \(h_\infty(B_{K,w})\le h_w\), the compensated maximal
-row slope and the centered level count. Use the same \(\mathcal G(u)\),
+index estimates. It uses the lower mean and upper maximal slopes of
+\(\widetilde N'_w\), the height \(h_\infty(B_{K,w})\le h_w\),
+the compensated maximal row slope and the centered level count.
+Use the same \(\mathcal G(u_*)\),
 \(\mathcal F,Q_w,J_\kappa\) and level data in the source and row
 estimates.
 \end{itemize}
 
-At the same \(i(u)\) each \(h_w\) bounds the period map on its
-divided source. The lower level bound and \(S_a=\sum_t a_t>0\)
-give \(h_w\le h^*(u)\) for every word. Replacing each \(h_w\) by
+At \(i_*\) each \(h_w\) bounds the period map on
+\(\widetilde N'_w\). The lower level bound and \(S_a=\sum_t a_t>0\)
+give \(h_w\le h^*(u_*)\) for every word. Replacing each \(h_w\) by
 this common upper bound lowers the adjusted mean to
-\(s\le s_{\rm raw}\). Since the target is the row dual with its
-squared Petersson norm, \(\mu_{\min}(C)=-\mu_{\max}(R)\).
-The height cap \eqref{eq:raw-height-cap} therefore gives
+\(s\le s_{\rm raw}\). The common scalar ideal shift lowers all
+Harder--Narasimhan slopes of every donor by \(\mathscr L_1\ge0\),
+which preserves this upper bound and the upper spread \(U\).
+The target is the row dual with its squared Petersson norm, so
+\(\mu_{\min}(C)=-\mu_{\max}(R)\). The height cap
+\eqref{eq:raw-height-cap} therefore gives
 \[
  \max(0,s-\mu_{\min}(C))\le x^{C_H}b .
 \]
 This is the height condition for the frame estimate with the exponent
-\(C_H\) already used in \eqref{eq:trace-accuracy}. The common shift
-cancels in the upper spread \(U\) of the donor slopes.
+\(C_H\) already used in \eqref{eq:trace-accuracy}.
 The frame inequality \eqref{eq:trace-sharp-slope} gives
-\(s-\mu(C)\le 8U+12b\). On the classical family the
+\(s-\mu(C)\le 8U+12b\). The
 \hyperlink{proof.selection-realized-samples}{two sample estimates}
-apply on these matching records with the seed arrays. The
-\hyperlink{proof.classical-averaged-division}{rank-corrected inequality}
-and the \hyperlink{proof.classical-inert-division}{bound for the inert primes}
-then give \(\langle D\rangle\le E_x\) in \eqref{eq:classical-averaged-excess}.
-This supplies the signed mean for the
-\hyperlink{proof.translate-average-zeta}{Fourier estimate} at the
-same real \(x\), with the same \(H,T,T_2\), cutoff and centering.
+apply at \(i_*\). The
+\hyperlink{proof.classical-donor-weighted-index}{weighted donor estimate at the first cut}
+and the common scalar ideal shift give the lower donor mean with
+the additional loss \(\mathscr L_1\) and the same upper spread.
+Together with the signed upper estimate
+\eqref{eq:classical-selected-loss}, the resulting inequality
+\eqref{eq:classical-joint-deficit} gives \(D(u_*)\le E_x\)
+as in \eqref{eq:classical-selected-excess}. The arithmetic input
+to \eqref{eq:classical-numerical-upper} uses the same word data,
+translate and exponent \(C_H\) at this scale.
 
 \paragraph{Two local rank comparisons.}
 \label{sec:window-local-ranks}
@@ -824,15 +1046,11 @@ principal level and all level conditions away from the type places.
 \releasecite{Development/AbelianVarietyTheory/Proofs/SatakeParameters/GoodGenericCharacterOfSeriesTypes.lean}{23}{The two signs on the Whittaker line} and
 \releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/BlockFrameConjugationIdentity.lean}{243}{The resulting base vector}.
 
-By the Green parametrization \cite{tr3green} each allowed local factor
-is induced from the distinct cuspidal factors associated with
-the irreducible factors of its squarefree polynomial. If an
-\((a,r-a)\) unipotent radical fixed a nonzero vector, the finite
-Mackey formula would admit a double coset for which each cuspidal
-block lies entirely on one side of the cut. A block meeting
-both sides would give a proper unipotent radical of that block
-and its cuspidality gives zero. Thus \(a\) must be a subsum of
-the factor degrees. The first type-prime condition excludes a
+Apply the \hyperlink{proof.green-unipotent-criterion}{finite Green
+criterion} to the actual allowed local factors in \(\sigma\).
+An \((a,r-a)\) unipotent radical can fix a nonzero vector only if
+\(a\) is a subsum of the factor degrees of the squarefree label at
+that place. The first type-prime condition excludes a
 common subsum of degree \(a\) at all the selected places over
 \(g_0\) for \(1\le a\le r/2\). Taking complements gives the
 exclusion for \(r/2<a<r\). For each \(a\), therefore, some actual
@@ -1194,108 +1412,91 @@ subspace. Their normalized colength is computed in
 \releasecite{Formalism/LocalToGlobal/NormalizedHeckeFactors/CoverThm.lean}{94}{normalized Hecke comparison}.
 
 The lattice and Fourier calculations at a given \(x\) use the same
-\(D(u)\). The sets \(T,T_2\) and the two arrays agree by the
-translate property, the weights \(w_{u,j}\) in both sums
-come from \(i(u)\), and the inertia classes and sign character are
-read at \(i_0\), with the ramified inertia groups of
+\(D(u_*)\). The sets \(T,T_2\) and the two arrays agree at \(i_0\)
+and \(i_*\), the weights \(w_{u_*,j}\) come from \(i_*\), and the
+inertia classes and sign character come from the common Artin map,
+with the ramified inertia groups of
 \eqref{eq:classical-host-inertia}. By
 \eqref{eq:prime-power-cutoff} every positive-part summand with
 \(p^h>N=\lceil2xb\rceil\) vanishes. Thus the cutoff and the
-untruncated Fourier ramp give the same \(A(a_t,t,w_{u,j})\).
-Both comparisons subtract the real part of \(M(a_t,w_{u,j})\) in
+untruncated Fourier ramp give the same \(A(a_t,t,w_{u_*,j})\).
+Both comparisons subtract the real part of \(M(a_t,w_{u_*,j})\) in
 \eqref{eq:prime-power-center}, with \(\gamma\) and the sign-character
 log derivative at \(1\) in the same normalization. Hence the Fourier
 estimate uses exactly \eqref{eq:centered-excess-definition}.
 
-For \(\psi=1\) we have \(H_0=H\). Section~\ref{sec:integral}
-gives \(|H|^{-1}\sum_{u\in H}D(u)\le E_x\) by
-\eqref{eq:classical-averaged-excess}. Substitute it into
-\eqref{eq:fourier-translate-mean} at this same \(x\).
-Replacing the large weights by \(b\) and omitting the small ones
-costs at most \(2Q/x\)
-at each tied translate, where \(Q=N_Tmb\). The
-\hyperlink{proof.translate-average-zeta}{translate average}
-has positive sampling factor \(Q\delta_2/2\) with
-\(\delta_2=N_2/n\ge x^{-\varepsilon}\).
-The degree comparison moves the arguments from \(a_t/b\) to \(x\),
-where the three base-host quadratic bounds apply. By
-\hyperlink{proof.fourier-exponent}{the Fourier error estimate},
-the exponent loss is \(e_D+e_L+7=9\) in \eqref{eq:fourier-pointwise}.
-The retained set is \(\{1\}\) with weight \(1\), giving
-\(G_1(x)\le x^{1/2+9\varepsilon}\).
-\releasecite{Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean}{23}{The tied family and uniform window threshold in the release}.
-\releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/WindowInequalityOfArtinInputs.lean}{17}{The release takes the common threshold before applying its pointwise estimate}.
+Use \(D(u_*)\le E_x\) in the
+\hyperlink{proof.classical-maximizing-translate}{comparison at the maximizing translate}.
+The numerical mean and the character estimates then give
+\eqref{eq:classical-fourier-pointwise} at this same \(x\).
 \input{figure-window}
 
+\paragraph{One prime-sum test in each classical window.}
 \teamanchor{proof.apply-full-window}%
-Fix \(\mathfrak F\) and \(x_*\) at the chosen precision as above.
-Given any \(Y_0\ge2\), choose \(Y\ge\max(Y_0,x_*)\) with
-\([Y,Y^{3/2}]\subseteq\operatorname{Win}(\mathfrak F)\).
-At each real \(x\) in this interval the argument above uses the
-matched records at \(x\) and gives the pointwise bound. Thus
+Fix the classical family \(\mathfrak F\), the exponent \(C_H\) and
+the common threshold \(x_*\) at the chosen precision. Put
+\(\alpha=1/2+9\varepsilon\). Here \(0<\alpha<1\).
+For any \(Y_0\ge2\), choose \(Y\ge\max\{Y_0,x_*\}\) with
+\(I=[Y,Z_I]\subseteq\operatorname{Win}(\mathfrak F)\), where
+\(Z_I=Y^{3/2}\).
+\leavevmode\teamanchor{proof.classical-window-test-scale}%
+Use the \hyperlink{proof.centered-ramp-maximum}{centered ramp maximum}
+with \(b(n)=\Lambda(n)\), \(a=1\), \(c=-1-\gamma\) and \(\kappa=1\).
+Here \(\mathcal R_b(y)=G_1(y)/y\) by \eqref{eq:principal-ramp}, so
+\[
+ D(y)-D(Y)
+ =\int_Y^y\frac{\Psi(t)-t+(1-\alpha)t^\alpha}{t^2}\,dt,
+ \qquad
+ D(y)=\frac{G_1(y)-y^\alpha}{y},\quad
+ \Psi(t)=\sum_{n\le t}\Lambda(n).
+\]
+Choose the least maximizer \(x_I\) on \(I\).
+The finite calculation applies since
+\(\alpha(1-\alpha)Y^{\alpha-1}\le 1/4<1\).
+Thus the endpoints, precision and prime powers up to \(Z_I\)
+determine this choice before choosing a record at the test scale.
+At \(x_I\) take the ranked host and its realized seed, then the
+\hyperlink{proof.classical-maximizing-translate}{maximizing translate}
+\(u_*\) from its two admissible arrays. The matching record
+\(i_*=i(u_*)\) in \(\mathfrak F\) gives \(D(u_*)\le E_{x_I}\)
+with the same cutoff, weights and centering as Fourier inversion.
+Equation~\eqref{eq:classical-fourier-pointwise} yields
+\(G_1(x_I)\le x_I^\alpha\). The maximum rule now gives
 \begin{equation}
 \label{eq:prime-window}
- G_1(x)\le x^{1/2+9\varepsilon}
- \qquad\text{for every real }x\in[Y,Y^{3/2}].
+ G_1(y)\le y^{1/2+9\varepsilon}
+       \qquad\text{for every real }y\in[Y,Y^{3/2}].
 \end{equation}
-The realized seed may vary with \(x\). The family and \(x_*\) stay
-fixed as \(Y_0\) varies. For a different precision the family may
-change, with the same centered function \(G_1\).
+As \(Y_0\) varies, the admitted family and its threshold \(x_*\)
+stay fixed. At another precision the family can change, with the same
+centered function \(G_1\).
+\releasecite{Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean}{23}{The released full-window hypotheses}
+\releasecite{Development/AutomorphicArithmetic/PrimitiveCosets/WindowInequalityOfArtinInputs.lean}{17}{The pointwise application after fixing the common threshold}.
+\rhrange{The released comparison assumes the tied records and estimates
+at every eligible scale of each full window.}
+{The classical lattice and Fourier comparison is used at the
+arithmetic maximizer \(x_I\) in each chosen window. The integral
+identity propagates the bound throughout that window.}
 
 \subsection{The centered zeta transform}
 
 \teamanchor{proof.centered-mellin-residues}%
-Write
+Use \eqref{eq:common-ramp-mellin} with \(b(n)=\Lambda(n)\) and \(a=1\).
+By \eqref{eq:common-character-series} at modulus one,
+\(D_b(s)=-\zeta'(s)/\zeta(s)\). The Laurent expansion
+\(\zeta(s)=(s-1)^{-1}+\gamma+O(s-1)\) gives
+\(D_b(s)=(s-1)^{-1}-\gamma+O(s-1)\), so \(c=C_b(1)=-1-\gamma\).
+\cite[(25.2.4)--(25.2.5)]{dlmf}
+Thus \(y\mathcal R_b(y)=G_1(y)\) with the centering in
+\eqref{eq:principal-ramp}, and
 \[
- \Phi_1(s)=\int_1^\infty G_1(x)x^{-s-1}\,dx .
-\]
-The finite ramp sum is continuous in \(x\). From \(\Lambda(n)\le\log n\),
-its absolute value is at most \(x\sum_{n\le x}(\log n)/n\).
-Including the centering terms gives \(G_1(x)=O(x(1+\log^2x))\), so
-the integral converges absolutely on \(\Re s>1\).
-The Euler product converges there and gives a convergent logarithm.
-Differentiating locally uniformly yields
-\[
- -\frac{\zeta'(s)}{\zeta(s)}=\sum_{n\ge1}\frac{\Lambda(n)}{n^s}.
-\]
-\cite[(25.2.11)]{dlmf}
-For \(\Re s>1\) the transform of a ramp is
-\[
- \int_n^\infty (x/n-1)x^{-s-1}\,dx
-  =\frac{n^{-s}}{s(s-1)}.
-\]
-At \(\sigma=\Re s>1\), the sum of the absolute integrals of the ramp
-terms with their weights is
-\((\sigma(\sigma-1))^{-1}\sum_n\Lambda(n)n^{-\sigma}<\infty\).
-Interchanging sum and integral and transforming the two centering
-terms of \eqref{eq:principal-ramp} gives
-\[
- \Phi_1(s)=\frac{-\zeta'(s)/\zeta(s)}{s(s-1)}
+ \Phi_1(s)=\int_1^\infty G_1(x)x^{-s-1}\,dx
+   =\frac{-\zeta'(s)/\zeta(s)}{s(s-1)}
                   -\frac{1}{(s-1)^2}+\frac{1+\gamma}{s-1}.
 \]
-The continuation of \(\zeta\) is meromorphic with unique pole at \(1\)
-and \(\zeta(1+z)=z^{-1}+\gamma+O(z)\).
-\cite[\S25.2(i) and (25.2.4)--(25.2.5)]{dlmf}
-Hence \(-\zeta'(1+z)/\zeta(1+z)=z^{-1}-\gamma+O(z)\).
-Dividing by \(z(1+z)\) gives \(z^{-2}-(1+\gamma)z^{-1}+O(1)\),
-which the centering cancels.
-
-The Euler product gives nonvanishing for \(\Re s>1\).
-On the line at \(1+it\), \(t\ne0\), use the nonnegative sum
-\[
- -\Re\left(3\frac{\zeta'(\sigma)}{\zeta(\sigma)}
-       +4\frac{\zeta'(\sigma+it)}{\zeta(\sigma+it)}
-       +\frac{\zeta'(\sigma+2it)}{\zeta(\sigma+2it)}\right)
-  =2\sum_{n\ge1}\frac{\Lambda(n)}{n^\sigma}
-                 \bigl(1+\cos(t\log n)\bigr)^2
- \quad(\sigma>1).
-\]
-If \(1+it\) were a zero of multiplicity \(m\ge1\), the coefficient
-of \((\sigma-1)^{-1}\) as \(\sigma\downarrow1\) would be
-\(3-4m-m_2<0\), where \(m_2\ge0\) is the zero multiplicity at
-\(1+2it\) (zero if the value is nonzero). This contradicts the
-displayed inequality.
-\cite[\S25.10(i)]{dlmf}
+The shared calculation makes the singularity at \(1\) removable.
+The \hyperlink{proof.dirichlet-zero-free-line}{modulus-one boundary
+calculation} excludes other poles for \(\Re s\ge1\).
 On the real segment \(0<\sigma<1\), pairing consecutive terms
 in the alternating zeta series gives
 \[
@@ -1314,10 +1515,10 @@ residue
    =-\frac{m_\rho}{\rho(\rho-1)}
    =\frac{m_\rho}{\rho(1-\rho)} .
 \end{equation}
-Indeed, the factor \((s-\rho)^{m_\rho}\) in \(\zeta(s)\) gives
-residue \(-m_\rho\) in its negative logarithmic derivative,
-and \(s(s-1)\) is nonzero at \(\rho\). These poles are nonreal,
-come in conjugate pairs and are locally finite in \(\Re s>0\).
+The factor \((s-\rho)^{m_\rho}\) in \(\zeta(s)\) gives
+residue \(-m_\rho\) in \(D_b\), and \eqref{eq:common-ramp-mellin}
+gives the displayed residue. The poles are nonreal, come in conjugate
+pairs and are locally finite in \(\Re s>0\).
 
 \subsection{One-sided windows and the critical line}
 
@@ -1340,6 +1541,52 @@ conditions~(2) and (3). Conclusion~(2.2) gives, for each
 of \(h\) in every \([X^{1-\delta},X]\) with \(X>X_0(h,\delta)\).
 \cite[Thm.~1 and (2.2)]{z6kaczorowski-pintz}
 
+\paragraph{A bound on power windows.}
+\teamanchor{proof.one-sided-power-window-bound}%
+Let \(H:[1,\infty)\to\mathbf R\) be locally integrable, with
+\(|H(x)|\ll x^2\). Suppose its Mellin transform
+\(\Phi_H(s)=\int_1^\infty H(x)x^{-s-1}\,dx\) on \(\Re s>2\)
+continues meromorphically to \(\Re s>0\) with at most simple poles.
+Fix \(0<\theta<1\) and \(\lambda>1\). Assume every real pole of
+\(\Phi_H\) greater than \(\theta\) has positive residue.
+If \(H(x)\le x^\theta\) throughout arbitrarily distant intervals
+\([Y,Y^\lambda]\), then \(\Phi_H\) is holomorphic on \(\Re s>\theta\).
+
+To prove this, suppose there is a pole with real part greater than
+\(\theta\). The real poles \(B\) above \(\theta\) are finite, since
+they lie in the compact segment \([\theta,2]\) in the domain of
+meromorphy. For each \(\sigma\in B\), write \(b_\sigma>0\) for its
+residue. Choose \(t\in[1,2]\) so that \(\sigma\pm it\) for
+\(\sigma\in B\) are regular points of \(\Phi_H\), excluding only
+finitely many \(t\) by local finiteness. Put \(h(x)=0\) for \(0<x<1\) and
+\[
+ h(x)=H(x)-x^\theta
+       -\sum_{\sigma\in B}b_\sigma x^\sigma(1+\cos(t\log x))
+       \qquad(x\ge1).
+\]
+Its Mellin integral converges absolutely on \(\Re s\ge3\).
+The transform is
+\[
+ \Phi_H(s)-\frac1{s-\theta}
+ -\sum_{\sigma\in B}b_\sigma
+ \left(\frac1{s-\sigma}
+       +\frac1{2(s-\sigma-it)}+\frac1{2(s-\sigma+it)}\right).
+\]
+Above \(\theta\) each real pole at \(\sigma\in B\) is canceled and
+replaced by two simple nonreal poles at \(\sigma\pm it\).
+The other poles above \(\theta\) are preserved. Thus the supremum
+\(\Theta\) of the real parts of the poles remains the same,
+with \(\Theta>\theta\). For \(c_0=(\Theta-\theta)/2\) all poles on
+\(\Re s\ge\Theta-c_0\) are nonreal and simple. They are locally finite
+there and occur in conjugate pairs, by reality of \(h\) and
+meromorphic continuation. Apply the sign-change theorem with
+\(\delta=1-1/\lambda\) and \(X=Y^\lambda\). It gives a positive
+value of \(h\) on each sufficiently distant \([Y,Y^\lambda]\).
+Since the correction terms are nonnegative before subtraction,
+the supplied bounds instead give \(h\le0\) on arbitrarily distant
+intervals of this form, a contradiction.
+
+\paragraph{The bound for the ordinary zeta sum.}
 \teamanchor{proof.zero-precision}%
 Suppose \(\zeta(\rho)=0\) with \(1/2<\beta=\Re\rho<1\).
 Choose \(1/2<\theta<\beta\) and then fix \(0<\varepsilon<\varepsilon_0\)
@@ -1350,46 +1597,18 @@ under the stated lattice and Fourier hypotheses. At this precision
 it gives arbitrarily distant \([Y,Y^{3/2}]\) on which \(G_1(x)\le x^\theta\)
 at every real point.
 
-Set \(h(x)=G_1(x)-x^\theta\) for \(x\ge1\) and \(h(x)=0\) for
-\(0<x<1\). It is real and locally integrable, and its Mellin
-integral converges absolutely on \(\Re s\ge2\). The transform there
-is
-\[
- \int_0^\infty h(x)x^{-s-1}\,dx
- =\Phi_1(s)-\int_1^\infty x^{\theta-s-1}\,dx
- =\Phi_1(s)-\frac{1}{s-\theta}.
-\]
-Let \(\Theta\) be the supremum
-of the real parts of the poles of \(\Phi_1\). By
-\eqref{eq:zeta-window-residue}, \(\Theta\ge\beta>\theta\)
-and \(\Theta\le1\). Choose \(c_0=(\Theta-\theta)/2>0\).
-The correction term is holomorphic on a neighborhood of
-\(\Re s\ge\Theta-c_0\) because \(\theta<\Theta-c_0\).
-The poles in this half-plane are the nonreal, simple, locally
-finite conjugate pairs of \(\Phi_1\) there. They still have real-part
-supremum \(\Theta\), and the transform is holomorphic on
-\(\Re s>\Theta\). Apply the theorem with \(\delta=1/3\) and choose
-a supplied \(Y>X_0(h,1/3)^{2/3}\). At \(X=Y^{3/2}\), the theorem
-gives \(h>0\) somewhere in \([X^{2/3},X]=[Y,Y^{3/2}]\), contradicting
-the bound \(h\le0\) throughout that interval.
+The finite ramp and its centering make \(G_1\) continuous, of growth
+\(O(x(1+\log^2x))\) by \(\Lambda(n)\le\log n\).
+The transform \(\Phi_1\) has no real poles on \(\Re s>0\).
+The \hyperlink{proof.one-sided-power-window-bound}{power-window bound}
+with \(H=G_1\) and \(\lambda=3/2\) makes \(\Phi_1\) holomorphic on
+\(\Re s>\theta\), contradicting \eqref{eq:zeta-window-residue} at \(\rho\).
 
-\teamanchor{proof.zeta-reflection}%
-Under the right-half exclusion just proved, the functional equation
-locates the remaining zeros. For \(\Re s<1/2\), \(s\ne0\), use
-\[
- \zeta(s)=2^s\pi^{s-1}\sin(\pi s/2)\Gamma(1-s)\zeta(1-s).
-\]
-\cite[(25.4.2)]{dlmf}
-The right-half exclusion and nonvanishing on \(\Re s\ge1\) away
-from the pole at \(1\) give a finite, nonzero value at \(1-s\).
-The gamma factor is holomorphic and nonzero there.
-\cite[\S5.2(i)]{dlmf}
-The sine factor vanishes precisely when \(s\) is a negative even
-integer in this region. Also \(\zeta(0)=-1/2\).
-\cite[(25.6.1)]{dlmf}
-Thus \eqref{eq:prime-window} implies that every zero other than the
-negative even integers lies on \(\Re s=1/2\), the classical
-Riemann hypothesis.
+We have thus obtained \(\zeta(s)\ne0\) throughout \(1/2<\Re s<1\)
+from the ordinary prime-sum estimate \eqref{eq:prime-window} on the
+specified intervals. This is precisely the hypothesis of the
+\hyperlink{proof.zeta-reflection}{common reflection argument}.
+It gives classical RH from the window estimate above.
 
 \subsection{Extension to Dirichlet \texorpdfstring{\(L\)}{L}-functions}
 
@@ -1409,7 +1628,8 @@ records. Assume the stated period, trace, gain, height and slope
 inputs and the Fourier sampling and auxiliary character estimates
 at every point of arbitrarily distant full windows at each sufficiently
 small fixed \(\varepsilon>0\). With \(e_D=2\) and \(e_L=0\) the
-same-scale Fourier implication then gives
+signed mean over \(H_0\) gives the fixed-target Fourier bound
+\eqref{eq:fourier-pointwise}, hence
 \begin{equation}
 \label{eq:primitive-target-window}
  G_{\mathcal K}(x)\le x^{1/2+9\varepsilon}
@@ -1433,26 +1653,20 @@ with weights \(a_\chi>0\), put
  \qquad
  \Phi(s)=\int_1^\infty G_{\mathcal F}(x)x^{-s-1}\,dx .
 \]
-The same absolute-convergence calculation as for \(\Phi_1\) works,
-since \(|\chi(n)|\le1\). For primitive \(\chi\ne1\) its Euler
-product, differentiated on \(\Re s>1\), gives
-\(-L'(s,\chi)/L(s,\chi)=\sum_{n\ge1}\Lambda(n)\chi(n)n^{-s}\).
-\cite[(25.15.1)--(25.15.2)]{dlmf}
-Using the ramp transform and \eqref{eq:centred-prime-sums} yields
+For primitive \(\chi\ne1\), apply \eqref{eq:common-ramp-mellin} with
+\(b(n)=\Lambda(n)\chi(n)\), \(a=0\) and
+\(C_b(s)=D_b(s)=-L'(s,\chi)/L(s,\chi)\) by
+\eqref{eq:common-character-series}. The function \(D_b\) is holomorphic
+at \(1\) by the \hyperlink{proof.dirichlet-zero-free-line}{boundary
+calculation}. Then \(c=-L'(1,\chi)/L(1,\chi)\) and
+\(y\mathcal R_b(y)=G_\chi(y)\) by \eqref{eq:centred-prime-sums}.
+Its transform is
 \[
  \Phi_\chi(s)=\frac{-L'(s,\chi)/L(s,\chi)}{s(s-1)}
                  +\frac{L'(1,\chi)/L(1,\chi)}{s-1}.
 \]
-Here \(L(s,\chi)\) is entire and \(L(1,\chi)\ne0\).
-\cite[\S25.15(i), (25.15.9)]{dlmf}
-The centering cancels the residue of the quotient at \(s=1\).
-The Euler product gives nonvanishing for \(\Re s>1\), and
-Montgomery and Vaughan's zero-free region gives
-\(L(1+it,\chi)\ne0\) for all real \(t\) for nonprincipal
-\(\chi\). The exceptional zero in that theorem is real and
-strictly less than \(1\).
-\cite[Thm.~11.3]{z6montgomery-vaughan}
-Thus the poles of the transforms in \(\Re s>0\) lie in the open strip.
+The boundary calculation and removal of the pole at \(1\)
+put all poles of \(\Phi_\chi\) in \(\Re s>0\) in the open strip.
 
 Conjugating the Dirichlet series and continuing gives
 \(L(s,\bar\chi)=\overline{L(\bar s,\chi)}\), so
@@ -1473,27 +1687,26 @@ when shared by several characters. At a real pole the residue is
 positive, since \(0<\rho<1\).
 
 \paragraph{Positive majorants and real poles.}
-The release uses a one-sided criterion for a real measurable \(g\)
-on \([0,\infty)\) with \(|g(u)|\le M e^{2u}\). Assume its Laplace
-transform \(\Phi_g\) extends meromorphically from \(\Re s>2\) to
-\(\Re s>0\), with simple poles and positive residues at real poles.
-Fix \(0<\theta<1\) and \(\lambda>1\). Assume that for every
-\(\eta>0\) there are arbitrarily large \(U\) with
+\teamanchor{proof.one-sided-positive-majorant}%
+An integrated window bound also suffices. Let \(g\) be real and
+measurable on \([0,\infty)\) with \(|g(u)|\ll e^{2u}\), and assume its
+Laplace transform \(\Phi_g\) extends meromorphically from \(\Re s>2\)
+to \(\Re s>0\) with at most simple poles. Fix \(0<\theta<1\) and
+\(\lambda>1\), with positive residues at the real poles above \(\theta\).
+Assume that for every \(\eta>0\) there are arbitrarily large \(U\) with
 \begin{equation}
 \label{eq:positive-majorant-window}
  \int_U^{\lambda U}g_+(u)e^{-\theta u}\,du\le e^{\eta U},
  \qquad g_+(u)=\max(g(u),0).
 \end{equation}
 Then \(\Phi_g\) has no pole in \(\Re s>\theta\).
-The positive part is the least nonnegative majorant of \(g\).
-Alp\"oge proves the criterion by estimating derivatives at a real
-center and a vertical translate, then comparing their growth at the
-nearest pole.
+Alp\"oge uses the integrated criterion and proves it by estimating
+derivatives at a real center and a vertical translate, then comparing
+their growth at the nearest pole.
 \releasecite{Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/landauWindow.lean}{83}{The derivative proof in the release}.
 
-Here is the deduction from the published sign-change theorem.
-If \(\Phi_g\) has a pole \(\rho\) with \(\Re\rho>\theta\), fix
-\(\eta>0\) with \(\alpha=\theta+\eta<\Re\rho\).
+If \(\Phi_g\) has a pole \(\rho\) with \(\Re\rho>\theta\), take
+\(\eta>0\) with \(\alpha=\theta+\eta<\min(1,\Re\rho)\).
 Extend \(g\) by zero to \(u<0\). The average
 \(\widetilde g(v)=\int_{v-1}^v g(u)\,du\) has Laplace transform
 \[
@@ -1510,38 +1723,13 @@ for \(U+1\le v\le\lambda U\),
 \]
 Choose \(1<\lambda'<\lambda\). For all sufficiently large \(U\),
 \([V,\lambda' V]\subseteq[U+1,\lambda U]\) at \(V=U+1\).
-
-The real poles \(B\) of \(\widetilde\Phi\) above \(\alpha\) are
-finite by meromorphy around the compact segment \([\alpha,2]\)
-and absolute convergence on \(\Re s>2\). Write \(b_\beta>0\) for
-their residues. Choose \(t\in[1,2]\) such that none of the
-\(\beta\pm it\), \(\beta\in B\), is a pole of \(\widetilde\Phi\).
-Only finitely many values of \(t\) are excluded. Put
-\[
- h(x)=\widetilde g(\log x)-x^\alpha
-       -\sum_{\beta\in B}b_\beta x^\beta(1+\cos(t\log x))
- \qquad(x\ge1)
-\]
-and \(h(x)=0\) below \(1\). This function is real and locally
-integrable and its Mellin integral converges absolutely on \(\Re s\ge3\).
-The transform is
-\[
- \widetilde\Phi(s)-\frac{1}{s-\alpha}
- -\sum_{\beta\in B}b_\beta
- \left(\frac1{s-\beta}+
-       \frac{1}{2(s-\beta-it)}+\frac{1}{2(s-\beta+it)}\right).
-\]
-Each pole at \(\beta\in B\) is canceled and two simple conjugate
-poles at \(\beta\pm it\) take its place, with residues \(-b_\beta/2\).
-Thus the supremum \(\Theta>\alpha\) of the pole real parts stays
-the same. For \(0<c_0<\Theta-\alpha\), the poles to the right of
-\(\Theta-c_0\), including that line, are all nonreal and simple.
-The transform satisfies the other sign-change hypotheses by
-meromorphy on \(\Re s>0\) and conjugation. The correction is
-nonnegative before subtraction, so \(h(x)\le0\) throughout
-\([e^V,e^{\lambda' V}]\) for arbitrarily large \(V\).
-With \(X=e^{\lambda' V}\), \(\delta=1-1/\lambda'\), this contradicts
-the sign-change theorem.
+The real function \(H(x)=\widetilde g(\log x)\) is continuous, is
+\(O(x^2)\), and is at most \(x^\alpha\) on arbitrarily distant
+\([e^V,e^{\lambda' V}]\). Its Mellin transform is
+\(\widetilde\Phi\), whose real poles above \(\alpha\) have positive
+residue because \(\alpha>\theta\). The
+\hyperlink{proof.one-sided-power-window-bound}{power-window bound}
+therefore excludes its pole at \(\rho\), a contradiction.
 
 \paragraph{Primitive and imprimitive targets.}
 For a hypothetical zero \(\rho\) of \(L(s,\psi)\) with
@@ -1576,16 +1764,10 @@ Thus the window bound \eqref{eq:primitive-target-window} for the two
 fixed targets \(\chi\) and \(\bar\chi\) puts every zero in the open
 strip on \(\Re s=1/2\).
 
-For any Dirichlet character \(\chi\) modulo \(N\ge1\), let
-\(\chi^*\) be its inducing primitive character of conductor \(d\mid N\).
-The change-of-conductor formula is a meromorphic identity
-\[
- L(s,\chi)=L(s,\chi^*)\prod_{\substack{p\mid N\\p\nmid d}}
-                        (1-\chi^*(p)p^{-s}).
-\]
-\cite[(25.15.4)]{dlmf}
-Each displayed Euler factor is holomorphic and nonzero in
-\(\Re s>0\), since \(|\chi^*(p)p^{-s}|<1\) there.
+For any Dirichlet character \(\chi\) modulo \(N\ge1\), use
+\eqref{eq:common-character-conductor} with its inducing primitive
+character \(\chi^*\) of conductor \(d\mid N\).
+The omitted Euler factors preserve the zero orders in \(\Re s>0\).
 For a principal character \(\chi^*=1\), so \(L(s,\chi)\) has a simple
 pole at \(s=1\) of residue \(\prod_{p\mid N}(1-p^{-1})=\varphi(N)/N\).
 Consequently, given the window bound for each primitive target,

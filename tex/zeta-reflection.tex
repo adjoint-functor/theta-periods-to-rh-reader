@@ -1,0 +1,20 @@
+\subsection*{From the right half of the strip to classical RH}
+\teamanchor{proof.zeta-reflection}%
+Suppose that \(\zeta(s)\ne0\) whenever \(1/2<\Re s<1\).
+Then every zero of \(\zeta\) other than the negative even integers
+has real part \(1/2\). Both routes in this paper use this implication.
+
+The \hyperlink{proof.dirichlet-zero-free-line}{modulus-one boundary
+calculation} gives nonvanishing on \(\Re s\ge1\) away from the
+simple pole at \(1\).
+For \(\Re s<1/2\) and \(s\ne0\), the functional equation gives
+\[
+  \zeta(s)=2^s\pi^{s-1}\sin(\pi s/2)\Gamma(1-s)\zeta(1-s).
+\]
+Since \(\Re(1-s)>1/2\) and \(1-s\ne1\), the hypothesis and the
+boundary result make \(\zeta(1-s)\) finite and nonzero.
+The gamma factor is finite and nonzero in this region.
+The sine factor vanishes there precisely at the negative even integers,
+and the remaining point \(s=0\) has \(\zeta(0)=-1/2\).
+\cite[(25.4.2), (25.6.1) and \S5.2(i)]{dlmf}
+This proves the stated implication.

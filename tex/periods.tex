@@ -1712,6 +1712,41 @@ this frame change. The two functionals \(\Lambda_{C,0}\) and
 \releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/ExistsRealModelSq.lean}{264}{The row coefficient realization}
 \releasecite{Development/AutomorphicArithmetic/LocalEmbeddings/JetsTest.lean}{34}{Initial real functionals in the two frames}.
 
+\teamanchor{proof.compact-rectangular-average}
+\paragraph{Compact averaging in a rectangular oscillator.}
+At each embedding let \(a\le b\), and use the rectangular polynomial
+space in \(Z\in\operatorname{Mat}_{b\times a}(\mathbb C)\), with the
+source and target oscillator actions and their fixed determinant
+characters. Take the product over the real places. Let \(K_s\) be
+the product of source unitary groups, with probability Haar, and
+write \(\Omega\) for the real action on polynomials. Let \(V,V'\)
+be the paired irreducible coefficient spaces with actions
+\(\rho,\rho'\). Suppose the coefficient polynomials \(B_{\ell,v}\)
+are bilinear in \(v\in V\) and \(\ell\in V'^*\), are not all zero,
+and satisfy
+\[
+ \Omega(k,h)B_{\ell,v}=B_{\ell\circ\rho'(h^{-1}),\,\rho(k)v}.
+\]
+For any polynomial \(P\) and \(t\in V^*\), there is a unique
+\(\ell=\ell(P,t)\in V'^*\) such that for every \(v\in V\),
+\[
+ \int_{K_s} t(\rho(k^{-1})v)\,\Omega(k,1)P\,dk=B_{\ell,v}.
+\]
+Indeed the change \(k\mapsto k_0k\) shows that the integral
+intertwines the source action \(\rho\) and the oscillator action.
+The Cauchy decomposition of rectangular polynomials pairs each
+source partition with its dual target coefficient space, with
+multiplicity one. Fixed determinant characters shift the weights;
+the source highest weight still specifies at most one partition
+in each factor. The nonzero covariant family \(B_{\ell,v}\)
+therefore gives the entire source intertwiner space, as a copy
+of \(V'^*\). Tensoring the decompositions gives the assertion
+for the product of real places. Applying \(\Omega(1,h)\) on the
+output replaces \(\ell\) by \(\ell\circ\rho'(h^{-1})\).
+The identity holds coefficientwise in \(P\) and in \(Z\), so a
+finite derivative functional on the coefficients can be applied
+after the compact average.
+
 \paragraph{Normalized recursion at a pair of finite points.}
 For a finite product summand \(d\) let \(J_{p,d}^{\rm raw}(X,Y)\)
 be the Fock derivative table for definite arrow \(p\) in its
@@ -1789,32 +1824,21 @@ The source coefficient action in the integral supplies
 The two determinants on \(k\) therefore give exactly
 the power of \(\det H\) in the jet operator.
 
-For fixed initial real functional \(\Lambda\), express it
-as a linear combination of finitely many polynomial evaluations.
-These evaluations span its dual since a polynomial vanishing at
-all invertible matrices is zero. For one such evaluation at
-\(H=H_0\), absorb \(\det(k)^{n_\tau}\) by using
-\(f(H)=u(H)\prod_\tau\det(H_\tau)^{n_\tau}\), and divide at
-\(H_0\) by the nonzero \(\prod_\tau\det(H_{0,\tau})^{n_\tau}\).
-The average of
-\(P(Zk^{-\mathsf T}) f(kH_0)\), taken coefficientwise in \(Z\),
-is an intertwiner from the source polynomial representation to
-the rectangular polynomial space. This follows by changing
-variables in Haar, and extends from the compact group to its
-complexification. By the Cauchy decomposition, the space of
-these intertwiners is an irreducible representation of the target
-general linear group at each embedding. It is spanned by the
-substitutions \(f(H)\mapsto f(Z^{\mathsf T}T_{[a]})\) at
-invertible \(T\). Indeed one such substitution is nonzero by
-specializing \(Z\) on its first \(a\) rows, and its target
-translates give exactly these substitutions as \(T\) varies.
-The same argument for the product of the compact groups gives
-the assertion at all embeddings. Applying the finite derivative
-functional to this linear combination recovers the jet
-operator evaluated by a new real functional. The target
-determinant and substitution are its inverse real action.
-Multiplying the new functional by \(b_p\) passes from the
-raw to the normalized finite operator.
+Apply the \hyperlink{proof.compact-rectangular-average}{compact
+average} with \(u^\natural(H)=u(H)\prod_\tau\det(H_\tau)^{n_\tau}\)
+and \(B_{\ell,u}(Z)=\ell(T\mapsto u^\natural(Z^{\mathsf T}T_{[a]}))\),
+componentwise in the embeddings. The first \(a\) rows of \(Z\)
+can specialize to the identity and the rest to zero, so the family is nonzero.
+The substitution \(Z\mapsto Zk^{-\mathsf T}\) and the source
+determinant above give \(B_{\ell,\rho(k)u}\), since taking the
+transpose changes the argument to \(k^{-1}Z^{\mathsf T}T_{[a]}\)
+and the determinant in \(u^\natural\) cancels \(\det(k)^{n_\tau}\).
+On the target, \(Z\mapsto h_\infty^{\mathsf T}Z\) and
+\(\det(h_\infty)^{\ell_t}\) give the inverse real action on \(T\).
+Evaluating the compact average by the actual finite derivative
+table gives the raw jet operator against the new functional.
+Multiplying that functional by \(b_p\) gives the same expression
+with the prescribed normalized jet operator.
 \releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/MvZOneEqMapUnivSubst.lean}{90}{The compact average of the rectangular substitution}
 \releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/ColumnArrowKernelRealEqDetCharMulFockKernel.lean}{126}{The column exponents}
 \releasecite{Development/AbelianVarietyTheory/Proofs/TwistedOperators/DenseOfPolynomialStdGaussianMemSchwartz.lean}{26}{The column averaging}
@@ -3735,17 +3759,30 @@ The closed-orbit interchanges follow by majorizing the defining
 series with the positive series of the real part of the parameter
 and pairing its polynomial growth with rapid decrease.
 
-Meromorphic continuation of Eisenstein series with values in the
-space of smooth functions of uniform moderate growth continues
-each constant term of \(J_s\). Pairing with the rapidly decreasing
-\(f\) after a restriction along \(\iota(h,h')\) is a continuous
-linear functional on each fixed growth space. This remains true
-after the additional compact unipotent average in \(h\). The
-constant terms are consequently zero also at the holomorphic
-point \(s_0\). The argument works with the actual (possibly
-non-quasi-split) unitary group in the two copies of the doubling
-embedding. It uses the Siegel parabolic of the split doubled space.
-\cite[Theorem~2.3(1)]{p2bernstein-lapid-eisenstein}
+Bernstein--Lapid's number field theorem applies to a connected
+reductive group \(G\), a rational standard parabolic \(P\), and
+a \(K\)-finite form \(\varphi\) in the parabolic automorphic space
+\(\mathcal A_P\). Write \(m_P\) for the Iwasawa projection to
+the adelic Levi modulo its norm-one subgroup. For the sum of
+\(\varphi(\gamma g)m_P(\gamma g)^\lambda\) over
+\(P(F)\backslash G(F)\), the initial domain is
+\(\langle\operatorname{Re}\lambda,\alpha^\vee\rangle\gg0\)
+for all simple parabolic roots \(\alpha\). It continues
+meromorphically in the complex character parameter of the Levi,
+with automorphic regular values. On every bounded open parameter
+set the continuation takes values in one fixed smooth Fr\'echet
+space of uniform moderate growth, with finitely many possible
+root hyperplanes of poles. Here \(G\) is the actual split doubled
+unitary group and \(P\) its Siegel parabolic. The polynomial Fock
+section is \(K\)-finite at infinity, and its flat extension uses
+the Siegel parameter line. Pairing with the rapidly decreasing
+\(f\) along \(\iota(h,h')\) is continuous on each such growth space.
+The additional unipotent average in \(h\) is over a compact
+quotient and gives the same continuity for each constant term
+of \(J_s\). Their vanishing in the convergence chamber continues
+to the holomorphic point \(s_0\).
+\cite[\S\S2.1--2.3, theorem~(1), and \S8.5, Corollary, p.~226]
+{p2bernstein-lapid-eisenstein}
 \releasecite{Development/WeilBound/ThetaLifts/LatticeBasics/UnfoldC.lean}{109}{The open and nonopen doubling orbits}
 \releasecite{Development/WeilBound/ThetaLifts/LatticeBasics/CuspLift.lean}{52}{Continuation of the zero parabolic means}
 
@@ -4386,6 +4423,29 @@ Rallis formula \cite[S\S7.1, 11.3--11.7]{gqt}.
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/PartialLFunctionEqNormalizingFactorDefiniteBotto.lean}{86}{Exceptional places and exponent string}
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/SquareNuUnramifiedOffPairPartialLPrimitive.lean}{82}{The inverse square character in the standard factor}.
 
+\teamanchor{proof.split-primitive-support}
+\paragraph{Compact support of a split matrix coefficient.}
+At a split place write the source group as \(\mathrm{GL}_r(F_v)\)
+in the chosen polarization. Its action on the matrix argument is
+right substitution, up to the scalar in the Weil action. Suppose
+that a finite Schwartz vector \(\varphi\) is supported on integral
+\(n\)-by-\(r\) matrices \(X\), with
+\(LX\bmod\varpi^e\in H\subseteq\mathrm{GL}_r(\mathcal O_v/\varpi^e)\)
+for a fixed integral row projection \(L\), an integer \(e\ge1\)
+and a subgroup \(H\). If \(X\) and \(Xg\) both lie in the support,
+then \(LX\) and \((LX)g\) are invertible integral matrices.
+Consequently \(g=(LX)^{-1}((LX)g)\) is integral invertible and
+reduces to an element of \(H\). Thus the oscillator matrix
+coefficient of \(\varphi\) vanishes outside the inverse image
+\(J_H\) of \(H\) in \(\mathrm{GL}_r(\mathcal O_v)\). The same
+argument applies when the substitution uses \(g^{-1}\).
+If \(\varphi\) transforms on \(J_H\) by a unitary character, write
+its coefficient there as \(\xi(g)\|\varphi\|^2\), with \(\xi\)
+accounting for the conjugation in the pairing convention.
+If another coefficient \(m\) satisfies \(m(g)=\xi(g)^{-1}m(1)\)
+on \(J_H\), integration of the product gives
+\(\operatorname{vol}(J_H)\|\varphi\|^2m(1)\).
+
 For the larger-source finite section one can check the nonzero
 exceptional doubling contribution using its support. At infinity
 take the product of the powers of the top \(A_0\)-minors of the
@@ -4394,23 +4454,15 @@ integers by the grid gap. Right substitution acts on each such minor
 by the determinant of the source matrix. The vacuum exponent and
 the source splitting character contribute the inverse determinant
 power, so this section is fixed at infinity. At each exceptional
-split place write \(Z\) for the coordinate matrix in the polarization
-given by the selected place of \(E\) over \(v\). The first section
-has integral \(Z\) with its top \(A_0\)-minor invertible over
-\(\mathcal O_v\). If \(Z\) and \(Zg_v^{-1}\) both meet this
-condition, their top minors differ by \(g_v^{-1}\), which then
-belongs to \(\mathrm{GL}_{A_0}(\mathcal O_v)\). The other split
-component is its adjoint inverse, by unitarity. Thus outside the
-lattice stabilizer the section and its translate have disjoint
-support in this polarization. Their local inner product is zero.
-Equivalently one can apply a finite Fourier projector on a common
-finite quotient of the two supports. On the lattice stabilizer the
-determinant character of the section cancels the splitting factor,
-so the section is fixed. At these exceptional places, the local coefficient in the doubling
-integral is therefore supported on the compact stabilizer and is the
-nonzero squared norm of the vector there. The Siegel section height
-is one on this stabilizer. Its integral is the Haar volume times the
-squared norm. The other places contribute the spherical factors above.
+split place take \(L\) to be the top \(A_0\)-row projection in the
+chosen polarization. The support has \(LZ\) invertible integral.
+The \hyperlink{proof.split-primitive-support}{split support calculation}
+with \(e=1\) and \(H=\mathrm{GL}_{A_0}(k_v)\) confines the coefficient
+to the lattice stabilizer. The other split component is its adjoint
+inverse. On this stabilizer the determinant character cancels the
+splitting factor and the Siegel section height is one. The local
+integral is therefore the Haar volume times the nonzero squared
+norm. The other places contribute the spherical factors above.
 In particular, with the prescribed doubling and section matching, the
 larger-source lift is nonzero by the norm formula and the nonvanishing
 of the Hecke product.
@@ -4919,18 +4971,35 @@ For the empty flag the compact projection gives positivity directly.
 Thus \(\kappa>0\), and replacing \(\ell\) by \(\ell_w=\sqrt{\kappa}\ell\)
 gives \(\mathcal B_\infty(u,v)\xi=\langle\ell_w(v),\xi\rangle\ell_w(u)\).
 
+\leavevmode\teamanchor{proof.bessel-real-projector}%
+For an irreducible square-integrable unitary representation \(\sigma\)
+of a unimodular group, let \(u\) be a unit vector whose coefficient
+\(m(g)=\langle u,\sigma(g)u\rangle\) is integrable. With the formal
+degree \(d_\sigma\) for the chosen Haar, set
+\(e(g)=d_\sigma\overline{m(g)}\). Schur orthogonality gives
+\begin{equation}
+ \label{eq:formal-degree-projector}
+ e^*=e,\qquad e*e=e,\qquad e*\delta_g*e=m(g)e .
+\end{equation}
+If \(R\) is another unitary representation and \(R(e)z=z\), the
+last identity gives
+\(\langle R(g)z,R(h)z\rangle=m(g^{-1}h)\|z\|^2\).
+Thus \(\sigma(g)u\mapsto R(g)z\) extends to a unique bounded
+intertwiner, with norm \(\|z\|\). Conversely evaluation at \(u\)
+takes any bounded intertwiner to an \(R(e)\)-fixed vector, since
+\(\sigma(e)u=u\) by Schur orthogonality. Evaluation also preserves
+the action of operators commuting with \(R\).
+
 Use the installed real section \(W_w\) in the Gram calculation. It has
 left covariance \(\psi_w\otimes\rho_w\), is continuous, has positive
 finite quotient norm, and is reproduced by the right convolution
-\(e(g)=d(\sigma_\infty)\overline{\langle v_0,\sigma_\infty(g)v_0\rangle}\).
-The formal degree is for the same ambient Haar measure.
+\(e(g)=d(\sigma_\infty)\overline{\langle v_0,\sigma_\infty(g)v_0\rangle}\)
+in the same ambient Haar.
 \releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RootLatticeThresholds/LocFactorAll.lean}{77}{Properties of the installed real factor}.
-The weighted integrability proved below gives \(e\in L^1\). In the
-quotient Hilbert space, \(R(e)\) is an orthogonal projection. Schur
-orthogonality gives
-\(e*\delta_g*e=\langle v_0,\sigma_\infty(g)v_0\rangle e\).
-Thus the map from \(\sigma_\infty(g)v_0\) to \(R(g)W_w\) extends to
-a scalar isometry \(A\) sending \(v_0\) to \(W_w\). Right Sobolev
+The weighted integrability proved below gives \(e\in L^1\).
+The reproducing property and \eqref{eq:formal-degree-projector}
+give the scalar isometry \(A\) sending \(v_0\) to \(W_w\).
+Right Sobolev
 evaluation at \(1\) is continuous on its smooth image, since the
 equivariant functions are locally square integrable on the group.
 Evaluation intertwines \(S\) with \(\psi_w\otimes\rho_w\).
@@ -4944,8 +5013,9 @@ This is the unit quotient energy in the identity Gram block.
 
 \teamanchor{proof.full-bessel-realization}
 At the fixed bottom row level and type, let \(\mathcal H\) be the
-finite-dimensional Hilbert space containing the Bessel Poincar\'e series
-for all words. From \(\phi\in H_w^{\rm full}\), the construction forms a
+Petersson row space containing the Bessel Poincar\'e series for all
+words. Section~\ref{sec:trace} proves its finite dimension. From
+\(\phi\in H_w^{\rm full}\), the construction forms a
 seed \(\Phi_{w,\phi}\) on \(G_0=U(Y_0)\) with the Bessel character and the
 specified local factors. Let \(x_w\) be its chosen finite placement,
 \(K_2\) the ambient finite level with character \(\chi_2\),
@@ -5233,8 +5303,9 @@ and reference measures are fixed by
  K_{wv}=L_w^*L_v .
 \end{equation}
 Put \(d_w=\dim H_w^{\rm full}\) and \(r_w=\dim\mathcal M_w\). The
-single-word estimate for \(K_{ww}\) and the value of \(r_w\) in
-Section~\ref{sec:trace} will give nonvanishing on the ramified columns.
+\hyperlink{proof.nonzero-anchor}{early one-word calculation} and
+the value of \(r_w\) in Section~\ref{sec:trace} give nonvanishing on
+the ramified columns.
 
 \teamanchor{proof.principal-test-separation}%
 \subsubsection{The auxiliary grid and the detection problem}
@@ -5617,7 +5688,7 @@ with its derived action. Comparing the two Harish--Chandra shifts
 of rank \(N\) and \(N-1\) therefore gives
 \begin{equation}
  P\bigl((p_i x_{i_0}(y))_{i_0}\bigr)
-   =\gamma_i P y,qquad
+   =\gamma_i P y,\qquad
  \gamma_i=\frac{\prod_j(\mu_j-\lambda_i+1/2)}
                   {\prod_{k\ne i}(\lambda_k-\lambda_i)},\qquad
  |\gamma_i|\le T^N .
@@ -7896,7 +7967,7 @@ in \eqref{eq:period-selected-twist-avoidance}. It also uses
 \(r_S\ge1\) and \(\mathcal P_w\jmath_w\ne0\) for every word.
 The \hyperlink{proof.host-realization}{selected rank bounds} give
 \(m\ge4\) at sufficiently large \(x\), and the
-\hyperlink{proof.nonzero-anchor}{full Gram and ramified rank estimates}
+\hyperlink{proof.nonzero-anchor}{early diagonal and ramified rank estimates}
 give the nonvanishing on the selected columns.
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/MainTheoremFromPublishedResultsAltAltAltAlt.lean}{23}{The pointwise comparison and its hypotheses}.
 
@@ -7905,6 +7976,8 @@ comparison. The reference pairing uses surjectivity of the base chain
 onto the full permitted bottom multiplicity space before the good
 projector. The descent to \(E_{\rm row}\) uses surjectivity on the good
 top cut, as proved in Section~\ref{sec:period-selected-row-cuts}.
+
+\teamanchor{proof.unitary-doubling-identity}
 For the theta norm, let \(A\) have rank \(n\) and let the target \(B\)
 have rank \(M>n\) and global Witt index \(q\). In the norm formula
 write \(\chi\) for the character inducing the normalized Siegel
@@ -7939,9 +8012,8 @@ Theorem~7.1 gives the same identity. The factor in Tamagawa
 conventions is \(\tau(U(B))/[E:F]=1\) times \(I(g,\Phi)\).
 \cite[\S3.1 and Theorem~7.1]{gqt}
 
-Let \(f_1,f_2\) be cusp forms in an irreducible cuspidal representation
-\(\pi\) of \(U(A)(\mathbb A_F)\). In the bilinear convention the lift
-with test \(\varphi_i\) is
+Let \(f_1,f_2\) be cusp forms on \(U(A)(\mathbb A_F)\).
+In the bilinear convention the lift with test \(\varphi_i\) is
 \(\theta_i(h)=\int_{[U(A)]}\theta(g,h;\varphi_i)f_i(g)\,dg\).
 The doubling seesaw uses the doubled test
 \(\Phi=\delta(\varphi_1\otimes\overline{\varphi_2})\),
@@ -7960,8 +8032,9 @@ Petersson pairings and the seesaw integrals are absolutely convergent,
  \chi(\det g_2)^{-1}\,dg_1\,dg_2 .
 \]
 The factor \([E:F]\) converts the volume-one theta integral to
-Tamagawa measure. In \(n<M\leq 2n\), \(M>n+q\), Gan--Qiu--Takeda's
-Propositions~11.1(ii) and~11.2 give this identity when the lower
+Tamagawa measure. In \(n<M\leq 2n\), \(M>n+q\), take the two forms
+in a single irreducible cuspidal representation \(\pi\). Gan--Qiu--Takeda's
+Propositions~11.1(ii) and~11.2 give the identity when the lower
 lifts of \(\pi\) in the target Witt tower vanish, so the lift under
 consideration is cuspidal. The lower-lift condition is vacuous for
 an anisotropic target.
@@ -7975,8 +8048,13 @@ volume is the actual quotient volume. The pairing uses \(L^2\)
 bounds on both theta kernels and rapid decay of the source cusp forms.
 \releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/GlobalFormFrameLattice.lean}{109}{square-integrable kernels and Fubini for the norm}
 
-With factorized vectors, pairings and measures the doubling integral
-unfolds, initially for \(\operatorname{Re}s\) sufficiently large, to
+Initially for \(\operatorname{Re}s\) sufficiently large,
+cuspidality removes the lower rational orbits. Unfolding the open
+orbit gives the integral of \(\Phi_s(g,1)\) times the full Petersson
+matrix coefficient over \(U(A)(\mathbb A_F)\). The same unfolding
+is absolute at \(s_0\) in the branch \(M>2n\).
+For factorizable vectors in one irreducible cuspidal representation
+\(\pi\), with factorizable pairings and measures, the integral gives
 \[
  Z(s)=\prod_\nu Z_\nu(s),\qquad
  Z_\nu(s)=\int_{U(A)(F_\nu)}\Phi_{\nu,s}(g,1)\,
@@ -8198,25 +8276,61 @@ same conversion on both terms of the bottom relation. The release
 compares these pairings in the
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/MiStar2AtRealisation.lean}{84}{chosen row and column coordinates}.
 
-\teamanchor{proof.nonzero-anchor}
-Use the full-space diagonal estimate \eqref{eq:trace-single-diagonal}
-and the ramified dimension bound \eqref{eq:trace-ramification} for
-these same full operators and inclusions. On \(\ker\mathcal P_w\),
-the operator \(K_{ww}-I\) acts by \(-I\). Extending an orthonormal
-basis of this kernel to one of \(H_w^{\rm full}\) gives
+\teamanchor{proof.nonzero-anchor}%
+Use the actual bundle of the indicated record before the period
+comparison. The bundle witness identifies the record, its size-data
+object and its bundle with the linked good member on which the
+width-three calculation is made. Its full-column and row isometries
+intertwine the Poincar\'e series maps and preserve \(v_N(w)\), \(v_H(w)\)
+and the compact type. They therefore intertwine \(K_{ww}\) in the normalization
+of \eqref{eq:period-gram} and carry the identity to the identity.
+The common dimension and mass in the width-three calculation are
+\(d_w=\dim H_w^{\mathrm{full}}\) and \(D_\star\), respectively. Its
+square-mass factor on this word is \(d_w^2/D_\star\).
+\releasecite{Development/AbelianVarietyTheory/Definitions/GlobalTwisting/ValidForConstructedPointClassesEventuallyWorking.lean}{250}{The actual record and bundle}
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/ParametersTermRelations.lean}{286}{The isometric intertwining of the full operators}
+\releasecite{Formalism/LocalToGlobal/SiegelLatticeTheory/FlagStabilizerTensors/RootLatticeThresholds/NormalizingConstantEq.lean}{113}{The normalized Gram intertwining}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/DiagonalTheoremOfFourPointBounds.lean}{65}{The norm and mass on the actual columns}.
+
+Put \(H=m^5 f\log b\) and \(X=k f\log k\). The width-three
+calculation gives, for its fixed \(C_E\ge1\),
 \[
- \dim\ker\mathcal P_w
- \leq \|K_{ww}-I\|_{\rm HS}^2
- \leq e_0d_w
- <r_w .
+ \|K_{ww}-I\|_{\rm HS}^2
+ \le 4(e^{C_EH}+1)\frac{d_w^2}{D_\star}
+     +(4e^{-X/2}+2e^{-X})d_w .
 \]
-Indeed \(r_w\geq(1-2f/b)d_w\), \(d_w>0\) and
-\(e_0<1-2f/b\) at sufficiently large \(x\), since \(f\leq x^5\),
-\(b=\exp(x^\varepsilon)\) and
-\(\sqrt{e_0}\leq\exp(-x^{\varepsilon/8})\).
-This proves the pointwise premise \(\mathcal P_w\jmath_w\ne0\) for
-every word, using the same full operators as in the trace.
-\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/NonvanishingFromTruePack.lean}{26}{The nonvanishing implication}.
+At the installed word prime the exact column count and its level
+window give \(d_w\Gamma^2/D_\star\le e\), where
+\(\log\Gamma=C_\Gamma H\). The bundle constants were chosen with
+\(C_E+1\le C_\Gamma\). Since \(H\ge1\), we have
+\(d_w/D_\star\le e^{-2C_EH}\).
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/DiagonalRowBoundFromWindowWidthThree.lean}{54}{Width-three bundle bound}
+\releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/PuNZMember.lean}{30}{Choice of the bundle constants}
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/LevelPrimeWindow.lean}{84}{The upper size at the installed word prime}.
+It follows that, with \(\xi=\exp(-x^{\varepsilon/8})\),
+\begin{equation}
+\label{eq:period-early-full-diagonal}
+ \frac{\|K_{ww}-I\|_{\rm HS}^2}{d_w}
+ \le 8e^{-C_E H}+6e^{-X/2}\le 14e^{-H}\le\xi^2 .
+\end{equation}
+Here \(f\ge1\), \(\log k\ge1\) and \(k\ge8\log\Gamma\) give
+\(X/2\ge H\), while \(H\ge x^\varepsilon\) gives the last inequality
+beyond a common threshold. Write \(T_+\) for the positive part of a
+self-adjoint operator \(T\). Cauchy--Schwarz on the eigenvalues gives
+\[
+ n_w=\operatorname{tr}\bigl((I-K_{ww})_+\bigr)
+ \le\sqrt{d_w}\,\|I-K_{ww}\|_{\rm HS}\le\xi d_w .
+\]
+The kernel of \(\mathcal P_w\jmath_w\),
+embedded in the full column space, is in the eigenspace of
+\((I-K_{ww})_+\) at \(1\). Its dimension is at most \(n_w\).
+By the ramified rank formula \eqref{eq:trace-ramification},
+\[
+ \operatorname{rank}(\mathcal P_w\jmath_w)
+ \ge r_w-n_w\ge (1-2f/b-\xi)d_w>0 .
+\]
+This holds for every word at the same threshold.
+\releasecite{Development/AbelianVarietyTheory/Proofs/DecoratedLatticeProofs/NonvanishingFromTruePack.lean}{26}{The kernel and rank implication}.
 
 To construct the reference pairing, choose \(\psi_*\in\mathcal M_w\)
 with \(y=\mathcal P_w\jmath_w\psi_*\ne0\). Take the full bottom row
@@ -9588,30 +9702,17 @@ coefficient pairing gives exactly the above class sum.
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/FormOfClassSums.lean}{79}{Evaluation and class-sum adjoint}
 \releasecite{Development/AbelianVarietyTheory/Proofs/DivisorProofs/AdelCOfInnerProductFormula.lean}{160}{The tested adjoint form}.
 
-Apply the convergent norm formula to these reverse lifts, with
-doubling source \(W\oplus(-W)\) and target \(V\).
-The forms \(u_y\) are cuspidal and \(K\)-finite, the actual
-\(\varphi_k\) are Schwartz with polynomial Fock part, \(V\)
-has Witt index zero, and \(n>2r\).
-With \(s_0=t/2>r/2\), the ordinary Siegel Eisenstein series
-converges absolutely and equals the doubled theta integral
-in quotient-volume-one measures by the convergent Siegel--Weil
-formula. The ratio \(\tau(U(V))/[E:F]=1\) converts the
-formula of Gan--Qiu--Takeda to these measures. The tensor
-doubling map evaluates at zero by the oscillator scalar
-product in the covolume-one measure. The inducing character
-in the release convention is \(\chi_V^{-1}\), where
-\(\chi_V\) is the \(V\)-splitting character denoted \(c_\mu\).
-The inverse character on the second copy in the doubling
-integral thus cancels the character in the tensor identity.
-Cuspidality kills the lower rational orbits. The open
-orbit unfolds to the integral of the oscillator matrix
-coefficient paired with the conjugate of the row matrix
-coefficient. The condition \(s_0>r/2\) gives the absolute
-open-orbit unfolding. Rapid decay of the row cusp forms
-and compactness of \([U(V)]\) justify the kernel integrations
-in the seesaw. Thus with the actual
-measures the norm formula is
+Apply the \hyperlink{proof.unitary-doubling-identity}{convergent
+doubling calculation} to these reverse lifts with doubled source
+\(W\oplus(-W)\) and definite target \(V\). The forms \(u_y,u_{y'}\)
+are cuspidal and \(K\)-finite, the \(\varphi_k\) are Schwartz with
+polynomial Fock part, and \(n>2r\), so \(s_0=t/2>r/2\). Rapid decay
+and compactness of \([U(V)]\) give absolute kernel integrations.
+The doubled test evaluates by the oscillator pairing in the
+covolume-one measure. Its inducing character is
+\(\chi_V^{-1}=c_\mu^{-1}\), so the inverse character on the second
+copy cancels the tensor character. With the actual quotient volume
+on \([U(V)]\) this gives
 \begin{equation}
 \label{eq:actual-stage-upward-norm}
 \begin{split}
@@ -9698,20 +9799,15 @@ in the \(n\)-by-\(r\) matrix coordinates, where \(A\) is in
 the specified subgroup \(H_v\subseteq{\rm GL}_r(k_v)\) at a
 type place and in \({\rm GL}_r(k_v)\) at a twist place. The
 other half uses the conjugate-dual lattice Fourier model.
-Here \(k_v\) is the residue field and the multipliers on the
-support are unitary level characters. If the support and its
-translate meet, take a full-rank top block \(A\) there.
-Integrality of both \(A\) and \(Ag\), with unit determinant
-reductions, gives \(g\in{\rm GL}_r(\mathcal O_v)\).
-At type places \(A\) and \(Ag\) in \(H_v\) modulo the
-uniformizer give \(\bar g\in H_v\). The split dual frame
-gives the inverse conjugate at the other half, so the same
-conclusion holds in the unitary group. Thus the finite
-oscillator coefficient at \(v\) is supported on the actual row
-level \(J_v\), there transforming by the same unitary character
-as the row functions. In the convolution the two characters
-cancel. Integration over \(J_v\) contributes the finite squared
-norm and the index of the principal subgroup in \(J_v\). The
+Here \(k_v\) is the residue field. Use the
+\hyperlink{proof.split-primitive-support}{split support calculation}
+with \(L\) the top \(r\)-row projection, \(e=1\) and \(H=H_v\)
+(take \(H_v=\mathrm{GL}_r(k_v)\) at a twist place).
+The split dual frame gives the inverse conjugate at the other half.
+On the resulting row level \(J_v\) the prescribed test and the row
+functions have matching unitary characters. They cancel in the
+convolution. Integration contributes the finite squared norm and
+the index of the principal subgroup in \(J_v\). The
 global index is \(|H_P|\). At a tuple prime \(v\mid Q(\boldsymbol\mu)\)
 the determinant weight in the prescribed test is the inverse
 of the relative splitting character on row units. They cancel
@@ -10069,12 +10165,36 @@ given in framed coordinates by
    \sum_{u\in Z_c} D_{P_c}F_{c,q,u}(0).
 \end{equation}
 The sums and weights are those of the actual class input,
-so the expression is linear over \(K\). The theta-isogeny
-formula identifies the pullback and the finite translations
-with the standard Heisenberg expansion in the compatible
-theta structures. It determines the relative term
-coefficients up to the common factor of the frame.
-\cite[\S1, Theorem~4]{mumford-theta-isogeny}
+so the expression is linear over \(K\).
+
+For the pullback use Mumford's theta-isogeny formula. For a
+separable isogeny \(\pi\colon X\to Y\) and an ample line bundle
+\(M\) on \(Y\), write \(L=\pi^*M\). Work with the finite
+Heisenberg models for theta structures of types \(\delta_L\)
+and \(\delta_M\) for which the descent subgroup of \(L\) is
+\(1\times K_1\times K_2\), with \(K_1\) in the translation
+factor and \(K_2\) in the character factor. If the two
+structures identify the quotient of the centralizer with the
+theta group of \(M\) via
+\(\sigma\colon K_1^\perp/K_1\xrightarrow{\sim}K(\delta_M)\)
+and its dual, then pullback on functions is, for a common
+nonzero scalar \(\lambda\),
+\[
+ (\pi^*f)(x)=
+ \begin{cases}
+   \lambda f(\sigma(x\bmod K_1)),&x\in K_1^\perp,\\
+   0,&x\notin K_1^\perp,
+ \end{cases}
+ \qquad
+ K_1^\perp=\{x:l(x)=1\text{ for all }l\in K_2\}.
+\]
+Use the generic fibre in characteristic zero. In the prescribed
+half-lattice bases the descent is by the chosen two halves
+and the quotient identifies the reduced theta structure.
+Thus the relative pullback and translation coefficients in the
+class expansion are the finite Heisenberg ones, with only the
+common frame scalar undetermined.
+\cite[\S1, Theorem~4, pp.~302--303]{mumford-theta-isogeny}
 Multiplication by \(N_c\) in the fibre coordinate
 introduces \(N_c^{d_c}\), which cancels its inverse in
 \eqref{eq:primitive-phase-class}. The sum of the even
@@ -10515,6 +10635,9 @@ is \(z_c\) times the normalized lattice projection.
 Linearity of the derivative then leaves the above
 cardinalities and a common factor \(\kappa'(g)\)
 from the \(n\)-fold theta generator on the row fibre.
+The same theta-isogeny formula above applies in the compatible
+half-lattice theta structures to this projection, on the same
+generic fibre and with the same descent factors.
 The generator is nonzero, and its conversion to the
 oscillator vacuum is an equality of theta lines at the
 same point. Thus \(\kappa'(g)\) is common to all classes,
@@ -11786,16 +11909,21 @@ which can be checked in a basis over the discrete valuation ring.
 A valuation bound on the top periods extends to evaluations on
 \(R_\nu\) by the unit identity above and the ultrametric inequality,
 since the actual descended integral rows generate \(R_\nu\).
-The local estimate \eqref{eq:period-gain-valuation} puts the image
-of \((N_w)_\nu\) in \(\mathfrak p_\nu^{m_{w\nu}}C_\nu\).
+Use \(m_{w\nu}=d_{w\nu}\) for the prescribed tests and
+\(m_{w\nu}=\widetilde d_{w\nu}\) for the classical test.
+The applicable version of \eqref{eq:period-gain-valuation} puts
+the image of \((N_w)_\nu\) in \(\mathfrak p_\nu^{m_{w\nu}}C_\nu\).
 Multiplication by the inverse prime power cancels this exponent.
-Intersecting over all finite places, with
-\(I_w=\prod_\nu\mathfrak p_\nu^{-m_{w\nu}}\) for the prescribed
-rounded gains, gives
+Intersecting over all finite places gives
 \begin{equation}
 \label{eq:period-lattice}
- B_{K,w}(N'_w)\subseteq C,\qquad N'_w=I_wN_w\quad (w\in W).
+ B_{K,w}(N_w^{\rm div})\subseteq C,\qquad
+ N_w^{\rm div}=
+ \left(\prod_\nu\mathfrak p_\nu^{-m_{w\nu}}\right)N_w
+ \quad (w\in W).
 \end{equation}
+The prescribed source is denoted \(N'_w\), and the classical source
+is denoted \(\widetilde N'_w\).
 
 \teamanchor{proof.period-common-family-cover}
 The row lattice in \eqref{eq:period-selected-local-row-lattice}

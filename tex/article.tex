@@ -52,12 +52,12 @@
 \newcommand{\rhscopelabel}[2]{%
   {\setlength{\fboxsep}{2pt}\colorbox{#1}{%
     \small\sffamily\bfseries\color{PageInk}#2}}}
-\newcommand{\rhrange}[3][Stronger result in pinned Lean]{%
+\newcommand{\rhrange}[3][Stronger result in the original Lean release]{%
   \par\addvspace{.45\baselineskip}\Needspace{4\baselineskip}%
   \begingroup\setlength{\leftskip}{.65em}\setlength{\parindent}{0pt}%
   \noindent\rhscopelabel{TraceTint}{#1}\enspace#2\par
   \nobreak\smallskip
-  \noindent\rhscopelabel{FieldTint}{Classical RH uses}\enspace#3\par
+  \noindent\rhscopelabel{FieldTint}{Window argument uses}\enspace#3\par
   \endgroup\addvspace{.45\baselineskip}}
 \hypersetup{
   colorlinks=true,allcolors=LinkBlue,pdflang=en,bookmarksnumbered=true,bookmarksdepth=3,
@@ -137,70 +137,68 @@
 \begin{document}
 \maketitle
 
-Our first aim is to reconstruct Levent Alp\"oge's argument for the
-Riemann hypothesis in ordinary mathematical language. We work toward
-a proof that a reader can check independently of Lean, using established
-theorems and explicit derivations. Our second aim is to identify genuinely
-new mathematics by comparing the argument's results and methods with
-what was known before the announcement. Alp\"oge's announcement and
-Sahibzada Allahyar's reconstruction introduce the argument
-\cite{announcement,allahyar}.
+\teamanchor{proof.weighted-overview}%
+\noindent\textbf{Riemann hypothesis.}
+Every nontrivial zero of the Riemann zeta function has real part \(1/2\).
 
-The proof map is a directed acyclic graph that can be read from the
-main implications down to individual arguments. At each level,
-preceding conclusions and stated premises must supply every input on
-the same data, with the required normalizations and quantifier order.
-A refinement must recover the same conclusion under the same hypotheses.
-AI agents use the map to select and refine a step, write its proof and
-update its inputs, outputs and links together. An independent agent
-checks the proof. An Astra reviewer assesses substantive candidates
-afresh from their precise statements and the earlier literature.
+Alp\"oge uses a chain of roughly \(\sqrt{x}\) theta lifts as an analogue
+of multiplicity in Stepanov's method \cite[pp.~1, 4]{announcement}.
+For Part~I the maintainer selected the formal revision by Luke Sernau
+and collaborators \cite{sernau-compact,sernau-readable}. A common family
+of rows connects bounds for periods and traces to an arithmetic volume
+comparison. Cancellation bounds the signed remainder. The prime-sum
+identity uses that remainder at the two scales of the same datum.
+For each fixed precision, a quadratic large sieve supplies the
+quadratic character \(\chi_d\) for the zero test. A finite maximum
+then selects one square per covering interval. At each such square
+the untwisted determinants and fixed local allowances select at most
+one coefficient place. When a test is needed, choose a fitted
+character \(\theta\) there and take the first-order Hecke bound at
+the selected embedding. Both integral tests use that character
+and its prescribed powers on the same rows. The prime number
+theorem at the auxiliary scale and interpolation then give the
+real-scale bound used to exclude zeros.
 
-For results from the literature we check the exact theorem or passage
-in its original source and state the special case used here. We have
-sought to fill in as much of the surrounding argument as possible by
-direct derivation, consulting the pinned Lean release for difficult
-constructions, normalizations or arguments \cite{source}.
-For example, two \hyperlink{proof.full-diagonal-estimate}{equal-word
-orbital estimates} from the release give a Gram bound. Together with
-the ramified dimension, it gives \hyperlink{proof.nonzero-anchor}{nonvanishing
-on the selected columns}, a hypothesis of the released
-\hyperlink{proof.relation-transport}{simultaneous theta--Bessel comparison}.
+\begin{center}
+\begin{tikzpicture}[x=1mm,y=1mm]
+  \node[argument block,fill=FieldTint] (data) at (0,0)
+    {\shortstack{\hyperlink{proof.weighted-twist}{Fixed zero-free twist}\\
+      \hyperlink{proof.weighted-square-selection}{Test square and datum}}};
+  \node[argument block] (rows) at (55,0)
+    {\hyperlink{proof.weighted-rows}{\shortstack{Short lifts and rank\\on the same rows}}};
+  \node[argument block,fill=TraceTint,text width=43mm] (height) at (110,0)
+    {\shortstack{\hyperlink{proof.weighted-selected-coefficient}{Coefficient place and volume}\\
+      \hyperlink{proof.weighted-height}{Height cancellation}}};
+  \node[argument block,fill=AnalysisTint] (prime) at (110,-20)
+    {\shortstack{Bound at the test square\\
+      \hyperlink{proof.weighted-prime-identity}{Two-scale identity} and\\
+      \hyperlink{proof.weighted-second-scale}{fixed-modulus PNT}}};
+  \node[argument block,fill=AnalysisTint] (squares) at (55,-20)
+    {\hyperlink{proof.weighted-squares}{\shortstack{Block maximum and\\square interpolation}}};
+  \node[argument block,fill=AnalysisTint] (zeros) at (0,-20)
+    {\hyperlink{proof.weighted-rh}{\shortstack{Landau's lemma\\and zeta zeros}}};
+  \draw[argument arrow] (data.east) -- (rows.west);
+  \draw[argument arrow] (rows.east) -- (height.west);
+  \draw[argument arrow] (height.south) -- (prime.north);
+  \draw[argument arrow] (prime.west) -- (squares.east);
+  \draw[argument arrow] (squares.west) -- (zeros.east);
+  \draw[argument arrow] (data.south) --
+    node[right,font=\scriptsize\sffamily,text=PageInk,inner sep=1pt]
+      {same zero-free twist} (zeros.north);
+\end{tikzpicture}
+\end{center}
 
-The inventory brings together nineteen AI-proposed candidates for new
-mathematics, grouped by subject. Human specialist assessment is pending.
+Part~I develops the weighted argument through mathematical derivations
+and the primary theorems used in them. References to the pinned formal
+proof identify the sources of its constructions and estimates.
+The companion \href{proof-map.html\#weighted}{weighted proof map}
+traces the dependencies and links to the supplying passages.
 
-The chain of roughly \(\sqrt{x}\) theta lifts plays the role of
-multiplicity in a Stepanov-type argument \cite[pp.~1, 4]{announcement}.
-The analytic estimate concerns the centered sum
-\begin{equation}
-\label{eq:principal-ramp}
-  G_1(x)=\sum_{n\ge1}\Lambda(n)(x/n-1)_+-x\log x+(1+\gamma)x
-  \qquad(x>0).
-\end{equation}
-Here \(\Lambda\) is the von Mangoldt function, \(\gamma\) is Euler's
-constant and \(r_+=\max(r,0)\). For each sufficiently small fixed
-\(\varepsilon>0\), choose one classical family and fix a common
-threshold \(x_*\). The lattice argument gives the signed mean
-\(|H|^{-1}\sum_{u\in H}D(u)\le E_x\) at each real window scale
-\(x\ge x_*\), using the stated arithmetic, period and trace inputs.
-Fourier inversion uses this mean at the same scale, with the same
-samples and the auxiliary character estimates, to bound \(G_1(x)\).
-Choose an arbitrarily distant interval \([Y,Y^{3/2}]\) of the
-fixed family above \(x_*\). The pointwise bound then gives
-\[
-  G_1(x)\le x^{1/2+9\varepsilon}
-  \qquad\text{for every real }x\in[Y,Y^{3/2}].
-\]
-The centering cancels the polar part at \(1\) in the Mellin integral
-over \(x\ge1\). For a zero \(\rho\) with \(1/2<\Re\rho<1\), choose
-\(1/2<\theta<\Re\rho\) and fix a sufficiently small \(\varepsilon>0\)
-with \(1/2+9\varepsilon\le\theta\).
-With the interval bound, the sign-change theorem excludes the simple
-pole at \(\rho\) \cite[Thm.~1 and (2.2)]{z6kaczorowski-pintz}. The functional equation and
-classical boundary facts then give RH. Section~\ref{sec:zeros} also
-gives the Dirichlet extension from the corresponding window bound
-for each primitive target.
+Part~II retains the \hyperlink{proof.route-comparison}{ordinary window
+argument}, including the extension from corresponding window bounds
+for primitive Dirichlet targets. \hyperref[part:candidates]{Part~III} places the nineteen
+AI-proposed candidates from the window reconstruction alongside the
+relevant earlier mathematics. Human specialist assessment is pending.
 
 \vfill
 \noindent{\color{RuleGrey}\rule{\linewidth}{.4pt}}\par
@@ -208,7 +206,7 @@ for each primitive target.
 {\small
 \noindent Original argument by Levent Alp\"oge.\par
 \noindent Reading edition by The Theta Periods to RH Reading Edition
-contributors, revised 25~November~2026.\par
+contributors, revised 28~November~2026.\par
 \noindent Original text and figures in this edition are licensed under
 \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.
 Third-party materials retain their terms.\par
@@ -220,27 +218,322 @@ Third-party materials retain their terms.\par
 \setcounter{tocdepth}{2}
 {\small\tableofcontents\par}
 
+\clearpage
+\part{The weighted prime-sum argument}
+\markboth{The weighted prime-sum argument}{}
+
+\section*{Precision and the quadratic twist}
+\addcontentsline{toc}{section}{Precision and the quadratic twist}
+\teamanchor{proof.weighted-twist}%
+Fix an integer \(k\ge13\) and put
+\[
+  \beta_k=\frac12+\frac1k,\qquad
+  \varepsilon=\varepsilon_k=\frac{1}{16k},\qquad M=18480.
+\]
+Choose a prime \(d=d_k\equiv9239\pmod M\) for which
+\[
+  L(s,\chi\chi_d)\ne0
+  \qquad
+  \bigl(\Re s\ge\beta_k,\ |\Im s|\le k,\ \chi\bmod M\bigr),
+\]
+where \(\chi_d(n)=\bigl(\frac nd\bigr)\) and \(\chi\chi_d\) is viewed
+at modulus \(Md\). The choice is simultaneous for all characters
+modulo \(M\), including imprimitive ones. Since \(9239\) is prime to
+\(M\), the twist is nonprincipal by the Chinese remainder theorem, so
+its \(L\)-function is entire. The class also satisfies
+\(d\equiv7\pmod8\), \(M\mid2(d+1)\) and \(M\nmid d+1\), as required
+for the arithmetic construction.
+The \hyperlink{proof.weighted-twist-exceptions}{quadratic large sieve with
+a mollified zero detector} gives a power saving for the exceptional
+primes for each character. Taking the finite union before choosing
+\(d_k\) supplies this prime for the whole rectangle.
+
+The target for classical RH is the conductor-one character, induced to
+\(M\). Fix \(d_k\) before choosing the first scale. In each block
+\([2^{2^j},2^{2^{j+1}}]\), \(j\ge1\), the
+\hyperlink{proof.weighted-square-selection}{weighted ramp selects one
+square} before the arithmetic datum is formed. The arithmetic below
+is used at those squares for all sufficiently large \(j\), with
+thresholds allowed to depend on \(k\) and \(d_k\). We have
+\(0<\varepsilon<1/100\) and \(8\varepsilon=1/(2k)\).
+
+\section*{The arithmetic volume comparison}
+\addcontentsline{toc}{section}{The arithmetic volume comparison}
+\input{weighted-arithmetic}
+
+\section*{From weighted prime sums to zeta zeros}
+\addcontentsline{toc}{section}{From weighted prime sums to zeta zeros}
+\input{weighted-analytic}
+
+\clearpage
+\part{The ordinary window argument}
+\markboth{The ordinary window argument}{}
+
+\section*{Correspondence between the arguments}
+\addcontentsline{toc}{section}{Correspondence between the arguments}
+\teamanchor{proof.route-comparison}%
+Both arguments use theta periods, relative traces and arithmetic
+heights to control a prime-power discrepancy. They reach the same
+nonvanishing statement in \(1/2<\Re s<1\) and use the same
+\hyperlink{proof.zeta-reflection}{boundary and reflection argument}.
+The mathematical data that supply the estimate at each stage are as
+follows.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{.16\linewidth}
+  *{2}{>{\raggedright\arraybackslash}X}@{}}
+\toprule
+ & \textbf{Weighted prime sums} & \textbf{Ordinary windows} \\
+\midrule
+Fields and scales &
+One fixed quadratic field and an admissible datum at the square
+selected by the weighted ramp in each sufficiently distant block. &
+A fitted family with character estimates, Selmer bounds and both
+sampling arrays on admitted real intervals. \\
+Periods and rank &
+One scaling of the projected Poincar\'e maps. Norm bounds and rank
+estimates on translates yield a nearly spanning family of short rows. &
+Simultaneous theta--Bessel comparison on the prescribed word tests.
+Equal-word and mixed trace estimates supply the rank and lattice
+comparison on the matching record. \\
+Local and global\newline bounds &
+The untwisted determinants and fixed allowances select at most one
+coefficient prime. The fitted twist there controls the determinant
+for the product formula. &
+Local valuations and donor lengths, integral division and slope
+bounds give \(D(u_*)\le E_{x_I}\) on the selected record. \\
+Prime sums and zeros &
+The progression \(1\bmod M\) with weight \(1-\chi_d(n)\), the datum's
+auxiliary scale, the block maximum, square interpolation and Landau's lemma. &
+The ordinary ramp \(G_1\), finite Fourier inversion at a maximizing
+translate, the extremum at \(x_I\) and Kaczorowski--Pintz oscillation. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\paragraph{Local calculations in a theta lift.}
+The \hyperlink{proof.compact-rectangular-average}{compact oscillator average}
+selects the rectangular polynomial component prescribed by each edge.
+The \hyperlink{proof.shared-gaussian-jet-pairing}{Gaussian pairing}
+bounds the corresponding factorially weighted Taylor pairing. Each lift has to
+identify its finite test vector, Haar volume and archimedean scale.
+For example, the weighted lift uses the
+\hyperlink{proof.weighted-cm-area-mean}{area of the conjugate CM lattice}
+in the marked differential coordinate. At a split place the
+\hyperlink{proof.split-primitive-support}{support of an integral frame}
+restricts the matrix coefficient to the prescribed congruence subgroup
+in the \hyperlink{proof.stage-petersson}{window stage norm} and in
+the \hyperlink{proof.weighted-triangle-point-kernel}{weighted first lift}.
+
+\paragraph{Trace and lattice estimates.}
+For maps \(T_i\) with a common target, the
+\hyperlink{proof.full-trace-identity}{second trace moment} of
+\(\sum_i T_iT_i^*\) is \(\sum_{i,j}\|T_i^*T_j\|_{\rm HS}^2\).
+The \hyperlink{proof.cut-frame-energy}{compression inequality}
+then applies to the retained subspaces. In Part~I the maps are
+translates of a single scalar multiple \(P\) of the period map.
+At each real place the period uses the
+\hyperlink{proof.weighted-real-bessel-vectors}{full Bessel vector},
+whose coordinates are orthonormal in the unipotent quotient measure.
+On a positive Gram cell the trace uses
+\hyperlink{proof.weighted-bessel-smooth-words}{right derivatives of that vector}.
+Passing to its \hyperlink{proof.weighted-bessel-tail-truncation}{bounded-support cut}
+uses the squared tail for the zero-order estimate and a pointwise
+bound against a common positive majorant for each individual orbit class.
+The \hyperlink{proof.weighted-open-packets}{open orbital integrals},
+\hyperlink{proof.weighted-complement-crude}{complementary error} and
+\hyperlink{proof.weighted-induced-bad-trace}{trace on the excluded types}
+give estimates for these translates. In the window argument the same
+identity takes the equal-word and mixed-word estimates of
+Section~\ref{sec:trace}. Likewise, determinant Cauchy--Schwarz applies
+to both the \hyperlink{proof.fitted-row-mixed-gram}{window quotient}
+and the \hyperlink{proof.weighted-volume}{weighted row volume}, after
+the relevant pair of embeddings and its rows have been identified.
+
+\paragraph{Arithmetic inputs.}
+The \hyperlink{proof.diamond-augmentation-kernels}{undivided augmentation
+kernel on a free orbit} gives the rank lost from the
+\hyperlink{proof.weighted-central-orbits}{weighted ramified columns}
+once the central action is known. The digit count for
+\hyperlink{proof.weighted-thick-places}{thick places} and the
+\hyperlink{proof.weighted-level-primes}{level-prime estimate} also
+apply to the weighted datum. The
+\hyperlink{proof.shared-critical-selmer-values}{critical special-value
+formulas} apply with the specified parity in each argument. The
+\hyperlink{proof.selmer-classical-all-layers}{window calculation at \(2\)}
+and the \hyperlink{proof.weighted-fit-odd-class-budget}{weighted bound
+for odd cocycles} then use their respective class-group comparisons.
+The \hyperlink{proof.common-twist-specialization}{window
+specialization} controls prescribed primitive powers, while the
+\hyperlink{proof.weighted-torsion-specialization}{weighted lifts}
+need all of the first \(m\) powers at the
+\hyperlink{proof.weighted-selected-coefficient}{selected coefficient place}.
+
+\paragraph{From prime sums to zeros.}
+The \hyperlink{proof.centered-ramp-maximum}{maximum principle for a
+centered ramp} and its \hyperlink{proof.mellin-ramp-kernel}{Mellin kernel}
+apply with different coefficients. For instance, the ordinary sum
+counts \(2^j\) with weight \(\log 2\) for every \(j\ge1\), whereas none
+of these powers lies in \(1\bmod M\). The
+\hyperlink{proof.weighted-square-selection}{weighted maximum} is taken
+over squares and needs interpolation. The
+\hyperlink{proof.classical-window-test-scale}{ordinary maximum} is
+taken over a real interval. The weighted auxiliary scale uses the
+\hyperlink{proof.fixed-modulus-pnt}{fixed-modulus von Mangoldt estimate}.
+The \hyperlink{proof.full-interval-prime-progressions}{full-interval
+progression estimate} handles the growing window moduli. The weighted zero test
+uses \hyperlink{proof.weighted-twist-exceptions}{all twists}. The \hyperlink{proof.real-character-zero-density}{real-character
+density theorem} only estimates the exceptional real subfamily.
+
+Sections~\ref{sec:family}--\ref{sec:zeros} give the window argument
+from its own hypotheses. The \href{proof-map.html\#window}{window
+proof map} follows that chain and records the formal inputs that still
+supply individual implications. A \hyperlink{proof.weighted-window-variant}{weighted
+variant using power windows} takes the discrepancy of Part~I and
+requires arithmetic at a different set of scales.
+
+\section*{The selected scale on a window}
+\addcontentsline{toc}{section}{The selected scale on a window}
+The analytic estimate concerns the centered sum
+\begin{equation}
+\label{eq:principal-ramp}
+  G_1(x)=\sum_{n\ge1}\Lambda(n)(x/n-1)_+-x\log x+(1+\gamma)x
+  \qquad(x>0).
+\end{equation}
+Here \(\Lambda\) is the von Mangoldt function, \(\gamma\) is Euler's
+constant and \(r_+=\max(r,0)\). For each sufficiently small fixed
+\(\varepsilon>0\), choose one classical family and fix a common
+threshold \(x_*\). In any admitted interval \(I=[Y,Y^{3/2}]\)
+above \(x_*\), the prime powers up to \(Y^{3/2}\) select a scale
+\(x_I\) maximizing \((G_1(x)-x^{1/2+9\varepsilon})/x\).
+At that scale the host and its arrays give a finite Fourier sum.
+Choose a maximizing label \(u_*\). Given the matched inputs of
+Sections~\ref{sec:family}--\ref{sec:fourier}, the same member of the
+family supplies the lattice bound \(D(u_*)\le E_{x_I}\) and the data for
+Fourier inversion. The three auxiliary character estimates then give
+\(G_1(x_I)\le x_I^{1/2+9\varepsilon}\). By the choice of \(x_I\),
+\[
+  G_1(x)\le x^{1/2+9\varepsilon}
+  \qquad\text{for every real }x\in[Y,Y^{3/2}].
+\]
+For a zero \(\rho\) with \(1/2<\Re\rho<1\), take
+\(1/2<\theta<\Re\rho\) and \(1/2+9\varepsilon\le\theta\).
+The \hyperlink{proof.one-sided-window-criterion}{window criterion}
+applied to the Mellin transform of \(G_1\) excludes the pole at
+\(\rho\). The \hyperlink{proof.zeta-reflection}{boundary and reflection
+argument} gives RH. Section~\ref{sec:zeros} also treats the window
+bound for each primitive Dirichlet target.
+
+Before comparing periods, the \hyperlink{proof.nonzero-anchor}{early
+equal-word estimate} bounds the kernel on the selected full columns.
+The ramified dimension then gives a nonzero bottom pairing for every word,
+as required by the \hyperlink{proof.relation-transport}{simultaneous
+theta--Bessel comparison}. On the same columns this estimate also
+controls the diagonal part of the
+\hyperlink{proof.full-trace-identity}{full second moment}.
+The mixed word pairs supply its other part.
+
 \noindent
-\rhscopelabel{TraceTint}{Stronger result in pinned Lean}\enspace
-This label identifies a broader statement from the cited release.
-A callout can also point to a stronger bound obtained inside its proof.
-\rhscopelabel{FieldTint}{Classical RH uses}\enspace
+\rhscopelabel{TraceTint}{Stronger result in the original Lean release}\enspace
+This label identifies a broader statement from the original Lean
+release or a stronger bound obtained inside its proof \cite{source}.
+\rhscopelabel{FieldTint}{Window argument uses}\enspace
 This label gives the particular conclusion used in the classical
-argument. Its proof can still rely on estimates from the release.
+window argument. Its proof can still rely on estimates from the release.
+The \hyperlink{proof.classical-signed-mean}{signed mean of the lattice
+statistic over all translates} is an alternative for classical zeta
+to the \hyperlink{proof.classical-maximizing-translate}{evaluation at a
+maximizing translate} on the selected scale of each interval.
 \par
 
 \input{figure-overview}
 
-\Needspace{14\baselineskip}
-\section*{Candidates for new mathematical results}
-\markboth{Candidates for new mathematical results}{}
-\addcontentsline{toc}{section}{Candidates for new mathematical results}
+\input{family}
+\input{periods}
+\input{trace}
+\input{arithmetic}
+\input{fourier}
+\input{zeros}
 
-We compare the nineteen AI-proposed candidates below with earlier
-results under the hypotheses, normalizations and uniformity needed
-here. A short deduction from earlier work can supply the required
-conclusion. A broader range or a reusable argument can make a
-candidate worth recording. The sections specify the scope of the
+\paragraph*{Acknowledgments for the window argument.}
+Sahibzada Allahyar's public reconstruction helped the original reading
+edition follow the passage from theta lifts to the prime-sum estimate
+\cite{allahyar}.
+DavetheSlayer identified the two comparisons needed at the window
+application and traced the uses of the selected data in the formal
+argument (\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/issues/1}{Issue~1}).
+The coefficient-field and local-index calculations draw on the arguments
+submitted by josephuniverse01-create
+(\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/2}{PR~2}).
+foocker distinguished the integral ramified kernel from the image of the
+rational projector and gave the elementary-divisor comparison
+(\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/3}{PR~3}).
+
+\section*{A weighted variant on power windows}
+\addcontentsline{toc}{section}{A weighted variant on power windows}
+
+\noindent\rhscopelabel{TraceTint}{Optional stronger bound}\enspace
+With \(M=18480\), a fixed admissible \(d\) and \(0<\varepsilon<1/100\),
+the compact Lean proof gives \(R_{d,M}(x)\le x^{-1/2+8\varepsilon}\) at
+every sufficiently large real \(x\). It moves \(\log x_1\) within an
+auxiliary window to bound the error there.
+\weightedpin{grh-compact/src/New/Main.lean}{147-L167}{Compact all-real bound.}
+Part~I keeps the original \(x_1\) and uses \eqref{eq:weighted-square-bound}
+at the \hyperlink{proof.weighted-square-selection}{selected square} of
+each sufficiently distant covering block for \(d=d_k\),
+\(\varepsilon=\varepsilon_k\). Maximality and interpolation give the bound with
+exponent \(\beta_k-1\) on all large real scales in
+\eqref{eq:weighted-real-bound}.
+
+\teamanchor{proof.weighted-window-variant}%
+Fix \(k,d=d_k\) as in Part~I, and fix \(\lambda>1\). On each of an
+arbitrarily distant sequence of intervals \(I=[Y,Y^\lambda]\), take the
+least maximizer \(x_I\) of \(R_{d,M}(x)-x^{\beta_k-1}\). The
+\hyperlink{proof.centered-ramp-maximum}{maximum rule} applies on the
+real interval with \(b=\lambda_{d,M}\), \(a=1/\varphi(M)\),
+\(c=c_{d,M}\), \(\alpha=\beta_k\) and \(\kappa=1\). It determines
+\(x_I\) from the sum and the interval. Assume that at each such \(x_I\) there is an
+admissible datum with the scale relations and arithmetic bound
+\eqref{eq:weighted-star} of Part~I. The scale \(x_I\) may be a nonsquare.
+At the level of the formal sources the compact data construction and
+volume comparison supply these inputs at all sufficiently large real
+scales, as in the \hyperlink{proof.weighted-data}{data theorem}.
+The \hyperlink{proof.weighted-second-scale}{fixed-modulus estimate at
+the auxiliary scale} applies at these real scales as well and gives
+\(R_{d,M}(x_I)\le x_I^{\beta_k-1}\) for large \(Y\). By maximality,
+\(R_{d,M}(x)\le x^{\beta_k-1}\) throughout each such interval. With the
+square data of Part~I, the eventual bound \eqref{eq:weighted-real-bound}
+also gives this estimate on every sufficiently distant window.
+
+Apply the \hyperlink{proof.one-sided-power-window-bound}{pointwise
+power-window criterion} with \(H(x)=xR_{d,M}(x)\) and
+\(\theta=\beta_k\). The ramp is continuous. Since
+\(0\le\lambda_{d,M}(n)\le2\Lambda(n)\), its defining sum gives
+\(\lvert H(x)\rvert\ll_{d,M}x(1+\log^2 x)\ll_{d,M}x^2\) for \(x\ge1\).
+Its \hyperlink{proof.weighted-polar}{Mellin transform}
+\(\Phi_{d,M}(s)\) is meromorphic on \(\Re s>0\), with at most
+simple poles. For real \(\beta_k<\sigma<1\), every twisted order in
+\eqref{eq:weighted-residue} vanishes and the denominator is positive,
+so each real pole there has positive residue. There are no poles on
+\(\Re s\ge1\). On the indicated windows \(H(x)\le x^{\beta_k}\),
+which excludes every pole in \(\Re s>\beta_k\). A zeta zero \(\rho\)
+with \(\beta_k<\Re\rho<1\) and \(|\Im\rho|\le k\) would give a pole
+by the \hyperlink{proof.weighted-rh}{principal contribution and twist
+nonvanishing} of Part~I. Increasing \(k\) and applying the
+\hyperlink{proof.zeta-reflection}{common reflection argument} gives RH.
+
+\clearpage
+\part{AI-proposed candidates for new mathematics}
+\label{part:candidates}
+\markboth{AI-proposed candidates for new mathematics}{}
+
+We compare the nineteen candidates below with earlier results under
+the hypotheses, normalizations and uniformity needed in the window
+reconstruction. A short deduction from earlier work can supply the
+required conclusion. A broader range or a reusable argument can make
+a candidate worth recording. The sections specify the scope of the
 independent proof checks.
 
 \subsubsection*{Arithmetic windows and Galois cohomology}
@@ -563,8 +856,13 @@ threshold, every selected translate and every word satisfy
 \]
 Schur orthogonality gives the identity term. Bounds on the degenerate and
 nondegenerate orbital remainders control the mean-square deviation of the
-squared singular values from \(1\). This gives the diagonal trace moments
-and, with the ramified column count, a nonzero bottom reference pairing.
+squared singular values from \(1\).
+\rhrange{The displayed mean-square defect bound holds separately on
+every full word space.}
+{Before comparing periods, the early equal-word estimate gives a
+nonzero ramified column for each word. This same Gram estimate
+controls the trace lost on a retained subspace and the diagonal
+contribution to the full second moment.}
 
 The \textbf{\hyperlink{candidate.count}{spectral multiplicity estimate}} fixes a discrete
 series at each real place for the unitary group \(G\) of common signature
@@ -576,11 +874,16 @@ The projector's rank \(D\) on the multiplicity space satisfies
 \(|D-D_\star|\le \exp(-rf\log r/16)D_\star\). The main term \(D_\star\)
 is the product of the formal degrees, \(\operatorname{vol}([G])\), and
 \(\Re e(1)\). Section~\ref{sec:trace} compares this with multiplicity
-theorems for a fixed group and field.
+theorems for a fixed group and field. For the
+\hyperlink{proof.row-cusp-poincare}{integrated estimate in a cusp},
+the diameter of a short-flag unipotent fiber is controlled as the
+rank, field and level vary. Cuspidal cancellation and one real
+derivative then bound its contribution to the row count.
 \rhrange{The multiplicity estimate is two-sided under the stated
 signature, level, support and weight conditions.}
-{The \hyperlink{proof.one-sided-row-count}{upper counts for the full
-projector and the two bad-label projectors}, together with the
+{The \hyperlink{proof.one-sided-row-count}{full upper count},
+the \hyperlink{proof.common-deep-row-cut}{combined estimate for the
+omitted rows}, and the
 \hyperlink{proof.full-moment-dimension}{lower dimension bound from
 the full Gram moments}.}
 
@@ -623,17 +926,19 @@ the weighted valuation gain net of restriction plus
 weighted index allowance in \eqref{eq:frobenius-gain-loss}.
 \rhrange{The release gives separate pointwise upper bounds for the
 ramp deficit and index cost on the admitted records.}
-{A signed mean bound on the joint deficit and index cost on the same
-classical samples. The integral division at each place still uses
-the rounded valuation bound on every row and column pair.}
+{At the chosen translate the signed ramp deficit and the
+\hyperlink{proof.classical-donor-weighted-index}{weighted donor index}
+suffice. The \hyperlink{proof.generator-valuation-classical-trivial}{trivial
+inert orbits} cost a common shift of the source slopes.}
 Height and slope inequalities and the CM period normalization give
 the comparison in the prescribed metrics
 \cite{tr3chenHN,lt4barquero,siegel-kron}. Combining those inputs with
 the realized gains gives the centered inequality \(D(u)\le E_x\) of
 \eqref{eq:integral-excess} at every tied translate \(u\). For classical
-zeta the \hyperlink{proof.classical-inert-division}{local gain and selected-sample estimates}
-also supply the signed mean \eqref{eq:classical-averaged-excess} directly.
-The Fourier projection uses that mean on the same samples and cutoff.
+zeta the \hyperlink{proof.served-prime-predecessor}{local gain comparison}
+gives the needed upper bound at the
+\hyperlink{proof.classical-maximizing-translate}{maximizing label}
+with the same samples, weights and cutoff as Fourier inversion.
 
 There is also a \textbf{\hyperlink{candidate.integral-weyl-content}{weightwise
 integral refinement}} of the comparison between Weyl and dual Weyl
@@ -833,7 +1138,7 @@ of the CM tangent generators satisfy
 \[
        \max(\log n_Q,\log\Lambda_Q)\le 200X^2 .
 \]
-\rhrange[Stronger result in the pinned proof]{The choice of cusp and
+\rhrange[Stronger result in the original Lean proof]{The choice of cusp and
 nonzero low Fourier--Jacobi coefficient can be prescribed, and the
 construction keeps their indices.}
 {For each nonzero class in the low-frequency quotient, a detector
@@ -855,24 +1160,6 @@ torsion points for Siegel modular forms modulo a prime
 \cite[proof of Proposition~2.4]{richter-westerholt-sturm}. Here the
 uniform bounds on a test for the specified boundary coefficient enter
 both the rational rank and the integral height of the quotient.
-
-\input{family}
-\input{periods}
-\input{trace}
-\input{arithmetic}
-\input{fourier}
-\input{zeros}
-
-\paragraph*{Acknowledgments.}
-DavetheSlayer identified the two comparisons needed at the window
-application and traced the uses of the selected data in the formal
-argument (\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/issues/1}{Issue~1}).
-The coefficient-field and local-index calculations draw on the arguments
-submitted by josephuniverse01-create
-(\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/2}{PR~2}).
-foocker distinguished the integral ramified kernel from the image of the
-rational projector and gave the elementary-divisor comparison
-(\href{https://github.com/adjoint-functor/theta-periods-to-rh-reader/pull/3}{PR~3}).
 
 \input{references}
 

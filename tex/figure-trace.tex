@@ -2,13 +2,12 @@
 \centering
 \begin{tikzpicture}[x=1mm,y=1mm]
   \node[argument block,fill=TraceTint] (diagonal) at (0,0)
-    {\shortstack{\hyperlink{proof.full-diagonal-estimate}{Diagonal Gram defect}\\
-      \hyperlink{proof.trace-word-count}{Full} and
-      \hyperlink{proof.ramified-column-loss}{ramified ranks}}};
+    {\shortstack{\hyperlink{proof.nonzero-anchor}{Equal-word Gram bound}\\
+      \hyperlink{proof.one-sided-diagonal}{on the fitted columns}}};
   \node[argument block,fill=TraceTint] (mixed) at (55,0)
     {\hyperlink{proof.summed-mixed-estimate}{\shortstack{Summed mixed energy\\over \(w\ne v\)}}};
   \node[argument block,fill=TraceTint] (bad) at (110,0)
-    {\hyperlink{proof.one-sided-row-count}{\shortstack{Upper counts for both\\bad-label projectors}}};
+    {\hyperlink{proof.common-deep-row-cut}{\shortstack{Moderate bad-label mass\\and one full deep bound}}};
   \node[argument block] (anchor) at (0,-19)
     {\hyperlink{proof.nonzero-anchor}{\shortstack{Nonzero image of a\\ramified column}}};
   \node[argument block,fill=TraceTint] (full) at (55,-19)
@@ -18,15 +17,17 @@
   \node[argument block] (periods) at (0,-38)
     {\hyperlink{proof.rational-period-map}{\shortstack{Common period maps\\\(B_{K,w}\)}}};
   \node[argument block,fill=TraceTint] (cuts) at (55,-38)
-    {\hyperlink{proof.cut-frame-energy}{\shortstack{Retained energy and\\corank on column cuts}}};
+    {\hyperlink{proof.cut-frame-energy}{\shortstack{Trace on retained columns\\and their span}}};
   \node[argument block,fill=TraceTint] (upper) at (110,-38)
     {\hyperlink{proof.one-sided-row-count}{\shortstack{Upper count for the\\full row projector}}};
   \node[argument block,fill=TraceTint] (rational) at (55,-57)
     {\hyperlink{proof.rational-corank}{\shortstack{Codimension in the\\common row dual \(C_K\)}}};
-  \draw[argument arrow] (diagonal.south) -- (anchor.north);
+  \draw[argument arrow] (diagonal.south) --
+    (anchor.north);
   \draw[argument arrow] (anchor.south) -- (periods.north);
   \draw[draw=PageInk,line width=.6pt] (diagonal.east) -- ++(5,0)
-    -- ++(0,-9) coordinate (gramfork);
+    -- ++(0,-9)
+       coordinate (gramfork);
   \draw[argument arrow] (gramfork) -| ([xshift=-13mm]full.north);
   \draw[argument arrow] (gramfork) |- (cuts.west);
   \draw[argument arrow] (mixed.south) -- (full.north);
@@ -38,15 +39,17 @@
   \draw[argument arrow] (cuts.south) -- (rational.north);
   \draw[argument arrow] (fraction.east) -- ++(5,0) |- (rational.east);
 \end{tikzpicture}
-\caption[The period and trace estimates in the rank bound]{The diagonal
-  defect and ramified rank supply the nonzero
-  image required by the simultaneous period comparison. The diagonal
-  defect, summed mixed energy and full column total give
-  \(D\ge D_\star/2\). The two bad-projector upper counts then bound the
-  omitted row fraction. The full trace square and the full-projector
-  upper bound control the moments after ramified compression. With
-  \(J_w=\jmath_w U_w\), the retained-energy bound applies to the
-  prescribed column cuts and the common row projection gives the
+\caption[The period and trace estimates in the rank bound]{The early
+  equal-word estimate and ramified rank give a nonzero column before
+  the simultaneous period comparison. On the same normalized operator,
+  this estimate bounds the diagonal moment and the trace lost by a cut.
+  The mixed energy and total column count then give \(D\ge D_\star/2\).
+  On the moderate region estimate the bad labels. A common bound for
+  the full projector on the deep region completes the omitted row
+  estimate. For \(J_w=\jmath_w U_w\), compare the trace on
+  the prescribed column cuts directly with the full second moment.
+  The full row count controls the relative codimension.
+  Projection to the common row space gives the
   corresponding corank over \(K\). The
   \hyperlink{proof.integrated-slope-deficit}{slope integral} uses this
   corank with the integral maps, their heights and the

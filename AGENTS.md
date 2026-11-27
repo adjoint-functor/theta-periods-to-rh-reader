@@ -6,7 +6,7 @@ Reconstruct the classical Riemann hypothesis (RH) argument in ordinary mathemati
 
 Choose a step from the coarse proof map, refine it as needed and write its proof while updating the map. Whenever a mathematical dependency of the classical RH argument changes, update the paper and the interactive `proof-map.html` in the same revision at every affected resolution.
 
-The paper’s six thematic sections may cross-reference one another. Keep every map view, including the default **Proof overview**, acyclic and ordered by implication. Trace backward from classical RH through the conclusions actually used. For the Dirichlet extension, state its target and additional inputs.
+The map opens on **Weighted square-scale route**, which follows the argument in Part I. Select **Earlier window route** for the six thematic sections in Part II. Those sections may cross-reference one another. Keep every view of both routes acyclic and ordered by implication. Trace backward from classical RH through the conclusions actually used. For the Dirichlet extension, state its target and additional inputs.
 
 Give each step exact hypotheses, named inputs and suppliers, precise conclusions, dependency links and links to the corresponding passages. Check that its suppliers jointly give every input on the same objects, witnesses and data, with the required constants, normalizations and quantifier order. Check where each premise is discharged. Show in the collapsed view that the child results recover the parent conclusion under the original hypotheses for the same objects. Recheck the consumers and all affected collapsed, expanded and mixed views.
 

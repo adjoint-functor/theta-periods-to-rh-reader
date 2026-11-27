@@ -1,10 +1,10 @@
 Fix the admissible precision. Use the witness constructed in the
 proof of simultaneous family selection with the staged bounds \(K_*\).
-Choose the cloud exponent \(c_D\) at least \(805\), then the node
-exponent \(c_h\) at least \(1000\), in each position taking the maximum
-with the other bounds there. The family \(\mathfrak F\) is constructed
-with these constants. Its selected period and trace records give
-the two section systems used below.
+Choose the cloud and node exponents in the order specified by the
+\hyperlink{proof.section-run-design}{common row design}.
+The family \(\mathfrak F\) is constructed with these constants.
+Its selected period and trace records give the two section systems
+used below.
 \releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/SzRowDelTOGap.lean}{12}{Cloud exponent}
 \releasecite{Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/SzRowNodeGapBlockLength.lean}{61}{node exponent}
 \releasecite{Development/AutomorphicArithmetic/CharacterBoxes/DesignS.lean}{29}{order of choices}.
@@ -48,24 +48,10 @@ above this threshold.
 \releasecite{Formalism/SharpRestriction/FamCore.lean}{132}{all seed-matched translates}
 \releasecite{Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RowRRowsOfParts.lean}{26}{uniform row thresholds}.
 
-At each such index the numerical certificate gives, with
-\(\Delta=\lceil x^{c_D}\rceil\) and \(H_{\rm node}=2\lceil x^{c_h}\rceil\),
-\[
-  v_a=4\Delta(k-2-a),\qquad
-  b_{\tau,l}=B_\tau+lH_{\rm node},\qquad
-  e_{\tau,l}=b_{\tau,l}+\tfrac12 H_{\rm node}
-  \quad(0\le a\le k-2,\ 0\le l<m).
-\]
-For \(0\le a\le k-3\), the interior entry in position \(a+1\) of a
-word is \(v_a-\tfrac12-\epsilon_a\Delta\), where \(\epsilon_a\) is its bit.
-The consecutive cloud gap is \(4\Delta\), the bit displacement is
-\(\Delta\), and the intervening node has displacement \(H_{\rm node}/2\).
-The top start is \(b_t+\lfloor b'/x\rfloor\). A thick start belongs to
-\([\lceil b\rceil,\lceil b\rceil+|\mu(E)|-1]\) with the prescribed
-torsion condition, and a thin start is the prescribed \(\lceil w''\rceil\).
-The node allowance is \(\eta_{\rm wt}=mH_{\rm node}\).
-All words use these two spacings in the
-\hyperlink{proof.section-run-design}{section weight estimates}.
+At each such index the numerical certificate has the cloud entries,
+word bits, starts, nodes and allowance \(\eta_{\rm wt}\) of the
+\hyperlink{proof.section-run-design}{common row design}. The common
+labels identify these entries at the matched translates.
 At stage \(j=1,\ldots,m\) the signature blocks have sizes \(k+j-1\)
 and \(m-j\). At each embedding the first tableau reads the entries
 \(a_+^Q\) of the selected record, and the second reads \(-a_-^Q\)
@@ -93,29 +79,35 @@ coefficient function on the same cover.
 \releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/ExistsSpecialPrimeLevelCoverOfFieldConditions.lean}{41}{field of the refinement}
 \releasecite{Development/AbelianVarietyTheory/Definitions/Jets/EmbShortThLeThetaPlain.lean}{72}{the cover at other copy numbers}.
 
+\paragraph{The embedded field of the two runs.}
+\leavevmode\teamanchor{proof.selected-embedded-section-field}%
 Let \(K_s\) be the embedded geometric field called \(K_0\) in the
 section estimate. The preliminary column witness pins its exact
 value. On the assembled stages the point's field comparison gives
 \[
- K_s=\operatorname{FO}(D)=\operatorname{image}_{\mathbb C}(\text{\texttt{Base.Ks}})
-    =\operatorname{listField}(\text{field data},\text{fixed frame}).
+ K_s=\operatorname{FO}(D)=\operatorname{KsC}
+ =\operatorname{image}_{\mathbb C}(\text{\texttt{Base.Ks}})
+ =\operatorname{listField}(\delta_{\rm fld},\mathbf f_{\rm fr}) .
 \]
-The equality of embedded fields follows by identifying the images
-of the rings of integers and taking fractions. The list includes
-the embedded \(E\), the marked CM field \(M'\), the ray field of
-\(E\), the specified roots of unity, the unramified finite readings
-of \(\mu_{0,j},\eta,\delta,\delta'\), the finite \(\omega\)-values,
-and the type-norm fields of all stages. For \(\eta\) the reading at
-\(a\) is \(\eta(a)(\mathrm{N}a)^{-1/2}\). The two finite-order
-characters \(\delta,\delta'\) also have their required idele values
-in this field. The ray modulus \(Qp_{\rm de}p'_{\rm de}\) contains
-both \(Qp_o\) as divisors, giving the required Weber values. The fixed
-character readings thus occur before adjoining the moving characters.
-The marking field \(K_{\rm mark}\) (\texttt{LL0}) contains the values
-of the separate character \(\chi_\Psi\). Both embedded fields persist
-in the enlargement to the period field \(K\) (\texttt{LL}), with
-\(K_s\subseteq K_{\rm mark}\subseteq K\). The identity for \(K_s\)
-is at the given index and allows the fields to vary with the translates.
+Here \(\delta_{\rm fld}\) is the field datum and \(\mathbf f_{\rm fr}\) the fixed
+frame characters. The equality of embedded fields follows by identifying
+the images of the rings of integers and taking fractions. The list
+includes the embedded \(E\), the marked CM field \(M'\), the ray
+field of \(E\), the specified roots of unity, the unramified finite
+readings of \(\mu_{0,j},\eta,\delta,\delta'\), the finite
+\(\omega\)-values, and the type-norm fields of all stages. For
+\(\eta\) the reading at \(a\) is \(\eta(a)(\mathrm{N}a)^{-1/2}\).
+The two finite-order characters \(\delta,\delta'\) also have
+their required idele values in this field. Both refinements
+use the roots and Weber values from the ray modulus
+\(Qp_{\rm de}p'_{\rm de}\), since it is divisible by each \(Qp_o\).
+The fixed character readings thus occur before adjoining the
+moving characters. The marking field \(K_{\rm mark}\) (\texttt{LL0})
+contains the values of the separate character \(\chi_\Psi\).
+Both embedded fields persist in the enlargement to the period
+field \(K\) (\texttt{LL}), with \(K_s\subseteq K_{\rm mark}\subseteq K\).
+The identity for \(K_s\) is at the given index and allows the
+fields to vary with the translates.
 \releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/CoreFrameCompatibleConstructedPoint.lean}{11}{Exact field pin at the constructed point}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/IndexBoundCoefficientFieldOfExactSmallField.lean}{28}{assembled field and both level pins}
 \releasecite{Development/AbelianVarietyTheory/Proofs/HeightProofs/FieldSmallIffOpo.lean}{10}{embedded integral readings and fractions}
@@ -123,9 +115,9 @@ is at the given index and allows the fields to vary with the translates.
 \releasecite{Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/FixedCoefficientFieldInComplex.lean}{585}{the separate character}
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/AddLargeBaseCoreSlot.lean}{22}{the preserved fields}.
 
-The list field is contained in the compositum of \(M'\), the ray
-field, the cyclotomic field of order \(N\) and the power-ideal Kummer
-field \(V_{h_*}\). Here \(N\) is the least common multiple of
+The list field is contained in \(\delta_{\rm fld}.\Omega\), the compositum of
+\(M'\), the ray field, the cyclotomic field of order \(N\) and the
+power-ideal Kummer field \(V_{h_*}\). Here \(N\) is the least common multiple of
 \(3^4 5^4\) and \(\prod_{a=0}^1|\mathrm{GL}_r(\mathbb F_{g_a})|^f\),
 and \(h_*\) is the relative ray degree. The Kummer factor contains
 the prescribed ideal and type-norm generators.
@@ -145,8 +137,9 @@ and \(L\ge4\) bounds both logarithms by
 \[
  19fr^2L+102f^2L+163fL+36L+46\le P_O=19fr^2L+198f^2L.
 \]
-Degree and root discriminant decrease on taking a subfield, so
-\(\max\{\log[K_s:\mathbb Q],\log\operatorname{rd}(K_s)\}\le P_O\).
+Write \(s(K')=\max\{\log[K':\mathbb Q],\log\operatorname{rd}(K')\}\).
+The four budgets give \(s(\delta_{\rm fld}.\Omega)\le P_O\). Degree and
+root discriminant decrease on taking a subfield, so \(s(K_s)\le P_O\).
 The point's field comparison applies this bound to the embedded
 coefficient field of both runs and hence to the linked row summand.
 \releasecite{Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ClassNumberDvdHstar.lean}{347}{Fixed character containment}

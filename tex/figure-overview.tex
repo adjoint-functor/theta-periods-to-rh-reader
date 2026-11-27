@@ -6,13 +6,13 @@
   \node[argument block] (periods) at (55,0)
     {\hyperlink{proof.full-bessel-realization}{\shortstack{Bottom operators, periods\\and relative traces}}};
   \node[argument block,fill=TraceTint] (lattice) at (110,0)
-    {\hyperlink{proof.classical-signed-mean}{\shortstack{Division and heights give\\the signed mean at \(x\)}}};
+    {\hyperlink{proof.classical-selected-excess}{\shortstack{Division and heights give\\\(D(u_*)\le E_x\)}}};
   \node[argument block,fill=ChoiceTint] (family) at (0,-18)
     {\hyperlink{proof.choose-compatible-family}{\shortstack{One family with\\compatible data}}};
   \node[argument block,fill=ChoiceTint] (inputs) at (55,-18)
-    {\hyperlink{proof.same-family-hypotheses}{\shortstack{Selmer bound, section runs\\and donor at the tied records}}};
+    {\hyperlink{proof.same-family-hypotheses}{\shortstack{Selmer bound, section runs\\and donor at \(u_*\)}}};
   \node[argument block,fill=AnalysisTint] (fourier) at (110,-18)
-    {\hyperlink{proof.fourier-exponent}{\shortstack{Fourier inversion gives\\the bound for \(G_1(x)\)}}};
+  {\hyperlink{proof.fourier-exponent}{\shortstack{Fourier bound at the\\selected scale \(x_I\)}}};
   \node[argument block,fill=AnalysisTint] (window) at (55,-36)
     {\hyperlink{proof.apply-full-window}{\shortstack{Bound for every real\\\(x\in[Y,Y^{3/2}]\)}}};
   \node[argument block,fill=AnalysisTint] (zeros) at (0,-36)
@@ -22,7 +22,7 @@
   \draw[argument arrow] (family.north east) -- (periods.south west);
   \draw[argument arrow] (inputs.north) -- ++(0,3.5) -| ([xshift=-8mm]lattice.south);
   \draw[argument arrow] ([xshift=15mm]lattice.south)
-    -- node[left,font=\scriptsize\sffamily,text=PageInk,inner sep=1pt] {signed mean}
+    -- node[left,font=\scriptsize\sffamily,text=PageInk,inner sep=1pt] {at \(u_*\)}
        ([xshift=15mm]fourier.north);
   \draw[argument arrow] (family.east) -- (inputs.west);
   \draw[argument arrow] ([xshift=12mm]family.south) -- ++(0,-3)
@@ -38,19 +38,21 @@
   Section~\ref{sec:integral} and character estimates for Section~\ref{sec:fourier}.
   The chosen family supplies the word code and the prime level of each word
   for the column-dimension estimates in Section~\ref{sec:trace}.
-  At each translate the
+  The prime powers select a scale \(x_I\) in the admitted interval.
+  At its maximizing translate the
   \hyperlink{proof.section-run-family-identification}{selected section runs}
   supply the section comparison and the
   \hyperlink{proof.ramified-donor-identification}{transported donor}
   supplies the column comparison. Apply the lattice implication with
   the other period, rank, trace, gain, height and slope inputs.
   Fourier inversion has two inputs in this schematic. The lattice
-  calculation gives the \hyperlink{proof.classical-signed-mean}{signed mean}.
-  The selected family gives the sampling data and the auxiliary
-  character estimates. Both use the same \(x,H,T,T_2\), cutoff, weights
-  and centering. They yield the pointwise bound at every real \(x\) in
-  an arbitrarily distant full interval of that family.
-  The \href{proof-map.html}{\mbox{ten-stage proof overview}} links these
+  calculation gives the \hyperlink{proof.classical-selected-excess}{one-record
+  upper bound}. The host arrays determine the
+  \hyperlink{proof.classical-maximizing-translate}{maximizing label} by a finite
+  character sum. Both calculations use the same sampling data, cutoff, weights
+  and centering. The resulting upper bound at \(x_I\) controls the
+  normalized excess on the entire interval.
+  The \href{proof-map.html\#window}{window proof map} links these
   implications to their statements and arguments in the paper.}
 \label{fig:overview}
 \end{figure}

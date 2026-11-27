@@ -2,44 +2,46 @@
 \centering
 \begin{tikzpicture}[x=1mm,y=1mm,
   window step/.style={argument block,text width=42mm,minimum height=15mm}]
-  \node[window step,fill=FieldTint] (requirements) at (0,0)
-    {\hyperlink{proof.join-size-requirements}{\shortstack{CM fields and combined\\size requirements}}};
-  \node[window step,fill=TraceTint] (lattice) at (55,0)
-    {\hyperlink{proof.classical-signed-mean}{\shortstack{Signed mean at \(x\)\\\(\langle D\rangle\le E_x\)}}};
-  \node[window step,fill=AnalysisTint] (pointwise) at (110,0)
-    {\hyperlink{proof.fourier-exponent}{\shortstack{Fourier inversion at \(x\)\\\(G_1(x)\le x^{1/2+9\varepsilon}\)}}};
-  \node[window step,fill=ChoiceTint] (choose) at (0,-24)
-    {\hyperlink{proof.choose-compatible-family}{\shortstack{Fix the family and \(x_*\),\\then choose the interval}}};
-  \node[window step,fill=ChoiceTint] (inputs) at (55,-24)
-    {\hyperlink{proof.same-family-hypotheses}{\shortstack{Selected records and\\sampling data at \(x\)}}};
-  \node[window step,fill=AnalysisTint] (apply) at (110,-24)
-    {\hyperlink{proof.apply-full-window}{\shortstack{\(G_1(x)\le x^{1/2+9\varepsilon}\) for all\\
-       real \(x\in[Y,Y^{3/2}]\) under\\the stated hypotheses}}};
-  \draw[argument arrow] (requirements.south) -- (choose.north);
-  \draw[argument arrow] (choose.east) -- (inputs.west);
-  \draw[argument arrow] (inputs.north) -- (lattice.south);
-  \draw[argument arrow] (inputs.north east) -- (pointwise.south west);
-  \draw[argument arrow] (lattice.east) -- (pointwise.west);
-  \draw[argument arrow] (pointwise.south) -- (apply.north);
-  \draw[argument arrow] (choose.south) -- ++(0,-5) -| (apply.south);
+  \node[window step,fill=FieldTint] (family) at (0,0)
+    {\hyperlink{proof.choose-compatible-family}{\shortstack{Admitted family and\\common threshold \(x_*\)}}};
+  \node[window step,fill=ChoiceTint] (interval) at (55,0)
+    {\hyperlink{proof.apply-full-window}{\shortstack{Choose an interval\\\(I=[Y,Y^{3/2}],\ Y\ge x_*\)}}};
+  \node[window step,fill=ChoiceTint] (scale) at (110,0)
+    {\hyperlink{proof.apply-full-window}{\shortstack{Prime powers in the test\\determine \(x_I\)}}};
+  \node[window step,fill=TraceTint] (lattice) at (0,-24)
+    {\hyperlink{proof.classical-selected-excess}{\shortstack{Lattice on the fitted record\\\(D(u_*)\le E_{x_I}\)}}};
+  \node[window step,fill=ChoiceTint] (label) at (55,-24)
+    {\hyperlink{proof.classical-maximizing-translate}{\shortstack{Host and arrays at \(x_I\)\\determine \(u_*\)}}};
+  \node[window step,fill=AnalysisTint] (max) at (110,-24)
+    {\hyperlink{proof.apply-full-window}{\shortstack{The normalized excess on \(I\)\\is largest at \(x_I\)}}};
+  \node[window step,fill=AnalysisTint] (point) at (0,-48)
+    {\hyperlink{proof.fourier-exponent}{\shortstack{Fourier inversion\\\(G_1(x_I)\le x_I^\alpha\)}}};
+  \node[window step,fill=AnalysisTint] (all) at (110,-48)
+    {\hyperlink{proof.apply-full-window}{\shortstack{Whole interval\\\(G_1(y)\le y^\alpha,\quad y\in I\)}}};
+  \draw[argument arrow] (family.east) -- (interval.west);
+  \draw[argument arrow] (interval.east) -- (scale.west);
+  \draw[argument arrow] (family.south east) -- (label.north west);
+  \draw[argument arrow] (scale.south west) -- (label.north east);
+  \draw[argument arrow] (scale.south) -- (max.north);
+  \draw[argument arrow] (label.west) -- (lattice.east);
+  \draw[argument arrow] (label.south west) -- (point.north east);
+  \draw[argument arrow] (lattice.south) -- (point.north);
+  \draw[argument arrow] (point.east) -- (all.west);
+  \draw[argument arrow] (max.south) -- (all.north);
 \end{tikzpicture}
-\caption[Applying the bounds on a full interval]{Fix the classical target, the loss bounds \(e_D=2\) and \(e_L=0\),
-  and a sufficiently small \(\varepsilon>0\). Choose one family
-  \((\mathfrak F,C_H)\) meeting the
-  \hyperlink{proof.join-size-requirements}{joint lower bounds on \(C_H\)}.
-  Fix its comparison constants and common threshold \(x_*\).
-  For each \(Y_0\ge2\), choose \(Y\ge\max(Y_0,x_*)\) with
-  \([Y,Y^{3/2}]\subseteq\operatorname{Win}(\mathfrak F)\).
-  At every real scale in the interval, the
-  \hyperlink{proof.section-run-family-identification}{selected section runs}
-  and the \hyperlink{proof.ramified-donor-identification}{transported donor}
-  supply the two comparisons at the tied indices \(i(u)\). The other
-  stated lattice and Fourier inputs hold throughout the interval.
-  At each such \(x\), pass the lattice signed mean over \(H\) into the
-  \hyperlink{proof.translate-average-zeta}{Fourier comparison} with the
-  same \(T,T_2\), Artin data, degrees, weights, cutoff and centering.
-  The sampling and auxiliary character estimates at those records
-  supply the other Fourier inputs. The resulting pointwise bound
-  holds throughout the chosen interval.}
+\caption[One test for a full interval]{Fix the classical target,
+  \(e_D=2\), \(e_L=0\), and \(\alpha=1/2+9\varepsilon<1\).
+  Choose \((\mathfrak F,C_H)\) meeting the
+  \hyperlink{proof.join-size-requirements}{joint size requirements},
+  then fix its constants and threshold \(x_*\).
+  The family supplies arbitrarily distant full intervals above \(x_*\).
+  In a given interval the prime sums select \(x_I\) before any
+  lattice is evaluated. At \(x_I\) choose the label \(u_*\) using the
+  host's Fourier sum. The
+  \hyperlink{proof.section-run-family-identification}{section runs}
+  and \hyperlink{proof.ramified-donor-identification}{donor} supply
+  the lattice at \(i(u_*)\), with the same arrays, weights, cutoff
+  and centering used in Fourier inversion. By the extremal property of
+  \(x_I\), the sign of the excess there gives the bound throughout \(I\).}
 \label{fig:family-window}
 \end{figure}
