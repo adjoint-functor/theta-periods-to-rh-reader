@@ -15,7 +15,7 @@ To suggest an improvement or share a review, [open a GitHub issue](https://githu
 
 We prepared an integrated English reading edition of the argument for the classical Riemann hypothesis formalized in Lean by Levent Alpöge with Claude, along with an interactive proof map. From the overview, readers can expand the argument level by level, see which results each step uses, and jump to the corresponding proof in the text. We also set out the weighted route in a standalone paper with a self-contained proof. Readers can check the entire argument from the text and the cited mathematical literature without consulting Lean code. The reading edition lists nineteen AI-proposed candidates for new mathematics and invites specialists to assess them.
 
-**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the integrated edition online (825-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the standalone paper (347-page PDF)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the integrated edition online (825-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[View the standalone preprint on Hexagon (v1)](https://hexagonmath.org/2611.01238v1)** · **[Download the standalone paper (347-page PDF)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 For offline reading, extract the ZIP and open `proof-map.html` in your browser with `reading-guide.pdf` in the same folder.
 
@@ -66,7 +66,7 @@ The argument now forms Part I of the 825-page reading edition. Readers can check
 
 We prepared the weighted argument as a standalone English paper. Part I describes how a multi-agent AI system starts with the high-level proof dependency graph, writes out proofs at successive levels of detail, and checks that upstream conclusions supply every premise required at each step. Part II gives a self-contained natural-language proof of the classical Riemann hypothesis along the weighted route. Readers can check every step from the paper and the cited mathematical literature without consulting Lean code.
 
-Jiewen Wang submitted the paper to Hexagon, where it is awaiting moderation. [Paper (PDF)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf) · [LaTeX source (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof-source.zip)
+Jiewen Wang submitted the paper to Hexagon, where version 1 is now publicly available as a preprint. [*From Lean to a Natural-Language Proof of the Riemann Hypothesis: A Multi-Agent AI Approach Using a Proof Dependency Graph* (Hexagon 2611.01238v1)](https://hexagonmath.org/2611.01238v1) · [Paper (PDF)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf) · [LaTeX source (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof-source.zip)
 
 ## AI-proposed candidates for new mathematics
 
@@ -175,7 +175,7 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 我们将 Levent Alpöge 与 Claude 的经典黎曼猜想形式化论证整理成英文综合读本，并制作了配套的互动证明图。读者可以从论证全貌逐层展开，查看每一步用到哪些结果，再跳到正文阅读相应的证明。我们还将加权路线写成一篇自洽的独立论文，读者仅凭正文和所引数学文献即可核查整个论证，无须查阅 Lean 代码。综合读本另列十九项由 AI 提出的新数学候选，供专家评议。
 
-**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读综合读本（PDF，825 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载独立论文（PDF，347 页）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf)** · **[下载综合读本离线版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读综合读本（PDF，825 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[查看 Hexagon 预印本（v1）](https://hexagonmath.org/2611.01238v1)** · **[下载独立论文（PDF，347 页）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf)** · **[下载综合读本离线版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 离线阅读时，解压 ZIP 后用浏览器打开 `proof-map.html`，并将 `reading-guide.pdf` 留在同一目录。
 
@@ -228,7 +228,7 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 我们把加权路线整理成一篇独立的英文论文。第一部分介绍多智能体 AI 系统如何从证明依赖图的整体框架入手，逐层写出证明，并核对每一步所需的前提是否都由上游结论给出。第二部分沿加权路线给出经典黎曼猜想的自洽自然语言证明。每一步均可凭正文和所引数学文献核查，无须查阅 Lean 代码。
 
-Jiewen Wang 已向 Hexagon 投稿，现待平台审核。[论文（PDF）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf) · [LaTeX 源码（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof-source.zip)
+Hexagon 已收录 Jiewen Wang 提交的预印本，第一版现已公开。[*From Lean to a Natural-Language Proof of the Riemann Hypothesis: A Multi-Agent AI Approach Using a Proof Dependency Graph*（Hexagon 2611.01238v1）](https://hexagonmath.org/2611.01238v1) · [论文（PDF）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf) · [LaTeX 源码（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof-source.zip)
 
 <a name="candidates-zh"></a>
 
