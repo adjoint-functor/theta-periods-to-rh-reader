@@ -13,9 +13,9 @@ To suggest an improvement or share a review, [open a GitHub issue](https://githu
 
 ## About the reading edition
 
-Our two goals are to reconstruct and check Levent Alpöge’s announced argument for the classical Riemann hypothesis in ordinary mathematical language and to identify its genuinely new mathematical contributions. The paper follows iterated theta lifts to a one-sided estimate for a centered prime-power sum and shows how that estimate excludes nontrivial zeta zeros off the critical line. Section 6 also gives the Mellin sign-change argument for primitive Dirichlet characters, assuming the corresponding window estimate for each target.
+We prepared an integrated English reading edition of the argument for the classical Riemann hypothesis formalized in Lean by Levent Alpöge with Claude, along with an interactive proof map. From the overview, readers can expand the argument level by level, see which results each step uses, and jump to the corresponding proof in the text. We also set out the weighted route in a standalone paper with a self-contained proof. Readers can check the entire argument from the text and the cited mathematical literature without consulting Lean code. The reading edition lists nineteen AI-proposed candidates for new mathematics and invites specialists to assess them.
 
-**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the paper online (825-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[Open the interactive proof map online](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[Read the integrated edition online (825-page PDF)](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[Download the standalone paper (347-page PDF)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf)** · **[Download the offline reading edition (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [View the proof map source](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 For offline reading, extract the ZIP and open `proof-map.html` in your browser with `reading-guide.pdf` in the same folder.
 
@@ -61,6 +61,12 @@ The revision identifies both auxiliary section systems and the undivided ramifie
 On 26 November we adopted the Lean revision of Alpöge’s argument by Luke Sernau and collaborators. On 27 November we completed the natural-language reconstruction of its weighted route. After fixing the precision and choosing an auxiliary quadratic character for the zero test, the argument needs an arithmetic estimate at just one square in each covering interval. At that square, the period and relative trace estimates enter a volume comparison on the same rows, giving a one-sided bound for the remainder in a weighted prime-power sum. Maximality and interpolation extend the estimates to all sufficiently large real scales, giving the bound used to exclude nontrivial zeta zeros off the critical line. [Formal source](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207)
 
 The argument now forms Part I of the 825-page reading edition. Readers can check its derivations from the text and the cited primary literature. The Lean references identify their formal sources. Independent AI readers reviewed the key deductions, and we checked at each level of the map that the upstream conclusions and stated premises together supply every downstream input. Part II retains the earlier window argument. Both routes can be explored in the same map. The originality and mathematical significance of the nineteen AI-proposed candidates in Part III still await assessment by human specialists.
+
+### 28 November 2026 · Standalone English paper
+
+We prepared the weighted argument as a standalone English paper. Part I describes how a multi-agent AI system starts with the high-level proof dependency graph, writes out proofs at successive levels of detail, and checks that upstream conclusions supply every premise required at each step. Part II gives a self-contained natural-language proof of the classical Riemann hypothesis along the weighted route. Readers can check every step from the paper and the cited mathematical literature without consulting Lean code.
+
+Jiewen Wang submitted the paper to Hexagon, where it is awaiting moderation. [Paper (PDF)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf) · [LaTeX source (ZIP)](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof-source.zip)
 
 ## AI-proposed candidates for new mathematics
 
@@ -167,9 +173,9 @@ These licenses apply to the extent the contributors hold rights to license the m
 
 ## 关于本阅读版
 
-我们的两个目标是用通常的数学语言重构并核查 Levent Alpöge 公布的经典黎曼猜想论证，以及辨认其中真正新增的数学结果。正文从迭代 theta 提升推到中心化素数幂和的单侧估计，再说明如何用这个估计排除临界线外的非平凡 ζ 零点。第 6 节也给出本原 Dirichlet 特征的 Mellin 变号论证，对每个特征都以相应的区间估计为前提。
+我们将 Levent Alpöge 与 Claude 的经典黎曼猜想形式化论证整理成英文综合读本，并制作了配套的互动证明图。读者可以从论证全貌逐层展开，查看每一步用到哪些结果，再跳到正文阅读相应的证明。我们还将加权路线写成一篇自洽的独立论文，读者仅凭正文和所引数学文献即可核查整个论证，无须查阅 Lean 代码。综合读本另列十九项由 AI 提出的新数学候选，供专家评议。
 
-**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读英文论文（PDF，825 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载离线阅读版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
+**[在线打开交互式证明图](https://adjoint-functor.github.io/theta-periods-to-rh-reader/)** · **[在线阅读综合读本（PDF，825 页）](https://adjoint-functor.github.io/theta-periods-to-rh-reader/reading-guide.pdf)** · **[下载独立论文（PDF，347 页）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf)** · **[下载综合读本离线版（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/archive/refs/heads/main.zip)** · [查看证明图源码](https://github.com/adjoint-functor/theta-periods-to-rh-reader/blob/main/proof-map.html)
 
 离线阅读时，解压 ZIP 后用浏览器打开 `proof-map.html`，并将 `reading-guide.pdf` 留在同一目录。
 
@@ -217,6 +223,12 @@ These licenses apply to the extent the contributors hold rights to license the m
 11 月 26 日，我们引入 Luke Sernau 等人对 Alpöge 论证的 Lean 改写，27 日完成了加权主线的自然语言重构。给定精度后，先选定零点检验所用的辅助二次特征，再在每个覆盖区间选一个平方数作算术估计。在这个平方点上，周期与相对迹的估计通过同一组行进入体积比较，给出加权素数幂和余项的单侧上界。利用选点的极大性和插值，可将估计推广到所有充分大的实数尺度，进而排除临界线外的非平凡 ζ 零点。[形式化来源](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207)
 
 这条论证现列在 825 页综合阅读版的第一部分，读者可以凭正文和所引原始数学文献逐段核查。Lean 引用标明形式化来源。独立的 AI 审读者复核了关键推导，我们也逐层核对了证明图中上游结论和已列明的前提能否共同给出下游所需的全部输入。第二部分保留原有的窗口路线，两条路线可在同一张互动图中切换阅读。第三部分列出的十九项新数学候选由 AI 提出，其原创性和数学价值仍待人工审核。
+
+### 2026 年 11 月 28 日 · 独立英文论文
+
+我们把加权路线整理成一篇独立的英文论文。第一部分介绍多智能体 AI 系统如何从证明依赖图的整体框架入手，逐层写出证明，并核对每一步所需的前提是否都由上游结论给出。第二部分沿加权路线给出经典黎曼猜想的自洽自然语言证明。每一步均可凭正文和所引数学文献核查，无须查阅 Lean 代码。
+
+Jiewen Wang 已向 Hexagon 投稿，现待平台审核。[论文（PDF）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf) · [LaTeX 源码（ZIP）](https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof-source.zip)
 
 <a name="candidates-zh"></a>
 

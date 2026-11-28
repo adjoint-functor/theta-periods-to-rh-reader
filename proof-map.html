@@ -31,12 +31,13 @@
     .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     .wrap { width: min(100% - 3rem, 104rem); margin-inline: auto; }
     .masthead { padding: 1.25rem 0 1rem; border-top: 4px solid #284b5b; }
-    .masthead .wrap { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+    .masthead .wrap { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: .5rem 1rem; }
     .eyebrow { margin: 0 0 .15rem; font-size: .78rem; font-weight: 650; letter-spacing: .06em; color: var(--muted); }
     h1, h2, h3, p { margin-top: 0; }
     h1, #detail-title { font-family: Georgia, serif; font-weight: 500; }
     h1 { margin-bottom: 0; font-size: clamp(1.65rem, 3.2vw, 2.8rem); line-height: 1.09; letter-spacing: -.025em; }
-    .article-link { flex: none; margin-bottom: .2rem; font-size: .86rem; font-weight: 650; }
+    .article-nav { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin-bottom: .2rem; }
+    .article-link { font-size: .86rem; font-weight: 650; }
     #workspace { display: grid; grid-template-columns: minmax(0, 1fr) clamp(19rem, 28vw, 27rem); gap: 1rem; margin-bottom: 1.25rem; align-items: start; }
     #workspace[data-route] { --panel-height: clamp(30rem, calc(100dvh - 13.9rem), 62rem); }
     .route-nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .65rem; padding: .35rem; border: 1px solid var(--rule); border-radius: 12px; background: #e9ede7; }
@@ -137,7 +138,7 @@
       .wrap { width: calc(100% - 1rem); }
       .masthead { padding: .75rem 0; }
       .masthead .wrap { display: block; }
-      .article-link { display: inline-block; margin: .4rem 0 0; }
+      .article-nav { margin: .4rem 0 0; }
       .map { height: auto; }
       .map-tools { padding: .55rem .55rem .45rem; gap: .35rem; }
       .view-switch button, .tool { padding: .32rem .48rem; }
@@ -161,7 +162,10 @@
         <p class="eyebrow">Classical zeta proof map</p>
         <h1 id="map-title">From theta periods to the Riemann hypothesis</h1>
       </div>
-      <a class="article-link" id="article-link" href="reading-guide.pdf" target="_blank" rel="noopener">Read the article <span aria-hidden="true">↗</span></a>
+      <nav class="article-nav" aria-label="Reading materials">
+        <a class="article-link" id="article-link" href="reading-guide.pdf" target="_blank" rel="noopener">Reading edition (825-page PDF) <span aria-hidden="true">↗</span></a>
+        <a class="article-link" href="https://github.com/adjoint-functor/theta-periods-to-rh-reader/releases/download/paper-v2026.11.28/rh-natural-language-proof.pdf" target="_blank" rel="noopener">Standalone paper (347-page PDF) <span aria-hidden="true">↗</span></a>
+      </nav>
     </div>
   </header>
   <main class="wrap" id="workspace">
